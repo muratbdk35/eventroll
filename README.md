@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# EventRoll
 
-## Getting Started
+QR-code event photo sharing: guests scan, upload photos and videos from the phone
+browser (no app, no account), hosts get one private gallery.
 
-First, run the development server:
+> Working name; the brand is configurable via `NEXT_PUBLIC_APP_NAME`.
+
+## Stack
+
+Next.js 16 (App Router) · TypeScript · Tailwind 4 + shadcn/ui · Drizzle + Neon
+Postgres · Better Auth · Cloudflare R2 · Stripe · Resend · next-intl (en/tr/de)
+· PostHog · Sentry · Vitest. See `DECISIONS.md` for the reasoning.
+
+## Getting started
+
+Requirements: Node.js ≥ 20.9 (24 recommended).
+
+```bash
+npm install
+cp .env.example .env.local
+```
+
+Minimal `.env.local` for local development (no third-party accounts needed):
+
+```bash
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+DATABASE_URL=pglite:./.pglite        # in-process Postgres, dev only
+BETTER_AUTH_SECRET=$(openssl rand -base64 32)
+BETTER_AUTH_URL=http://localhost:3000
+```
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Without `RESEND_API_KEY`, sign-in emails are printed to the dev server console;
+open the link from there. The Google button appears once `GOOGLE_CLIENT_ID` /
+`GOOGLE_CLIENT_SECRET` are set.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Using Neon
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Set `DATABASE_URL` to the Neon pooled connection string, then:
 
-## Learn More
+```bash
+npm run db:migrate
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Script                                | Purpose                                    |
+| ------------------------------------- | ------------------------------------------ |
+| `npm run dev`                         | dev server                                 |
+| `npm run build`                       | production build                           |
+| `npm run lint` / `typecheck` / `test` | quality gates (also run in CI)             |
+| `npm run db:generate`                 | create a migration from `lib/db/schema.ts` |
+| `npm run db:migrate`                  | apply migrations to `DATABASE_URL`         |
+| `npm run db:studio`                   | Drizzle Studio                             |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project layout
 
-## Deploy on Vercel
+```
+app/[locale]/(marketing)   landing, pricing, legal
+app/[locale]/(app)         login, dashboard
+app/api                    route handlers (auth, guest, events, webhooks, cron)
+components                 ui (shadcn), brand, host, guest, marketing
+lib                        env, db, auth, email, i18n, analytics
+messages                   en.json, tr.json, de.json
+drizzle                    SQL migrations
+tests/unit                 Vitest
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Adding a language
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Add `messages/<code>.json` (same keys as `en.json`; the unit test enforces it).
+2. Add the code to `locales` in `lib/i18n/routing.ts`.

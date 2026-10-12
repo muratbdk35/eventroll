@@ -1,0 +1,53 @@
+{
+  "Metadata": {
+    "title": "{appName} — Collect every guest photo with one QR code",
+    "description": "Guests scan a QR code and upload photos and videos from their phone. No app, no sign-up. All memories in one private gallery."
+  },
+  "Nav": {
+    "login": "Log in",
+    "dashboard": "Dashboard",
+    "signOut": "Sign out",
+    "language": "Language",
+    "account": "Account"
+  },
+  "Home": {
+    "eyebrow": "For weddings, birthdays and every get-together",
+    "headline": "Scan. Upload. Done.",
+    "subhead": "Your guests scan one QR code and share their photos and videos straight from the phone browser. No app, no account. You get every moment in one private gallery.",
+    "cta": "Create your event for free",
+    "secondary": "See how it works"
+  },
+  "Login": {
+    "title": "Welcome to {appName}",
+    "subtitle": "Enter your email and we'll send you a sign-in link. New here? The same link creates your account.",
+    "emailLabel": "Email address",
+    "emailPlaceholder": "you@example.com",
+    "submit": "Email me a sign-in link",
+    "submitting": "Sending…",
+    "or": "or",
+    "google": "Continue with Google",
+    "sentTitle": "Check your inbox",
+    "sentBody": "We sent a sign-in link to {email}. It expires in 15 minutes.",
+    "useDifferentEmail": "Use a different email",
+    "error": "Something went wrong. Please try again.",
+    "legal": "By continuing you agree to our <terms>Terms</terms> and <privacy>Privacy Policy</privacy>."
+  },
+  "Dashboard": {
+    "title": "Your events",
+    "greeting": "Hi {name}",
+    "emptyTitle": "No events yet",
+    "emptyBody": "Create an event to get your QR code. Guests can start uploading right away.",
+    "createEvent": "Create event",
+    "comingSoon": "Coming in the next build"
+  },
+  "Email": {
+    "magicLink": {
+      "subject": "Your {appName} sign-in link",
+      "preview": "Sign in to {appName}",
+      "heading": "Sign in to {appName}",
+      "body": "Tap the button below to sign in. The link works once and expires in 15 minutes.",
+      "button": "Sign in",
+      "ignore": "If you didn't request this email, you can safely ignore it."
+    }
+  }
+}

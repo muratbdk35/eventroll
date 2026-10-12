@@ -1,0 +1,54 @@
+{
+  "_meta": { "review": "machine draft — needs human review" },
+  "Metadata": {
+    "title": "{appName} — Alle Gästefotos mit einem QR-Code sammeln",
+    "description": "Gäste scannen einen QR-Code und laden Fotos und Videos direkt vom Handy hoch. Keine App, keine Anmeldung. Alle Erinnerungen in einer privaten Galerie."
+  },
+  "Nav": {
+    "login": "Anmelden",
+    "dashboard": "Dashboard",
+    "signOut": "Abmelden",
+    "language": "Sprache",
+    "account": "Konto"
+  },
+  "Home": {
+    "eyebrow": "Für Hochzeiten, Geburtstage und jedes Fest",
+    "headline": "Scannen. Hochladen. Fertig.",
+    "subhead": "Deine Gäste scannen einen QR-Code und teilen Fotos und Videos direkt im Handy-Browser. Keine App, kein Konto. Du bekommst jeden Moment in einer privaten Galerie.",
+    "cta": "Event kostenlos erstellen",
+    "secondary": "So funktioniert's"
+  },
+  "Login": {
+    "title": "Willkommen bei {appName}",
+    "subtitle": "Gib deine E-Mail-Adresse ein und wir senden dir einen Anmeldelink. Neu hier? Derselbe Link erstellt dein Konto.",
+    "emailLabel": "E-Mail-Adresse",
+    "emailPlaceholder": "du@beispiel.de",
+    "submit": "Anmeldelink senden",
+    "submitting": "Wird gesendet…",
+    "or": "oder",
+    "google": "Weiter mit Google",
+    "sentTitle": "Schau in dein Postfach",
+    "sentBody": "Wir haben einen Anmeldelink an {email} gesendet. Er ist 15 Minuten gültig.",
+    "useDifferentEmail": "Andere E-Mail verwenden",
+    "error": "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
+    "legal": "Mit dem Fortfahren akzeptierst du unsere <terms>AGB</terms> und unsere <privacy>Datenschutzerklärung</privacy>."
+  },
+  "Dashboard": {
+    "title": "Deine Events",
+    "greeting": "Hallo {name}",
+    "emptyTitle": "Noch keine Events",
+    "emptyBody": "Erstelle ein Event, um deinen QR-Code zu erhalten. Gäste können sofort mit dem Hochladen beginnen.",
+    "createEvent": "Event erstellen",
+    "comingSoon": "Kommt im nächsten Build"
+  },
+  "Email": {
+    "magicLink": {
+      "subject": "Dein Anmeldelink für {appName}",
+      "preview": "Bei {appName} anmelden",
+      "heading": "Bei {appName} anmelden",
+      "body": "Tippe auf den Button, um dich anzumelden. Der Link funktioniert einmal und ist 15 Minuten gültig.",
+      "button": "Anmelden",
+      "ignore": "Wenn du diese E-Mail nicht angefordert hast, kannst du sie ignorieren."
+    }
+  }
+}

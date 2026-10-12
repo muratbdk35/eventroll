@@ -1,0 +1,54 @@
+{
+  "_meta": { "review": "machine draft — needs human review" },
+  "Metadata": {
+    "title": "{appName} — Tüm misafir fotoğraflarını tek bir QR kodla toplayın",
+    "description": "Misafirler QR kodu okutur, telefonlarından fotoğraf ve video yükler. Uygulama yok, kayıt yok. Tüm anılar tek bir özel galeride."
+  },
+  "Nav": {
+    "login": "Giriş yap",
+    "dashboard": "Panel",
+    "signOut": "Çıkış yap",
+    "language": "Dil",
+    "account": "Hesap"
+  },
+  "Home": {
+    "eyebrow": "Düğünler, doğum günleri ve tüm buluşmalar için",
+    "headline": "Okut. Yükle. Bitti.",
+    "subhead": "Misafirleriniz tek bir QR kodu okutur ve fotoğraf ile videolarını doğrudan telefon tarayıcısından paylaşır. Uygulama yok, hesap yok. Tüm anlar tek bir özel galeride sizde.",
+    "cta": "Etkinliğini ücretsiz oluştur",
+    "secondary": "Nasıl çalışır?"
+  },
+  "Login": {
+    "title": "{appName}'a hoş geldin",
+    "subtitle": "E-posta adresini gir, sana bir giriş linki gönderelim. Yeni misin? Aynı link hesabını da oluşturur.",
+    "emailLabel": "E-posta adresi",
+    "emailPlaceholder": "sen@ornek.com",
+    "submit": "Bana giriş linki gönder",
+    "submitting": "Gönderiliyor…",
+    "or": "veya",
+    "google": "Google ile devam et",
+    "sentTitle": "Gelen kutunu kontrol et",
+    "sentBody": "{email} adresine bir giriş linki gönderdik. Link 15 dakika geçerli.",
+    "useDifferentEmail": "Başka bir e-posta kullan",
+    "error": "Bir şeyler ters gitti. Lütfen tekrar dene.",
+    "legal": "Devam ederek <terms>Kullanım Şartları</terms>'nı ve <privacy>Gizlilik Politikası</privacy>'nı kabul etmiş olursun."
+  },
+  "Dashboard": {
+    "title": "Etkinliklerin",
+    "greeting": "Merhaba {name}",
+    "emptyTitle": "Henüz etkinlik yok",
+    "emptyBody": "QR kodunu almak için bir etkinlik oluştur. Misafirler hemen yüklemeye başlayabilir.",
+    "createEvent": "Etkinlik oluştur",
+    "comingSoon": "Bir sonraki sürümde geliyor"
+  },
+  "Email": {
+    "magicLink": {
+      "subject": "{appName} giriş linkin",
+      "preview": "{appName}'a giriş yap",
+      "heading": "{appName}'a giriş yap",
+      "body": "Giriş yapmak için aşağıdaki butona dokun. Link tek kullanımlık ve 15 dakika geçerli.",
+      "button": "Giriş yap",
+      "ignore": "Bu e-postayı sen istemediysen görmezden gelebilirsin."
+    }
+  }
+}
