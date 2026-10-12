@@ -169,3 +169,14 @@ the lawyer. Bracketed placeholders (company data etc.) must be filled before lau
   differs only by capacity and custom template colours. Slideshow, guestbook,
   priority support are dropped from the offer.
 - Logo: "ER" monogram (`components/brand/logo.tsx`, `app/icon.svg`).
+
+## 22. Print templates are Premium-only; marketing mocks are a build contract (2026-10-12)
+
+Standard includes the QR code (PNG/SVG) and link; printable table cards, signs and
+posters (with own colours) are Premium only (`plans.printTemplates`).
+All product mocks on the landing page use one component set
+(`components/marketing/mock.tsx`) and mirror real screens. Phase 1B must ship them
+as shown: create form (name, date, type), share tab (QR, copy link, PNG/SVG),
+settings (PIN, upload hours, per-phone limit), dashboard (photo count, guest count =
+distinct devices, ZIP download), guest page (own uploads only, privacy line, success
+toast), printed card with optional PIN line.

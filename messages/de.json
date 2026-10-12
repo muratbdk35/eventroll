@@ -58,7 +58,7 @@
       "eyebrow": "Für Hochzeiten, Geburtstage und jedes Fest",
       "line1": "Scannen. Hochladen.",
       "line2": "Fertig.",
-      "subhead": "Ein QR-Code auf dem Tisch, und die Fotos aller Gäste landen in deinem privaten Album. Keine App, kein Konto, direkt im Handy-Browser.",
+      "subhead": "Teile einen QR-Code mit deinen Gästen, und jedes Foto landet in deinem privaten Album. Keine App, kein Konto, direkt im Handy-Browser.",
       "cta": "Event erstellen",
       "secondary": "So funktioniert's",
       "point1": "Keine App für Gäste",
@@ -88,20 +88,23 @@
         "body": "Gib einen Namen und ein Datum ein. QR-Code und Link sind sofort da."
       },
       "share": {
-        "title": "QR-Code auf die Tische",
-        "body": "Drucke eine unserer fertigen Karten oder Plakate aus oder teile den Link im Gruppenchat."
+        "title": "QR-Code teilen",
+        "body": "Füge ihn deiner Einladung hinzu, schick den Link in den Gruppenchat oder stell ihn auf die Tische."
       },
       "collect": {
         "title": "Erinnerungen sammeln",
-        "body": "Gäste scannen und laden hoch. Du siehst alles live und lädst alles mit einem Klick herunter."
+        "body": "Gäste scannen und laden hoch. Du siehst jedes Foto sofort und lädst alles mit einem Klick herunter."
       },
       "mock": {
         "name": "Eventname",
         "date": "Datum",
         "dateValue": "14. Juni 2026",
-        "pin": "PIN",
-        "photos": "{count} Fotos",
-        "guests": "{count} Gäste",
+        "type": "Art",
+        "typeValue": "Hochzeit",
+        "create": "Event erstellen",
+        "shareTitle": "Dein QR-Code",
+        "copy": "Link kopieren",
+        "photosLabel": "Fotos",
         "zip": "ZIP herunterladen"
       }
     },
@@ -117,15 +120,24 @@
       },
       "private": {
         "title": "Standardmäßig privat",
-        "body": "Nur du siehst die Fotos. Gäste sehen nur ihre eigenen Uploads, nichts ist öffentlich oder wird indexiert."
+        "body": "Nur du siehst die Fotos. Gäste sehen nur ihre eigenen Uploads, nichts ist öffentlich oder wird indexiert.",
+        "mock": {
+          "link": "Gäste-Link",
+          "visibility": "Wer sieht die Fotos",
+          "onlyYou": "Nur du"
+        }
       },
       "originals": {
         "title": "Originale in voller Qualität",
-        "body": "Lade alles als ZIP herunter: Originalauflösung, keine Komprimierung, keine Wasserzeichen."
+        "body": "Lade alles als ZIP herunter: Originalauflösung, keine Komprimierung, keine Wasserzeichen.",
+        "mock": {
+          "resolution": "Auflösung",
+          "file": "Datei"
+        }
       },
       "print": {
         "title": "Druckfertige QR-Karten",
-        "body": "Tischkarten, Schilder und Plakate, die du personalisieren und zu Hause drucken kannst."
+        "body": "Tischkarten, Schilder und Plakate in deinen Farben, fertig zum Drucken."
       },
       "languages": {
         "title": "Spricht die Sprache deiner Gäste",
@@ -133,7 +145,12 @@
       },
       "guests": {
         "title": "Jeder Gast kann mitmachen",
-        "body": "Keine Begrenzung bei Gästen. Alle auf deinem Event können Fotos hinzufügen; dein Plan bestimmt nur die Gesamtgröße des Albums."
+        "body": "Keine Begrenzung bei Gästen. Alle auf deinem Event können Fotos hinzufügen; dein Plan bestimmt nur die Gesamtgröße des Albums.",
+        "mock": {
+          "guests": "Gäste",
+          "limit": "Gästelimit",
+          "none": "Keins"
+        }
       },
       "control": {
         "title": "Du behältst die Kontrolle",
@@ -210,15 +227,14 @@
         "storage": "Speicher",
         "quality": "Qualität",
         "zip": "ZIP-Download",
+        "qr": "QR-Code & Link",
         "pin": "PIN-Schutz",
         "uploadRules": "Upload-Zeiten & Limits",
-        "templates": "QR-Vorlagen"
+        "templates": "Druckvorlagen"
       },
       "values": {
         "original": "Original",
-        "days": "{days} Tage",
-        "ready": "Fertig",
-        "customColors": "Eigene Farben"
+        "days": "{days} Tage"
       }
     },
     "faq": {
@@ -231,7 +247,7 @@
         },
         "how": {
           "q": "Wie bekommen Gäste den Link?",
-          "a": "Drucke den QR-Code auf Tischkarten oder ein Schild (wir haben fertige Vorlagen) oder teile den Link per Nachricht oder E-Mail."
+          "a": "Teile den QR-Code oder Link in deiner Einladung, per Nachricht oder E-Mail. Mit Premium bekommst du zusätzlich druckfertige Tischkarten und Plakate."
         },
         "payment": {
           "q": "Wann bezahle ich?",

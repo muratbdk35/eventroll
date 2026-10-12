@@ -58,12 +58,10 @@ export async function PricingReceipts() {
       [t("rows.storage"), `${p.maxBytes / 1024 ** 3} GB`],
       [t("rows.quality"), t("values.original")],
       [t("rows.zip"), t("values.days", { days: DOWNLOAD_WINDOW_DAYS })],
+      [t("rows.qr"), "✓"],
       [t("rows.pin"), "✓"],
       [t("rows.uploadRules"), "✓"],
-      [
-        t("rows.templates"),
-        p.customColors ? t("values.customColors") : t("values.ready"),
-      ],
+      [t("rows.templates"), p.printTemplates ? "✓" : "✗"],
     ];
   };
 
@@ -162,6 +160,8 @@ export async function PricingReceipts() {
                           className={cn(
                             "shrink-0 font-bold",
                             value === "✓" && "text-primary",
+                            value === "✗" &&
+                              "font-normal text-[oklch(0.7_0.02_45)]",
                           )}
                         >
                           {upper(value)}

@@ -13,8 +13,8 @@ export type PlanLimits = {
   priceUsd: number;
   maxItems: number;
   maxBytes: number;
-  /** Own accent colours on the printable QR templates. */
-  customColors: boolean;
+  /** Printable QR templates (table cards, signs, posters). Premium only. */
+  printTemplates: boolean;
 };
 
 const GB = 1024 ** 3;
@@ -26,8 +26,18 @@ const GB = 1024 ** 3;
 export const DOWNLOAD_WINDOW_DAYS = 7;
 
 export const plans: Record<PlanId, PlanLimits> = {
-  standard: { priceUsd: 29, maxItems: 1500, maxBytes: 10 * GB, customColors: false },
-  premium: { priceUsd: 49, maxItems: 5000, maxBytes: 50 * GB, customColors: true },
+  standard: {
+    priceUsd: 29,
+    maxItems: 1500,
+    maxBytes: 10 * GB,
+    printTemplates: false,
+  },
+  premium: {
+    priceUsd: 49,
+    maxItems: 5000,
+    maxBytes: 50 * GB,
+    printTemplates: true,
+  },
 };
 
 export const planOrder: PlanId[] = ["standard", "premium"];

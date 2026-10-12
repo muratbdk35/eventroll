@@ -55,7 +55,7 @@
       "eyebrow": "For weddings, birthdays and every get-together",
       "line1": "Scan. Upload.",
       "line2": "Done.",
-      "subhead": "One QR code on the table, and every guest's photos land in your private album. No app to install, no account to create, straight from the phone's browser.",
+      "subhead": "Share one QR code with your guests and every photo they take lands in your private album. No app, no account, straight from the phone's browser.",
       "cta": "Create your event",
       "secondary": "See how it works",
       "point1": "No app for guests",
@@ -85,20 +85,23 @@
         "body": "Give it a name and a date. You get a QR code and a link instantly."
       },
       "share": {
-        "title": "Put the QR on the tables",
-        "body": "Print one of our ready-made cards or posters, or send the link in your group chat."
+        "title": "Share the QR code",
+        "body": "Add it to your invitation, send the link in your group chat or put it on the tables."
       },
       "collect": {
         "title": "Watch the memories arrive",
-        "body": "Guests scan and upload. You see everything live and download it all in one click."
+        "body": "Guests scan and upload. You see every photo as it arrives and download them all in one click."
       },
       "mock": {
         "name": "Event name",
         "date": "Date",
         "dateValue": "14 June 2026",
-        "pin": "PIN",
-        "photos": "{count} photos",
-        "guests": "{count} guests",
+        "type": "Type",
+        "typeValue": "Wedding",
+        "create": "Create event",
+        "shareTitle": "Your QR code",
+        "copy": "Copy link",
+        "photosLabel": "Photos",
         "zip": "Download ZIP"
       }
     },
@@ -114,15 +117,24 @@
       },
       "private": {
         "title": "Private by default",
-        "body": "Only you can see the photos. Guests see just their own uploads, and nothing is ever public or indexed."
+        "body": "Only you can see the photos. Guests see just their own uploads, and nothing is ever public or indexed.",
+        "mock": {
+          "link": "Guest link",
+          "visibility": "Who can see photos",
+          "onlyYou": "Only you"
+        }
       },
       "originals": {
         "title": "Full-quality originals",
-        "body": "Download everything as a ZIP: original resolution, no compression, no watermarks."
+        "body": "Download everything as a ZIP: original resolution, no compression, no watermarks.",
+        "mock": {
+          "resolution": "Resolution",
+          "file": "File"
+        }
       },
       "print": {
         "title": "Print-ready QR cards",
-        "body": "Table cards, signs and posters you can personalise and print at home."
+        "body": "Table cards, signs and posters in your colours, ready to print at home."
       },
       "languages": {
         "title": "Speaks your guests' language",
@@ -130,7 +142,12 @@
       },
       "guests": {
         "title": "Every guest can join",
-        "body": "No limit on guests. Everyone at your event can add their photos; your plan only sets the total album size."
+        "body": "No limit on guests. Everyone at your event can add their photos; your plan only sets the total album size.",
+        "mock": {
+          "guests": "Guests",
+          "limit": "Guest limit",
+          "none": "None"
+        }
       },
       "control": {
         "title": "You stay in control",
@@ -207,15 +224,14 @@
         "storage": "Storage",
         "quality": "Quality",
         "zip": "ZIP download",
+        "qr": "QR code & link",
         "pin": "PIN protection",
         "uploadRules": "Upload hours & limits",
-        "templates": "QR templates"
+        "templates": "Print templates"
       },
       "values": {
         "original": "Original",
-        "days": "{days} days",
-        "ready": "Ready-made",
-        "customColors": "Your colours"
+        "days": "{days} days"
       }
     },
     "faq": {
@@ -228,7 +244,7 @@
         },
         "how": {
           "q": "How do guests get the link?",
-          "a": "Print the QR code on table cards or a sign (we provide ready-made templates), or share the link by message or email."
+          "a": "Share the QR code or link in your invitation, a message or an email. With Premium you also get print-ready table cards and posters."
         },
         "payment": {
           "q": "When do I pay?",

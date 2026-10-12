@@ -2,6 +2,7 @@ import { Check, Lock } from "lucide-react";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { cn } from "@/lib/utils";
+import { MockPanel, MockRow, MockToggle } from "./mock";
 import { QrCard } from "./qr-card";
 import { SectionHeading } from "./section-heading";
 
@@ -91,11 +92,6 @@ async function PickerMock() {
 
 export async function FeaturesBento() {
   const t = await getTranslations("Landing.features");
-  const toggle = (
-    <span className="relative h-5 w-9 shrink-0 rounded-full bg-primary">
-      <span className="absolute end-0.5 top-0.5 size-4 rounded-full bg-white" />
-    </span>
-  );
 
   return (
     <section id="features" className="scroll-mt-20 px-4 py-24">
@@ -128,50 +124,48 @@ export async function FeaturesBento() {
 
         {/* Private */}
         <Tile className="md:col-span-2">
-          <div
-            aria-hidden
-            className="flex items-center gap-2 rounded-full bg-secondary px-4 py-2.5 font-mono text-[13px]"
-          >
-            <Lock className="size-3.5 shrink-0 text-success" />
-            <span className="truncate">
-              eventroll.app/e/<span className="font-semibold">k7Qm9xZ2pA</span>
-            </span>
-          </div>
+          <MockPanel>
+            <MockRow label={t("private.mock.link")}>
+              <span className="flex items-center gap-1.5 font-mono text-[12px]">
+                <Lock className="size-3 text-success" />
+                /e/k7Qm9xZ2pA
+              </span>
+            </MockRow>
+            <MockRow label={t("private.mock.visibility")}>
+              {t("private.mock.onlyYou")}
+            </MockRow>
+          </MockPanel>
           <TileText title={t("private.title")} body={t("private.body")} />
         </Tile>
 
         {/* Originals */}
         <Tile className="border-0 bg-foreground text-background md:col-span-2">
-          <div aria-hidden className="font-mono">
-            <p className="text-3xl font-bold tracking-tight">4032 × 3024</p>
-            <p className="mt-1 text-xs tracking-widest text-background/60">
-              HEIC · 12 MP · 3.8 MB
-            </p>
-          </div>
+          <MockPanel>
+            <MockRow label={t("originals.mock.resolution")}>
+              4032 × 3024
+            </MockRow>
+            <MockRow label={t("originals.mock.file")}>HEIC · 3,8 MB</MockRow>
+          </MockPanel>
           <TileText title={t("originals.title")} body={t("originals.body")} />
         </Tile>
 
         {/* Control */}
         <Tile className="md:col-span-2">
-          <ul aria-hidden className="space-y-2 text-[13px]">
-            <li className="flex items-center justify-between rounded-xl bg-secondary px-3 py-2">
-              <span>{t("control.mock.pin")}</span>
-              {toggle}
-            </li>
-            <li className="flex items-center justify-between rounded-xl bg-secondary px-3 py-2">
-              <span>{t("control.mock.hours")}</span>
-              <span className="font-mono font-semibold">18:00 – 02:00</span>
-            </li>
-            <li className="flex items-center justify-between rounded-xl bg-secondary px-3 py-2">
-              <span>{t("control.mock.limit")}</span>
-              <span className="font-mono font-semibold">50</span>
-            </li>
-          </ul>
+          <MockPanel>
+            <MockRow label={t("control.mock.pin")}>
+              <MockToggle />
+            </MockRow>
+            <MockRow label={t("control.mock.hours")}>18:00 – 02:00</MockRow>
+            <MockRow label={t("control.mock.limit")}>50</MockRow>
+          </MockPanel>
           <TileText title={t("control.title")} body={t("control.body")} />
         </Tile>
 
         {/* Print */}
         <Tile className="bg-accent md:col-span-2">
+          <span className="absolute end-5 top-5 z-10 rounded-full bg-foreground px-2.5 py-1 text-[11px] font-semibold text-background">
+            Premium
+          </span>
           <div aria-hidden className="-mt-2 flex justify-center">
             <QrCard className="origin-top scale-[0.72] -rotate-3" />
           </div>
@@ -184,25 +178,27 @@ export async function FeaturesBento() {
 
         {/* Guests */}
         <Tile className="md:col-span-2">
-          <div
-            aria-hidden
-            className="flex items-center -space-x-2 rtl:space-x-reverse"
-          >
-            {["S", "M", "A", "E", "K"].map((l, i) => (
-              <span
-                key={l}
-                className="flex size-10 items-center justify-center rounded-full font-semibold text-white ring-2 ring-card"
-                style={{
-                  background: `oklch(${0.6 + i * 0.04} 0.13 ${30 + i * 28})`,
-                }}
-              >
-                {l}
+          <MockPanel>
+            <MockRow label={t("guests.mock.guests")}>
+              <span className="flex items-center -space-x-1.5 rtl:space-x-reverse">
+                {["S", "M", "A", "E"].map((l, i) => (
+                  <span
+                    key={l}
+                    className="flex size-6 items-center justify-center rounded-full text-[10px] text-white ring-2 ring-card"
+                    style={{
+                      background: `oklch(${0.6 + i * 0.04} 0.13 ${30 + i * 30})`,
+                    }}
+                  >
+                    {l}
+                  </span>
+                ))}
+                <span className="ps-3">142</span>
               </span>
-            ))}
-            <span className="flex h-10 items-center justify-center rounded-full bg-secondary px-3 text-sm font-semibold ring-2 ring-card">
-              +137
-            </span>
-          </div>
+            </MockRow>
+            <MockRow label={t("guests.mock.limit")}>
+              {t("guests.mock.none")}
+            </MockRow>
+          </MockPanel>
           <TileText title={t("guests.title")} body={t("guests.body")} />
         </Tile>
 
