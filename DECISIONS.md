@@ -137,3 +137,18 @@ Follow-ups for phase 1B: the spec's 500 MB per-video cap is too small for 5-minu
 videos (1080p is ~100-130 MB/min, 4K far more) → raise to 2 GB per file and use
 multipart, resumable uploads for large files; ZIPs over ~4 GB are split into parts
 for browsers without File System Access support (Safari).
+
+## 19. Photos only, no video (owner decision, 2026-10-12)
+
+Guests upload images only (jpeg, png, webp, heic/heif, gif). Removed: video limits,
+`media.kind` / `duration_sec`, `events.allow_video` and all video copy. This also
+drops the multipart/2 GB follow-up from #18. Premium is differentiated by capacity
+(5,000 vs 1,500 photos), custom template colours, live slideshow, no branding and
+priority support.
+
+## 20. Legal pages as English drafts
+
+`/legal/{privacy,terms,cookies,imprint,dmca-report}` render from
+`lib/legal/content.ts` with a localized DRAFT banner and `noindex`. Long legal
+texts are kept out of `messages/*.json`; German/Turkish versions will come from
+the lawyer. Bracketed placeholders (company data etc.) must be filled before launch.

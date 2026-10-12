@@ -1,35 +1,58 @@
 import { publicEnv } from "@/lib/public-env";
 import { cn } from "@/lib/utils";
 
-/** Original EventRoll mark: a film-roll frame with a shutter dot. */
+/**
+ * EventRoll mark: a QR "finder eye" that doubles as a camera lens, with a
+ * small spark for the moment it captures. Original artwork.
+ */
 export function LogoMark({ className }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 32 32"
       aria-hidden="true"
-      className={cn("size-7 text-primary", className)}
+      className={cn("size-8", className)}
     >
-      <rect x="3" y="6" width="26" height="20" rx="6" fill="currentColor" />
-      <g fill="var(--background)">
-        <rect x="6" y="9" width="2.5" height="2.5" rx="0.8" />
-        <rect x="6" y="14.75" width="2.5" height="2.5" rx="0.8" />
-        <rect x="6" y="20.5" width="2.5" height="2.5" rx="0.8" />
-        <rect x="23.5" y="9" width="2.5" height="2.5" rx="0.8" />
-        <rect x="23.5" y="14.75" width="2.5" height="2.5" rx="0.8" />
-        <rect x="23.5" y="20.5" width="2.5" height="2.5" rx="0.8" />
-        <circle cx="16" cy="16" r="5" />
-      </g>
-      <circle cx="16" cy="16" r="2.2" fill="currentColor" />
+      <rect width="32" height="32" rx="9.5" className="fill-primary" />
+      <rect
+        x="7.5"
+        y="7.5"
+        width="17"
+        height="17"
+        rx="5.5"
+        fill="none"
+        stroke="white"
+        strokeWidth="3"
+      />
+      <rect
+        x="12.75"
+        y="12.75"
+        width="6.5"
+        height="6.5"
+        rx="2.2"
+        fill="white"
+      />
+      <path
+        d="M26.2 3.2c.25 1.6.95 2.3 2.6 2.6-1.65.3-2.35 1-2.6 2.6-.25-1.6-.95-2.3-2.6-2.6 1.65-.3 2.35-1 2.6-2.6Z"
+        fill="oklch(0.93 0.07 75)"
+      />
     </svg>
   );
 }
 
+/** Splits the brand name so the second word can carry the accent colour. */
+function splitName(name: string): [string, string] {
+  const m = name.match(/^(.+?)([A-Z][a-z]+)$/);
+  return m ? [m[1], m[2]] : [name, ""];
+}
+
 export function Logo({ className }: { className?: string }) {
+  const [first, second] = splitName(publicEnv.appName);
   return (
-    <span className={cn("inline-flex items-center gap-2", className)}>
+    <span className={cn("inline-flex items-center gap-2.5", className)}>
       <LogoMark />
-      <span className="font-heading text-lg font-bold tracking-tight">
-        {publicEnv.appName}
+      <span className="font-heading text-xl font-extrabold tracking-tight">
+        {first}
+        <span className="text-primary">{second}</span>
       </span>
     </span>
   );

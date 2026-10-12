@@ -4,7 +4,7 @@
   },
   "Metadata": {
     "title": "{appName} — Alle Gästefotos mit einem QR-Code sammeln",
-    "description": "Gäste scannen einen QR-Code und laden Fotos und Videos direkt vom Handy hoch. Keine App, keine Anmeldung. Alle Erinnerungen in einer privaten Galerie."
+    "description": "Gäste scannen einen QR-Code und laden ihre Fotos vom Handy hoch. Keine App, keine Anmeldung. Alle Fotos in Originalqualität in einem privaten Album."
   },
   "Nav": {
     "login": "Anmelden",
@@ -58,7 +58,7 @@
       "eyebrow": "Für Hochzeiten, Geburtstage und jedes Fest",
       "line1": "Scannen. Hochladen.",
       "line2": "Fertig.",
-      "subhead": "Ein QR-Code auf dem Tisch, und die Fotos und Videos aller Gäste landen in deiner privaten Galerie. Keine App, kein Konto, direkt im Handy-Browser.",
+      "subhead": "Ein QR-Code auf dem Tisch, und die Fotos aller Gäste landen in deinem privaten Album. Keine App, kein Konto, direkt im Handy-Browser.",
       "cta": "Event erstellen",
       "secondary": "So funktioniert's",
       "point1": "Keine App für Gäste",
@@ -68,7 +68,7 @@
     "demo": {
       "date": "Sa · 14. Juni",
       "eventName": "Elif & Can",
-      "button": "Fotos & Videos hinzufügen",
+      "button": "Fotos hinzufügen",
       "album": "Gemeinsames Album",
       "count": "{count} Fotos",
       "notifyTitle": "{name} hat {count} Fotos hinzugefügt",
@@ -101,7 +101,8 @@
       "noApp": {
         "badge": "Funktioniert auf jedem Handy",
         "title": "Keine App. Keine Anmeldung. Nur die Kamera.",
-        "body": "Gäste scannen, tippen auf einen großen Button und wählen ihre Fotos. Funktioniert in Safari, Chrome und sogar in WhatsApp oder Instagram."
+        "body": "Gäste scannen, tippen auf einen großen Button und wählen ihre Fotos. Funktioniert in Safari, Chrome und sogar in WhatsApp oder Instagram.",
+        "pickerCta": "{count} Fotos hochladen"
       },
       "private": {
         "title": "Standardmäßig privat",
@@ -115,10 +116,6 @@
         "title": "Druckfertige QR-Karten",
         "body": "Tischkarten, Schilder und Plakate, die du personalisieren und zu Hause drucken kannst."
       },
-      "video": {
-        "title": "Fotos und Videos",
-        "body": "Kurze Clips von den Reden und der Tanzfläche, jeweils bis zu 5 Minuten."
-      },
       "gallery": {
         "title": "Geteilt oder nur für dich",
         "body": "Lass Gäste im Album stöbern oder behalte es für dich. Jederzeit änderbar."
@@ -126,6 +123,10 @@
       "languages": {
         "title": "Spricht die Sprache deiner Gäste",
         "body": "Die Gästeseite öffnet sich automatisch auf Deutsch, Englisch oder Türkisch, weitere Sprachen folgen."
+      },
+      "guests": {
+        "title": "Jeder Gast kann mitmachen",
+        "body": "Keine Begrenzung bei Gästen. Alle auf deinem Event können Fotos hinzufügen; dein Plan bestimmt nur die Gesamtgröße des Albums."
       }
     },
     "eventTypes": {
@@ -167,7 +168,6 @@
       "total": "GESAMT",
       "perGuest": "≈ {price} pro Gast bei {guests} Gästen",
       "thanks": "NR. {no} · DANKE",
-      "seal": "Einmalzahlung · Kein Abo · Einmalzahlung · ",
       "trust": {
         "secure": "Sicher bezahlen mit Stripe",
         "oneTime": "Eine Zahlung, kein Abo",
@@ -184,13 +184,12 @@
         },
         "premium": {
           "name": "Premium",
-          "tagline": "Für große Tage, viele Videos und Live-Diashow",
+          "tagline": "Für große Tage und Live-Diashow",
           "cta": "Premium holen"
         }
       },
       "lines": {
         "items": "{count} Dateien · {gb} GB",
-        "video": "Videos bis {minutes} Min.",
         "original": "In Originalqualität gespeichert",
         "zip": "ZIP-Download für {days} Tage",
         "templatesAll": "Alle QR-Vorlagen",
@@ -219,23 +218,23 @@
         },
         "quality": {
           "q": "Werden die Fotos komprimiert?",
-          "a": "Nie. Wir speichern genau die Datei, die das Handy jedes Gastes hochlädt, in Originalauflösung, und dein ZIP enthält diese Originale. Gäste sehen im gemeinsamen Album nur kleinere Vorschauen. (Manche iPhones verkleinern Videos beim Hochladen selbst; das passiert auf dem Handy, bevor die Datei bei uns ankommt.)"
+          "a": "Nie. Wir speichern genau die Datei, die das Handy jedes Gastes hochlädt, in Originalauflösung, und dein ZIP enthält diese Originale. Gäste sehen im gemeinsamen Album nur kleinere Vorschauen."
         },
         "duration": {
           "q": "Wie lange werden meine Fotos gespeichert?",
-          "a": "Dein Album bleibt bis 7 Tage nach dem Event geöffnet. Lade in dieser Zeit das ZIP in Originalqualität herunter; wir erinnern dich per E-Mail, bevor etwas gelöscht wird. Danach werden alle Fotos und Videos endgültig gelöscht, damit die Erinnerungen deiner Gäste privat bleiben."
+          "a": "Dein Album bleibt bis 7 Tage nach dem Event geöffnet. Lade in dieser Zeit das ZIP in Originalqualität herunter; wir erinnern dich per E-Mail, bevor etwas gelöscht wird. Danach werden alle Fotos endgültig gelöscht, damit die Erinnerungen deiner Gäste privat bleiben."
         },
         "privacy": {
           "q": "Wer kann die Fotos sehen?",
           "a": "Nur du und, wenn du das gemeinsame Album aktivierst, Gäste mit deinem Link. Alben sind nie öffentlich, erscheinen nicht in Suchmaschinen und alles wird in der EU gespeichert."
         },
-        "video": {
-          "q": "Können Gäste Videos hochladen?",
-          "a": "Ja. Mit Standard bis 2 Minuten pro Video, mit Premium bis 5 Minuten."
-        },
         "limits": {
           "q": "Was passiert, wenn das Album voll ist?",
           "a": "Gäste sehen einen freundlichen Hinweis und du kannst mit einem Klick von Standard auf Premium upgraden. Bereits Hochgeladenes geht nicht verloren."
+        },
+        "guests": {
+          "q": "Gibt es eine Begrenzung bei Gästen?",
+          "a": "Nein. Beliebig viele Gäste können hochladen. Dein Plan begrenzt nur die Gesamtzahl der Fotos im Album: 1.500 mit Standard, 5.000 mit Premium."
         }
       }
     },
@@ -246,7 +245,7 @@
       "note": "Einrichten ist kostenlos · Du zahlst erst, wenn du das Album für Gäste öffnest"
     },
     "footer": {
-      "tagline": "Die Fotos und Videos aller Gäste, in einem privaten Album, mit einem QR-Code.",
+      "tagline": "Die Fotos aller Gäste in einem privaten Album, mit einem QR-Code.",
       "product": "Produkt",
       "legal": "Rechtliches",
       "hosting": "Gehostet in Frankfurt, EU",
@@ -258,5 +257,9 @@
         "dmca-report": "Inhalt melden"
       }
     }
+  },
+  "Legal": {
+    "draft": "ENTWURF: Dieser Text wird vor dem Start anwaltlich geprüft.",
+    "englishOnly": "Derzeit nur auf Englisch verfügbar."
   }
 }

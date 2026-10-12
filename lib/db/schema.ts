@@ -42,7 +42,6 @@ export const eventStatus = pgEnum("event_status", [
   "deleted",
   "suspended",
 ]);
-export const mediaKind = pgEnum("media_kind", ["photo", "video"]);
 export const mediaStatus = pgEnum("media_status", [
   "pending",
   "ready",
@@ -92,7 +91,6 @@ export const events = pgTable(
     expiresAt: timestamp(tz).notNull(),
     guestsCanView: boolean().notNull().default(true),
     requireName: boolean().notNull().default(false),
-    allowVideo: boolean().notNull().default(false),
     accessPinHash: text(),
     coverKey: text(),
     storageBytes: bigint({ mode: "number" }).notNull().default(0),
@@ -116,7 +114,6 @@ export const media = pgTable(
     eventId: uuid()
       .notNull()
       .references(() => events.id, { onDelete: "cascade" }),
-    kind: mediaKind().notNull(),
     r2Key: text().notNull(),
     thumbKey: text(),
     previewKey: text(),
@@ -124,7 +121,6 @@ export const media = pgTable(
     bytes: bigint({ mode: "number" }).notNull(),
     width: integer(),
     height: integer(),
-    durationSec: integer(),
     uploaderName: text(),
     uploaderFingerprint: text(),
     status: mediaStatus().notNull().default("pending"),

@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { Logo } from "@/components/brand/logo";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { Button } from "@/components/ui/button";
@@ -6,6 +6,8 @@ import { Link } from "@/lib/i18n/navigation";
 
 export async function MarketingHeader() {
   const t = await getTranslations("Landing.nav");
+  // Absolute so the anchors also work from other pages (e.g. legal).
+  const locale = await getLocale();
   const nav = await getTranslations("Nav");
   return (
     <header className="sticky top-0 z-50 border-b border-border/50 bg-background/75 backdrop-blur-lg">
@@ -21,7 +23,7 @@ export async function MarketingHeader() {
             (id) => (
               <a
                 key={id}
-                href={`#${id}`}
+                href={`/${locale}#${id}`}
                 className="rounded-lg px-3 py-2 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
               >
                 {t(id)}

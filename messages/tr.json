@@ -4,7 +4,7 @@
   },
   "Metadata": {
     "title": "{appName} — Tüm misafir fotoğraflarını tek bir QR kodla toplayın",
-    "description": "Misafirler QR kodu okutur, telefonlarından fotoğraf ve video yükler. Uygulama yok, kayıt yok. Tüm anılar tek bir özel galeride."
+    "description": "Misafirler QR kodu okutur, fotoğraflarını telefondan yükler. Uygulama yok, kayıt yok. Tüm fotoğraflar orijinal kalitesiyle tek bir özel albümde."
   },
   "Nav": {
     "login": "Giriş yap",
@@ -58,7 +58,7 @@
       "eyebrow": "Düğünler, doğum günleri ve tüm buluşmalar için",
       "line1": "Okut. Yükle.",
       "line2": "Bitti.",
-      "subhead": "Masada tek bir QR kod; misafirlerin tüm fotoğraf ve videoları senin özel galerine düşer. Uygulama yok, hesap yok, doğrudan telefonun tarayıcısından.",
+      "subhead": "Masada tek bir QR kod; misafirlerin tüm fotoğrafları senin özel albümüne düşer. Uygulama yok, hesap yok, doğrudan telefonun tarayıcısından.",
       "cta": "Etkinliğini oluştur",
       "secondary": "Nasıl çalışır?",
       "point1": "Misafire uygulama yok",
@@ -68,7 +68,7 @@
     "demo": {
       "date": "Cmt · 14 Haziran",
       "eventName": "Elif & Can",
-      "button": "Fotoğraf ve video ekle",
+      "button": "Fotoğraf ekle",
       "album": "Ortak albüm",
       "count": "{count} fotoğraf",
       "notifyTitle": "{name} {count} fotoğraf ekledi",
@@ -101,7 +101,8 @@
       "noApp": {
         "badge": "Her telefonda çalışır",
         "title": "Uygulama yok. Kayıt yok. Sadece kamera.",
-        "body": "Misafirler okutur, tek büyük butona dokunur ve fotoğraflarını seçer. Safari'de, Chrome'da, hatta WhatsApp ve Instagram içinde bile çalışır."
+        "body": "Misafirler okutur, tek büyük butona dokunur ve fotoğraflarını seçer. Safari'de, Chrome'da, hatta WhatsApp ve Instagram içinde bile çalışır.",
+        "pickerCta": "{count} fotoğrafı yükle"
       },
       "private": {
         "title": "Varsayılan olarak gizli",
@@ -115,10 +116,6 @@
         "title": "Baskıya hazır QR kartları",
         "body": "Kişiselleştirip evde yazdırabileceğin masa kartları, tabelalar ve afişler."
       },
-      "video": {
-        "title": "Fotoğraf ve video",
-        "body": "Konuşmalardan ve dans pistinden kısa videolar, her biri 5 dakikaya kadar."
-      },
       "gallery": {
         "title": "Paylaşımlı ya da sadece senin",
         "body": "Misafirler albüme göz atabilsin ya da sadece sen gör. İstediğin zaman değiştir."
@@ -126,6 +123,10 @@
       "languages": {
         "title": "Misafirlerinin dilini konuşur",
         "body": "Misafir sayfası otomatik olarak Türkçe, İngilizce veya Almanca açılır; daha fazla dil yolda."
+      },
+      "guests": {
+        "title": "Her misafir katılabilir",
+        "body": "Misafir sınırı yok. Etkinliğindeki herkes fotoğraf ekleyebilir; planın sadece albümün toplam boyutunu belirler."
       }
     },
     "eventTypes": {
@@ -167,7 +168,6 @@
       "total": "TOPLAM",
       "perGuest": "{guests} misafirde kişi başı ≈ {price}",
       "thanks": "NO. {no} · TEŞEKKÜRLER",
-      "seal": "Tek seferlik ödeme · Abonelik yok · ",
       "trust": {
         "secure": "Stripe ile güvenli ödeme",
         "oneTime": "Tek ödeme, abonelik yok",
@@ -184,13 +184,12 @@
         },
         "premium": {
           "name": "Premium",
-          "tagline": "Büyük günler, bol video ve canlı slayt için",
+          "tagline": "Büyük günler ve canlı slayt için",
           "cta": "Premium'u al"
         }
       },
       "lines": {
         "items": "{count} öğe · {gb} GB",
-        "video": "{minutes} dk'ya kadar video",
         "original": "Orijinal kalitede saklama",
         "zip": "{days} gün ZIP indirme",
         "templatesAll": "Tüm QR şablonları",
@@ -219,23 +218,23 @@
         },
         "quality": {
           "q": "Fotoğraflar sıkıştırılıyor mu?",
-          "a": "Asla. Her misafirin telefonunun yüklediği dosyayı orijinal çözünürlüğüyle olduğu gibi saklarız; ZIP'in de bu orijinalleri içerir. Misafirler ortak albümde sadece küçük önizlemeleri görür. (Bazı iPhone'lar videoları yükleme sırasında kendileri küçültebilir; bu, dosya bize ulaşmadan telefonda olur.)"
+          "a": "Asla. Her misafirin telefonunun yüklediği dosyayı orijinal çözünürlüğüyle olduğu gibi saklarız; ZIP'in de bu orijinalleri içerir. Misafirler ortak albümde sadece küçük önizlemeleri görür."
         },
         "duration": {
           "q": "Fotoğraflarım ne kadar saklanır?",
-          "a": "Albümün etkinlikten sonraki 7. günün sonuna kadar açık kalır. Bu sürede orijinal kalitedeki ZIP'i indir; silinmeden önce sana e-postayla hatırlatırız. Sonrasında tüm fotoğraf ve videolar kalıcı olarak silinir, böylece misafirlerinin anıları gizli kalır."
+          "a": "Albümün etkinlikten sonraki 7. günün sonuna kadar açık kalır. Bu sürede orijinal kalitedeki ZIP'i indir; silinmeden önce sana e-postayla hatırlatırız. Sonrasında tüm fotoğraflar kalıcı olarak silinir, böylece misafirlerinin anıları gizli kalır."
         },
         "privacy": {
           "q": "Fotoğrafları kim görebilir?",
           "a": "Sadece sen; ortak albümü açarsan linke sahip misafirler de. Albümler asla herkese açık değildir, arama motorlarında listelenmez ve her şey AB'de saklanır."
         },
-        "video": {
-          "q": "Misafirler video yükleyebilir mi?",
-          "a": "Evet. Standart'ta video başına 2 dakikaya, Premium'da 5 dakikaya kadar."
-        },
         "limits": {
           "q": "Albüm dolarsa ne olur?",
           "a": "Misafirler nazik bir mesaj görür, sen de tek tıkla Standart'tan Premium'a geçebilirsin. Daha önce yüklenen hiçbir şey kaybolmaz."
+        },
+        "guests": {
+          "q": "Misafir sayısında sınır var mı?",
+          "a": "Hayır. İstediğin kadar misafir yükleyebilir. Planın sadece albümdeki toplam fotoğraf sayısını sınırlar: Standart'ta 1.500, Premium'da 5.000."
         }
       }
     },
@@ -246,7 +245,7 @@
       "note": "Kurulum ücretsiz · Sadece albümü misafirlere açarken ödersin"
     },
     "footer": {
-      "tagline": "Tüm misafirlerin fotoğraf ve videoları, tek bir özel albümde, tek bir QR kodla.",
+      "tagline": "Tüm misafirlerin fotoğrafları, tek bir özel albümde, tek bir QR kodla.",
       "product": "Ürün",
       "legal": "Yasal",
       "hosting": "Frankfurt'ta barındırılıyor, AB",
@@ -258,5 +257,9 @@
         "dmca-report": "İçerik bildir"
       }
     }
+  },
+  "Legal": {
+    "draft": "TASLAK: Bu metin yayından önce bir avukat tarafından incelenecek.",
+    "englishOnly": "Şimdilik yalnızca İngilizce mevcut."
   }
 }

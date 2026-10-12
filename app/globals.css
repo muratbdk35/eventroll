@@ -261,17 +261,3 @@ html {
     scroll-behavior: auto;
   }
 }
-
-@keyframes seal-spin {
-  to {
-    rotate: 360deg;
-  }
-}
-.seal-spin svg {
-  animation: seal-spin 24s linear infinite;
-}
-@media (prefers-reduced-motion: reduce) {
-  .seal-spin svg {
-    animation: none;
-  }
-}

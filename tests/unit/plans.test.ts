@@ -10,9 +10,6 @@ describe("plans", () => {
   it("premium is strictly larger than standard", () => {
     expect(plans.premium.maxItems).toBeGreaterThan(plans.standard.maxItems);
     expect(plans.premium.maxBytes).toBeGreaterThan(plans.standard.maxBytes);
-    expect(plans.premium.maxVideoSeconds).toBeGreaterThan(
-      plans.standard.maxVideoSeconds,
-    );
   });
 });
 

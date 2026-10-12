@@ -2,7 +2,7 @@
  * Single source of truth for plan prices and limits (spec §8, DECISIONS #15–17).
  * Server-side enforcement (presign/confirm) reads from here too.
  *
- * There is no free plan: an event can be created (QR, settings) without paying,
+ * Photos only, no video (DECISIONS #19). There is no free plan: an event can be created (QR, settings) without paying,
  * but guests can only upload once a plan is purchased.
  */
 export type PlanId = "standard" | "premium";
@@ -12,7 +12,6 @@ export type PlanLimits = {
   priceUsd: number;
   maxItems: number;
   maxBytes: number;
-  maxVideoSeconds: number;
   allTemplates: boolean;
   customColors: boolean;
   liveSlideshow: boolean;
@@ -34,7 +33,6 @@ export const plans: Record<PlanId, PlanLimits> = {
     priceUsd: 29,
     maxItems: 1500,
     maxBytes: 10 * GB,
-    maxVideoSeconds: 120,
     allTemplates: true,
     customColors: false,
     liveSlideshow: false,
@@ -46,7 +44,6 @@ export const plans: Record<PlanId, PlanLimits> = {
     priceUsd: 49,
     maxItems: 5000,
     maxBytes: 50 * GB,
-    maxVideoSeconds: 300,
     allTemplates: true,
     customColors: true,
     liveSlideshow: true,

@@ -1,7 +1,6 @@
 CREATE TYPE "public"."event_status" AS ENUM('draft', 'active', 'expired', 'deleted', 'suspended');--> statement-breakpoint
 CREATE TYPE "public"."event_type" AS ENUM('wedding', 'birthday', 'corporate', 'baby_shower', 'graduation', 'party', 'other');--> statement-breakpoint
 CREATE TYPE "public"."guest_message_status" AS ENUM('visible', 'hidden', 'deleted');--> statement-breakpoint
-CREATE TYPE "public"."media_kind" AS ENUM('photo', 'video');--> statement-breakpoint
 CREATE TYPE "public"."media_status" AS ENUM('pending', 'ready', 'hidden', 'deleted');--> statement-breakpoint
 CREATE TYPE "public"."order_status" AS ENUM('pending', 'paid', 'refunded', 'failed');--> statement-breakpoint
 CREATE TYPE "public"."plan" AS ENUM('standard', 'premium');--> statement-breakpoint
@@ -31,7 +30,6 @@ CREATE TABLE "events" (
 	"expires_at" timestamp with time zone NOT NULL,
 	"guests_can_view" boolean DEFAULT true NOT NULL,
 	"require_name" boolean DEFAULT false NOT NULL,
-	"allow_video" boolean DEFAULT false NOT NULL,
 	"access_pin_hash" text,
 	"cover_key" text,
 	"storage_bytes" bigint DEFAULT 0 NOT NULL,
@@ -53,7 +51,6 @@ CREATE TABLE "guest_messages" (
 CREATE TABLE "media" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"event_id" uuid NOT NULL,
-	"kind" "media_kind" NOT NULL,
 	"r2_key" text NOT NULL,
 	"thumb_key" text,
 	"preview_key" text,
@@ -61,7 +58,6 @@ CREATE TABLE "media" (
 	"bytes" bigint NOT NULL,
 	"width" integer,
 	"height" integer,
-	"duration_sec" integer,
 	"uploader_name" text,
 	"uploader_fingerprint" text,
 	"status" "media_status" DEFAULT 'pending' NOT NULL,

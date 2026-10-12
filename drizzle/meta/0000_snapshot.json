@@ -1,5 +1,5 @@
 {
-  "id": "1bf7f030-fe10-4d95-83e4-3e5fa58d95ef",
+  "id": "bcf1edd2-b0f2-45f9-a7ed-b5c9cdf6dfdf",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -196,13 +196,6 @@
         },
         "require_name": {
           "name": "require_name",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": true,
-          "default": false
-        },
-        "allow_video": {
-          "name": "allow_video",
           "type": "boolean",
           "primaryKey": false,
           "notNull": true,
@@ -416,13 +409,6 @@
           "primaryKey": false,
           "notNull": true
         },
-        "kind": {
-          "name": "kind",
-          "type": "media_kind",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true
-        },
         "r2_key": {
           "name": "r2_key",
           "type": "text",
@@ -461,12 +447,6 @@
         },
         "height": {
           "name": "height",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "duration_sec": {
-          "name": "duration_sec",
           "type": "integer",
           "primaryKey": false,
           "notNull": false
@@ -1220,14 +1200,6 @@
         "visible",
         "hidden",
         "deleted"
-      ]
-    },
-    "public.media_kind": {
-      "name": "media_kind",
-      "schema": "public",
-      "values": [
-        "photo",
-        "video"
       ]
     },
     "public.media_status": {

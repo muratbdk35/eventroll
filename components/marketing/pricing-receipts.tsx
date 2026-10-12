@@ -36,48 +36,6 @@ function Rule() {
   );
 }
 
-/** Rotating circular seal with text on a path. */
-function Seal({ text, center }: { text: string; center: string }) {
-  return (
-    <div
-      aria-hidden
-      className="seal-spin absolute -end-5 -top-12 z-20 size-28 sm:-end-12"
-    >
-      <svg viewBox="0 0 120 120" className="size-full drop-shadow-xl">
-        <defs>
-          <path
-            id="seal-circle"
-            d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"
-          />
-        </defs>
-        <circle cx="60" cy="60" r="58" fill="oklch(0.23 0.02 40)" />
-        <circle
-          cx="60"
-          cy="60"
-          r="34"
-          fill="none"
-          stroke="white"
-          strokeOpacity=".25"
-          strokeDasharray="2 3"
-        />
-        <text fill="white" className="font-mono text-[10.5px] font-bold">
-          <textPath
-            href="#seal-circle"
-            startOffset="0"
-            textLength="286"
-            lengthAdjust="spacing"
-          >
-            {text}
-          </textPath>
-        </text>
-      </svg>
-      <span className="absolute inset-0 flex items-center justify-center font-heading text-3xl font-extrabold text-white">
-        {center}
-      </span>
-    </div>
-  );
-}
-
 export async function PricingReceipts() {
   const t = await getTranslations("Landing.pricing");
   const format = await getFormatter();
@@ -99,7 +57,6 @@ export async function PricingReceipts() {
         count: format.number(p.maxItems),
         gb: p.maxBytes / 1024 ** 3,
       }),
-      t("lines.video", { minutes: p.maxVideoSeconds / 60 }),
       t("lines.original"),
       t("lines.zip", { days: DOWNLOAD_WINDOW_DAYS }),
       p.customColors ? t("lines.templatesCustom") : t("lines.templatesAll"),
@@ -165,7 +122,6 @@ export async function PricingReceipts() {
                   featured ? "order-first md:order-2" : "md:order-1",
                 )}
               >
-                {featured && <Seal text={upper(t("seal"))} center="1×" />}
                 <div
                   className={cn(
                     "relative bg-[#fffdf9] px-6 pt-8 pb-8 text-[12.5px] leading-relaxed text-[oklch(0.23_0.02_40)] transition-transform duration-300 hover:-translate-y-1",

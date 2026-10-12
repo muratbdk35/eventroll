@@ -1,7 +1,7 @@
 {
   "Metadata": {
     "title": "{appName} — Collect every guest photo with one QR code",
-    "description": "Guests scan a QR code and upload photos and videos from their phone. No app, no sign-up. All memories in one private gallery."
+    "description": "Guests scan a QR code and upload their photos from the phone. No app, no sign-up. Every photo in one private album, in original quality."
   },
   "Nav": {
     "login": "Log in",
@@ -55,7 +55,7 @@
       "eyebrow": "For weddings, birthdays and every get-together",
       "line1": "Scan. Upload.",
       "line2": "Done.",
-      "subhead": "One QR code on the table, and every guest's photos and videos land in your private gallery. No app to install, no account to create, straight from the phone's browser.",
+      "subhead": "One QR code on the table, and every guest's photos land in your private album. No app to install, no account to create, straight from the phone's browser.",
       "cta": "Create your event",
       "secondary": "See how it works",
       "point1": "No app for guests",
@@ -65,7 +65,7 @@
     "demo": {
       "date": "Sat · 14 June",
       "eventName": "Elif & Can",
-      "button": "Add photos & videos",
+      "button": "Add photos",
       "album": "Shared album",
       "count": "{count} photos",
       "notifyTitle": "{name} added {count} photos",
@@ -98,7 +98,8 @@
       "noApp": {
         "badge": "Works on any phone",
         "title": "No app. No sign-up. Just the camera.",
-        "body": "Guests scan, tap one big button and pick their photos. It works in Safari, Chrome and even inside WhatsApp or Instagram."
+        "body": "Guests scan, tap one big button and pick their photos. It works in Safari, Chrome and even inside WhatsApp or Instagram.",
+        "pickerCta": "Upload {count} photos"
       },
       "private": {
         "title": "Private by default",
@@ -112,10 +113,6 @@
         "title": "Print-ready QR cards",
         "body": "Table cards, signs and posters you can personalise and print at home."
       },
-      "video": {
-        "title": "Photos and videos",
-        "body": "Short clips of the speeches and the dance floor, up to 5 minutes each."
-      },
       "gallery": {
         "title": "Shared or just for you",
         "body": "Let guests browse the album, or keep it for your eyes only. Change it anytime."
@@ -123,6 +120,10 @@
       "languages": {
         "title": "Speaks your guests' language",
         "body": "The guest page opens in English, Turkish or German automatically, with more languages on the way."
+      },
+      "guests": {
+        "title": "Every guest can join",
+        "body": "No limit on guests. Everyone at your event can add their photos; your plan only sets the total album size."
       }
     },
     "eventTypes": {
@@ -164,7 +165,6 @@
       "total": "TOTAL",
       "perGuest": "≈ {price} per guest at {guests} guests",
       "thanks": "NO. {no} · THANK YOU",
-      "seal": "One-time payment · No subscription · ",
       "trust": {
         "secure": "Secure checkout with Stripe",
         "oneTime": "One payment, no subscription",
@@ -181,13 +181,12 @@
         },
         "premium": {
           "name": "Premium",
-          "tagline": "For big days, lots of video and a live slideshow",
+          "tagline": "For big days and a live slideshow",
           "cta": "Get Premium"
         }
       },
       "lines": {
         "items": "{count} items · {gb} GB",
-        "video": "Videos up to {minutes} min",
         "original": "Stored in original quality",
         "zip": "ZIP download for {days} days",
         "templatesAll": "All QR templates",
@@ -216,23 +215,23 @@
         },
         "quality": {
           "q": "Are the photos compressed?",
-          "a": "Never. We keep the exact file each guest's phone uploads, in its original resolution, and your ZIP contains those originals. Guests only see smaller previews in the shared album. (Some iPhones shrink videos themselves while uploading; that happens on the phone, before the file reaches us.)"
+          "a": "Never. We keep the exact file each guest's phone uploads, in its original resolution, and your ZIP contains those originals. Guests only see smaller previews in the shared album."
         },
         "duration": {
           "q": "How long are my photos kept?",
-          "a": "Your album stays open until 7 days after the event. Download the full-quality ZIP in that time; we'll remind you by email before anything is deleted. After that, all photos and videos are permanently deleted, which keeps your guests' memories private."
+          "a": "Your album stays open until 7 days after the event. Download the full-quality ZIP in that time; we'll remind you by email before anything is deleted. After that, all photos are permanently deleted, which keeps your guests' memories private."
         },
         "privacy": {
           "q": "Who can see the photos?",
           "a": "Only you, plus guests who have your link if you turn on the shared album. Albums are never public or listed on search engines, and everything is stored in the EU."
         },
-        "video": {
-          "q": "Can guests upload videos?",
-          "a": "Yes. Standard allows videos up to 2 minutes each, Premium up to 5 minutes."
-        },
         "limits": {
           "q": "What happens when the album is full?",
           "a": "Guests see a friendly message and you can upgrade from Standard to Premium in one click. Nothing already uploaded is lost."
+        },
+        "guests": {
+          "q": "Is there a limit on guests?",
+          "a": "No. Any number of guests can upload. Your plan only limits the total number of photos in the album: 1,500 with Standard, 5,000 with Premium."
         }
       }
     },
@@ -243,7 +242,7 @@
       "note": "Setup is free · You only pay when you open the album to guests"
     },
     "footer": {
-      "tagline": "Every guest's photos and videos, in one private album, with one QR code.",
+      "tagline": "Every guest's photos in one private album, with one QR code.",
       "product": "Product",
       "legal": "Legal",
       "hosting": "Hosted in Frankfurt, EU",
@@ -255,5 +254,9 @@
         "dmca-report": "Report content"
       }
     }
+  },
+  "Legal": {
+    "draft": "DRAFT: this text will be reviewed by a lawyer before launch.",
+    "englishOnly": ""
   }
 }

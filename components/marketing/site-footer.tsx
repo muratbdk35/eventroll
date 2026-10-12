@@ -1,5 +1,5 @@
 import { MapPin } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { Logo } from "@/components/brand/logo";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { Link } from "@/lib/i18n/navigation";
@@ -8,6 +8,7 @@ import { publicEnv } from "@/lib/public-env";
 export async function SiteFooter() {
   const t = await getTranslations("Landing.footer");
   const nav = await getTranslations("Landing.nav");
+  const locale = await getLocale();
   const linkCls =
     "text-muted-foreground transition-colors hover:text-foreground";
 
@@ -29,7 +30,7 @@ export async function SiteFooter() {
             {(["how-it-works", "features", "pricing", "faq"] as const).map(
               (id) => (
                 <li key={id}>
-                  <a href={`#${id}`} className={linkCls}>
+                  <a href={`/${locale}#${id}`} className={linkCls}>
                     {nav(id)}
                   </a>
                 </li>

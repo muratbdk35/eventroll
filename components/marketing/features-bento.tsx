@@ -5,8 +5,9 @@ import {
   Languages,
   Lock,
   Printer,
-  Video,
+  Users,
 } from "lucide-react";
+import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { cn } from "@/lib/utils";
 import { SectionHeading } from "./section-heading";
@@ -51,30 +52,37 @@ function TileIcon({
 }
 
 // Mini "photo picker" illustration for the hero tile.
-const tones = [
-  "from-[oklch(0.88_0.07_60)] to-[oklch(0.7_0.12_40)]",
-  "from-[oklch(0.88_0.06_150)] to-[oklch(0.62_0.09_175)]",
-  "from-[oklch(0.86_0.07_300)] to-[oklch(0.6_0.12_310)]",
-  "from-[oklch(0.9_0.06_20)] to-[oklch(0.68_0.15_15)]",
-  "from-[oklch(0.9_0.06_95)] to-[oklch(0.72_0.12_80)]",
-  "from-[oklch(0.86_0.05_230)] to-[oklch(0.6_0.1_250)]",
+const picks = [
+  "/marketing/toast.jpg",
+  "/marketing/rings.jpg",
+  "/marketing/cake.jpg",
+  "/marketing/confetti.jpg",
+  "/marketing/sparklers.jpg",
+  "/marketing/arch-night.jpg",
 ];
 
-function PickerMock() {
+// Mini "photo picker" showing a guest selecting photos to upload.
+async function PickerMock() {
+  const t = await getTranslations("Landing.features.noApp");
   return (
     <div
       aria-hidden
-      className="absolute end-6 top-6 w-56 rotate-3 rounded-2xl bg-white/95 p-2.5 shadow-2xl sm:end-10 sm:top-10 sm:w-64"
+      className="absolute end-6 top-6 w-56 rotate-3 rounded-2xl bg-white p-2.5 shadow-2xl sm:end-10 sm:top-10 sm:w-64"
     >
       <div className="grid grid-cols-3 gap-1.5">
-        {tones.map((tone, i) => (
+        {picks.map((src, i) => (
           <div
-            key={tone}
-            className={cn(
-              "relative aspect-square rounded-md bg-gradient-to-br",
-              tone,
-            )}
+            key={src}
+            className="relative aspect-square overflow-hidden rounded-md"
           >
+            <Image
+              src={src}
+              alt=""
+              fill
+              sizes="90px"
+              quality={60}
+              className="object-cover"
+            />
             {i !== 4 && (
               <span className="absolute end-1 top-1 flex size-4 items-center justify-center rounded-full bg-primary ring-2 ring-white">
                 <Check className="size-2.5 text-white" strokeWidth={3} />
@@ -84,7 +92,7 @@ function PickerMock() {
         ))}
       </div>
       <div className="mt-2.5 flex h-8 items-center justify-center rounded-lg bg-primary text-xs font-semibold text-primary-foreground">
-        5 ✓
+        {t("pickerCta", { count: 5 })}
       </div>
     </div>
   );
@@ -152,12 +160,12 @@ export async function FeaturesBento() {
           </p>
         </Tile>
         <Tile className="md:col-span-2">
-          <TileIcon icon={Video} />
+          <TileIcon icon={Users} />
           <h3 className="mt-6 font-heading text-lg font-semibold">
-            {t("video.title")}
+            {t("guests.title")}
           </h3>
           <p className="mt-2 text-sm text-muted-foreground">
-            {t("video.body")}
+            {t("guests.body")}
           </p>
         </Tile>
         <Tile className="bg-accent md:col-span-2">
