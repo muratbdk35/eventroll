@@ -49,18 +49,18 @@
       "features": "Features",
       "pricing": "Pricing",
       "faq": "FAQ",
-      "cta": "Start free"
+      "cta": "Create event"
     },
     "hero": {
       "eyebrow": "For weddings, birthdays and every get-together",
       "line1": "Scan. Upload.",
       "line2": "Done.",
       "subhead": "One QR code on the table, and every guest's photos and videos land in your private gallery. No app to install, no account to create, straight from the phone's browser.",
-      "cta": "Create your event for free",
+      "cta": "Create your event",
       "secondary": "See how it works",
       "point1": "No app for guests",
       "point2": "Full-quality originals",
-      "point3": "Free for up to 25 photos"
+      "point3": "One-time payment"
     },
     "demo": {
       "date": "Sat · 14 June",
@@ -106,7 +106,7 @@
       },
       "originals": {
         "title": "Full-quality originals",
-        "body": "Download everything as a ZIP: no compression, no watermarks."
+        "body": "Download everything as a ZIP: original resolution, no compression, no watermarks."
       },
       "print": {
         "title": "Print-ready QR cards",
@@ -154,9 +154,9 @@
       }
     },
     "pricing": {
-      "eyebrow": "Pricing",
-      "title": "One payment. Every memory.",
-      "subtitle": "No subscription, no surprises on the bill. Pay once per event and keep every photo your guests take.",
+      "eyebrow": "Simple pricing",
+      "title": "Pay once. Keep every moment.",
+      "subtitle": "No subscription, no hidden fees. One payment per event, and every photo your guests take is yours in full quality.",
       "merchantLine": "ONE EVENT · ONE PAYMENT",
       "stamp": "Best value",
       "billing": "BILLING",
@@ -164,18 +164,14 @@
       "total": "TOTAL",
       "perGuest": "≈ {price} per guest at {guests} guests",
       "thanks": "NO. {no} · THANK YOU",
-      "seal": "Money-back guarantee · 14 days · ",
-      "sealDays": "14d",
+      "seal": "One-time payment · No subscription · ",
       "trust": {
         "secure": "Secure checkout with Stripe",
-        "oneTime": "One-time payment, no subscription",
-        "guarantee": "14-day money-back guarantee"
+        "oneTime": "One payment, no subscription",
+        "original": "Original quality, never compressed",
+        "zip": "{days}-day full ZIP download"
       },
-      "trial": {
-        "title": "Want to try it first?",
-        "body": "Start free with up to {photos} photos, kept for {days} days. No card needed.",
-        "cta": "Start free"
-      },
+      "howToPay": "Set up your event and QR code for free. Pick a plan when you're ready for guests to upload.",
       "footnote": "Prices in USD, shown in your local currency at checkout, VAT included.",
       "plans": {
         "standard": {
@@ -192,8 +188,8 @@
       "lines": {
         "items": "{count} items · {gb} GB",
         "video": "Videos up to {minutes} min",
-        "retention": "Kept for {months} months",
-        "zip": "Full-quality ZIP download",
+        "original": "Stored in original quality",
+        "zip": "ZIP download for {days} days",
         "templatesAll": "All QR templates",
         "templatesCustom": "Templates + your colours",
         "slideshow": "Live slideshow (soon)",
@@ -214,37 +210,37 @@
           "q": "How do guests get the link?",
           "a": "Print the QR code on table cards or a sign (we provide ready-made templates), or share the link by message or email."
         },
-        "privacy": {
-          "q": "Who can see the photos?",
-          "a": "Only you, plus guests who have your link if you turn on the shared gallery. Galleries are never public or listed on search engines, and we store everything in the EU."
+        "payment": {
+          "q": "When do I pay?",
+          "a": "Creating your event and getting your QR code is free. When you're ready for guests to start uploading, you choose Standard or Premium and pay once. No subscription, nothing renews."
         },
         "quality": {
           "q": "Are the photos compressed?",
-          "a": "No. Originals are stored in full quality and you can download all of them as a ZIP. Guests only ever see smaller previews."
-        },
-        "video": {
-          "q": "Can guests upload videos?",
-          "a": "Yes, on Standard (up to 2 minutes per video) and Premium (up to 5 minutes). The free plan is photos only."
-        },
-        "limits": {
-          "q": "What happens when the album is full?",
-          "a": "Guests see a friendly message and you get a one-click upgrade. Nothing that was already uploaded is lost."
+          "a": "Never. We keep the exact file each guest's phone uploads, in its original resolution, and your ZIP contains those originals. Guests only see smaller previews in the shared album. (Some iPhones shrink videos themselves while uploading; that happens on the phone, before the file reaches us.)"
         },
         "duration": {
           "q": "How long are my photos kept?",
-          "a": "7 days on Free, 12 months on Standard and 24 months on Premium. We remind you by email well before anything is deleted."
+          "a": "Your album stays open until 7 days after the event. Download the full-quality ZIP in that time; we'll remind you by email before anything is deleted. After that, all photos and videos are permanently deleted, which keeps your guests' memories private."
         },
-        "refund": {
-          "q": "What if it's not right for me?",
-          "a": "If your album hasn't been used, you get your money back within 14 days, no questions asked."
+        "privacy": {
+          "q": "Who can see the photos?",
+          "a": "Only you, plus guests who have your link if you turn on the shared album. Albums are never public or listed on search engines, and everything is stored in the EU."
+        },
+        "video": {
+          "q": "Can guests upload videos?",
+          "a": "Yes. Standard allows videos up to 2 minutes each, Premium up to 5 minutes."
+        },
+        "limits": {
+          "q": "What happens when the album is full?",
+          "a": "Guests see a friendly message and you can upgrade from Standard to Premium in one click. Nothing already uploaded is lost."
         }
       }
     },
     "finalCta": {
       "title": "Don't miss a single moment of your day",
       "body": "Create your event in a minute. Your guests will take care of the rest.",
-      "cta": "Create your event for free",
-      "note": "Free for up to 25 photos · No credit card needed"
+      "cta": "Create your event",
+      "note": "Setup is free · You only pay when you open the album to guests"
     },
     "footer": {
       "tagline": "Every guest's photos and videos, in one private album, with one QR code.",

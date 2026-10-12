@@ -19,8 +19,8 @@ The seller is a German company, so Stripe is used directly (no merchant of recor
 - **Prices are tax-inclusive** (`tax_behavior: inclusive`) to satisfy PAngV.
 - **Withdrawal right (Widerrufsrecht):** checkout must collect explicit consent to
   immediate performance and acknowledgement of losing the 14-day withdrawal right;
-  stored in `orders.withdrawal_waiver_at`. The voluntary 14-day money-back
-  guarantee sits on top of this.
+  stored in `orders.withdrawal_waiver_at`. No voluntary money-back guarantee is
+  advertised (owner decision, see #16); the legal right is handled at checkout only.
 - **Invoices:** Stripe Checkout `invoice_creation` enabled.
 - **B2B:** optional VAT ID collection at checkout (reverse charge).
 - **Impressum:** `/legal/imprint` page is required (added in phase 1D, DRAFT).
@@ -54,7 +54,7 @@ event down (spec §7.6) without deleting evidence.
 Dark/light follows `prefers-color-scheme` only (no toggle, zero JS), so the guest
 page stays light. Tokens in `app/globals.css`, documented in `lib/design-tokens.md`.
 
-## 7. Retention start for paid plans
+## 7. Retention start for paid plans (superseded by #17)
 
 `expires_at = max(paid_at, event_date) + retention` so buying early doesn't eat
 into the gallery lifetime. (Spec said `paid_at + retention`.) Free plan unchanged:
@@ -96,6 +96,7 @@ admin one-click delete + suspend, audit log, reporting to the relevant authority
 (in Germany: BKA / jugendschutz.net). _Open:_ human sign-off.
 
 ## 14. Landing page built ahead of phase 1D (2026-10-12)
+
 At the owner's request the full landing page was built now, using 21st.dev for
 inspiration (previews of hero, steps, bento, gallery and pricing blocks) and one
 fetched component ("Receipt Tiers"), rewritten as a server component with CSS-only
@@ -104,8 +105,35 @@ reviews). Guest "photos" in the hero are illustrated gradients, not stock images
 SEO pages, legal pages and cookie consent remain in phase 1D.
 
 ## 15. Prices: Standard $29, Premium $49 (owner decision, 2026-10-12)
+
 Replaces the spec's $19 / $39. The pricing section shows only the two paid plans;
 the free plan stays as a trial strip below them (signup without a card is still the
 main acquisition path). Premium is the featured plan ("Best value", shown first on
 mobile). Limits are unchanged; all values live in `lib/plans.ts`.
 Hero imagery now uses real Unsplash-licensed photos (see `public/marketing/CREDITS.md`).
+
+## 16. No free plan, no money-back guarantee (owner decision, 2026-10-12)
+
+Creating an event, its settings and its QR code is free; guests can upload only
+after the host buys Standard or Premium (`events.plan` is null and `status` is
+`draft` until a paid order). The marketing site no longer advertises a refund
+guarantee. Initial migration regenerated (no production data existed).
+
+## 17. Retention: 7-day download window (owner decision, 2026-10-12)
+
+All media is kept until the end of the 7th day after the event date
+(`computeExpiresAt` in `lib/plans.ts`), then permanently deleted. Hosts download
+the full-quality ZIP in that window. `event_date` is therefore required.
+Reminder emails move to 3 days and 1 day before deletion (instead of 30/7 days).
+Plans now differ by capacity, video length and extras, not by retention.
+
+## 18. Original-quality storage at 5,000 items (analysis, 2026-10-12)
+
+Typical phone photo 3-6 MB, so 5,000 photos is about 20 GB, within Premium's
+50 GB cap. With the 7-day window the R2 storage cost of a full Premium event is
+well under $1 (plus ~15k PUT requests, ~$0.07; R2 egress is free), so originals
+are always stored untouched and the copy says "original quality".
+Follow-ups for phase 1B: the spec's 500 MB per-video cap is too small for 5-minute
+videos (1080p is ~100-130 MB/min, 4K far more) → raise to 2 GB per file and use
+multipart, resumable uploads for large files; ZIPs over ~4 GB are split into parts
+for browsers without File System Access support (Safari).

@@ -52,18 +52,18 @@
       "features": "Funktionen",
       "pricing": "Preise",
       "faq": "FAQ",
-      "cta": "Kostenlos starten"
+      "cta": "Event erstellen"
     },
     "hero": {
       "eyebrow": "Für Hochzeiten, Geburtstage und jedes Fest",
       "line1": "Scannen. Hochladen.",
       "line2": "Fertig.",
       "subhead": "Ein QR-Code auf dem Tisch, und die Fotos und Videos aller Gäste landen in deiner privaten Galerie. Keine App, kein Konto, direkt im Handy-Browser.",
-      "cta": "Event kostenlos erstellen",
+      "cta": "Event erstellen",
       "secondary": "So funktioniert's",
       "point1": "Keine App für Gäste",
       "point2": "Originale in voller Qualität",
-      "point3": "Kostenlos bis 25 Fotos"
+      "point3": "Einmalzahlung"
     },
     "demo": {
       "date": "Sa · 14. Juni",
@@ -109,7 +109,7 @@
       },
       "originals": {
         "title": "Originale in voller Qualität",
-        "body": "Lade alles als ZIP herunter: keine Komprimierung, keine Wasserzeichen."
+        "body": "Lade alles als ZIP herunter: Originalauflösung, keine Komprimierung, keine Wasserzeichen."
       },
       "print": {
         "title": "Druckfertige QR-Karten",
@@ -157,9 +157,9 @@
       }
     },
     "pricing": {
-      "eyebrow": "Preise",
-      "title": "Eine Zahlung. Alle Erinnerungen.",
-      "subtitle": "Kein Abo, keine Überraschungen auf der Rechnung. Einmal pro Event zahlen und jedes Foto deiner Gäste behalten.",
+      "eyebrow": "Einfache Preise",
+      "title": "Einmal zahlen. Jeden Moment behalten.",
+      "subtitle": "Kein Abo, keine versteckten Kosten. Eine Zahlung pro Event, und jedes Foto deiner Gäste gehört dir in voller Qualität.",
       "merchantLine": "EIN EVENT · EINE ZAHLUNG",
       "stamp": "Bester Wert",
       "billing": "ABRECHNUNG",
@@ -167,18 +167,14 @@
       "total": "GESAMT",
       "perGuest": "≈ {price} pro Gast bei {guests} Gästen",
       "thanks": "NR. {no} · DANKE",
-      "seal": "Geld-zurück-Garantie · 14 Tage · ",
-      "sealDays": "14T",
+      "seal": "Einmalzahlung · Kein Abo · Einmalzahlung · ",
       "trust": {
         "secure": "Sicher bezahlen mit Stripe",
-        "oneTime": "Einmalzahlung, kein Abo",
-        "guarantee": "14 Tage Geld-zurück-Garantie"
+        "oneTime": "Eine Zahlung, kein Abo",
+        "original": "Originalqualität, nie komprimiert",
+        "zip": "{days} Tage ZIP-Download"
       },
-      "trial": {
-        "title": "Erst mal ausprobieren?",
-        "body": "Starte kostenlos mit bis zu {photos} Fotos, {days} Tage gespeichert. Keine Karte nötig.",
-        "cta": "Kostenlos starten"
-      },
+      "howToPay": "Richte Event und QR-Code kostenlos ein. Wähle einen Plan, sobald deine Gäste hochladen sollen.",
       "footnote": "Preise in USD, an der Kasse in deiner Landeswährung angezeigt, inkl. MwSt.",
       "plans": {
         "standard": {
@@ -195,8 +191,8 @@
       "lines": {
         "items": "{count} Dateien · {gb} GB",
         "video": "Videos bis {minutes} Min.",
-        "retention": "{months} Monate gespeichert",
-        "zip": "ZIP in Originalqualität",
+        "original": "In Originalqualität gespeichert",
+        "zip": "ZIP-Download für {days} Tage",
         "templatesAll": "Alle QR-Vorlagen",
         "templatesCustom": "Vorlagen + eigene Farben",
         "slideshow": "Live-Diashow (bald)",
@@ -217,37 +213,37 @@
           "q": "Wie bekommen Gäste den Link?",
           "a": "Drucke den QR-Code auf Tischkarten oder ein Schild (wir haben fertige Vorlagen) oder teile den Link per Nachricht oder E-Mail."
         },
-        "privacy": {
-          "q": "Wer kann die Fotos sehen?",
-          "a": "Nur du und, wenn du die geteilte Galerie aktivierst, Gäste mit deinem Link. Galerien sind nie öffentlich, erscheinen nicht in Suchmaschinen und alles wird in der EU gespeichert."
+        "payment": {
+          "q": "Wann bezahle ich?",
+          "a": "Event erstellen und QR-Code erhalten ist kostenlos. Sobald deine Gäste hochladen sollen, wählst du Standard oder Premium und zahlst einmal. Kein Abo, nichts verlängert sich."
         },
         "quality": {
           "q": "Werden die Fotos komprimiert?",
-          "a": "Nein. Originale werden in voller Qualität gespeichert und du kannst alle als ZIP herunterladen. Gäste sehen nur kleinere Vorschauen."
-        },
-        "video": {
-          "q": "Können Gäste Videos hochladen?",
-          "a": "Ja, mit Standard (bis 2 Minuten pro Video) und Premium (bis 5 Minuten). Der Gratis-Plan ist nur für Fotos."
-        },
-        "limits": {
-          "q": "Was passiert, wenn das Album voll ist?",
-          "a": "Gäste sehen einen freundlichen Hinweis und du kannst mit einem Klick upgraden. Bereits Hochgeladenes geht nicht verloren."
+          "a": "Nie. Wir speichern genau die Datei, die das Handy jedes Gastes hochlädt, in Originalauflösung, und dein ZIP enthält diese Originale. Gäste sehen im gemeinsamen Album nur kleinere Vorschauen. (Manche iPhones verkleinern Videos beim Hochladen selbst; das passiert auf dem Handy, bevor die Datei bei uns ankommt.)"
         },
         "duration": {
           "q": "Wie lange werden meine Fotos gespeichert?",
-          "a": "7 Tage mit Gratis, 12 Monate mit Standard und 24 Monate mit Premium. Wir erinnern dich rechtzeitig per E-Mail, bevor etwas gelöscht wird."
+          "a": "Dein Album bleibt bis 7 Tage nach dem Event geöffnet. Lade in dieser Zeit das ZIP in Originalqualität herunter; wir erinnern dich per E-Mail, bevor etwas gelöscht wird. Danach werden alle Fotos und Videos endgültig gelöscht, damit die Erinnerungen deiner Gäste privat bleiben."
         },
-        "refund": {
-          "q": "Und wenn es nicht passt?",
-          "a": "Wurde dein Album nicht genutzt, bekommst du dein Geld innerhalb von 14 Tagen ohne Rückfragen zurück."
+        "privacy": {
+          "q": "Wer kann die Fotos sehen?",
+          "a": "Nur du und, wenn du das gemeinsame Album aktivierst, Gäste mit deinem Link. Alben sind nie öffentlich, erscheinen nicht in Suchmaschinen und alles wird in der EU gespeichert."
+        },
+        "video": {
+          "q": "Können Gäste Videos hochladen?",
+          "a": "Ja. Mit Standard bis 2 Minuten pro Video, mit Premium bis 5 Minuten."
+        },
+        "limits": {
+          "q": "Was passiert, wenn das Album voll ist?",
+          "a": "Gäste sehen einen freundlichen Hinweis und du kannst mit einem Klick von Standard auf Premium upgraden. Bereits Hochgeladenes geht nicht verloren."
         }
       }
     },
     "finalCta": {
       "title": "Verpasse keinen einzigen Moment deines Tages",
       "body": "Erstelle dein Event in einer Minute. Den Rest erledigen deine Gäste.",
-      "cta": "Event kostenlos erstellen",
-      "note": "Kostenlos bis 25 Fotos · Keine Kreditkarte nötig"
+      "cta": "Event erstellen",
+      "note": "Einrichten ist kostenlos · Du zahlst erst, wenn du das Album für Gäste öffnest"
     },
     "footer": {
       "tagline": "Die Fotos und Videos aller Gäste, in einem privaten Album, mit einem QR-Code.",

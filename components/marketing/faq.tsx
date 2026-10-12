@@ -10,12 +10,12 @@ import { SectionHeading } from "./section-heading";
 const keys = [
   "app",
   "how",
-  "privacy",
+  "payment",
   "quality",
+  "duration",
+  "privacy",
   "video",
   "limits",
-  "duration",
-  "refund",
 ] as const;
 
 export async function Faq() {

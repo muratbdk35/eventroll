@@ -1,0 +1,32 @@
+import { describe, expect, it } from "vitest";
+import { computeExpiresAt, DOWNLOAD_WINDOW_DAYS, plans } from "@/lib/plans";
+
+describe("plans", () => {
+  it("has the owner-approved prices", () => {
+    expect(plans.standard.priceUsd).toBe(29);
+    expect(plans.premium.priceUsd).toBe(49);
+  });
+
+  it("premium is strictly larger than standard", () => {
+    expect(plans.premium.maxItems).toBeGreaterThan(plans.standard.maxItems);
+    expect(plans.premium.maxBytes).toBeGreaterThan(plans.standard.maxBytes);
+    expect(plans.premium.maxVideoSeconds).toBeGreaterThan(
+      plans.standard.maxVideoSeconds,
+    );
+  });
+});
+
+describe("computeExpiresAt", () => {
+  it("keeps media until the end of the download window after the event", () => {
+    expect(DOWNLOAD_WINDOW_DAYS).toBe(7);
+    expect(computeExpiresAt("2026-06-14").toISOString()).toBe(
+      "2026-06-21T23:59:59.999Z",
+    );
+  });
+
+  it("handles month and year boundaries", () => {
+    expect(computeExpiresAt("2026-12-28").toISOString()).toBe(
+      "2027-01-04T23:59:59.999Z",
+    );
+  });
+});

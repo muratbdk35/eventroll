@@ -2,8 +2,9 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-/* Dark mode follows the OS setting: zero JS, works on the guest page too. */
-@custom-variant dark (@media (prefers-color-scheme: dark));
+/* Light theme by default (owner decision). Dark tokens apply only under a
+   `.dark` class, kept for a possible opt-in later. */
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
@@ -56,23 +57,23 @@
  * Primary on white and white on primary both meet WCAG AA for body text.
  */
 :root {
-  --background: oklch(0.985 0.006 75);
+  --background: oklch(0.993 0.004 80);
   --foreground: oklch(0.23 0.02 40);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.23 0.02 40);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.23 0.02 40);
-  --primary: oklch(0.55 0.16 38);
+  --primary: oklch(0.57 0.175 38);
   --primary-foreground: oklch(0.99 0.004 75);
-  --secondary: oklch(0.95 0.018 70);
+  --secondary: oklch(0.965 0.016 70);
   --secondary-foreground: oklch(0.28 0.03 40);
-  --muted: oklch(0.955 0.01 70);
-  --muted-foreground: oklch(0.5 0.02 45);
-  --accent: oklch(0.93 0.04 60);
+  --muted: oklch(0.965 0.008 70);
+  --muted-foreground: oklch(0.52 0.02 45);
+  --accent: oklch(0.945 0.035 55);
   --accent-foreground: oklch(0.3 0.05 40);
   --destructive: oklch(0.55 0.21 25);
   --success: oklch(0.55 0.13 155);
-  --border: oklch(0.9 0.012 65);
+  --border: oklch(0.915 0.01 65);
   --input: oklch(0.88 0.014 65);
   --ring: oklch(0.62 0.15 40);
   --chart-1: oklch(0.62 0.16 38);
@@ -91,8 +92,8 @@
   --sidebar-ring: oklch(0.62 0.15 40);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
+.dark {
+  & {
     color-scheme: dark;
     --background: oklch(0.17 0.012 45);
     --foreground: oklch(0.95 0.008 70);

@@ -1,5 +1,5 @@
 {
-  "id": "4bdb4f6a-7dfd-422d-b7ff-ea87229a4090",
+  "id": "1bf7f030-fe10-4d95-83e4-3e5fa58d95ef",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -145,7 +145,7 @@
           "name": "event_date",
           "type": "date",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "locale": {
           "name": "locale",
@@ -159,8 +159,7 @@
           "type": "plan",
           "typeSchema": "public",
           "primaryKey": false,
-          "notNull": true,
-          "default": "'free'"
+          "notNull": false
         },
         "status": {
           "name": "status",
@@ -168,7 +167,7 @@
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": true,
-          "default": "'active'"
+          "default": "'draft'"
         },
         "upload_opens_at": {
           "name": "upload_opens_at",
@@ -1255,7 +1254,6 @@
       "name": "plan",
       "schema": "public",
       "values": [
-        "free",
         "standard",
         "premium"
       ]

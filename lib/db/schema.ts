@@ -32,7 +32,8 @@ export const eventType = pgEnum("event_type", [
   "party",
   "other",
 ]);
-export const plan = pgEnum("plan", ["free", "standard", "premium"]);
+// No free plan (DECISIONS #16): events.plan stays null until a purchase.
+export const plan = pgEnum("plan", ["standard", "premium"]);
 // "suspended" extends the spec's list so admins can take an event down (DECISIONS.md #5).
 export const eventStatus = pgEnum("event_status", [
   "draft",
@@ -81,12 +82,13 @@ export const events = pgTable(
     slug: text().notNull().unique(),
     name: text().notNull(),
     type: eventType().notNull().default("other"),
-    eventDate: date({ mode: "string" }),
+    eventDate: date({ mode: "string" }).notNull(),
     locale: text().notNull().default("en"),
-    plan: plan().notNull().default("free"),
-    status: eventStatus().notNull().default("active"),
+    plan: plan(),
+    status: eventStatus().notNull().default("draft"),
     uploadOpensAt: timestamp(tz),
     uploadClosesAt: timestamp(tz),
+    // eventDate + DOWNLOAD_WINDOW_DAYS (lib/plans.ts)
     expiresAt: timestamp(tz).notNull(),
     guestsCanView: boolean().notNull().default(true),
     requireName: boolean().notNull().default(false),

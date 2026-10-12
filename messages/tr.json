@@ -52,18 +52,18 @@
       "features": "Özellikler",
       "pricing": "Fiyatlar",
       "faq": "SSS",
-      "cta": "Ücretsiz başla"
+      "cta": "Etkinlik oluştur"
     },
     "hero": {
       "eyebrow": "Düğünler, doğum günleri ve tüm buluşmalar için",
       "line1": "Okut. Yükle.",
       "line2": "Bitti.",
       "subhead": "Masada tek bir QR kod; misafirlerin tüm fotoğraf ve videoları senin özel galerine düşer. Uygulama yok, hesap yok, doğrudan telefonun tarayıcısından.",
-      "cta": "Etkinliğini ücretsiz oluştur",
+      "cta": "Etkinliğini oluştur",
       "secondary": "Nasıl çalışır?",
       "point1": "Misafire uygulama yok",
       "point2": "Orijinal kalite",
-      "point3": "25 fotoğrafa kadar ücretsiz"
+      "point3": "Tek seferlik ödeme"
     },
     "demo": {
       "date": "Cmt · 14 Haziran",
@@ -109,7 +109,7 @@
       },
       "originals": {
         "title": "Orijinal kalite",
-        "body": "Hepsini ZIP olarak indir: sıkıştırma yok, filigran yok."
+        "body": "Hepsini ZIP olarak indir: orijinal çözünürlük, sıkıştırma yok, filigran yok."
       },
       "print": {
         "title": "Baskıya hazır QR kartları",
@@ -157,9 +157,9 @@
       }
     },
     "pricing": {
-      "eyebrow": "Fiyatlar",
-      "title": "Tek ödeme. Tüm anılar.",
-      "subtitle": "Abonelik yok, faturada sürpriz yok. Etkinlik başına bir kez öde, misafirlerinin çektiği her kareyi sakla.",
+      "eyebrow": "Basit fiyatlandırma",
+      "title": "Bir kez öde. Her anı sakla.",
+      "subtitle": "Abonelik yok, gizli ücret yok. Etkinlik başına tek ödeme; misafirlerinin çektiği her kare orijinal kalitesiyle senin.",
       "merchantLine": "TEK ETKİNLİK · TEK ÖDEME",
       "stamp": "En iyi değer",
       "billing": "ÖDEME",
@@ -167,18 +167,14 @@
       "total": "TOPLAM",
       "perGuest": "{guests} misafirde kişi başı ≈ {price}",
       "thanks": "NO. {no} · TEŞEKKÜRLER",
-      "seal": "Para iade garantisi · 14 gün · ",
-      "sealDays": "14g",
+      "seal": "Tek seferlik ödeme · Abonelik yok · ",
       "trust": {
         "secure": "Stripe ile güvenli ödeme",
-        "oneTime": "Tek seferlik ödeme, abonelik yok",
-        "guarantee": "14 gün para iade garantisi"
+        "oneTime": "Tek ödeme, abonelik yok",
+        "original": "Orijinal kalite, asla sıkıştırılmaz",
+        "zip": "{days} gün tam ZIP indirme"
       },
-      "trial": {
-        "title": "Önce denemek mi istiyorsun?",
-        "body": "{photos} fotoğrafa kadar ücretsiz başla, {days} gün saklanır. Kart gerekmez.",
-        "cta": "Ücretsiz başla"
-      },
+      "howToPay": "Etkinliğini ve QR kodunu ücretsiz hazırla. Misafirler yüklemeye başlamadan önce planını seç.",
       "footnote": "Fiyatlar USD cinsindendir; ödeme sırasında yerel para biriminde, KDV dahil gösterilir.",
       "plans": {
         "standard": {
@@ -195,8 +191,8 @@
       "lines": {
         "items": "{count} öğe · {gb} GB",
         "video": "{minutes} dk'ya kadar video",
-        "retention": "{months} ay saklanır",
-        "zip": "Orijinal kalitede ZIP",
+        "original": "Orijinal kalitede saklama",
+        "zip": "{days} gün ZIP indirme",
         "templatesAll": "Tüm QR şablonları",
         "templatesCustom": "Şablonlar + kendi renklerin",
         "slideshow": "Canlı slayt (yakında)",
@@ -217,37 +213,37 @@
           "q": "Misafirler linke nasıl ulaşır?",
           "a": "QR kodu masa kartlarına ya da bir tabelaya yazdır (hazır şablonlarımız var) veya linki mesajla ya da e-postayla paylaş."
         },
-        "privacy": {
-          "q": "Fotoğrafları kim görebilir?",
-          "a": "Sadece sen; paylaşımlı galeriyi açarsan linke sahip misafirler de. Galeriler asla herkese açık değildir, arama motorlarında listelenmez ve her şeyi AB'de saklarız."
+        "payment": {
+          "q": "Ödemeyi ne zaman yaparım?",
+          "a": "Etkinliğini oluşturmak ve QR kodunu almak ücretsiz. Misafirlerin yüklemeye başlamasına hazır olduğunda Standart ya da Premium'u seçip bir kez ödersin. Abonelik yok, hiçbir şey yenilenmez."
         },
         "quality": {
           "q": "Fotoğraflar sıkıştırılıyor mu?",
-          "a": "Hayır. Orijinaller tam kalitede saklanır ve hepsini ZIP olarak indirebilirsin. Misafirler sadece küçük önizlemeleri görür."
-        },
-        "video": {
-          "q": "Misafirler video yükleyebilir mi?",
-          "a": "Evet; Standart'ta video başına 2 dakikaya, Premium'da 5 dakikaya kadar. Ücretsiz plan sadece fotoğraf içindir."
-        },
-        "limits": {
-          "q": "Albüm dolarsa ne olur?",
-          "a": "Misafirler nazik bir mesaj görür, sen de tek tıkla planını yükseltebilirsin. Daha önce yüklenen hiçbir şey kaybolmaz."
+          "a": "Asla. Her misafirin telefonunun yüklediği dosyayı orijinal çözünürlüğüyle olduğu gibi saklarız; ZIP'in de bu orijinalleri içerir. Misafirler ortak albümde sadece küçük önizlemeleri görür. (Bazı iPhone'lar videoları yükleme sırasında kendileri küçültebilir; bu, dosya bize ulaşmadan telefonda olur.)"
         },
         "duration": {
           "q": "Fotoğraflarım ne kadar saklanır?",
-          "a": "Ücretsiz'de 7 gün, Standart'ta 12 ay, Premium'da 24 ay. Herhangi bir şey silinmeden çok önce sana e-postayla hatırlatırız."
+          "a": "Albümün etkinlikten sonraki 7. günün sonuna kadar açık kalır. Bu sürede orijinal kalitedeki ZIP'i indir; silinmeden önce sana e-postayla hatırlatırız. Sonrasında tüm fotoğraf ve videolar kalıcı olarak silinir, böylece misafirlerinin anıları gizli kalır."
         },
-        "refund": {
-          "q": "Bana uygun olmazsa?",
-          "a": "Albümün kullanılmadıysa 14 gün içinde paranı soru sormadan iade ederiz."
+        "privacy": {
+          "q": "Fotoğrafları kim görebilir?",
+          "a": "Sadece sen; ortak albümü açarsan linke sahip misafirler de. Albümler asla herkese açık değildir, arama motorlarında listelenmez ve her şey AB'de saklanır."
+        },
+        "video": {
+          "q": "Misafirler video yükleyebilir mi?",
+          "a": "Evet. Standart'ta video başına 2 dakikaya, Premium'da 5 dakikaya kadar."
+        },
+        "limits": {
+          "q": "Albüm dolarsa ne olur?",
+          "a": "Misafirler nazik bir mesaj görür, sen de tek tıkla Standart'tan Premium'a geçebilirsin. Daha önce yüklenen hiçbir şey kaybolmaz."
         }
       }
     },
     "finalCta": {
       "title": "Gününün tek bir anını bile kaçırma",
       "body": "Etkinliğini bir dakikada oluştur. Gerisini misafirlerin halleder.",
-      "cta": "Etkinliğini ücretsiz oluştur",
-      "note": "25 fotoğrafa kadar ücretsiz · Kredi kartı gerekmez"
+      "cta": "Etkinliğini oluştur",
+      "note": "Kurulum ücretsiz · Sadece albümü misafirlere açarken ödersin"
     },
     "footer": {
       "tagline": "Tüm misafirlerin fotoğraf ve videoları, tek bir özel albümde, tek bir QR kodla.",

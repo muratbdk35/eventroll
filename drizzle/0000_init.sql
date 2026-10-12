@@ -4,7 +4,7 @@ CREATE TYPE "public"."guest_message_status" AS ENUM('visible', 'hidden', 'delete
 CREATE TYPE "public"."media_kind" AS ENUM('photo', 'video');--> statement-breakpoint
 CREATE TYPE "public"."media_status" AS ENUM('pending', 'ready', 'hidden', 'deleted');--> statement-breakpoint
 CREATE TYPE "public"."order_status" AS ENUM('pending', 'paid', 'refunded', 'failed');--> statement-breakpoint
-CREATE TYPE "public"."plan" AS ENUM('free', 'standard', 'premium');--> statement-breakpoint
+CREATE TYPE "public"."plan" AS ENUM('standard', 'premium');--> statement-breakpoint
 CREATE TYPE "public"."report_reason" AS ENUM('inappropriate', 'illegal', 'privacy', 'other');--> statement-breakpoint
 CREATE TYPE "public"."report_status" AS ENUM('open', 'actioned', 'dismissed');--> statement-breakpoint
 CREATE TABLE "email_log" (
@@ -22,10 +22,10 @@ CREATE TABLE "events" (
 	"slug" text NOT NULL,
 	"name" text NOT NULL,
 	"type" "event_type" DEFAULT 'other' NOT NULL,
-	"event_date" date,
+	"event_date" date NOT NULL,
 	"locale" text DEFAULT 'en' NOT NULL,
-	"plan" "plan" DEFAULT 'free' NOT NULL,
-	"status" "event_status" DEFAULT 'active' NOT NULL,
+	"plan" "plan",
+	"status" "event_status" DEFAULT 'draft' NOT NULL,
 	"upload_opens_at" timestamp with time zone,
 	"upload_closes_at" timestamp with time zone,
 	"expires_at" timestamp with time zone NOT NULL,
