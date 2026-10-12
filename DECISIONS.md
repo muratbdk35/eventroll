@@ -180,3 +180,8 @@ as shown: create form (name, date, type), share tab (QR, copy link, PNG/SVG),
 settings (PIN, upload hours, per-phone limit), dashboard (photo count, guest count =
 distinct devices, ZIP download), guest page (own uploads only, privacy line, success
 toast), printed card with optional PIN line.
+
+## 23. "Album ready" email with a download button (owner decision, 2026-10-12)
+The ZIP is never attached (albums are GBs). When the event ends, the host gets an
+email with a one-click button to the signed-in download page, where the ZIP is
+built in the browser. Reminders 3 days and 1 day before deletion.
