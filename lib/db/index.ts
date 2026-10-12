@@ -21,6 +21,13 @@ async function createDb(): Promise<Database> {
     const isBuild = process.env.NEXT_PHASE === "phase-production-build";
     const dir = isBuild ? "memory" : env.DATABASE_URL.slice("pglite:".length);
     const client = dir === "memory" ? new PGlite() : new PGlite(dir);
+    // Close cleanly on Ctrl+C / kill, otherwise the on-disk data can be corrupted.
+    // If it ever is: stop the dev server and delete the .pglite directory.
+    for (const signal of ["SIGINT", "SIGTERM"] as const) {
+      process.once(signal, () => {
+        void client.close().finally(() => process.exit(0));
+      });
+    }
     const pgliteDb = drizzlePglite({ client, schema, casing: "snake_case" });
     await migrate(pgliteDb, { migrationsFolder: "drizzle" });
     return pgliteDb as unknown as Database;
