@@ -89,9 +89,11 @@ export const events = pgTable(
     uploadClosesAt: timestamp(tz),
     // eventDate + DOWNLOAD_WINDOW_DAYS (lib/plans.ts)
     expiresAt: timestamp(tz).notNull(),
-    guestsCanView: boolean().notNull().default(true),
     requireName: boolean().notNull().default(false),
+    // Guest access controls (DECISIONS #21): optional PIN, upload window above,
+    // and a per-device photo cap (null = unlimited).
     accessPinHash: text(),
+    maxUploadsPerDevice: integer(),
     coverKey: text(),
     storageBytes: bigint({ mode: "number" }).notNull().default(0),
     mediaCount: integer().notNull().default(0),
@@ -122,12 +124,15 @@ export const media = pgTable(
     width: integer(),
     height: integer(),
     uploaderName: text(),
+    // Event-scoped random device id from the signed guest cookie.
+    deviceId: text(),
     uploaderFingerprint: text(),
     status: mediaStatus().notNull().default("pending"),
     createdAt: createdAt(),
   },
   (t) => [
     index("media_event_id_created_at_idx").on(t.eventId, t.createdAt),
+    index("media_event_id_device_id_idx").on(t.eventId, t.deviceId),
     index("media_status_created_at_idx").on(t.status, t.createdAt),
   ],
 );

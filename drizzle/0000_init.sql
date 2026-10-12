@@ -28,9 +28,9 @@ CREATE TABLE "events" (
 	"upload_opens_at" timestamp with time zone,
 	"upload_closes_at" timestamp with time zone,
 	"expires_at" timestamp with time zone NOT NULL,
-	"guests_can_view" boolean DEFAULT true NOT NULL,
 	"require_name" boolean DEFAULT false NOT NULL,
 	"access_pin_hash" text,
+	"max_uploads_per_device" integer,
 	"cover_key" text,
 	"storage_bytes" bigint DEFAULT 0 NOT NULL,
 	"media_count" integer DEFAULT 0 NOT NULL,
@@ -59,6 +59,7 @@ CREATE TABLE "media" (
 	"width" integer,
 	"height" integer,
 	"uploader_name" text,
+	"device_id" text,
 	"uploader_fingerprint" text,
 	"status" "media_status" DEFAULT 'pending' NOT NULL,
 	"created_at" timestamp with time zone DEFAULT now() NOT NULL
@@ -157,6 +158,7 @@ CREATE INDEX "events_owner_id_idx" ON "events" USING btree ("owner_id");--> stat
 CREATE INDEX "events_status_expires_at_idx" ON "events" USING btree ("status","expires_at");--> statement-breakpoint
 CREATE INDEX "guest_messages_event_id_idx" ON "guest_messages" USING btree ("event_id");--> statement-breakpoint
 CREATE INDEX "media_event_id_created_at_idx" ON "media" USING btree ("event_id","created_at");--> statement-breakpoint
+CREATE INDEX "media_event_id_device_id_idx" ON "media" USING btree ("event_id","device_id");--> statement-breakpoint
 CREATE INDEX "media_status_created_at_idx" ON "media" USING btree ("status","created_at");--> statement-breakpoint
 CREATE INDEX "orders_event_id_idx" ON "orders" USING btree ("event_id");--> statement-breakpoint
 CREATE INDEX "reports_status_created_at_idx" ON "reports" USING btree ("status","created_at");--> statement-breakpoint

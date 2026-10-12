@@ -50,23 +50,21 @@ export async function PricingReceipts() {
       maximumFractionDigits: digits,
     });
 
-  const lines = (id: PlanId): string[] => {
+  // Receipt rows: label ........ value. Only capacity and template colours differ.
+  const rows = (id: PlanId): [string, string][] => {
     const p = plans[id];
-    const out = [
-      t("lines.items", {
-        count: format.number(p.maxItems),
-        gb: p.maxBytes / 1024 ** 3,
-      }),
-      t("lines.original"),
-      t("lines.zip", { days: DOWNLOAD_WINDOW_DAYS }),
-      p.customColors ? t("lines.templatesCustom") : t("lines.templatesAll"),
+    return [
+      [t("rows.photos"), format.number(p.maxItems)],
+      [t("rows.storage"), `${p.maxBytes / 1024 ** 3} GB`],
+      [t("rows.quality"), t("values.original")],
+      [t("rows.zip"), t("values.days", { days: DOWNLOAD_WINDOW_DAYS })],
+      [t("rows.pin"), "✓"],
+      [t("rows.uploadRules"), "✓"],
+      [
+        t("rows.templates"),
+        p.customColors ? t("values.customColors") : t("values.ready"),
+      ],
     ];
-    if (p.liveSlideshow) out.push(t("lines.slideshow"));
-    if (p.removeBranding) out.push(t("lines.removeBranding"));
-    out.push(
-      p.prioritySupport ? t("lines.prioritySupport") : t("lines.support"),
-    );
-    return out;
   };
 
   const trust = [
@@ -153,15 +151,20 @@ export async function PricingReceipts() {
                   </p>
                   <Rule />
                   <ul className="space-y-1.5">
-                    {lines(id).map((line) => (
-                      <li key={line} className="flex items-baseline gap-2">
-                        <span className="min-w-0 shrink">{upper(line)}</span>
+                    {rows(id).map(([label, value]) => (
+                      <li key={label} className="flex items-baseline gap-2">
+                        <span className="min-w-0 shrink">{upper(label)}</span>
                         <span
                           aria-hidden
                           className="mb-1 min-w-3 flex-1 border-b border-dotted border-border"
                         />
-                        <span className="shrink-0 font-bold text-primary">
-                          ✓
+                        <span
+                          className={cn(
+                            "shrink-0 font-bold",
+                            value === "✓" && "text-primary",
+                          )}
+                        >
+                          {upper(value)}
                         </span>
                       </li>
                     ))}

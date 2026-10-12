@@ -1,10 +1,7 @@
 import { publicEnv } from "@/lib/public-env";
 import { cn } from "@/lib/utils";
 
-/**
- * EventRoll mark: a QR "finder eye" that doubles as a camera lens, with a
- * small spark for the moment it captures. Original artwork.
- */
+/** EventRoll "ER" monogram: two overlapping letters in a seal. Original artwork. */
 export function LogoMark({ className }: { className?: string }) {
   return (
     <svg
@@ -12,29 +9,19 @@ export function LogoMark({ className }: { className?: string }) {
       aria-hidden="true"
       className={cn("size-8", className)}
     >
-      <rect width="32" height="32" rx="9.5" className="fill-primary" />
-      <rect
-        x="7.5"
-        y="7.5"
-        width="17"
-        height="17"
-        rx="5.5"
+      <circle cx="16" cy="16" r="16" fill="oklch(0.25 0.02 40)" />
+      <g
         fill="none"
-        stroke="white"
-        strokeWidth="3"
-      />
-      <rect
-        x="12.75"
-        y="12.75"
-        width="6.5"
-        height="6.5"
-        rx="2.2"
-        fill="white"
-      />
-      <path
-        d="M26.2 3.2c.25 1.6.95 2.3 2.6 2.6-1.65.3-2.35 1-2.6 2.6-.25-1.6-.95-2.3-2.6-2.6 1.65-.3 2.35-1 2.6-2.6Z"
-        fill="oklch(0.93 0.07 75)"
-      />
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2.6"
+      >
+        <path d="M14.6 9.5H9.6v13h5M9.6 16h4.2" stroke="white" />
+        <path
+          d="M16.9 22.5v-13h3.4a3.4 3.4 0 0 1 0 6.8h-3.4M20 16.3l3.7 6.2"
+          stroke="oklch(0.74 0.15 45)"
+        />
+      </g>
     </svg>
   );
 }

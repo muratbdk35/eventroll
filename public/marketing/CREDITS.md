@@ -14,3 +14,6 @@ All photos are from Unsplash under the Unsplash License
 | arch-night.jpg | https://unsplash.com/photos/Jx5QwP9Rlog |
 | sparklers.jpg | https://unsplash.com/photos/Np1nSXAOTXE |
 | confetti.jpg | https://unsplash.com/photos/-ufMDkBOwGY |
+| birthday-candles.jpg | https://unsplash.com/photos/ETGJjk9o-48 |
+| graduation.jpg | https://unsplash.com/photos/_kd5cxwZOK4 |
+| baby-balloons.jpg | https://unsplash.com/photos/JW9BZXx5-sI |

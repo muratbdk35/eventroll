@@ -1,3 +1,4 @@
+import { Check } from "lucide-react";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { PhoneGallery } from "./phone-gallery";
@@ -37,15 +38,17 @@ export async function HeroVisual() {
       <div className="relative z-10">
         <PhoneGallery />
         {/* live notification */}
-        <div className="demo-notify absolute -end-6 top-24 z-20 flex w-56 items-center gap-3 rounded-2xl border border-border/60 bg-card/90 p-3 shadow-xl backdrop-blur-md sm:-end-24">
-          <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[oklch(0.75_0.12_50)] to-primary text-sm font-bold text-white">
-            M
+        <div className="demo-notify absolute -end-4 bottom-28 z-20 flex w-56 items-center gap-3 rounded-2xl border border-border/60 bg-card/90 p-3 shadow-xl backdrop-blur-md sm:-end-28">
+          <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-success text-white">
+            <Check className="size-5" strokeWidth={3} />
           </span>
           <div className="min-w-0 text-start">
             <p className="truncate text-[13px] font-semibold">
-              {t("notifyTitle", { name: "Mert", count: 12 })}
+              {t("notifyTitle", { count: 12 })}
             </p>
-            <p className="text-[11px] text-muted-foreground">{t("now")}</p>
+            <p className="text-[11px] text-muted-foreground">
+              {t("notifyBody")}
+            </p>
           </div>
         </div>
       </div>

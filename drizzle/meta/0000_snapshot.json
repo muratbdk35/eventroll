@@ -1,5 +1,5 @@
 {
-  "id": "bcf1edd2-b0f2-45f9-a7ed-b5c9cdf6dfdf",
+  "id": "11129da2-8614-4769-8375-860c6136f20e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -187,13 +187,6 @@
           "primaryKey": false,
           "notNull": true
         },
-        "guests_can_view": {
-          "name": "guests_can_view",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": true,
-          "default": true
-        },
         "require_name": {
           "name": "require_name",
           "type": "boolean",
@@ -204,6 +197,12 @@
         "access_pin_hash": {
           "name": "access_pin_hash",
           "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "max_uploads_per_device": {
+          "name": "max_uploads_per_device",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false
         },
@@ -457,6 +456,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "device_id": {
+          "name": "device_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
         "uploader_fingerprint": {
           "name": "uploader_fingerprint",
           "type": "text",
@@ -491,6 +496,27 @@
             },
             {
               "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "media_event_id_device_id_idx": {
+          "name": "media_event_id_device_id_idx",
+          "columns": [
+            {
+              "expression": "event_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "device_id",
               "isExpression": false,
               "asc": true,
               "nulls": "last"

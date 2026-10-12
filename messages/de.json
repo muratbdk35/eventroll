@@ -4,7 +4,7 @@
   },
   "Metadata": {
     "title": "{appName} — Alle Gästefotos mit einem QR-Code sammeln",
-    "description": "Gäste scannen einen QR-Code und laden ihre Fotos vom Handy hoch. Keine App, keine Anmeldung. Alle Fotos in Originalqualität in einem privaten Album."
+    "description": "Gäste scannen einen QR-Code und laden ihre Fotos vom Handy hoch. Keine App, keine Anmeldung. Alle Fotos in Originalqualität in deinem privaten Album."
   },
   "Nav": {
     "login": "Anmelden",
@@ -69,13 +69,15 @@
       "date": "Sa · 14. Juni",
       "eventName": "Elif & Can",
       "button": "Fotos hinzufügen",
-      "album": "Gemeinsames Album",
+      "mine": "Deine Uploads",
       "count": "{count} Fotos",
-      "notifyTitle": "{name} hat {count} Fotos hinzugefügt",
-      "now": "gerade eben",
+      "notifyTitle": "{count} Fotos hochgeladen",
+      "notifyBody": "Direkt an das Brautpaar",
+      "privacy": "Nur Elif & Can sehen deine Fotos.",
       "photoBy": "von {name} · {time}",
       "qrTitle": "Teile deine Fotos mit uns",
-      "qrBody": "Scannen · Hochladen · Fertig"
+      "qrBody": "Scannen · Hochladen · Fertig",
+      "pin": "PIN 2468"
     },
     "steps": {
       "eyebrow": "So funktioniert's",
@@ -92,6 +94,15 @@
       "collect": {
         "title": "Erinnerungen sammeln",
         "body": "Gäste scannen und laden hoch. Du siehst alles live und lädst alles mit einem Klick herunter."
+      },
+      "mock": {
+        "name": "Eventname",
+        "date": "Datum",
+        "dateValue": "14. Juni 2026",
+        "pin": "PIN",
+        "photos": "{count} Fotos",
+        "guests": "{count} Gäste",
+        "zip": "ZIP herunterladen"
       }
     },
     "features": {
@@ -106,7 +117,7 @@
       },
       "private": {
         "title": "Standardmäßig privat",
-        "body": "Nur wer deinen Link hat, kann hochladen. Deine Galerie ist nie öffentlich und wird nicht indexiert."
+        "body": "Nur du siehst die Fotos. Gäste sehen nur ihre eigenen Uploads, nichts ist öffentlich oder wird indexiert."
       },
       "originals": {
         "title": "Originale in voller Qualität",
@@ -116,10 +127,6 @@
         "title": "Druckfertige QR-Karten",
         "body": "Tischkarten, Schilder und Plakate, die du personalisieren und zu Hause drucken kannst."
       },
-      "gallery": {
-        "title": "Geteilt oder nur für dich",
-        "body": "Lass Gäste im Album stöbern oder behalte es für dich. Jederzeit änderbar."
-      },
       "languages": {
         "title": "Spricht die Sprache deiner Gäste",
         "body": "Die Gästeseite öffnet sich automatisch auf Deutsch, Englisch oder Türkisch, weitere Sprachen folgen."
@@ -127,6 +134,15 @@
       "guests": {
         "title": "Jeder Gast kann mitmachen",
         "body": "Keine Begrenzung bei Gästen. Alle auf deinem Event können Fotos hinzufügen; dein Plan bestimmt nur die Gesamtgröße des Albums."
+      },
+      "control": {
+        "title": "Du behältst die Kontrolle",
+        "body": "Schütze Uploads mit einer PIN, lege fest, wann Uploads möglich sind, und begrenze, wie viele Fotos jedes Handy hinzufügen kann.",
+        "mock": {
+          "pin": "PIN-Schutz",
+          "hours": "Upload-Zeiten",
+          "limit": "Fotos pro Handy"
+        }
       }
     },
     "eventTypes": {
@@ -155,7 +171,8 @@
       "party": {
         "title": "Jede Party",
         "body": "Treffen, Festivals, Feiertage."
-      }
+      },
+      "subtitle": "Egal was du feierst, deine Gäste haben die beste Kamera schon in der Tasche."
     },
     "pricing": {
       "eyebrow": "Einfache Preise",
@@ -184,20 +201,24 @@
         },
         "premium": {
           "name": "Premium",
-          "tagline": "Für große Tage und Live-Diashow",
+          "tagline": "Für große Hochzeiten und volle Events",
           "cta": "Premium holen"
         }
       },
-      "lines": {
-        "items": "{count} Dateien · {gb} GB",
-        "original": "In Originalqualität gespeichert",
-        "zip": "ZIP-Download für {days} Tage",
-        "templatesAll": "Alle QR-Vorlagen",
-        "templatesCustom": "Vorlagen + eigene Farben",
-        "slideshow": "Live-Diashow (bald)",
-        "removeBranding": "Ohne EventRoll-Branding",
-        "support": "E-Mail-Support",
-        "prioritySupport": "Priorisierter Support"
+      "rows": {
+        "photos": "Fotos",
+        "storage": "Speicher",
+        "quality": "Qualität",
+        "zip": "ZIP-Download",
+        "pin": "PIN-Schutz",
+        "uploadRules": "Upload-Zeiten & Limits",
+        "templates": "QR-Vorlagen"
+      },
+      "values": {
+        "original": "Original",
+        "days": "{days} Tage",
+        "ready": "Fertig",
+        "customColors": "Eigene Farben"
       }
     },
     "faq": {
@@ -218,7 +239,7 @@
         },
         "quality": {
           "q": "Werden die Fotos komprimiert?",
-          "a": "Nie. Wir speichern genau die Datei, die das Handy jedes Gastes hochlädt, in Originalauflösung, und dein ZIP enthält diese Originale. Gäste sehen im gemeinsamen Album nur kleinere Vorschauen."
+          "a": "Nie. Wir speichern genau die Datei, die das Handy jedes Gastes hochlädt, in Originalauflösung, und dein ZIP enthält diese Originale."
         },
         "duration": {
           "q": "Wie lange werden meine Fotos gespeichert?",
@@ -226,7 +247,7 @@
         },
         "privacy": {
           "q": "Wer kann die Fotos sehen?",
-          "a": "Nur du und, wenn du das gemeinsame Album aktivierst, Gäste mit deinem Link. Alben sind nie öffentlich, erscheinen nicht in Suchmaschinen und alles wird in der EU gespeichert."
+          "a": "Nur du. Jeder Gast sieht nur die Fotos, die er selbst von seinem Handy hochgeladen hat. Nichts ist öffentlich oder in Suchmaschinen gelistet, und alles wird in der EU gespeichert."
         },
         "limits": {
           "q": "Was passiert, wenn das Album voll ist?",
@@ -235,6 +256,10 @@
         "guests": {
           "q": "Gibt es eine Begrenzung bei Gästen?",
           "a": "Nein. Beliebig viele Gäste können hochladen. Dein Plan begrenzt nur die Gesamtzahl der Fotos im Album: 1.500 mit Standard, 5.000 mit Premium."
+        },
+        "misuse": {
+          "q": "Was, wenn mein QR-Code in falsche Hände gerät?",
+          "a": "Füge eine PIN hinzu, die nur deine Gäste kennen (z. B. auf der Tischkarte), beschränke Uploads auf die Zeit deines Events und begrenze die Fotos pro Handy. Zusammen mit unserem Bot-Schutz nützt ein geleakter QR-Code Fremden nichts."
         }
       }
     },
@@ -242,7 +267,7 @@
       "title": "Verpasse keinen einzigen Moment deines Tages",
       "body": "Erstelle dein Event in einer Minute. Den Rest erledigen deine Gäste.",
       "cta": "Event erstellen",
-      "note": "Einrichten ist kostenlos · Du zahlst erst, wenn du das Album für Gäste öffnest"
+      "note": "Einrichten ist kostenlos · Du zahlst erst, wenn Gäste hochladen sollen"
     },
     "footer": {
       "tagline": "Die Fotos aller Gäste in einem privaten Album, mit einem QR-Code.",

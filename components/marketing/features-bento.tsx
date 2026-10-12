@@ -1,18 +1,12 @@
-import {
-  Check,
-  Download,
-  Eye,
-  Languages,
-  Lock,
-  Printer,
-  Users,
-} from "lucide-react";
+import { Check, Lock } from "lucide-react";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { cn } from "@/lib/utils";
+import { QrCard } from "./qr-card";
 import { SectionHeading } from "./section-heading";
 
-// Bento grid inspired by 21st.dev "Feature Bento" (uilayout), in our warm palette.
+// Bento grid inspired by 21st.dev "Feature Bento" (uilayout). Every tile carries
+// its own small visual instead of a generic icon chip.
 function Tile({
   className,
   children,
@@ -23,7 +17,7 @@ function Tile({
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-3xl border border-border bg-card p-7",
+        "relative flex flex-col overflow-hidden rounded-3xl border border-border bg-card p-7",
         className,
       )}
     >
@@ -32,26 +26,23 @@ function Tile({
   );
 }
 
-function TileIcon({
-  icon: Icon,
+function TileText({
+  title,
+  body,
   className,
 }: {
-  icon: typeof Lock;
+  title: string;
+  body: string;
   className?: string;
 }) {
   return (
-    <span
-      className={cn(
-        "flex size-11 items-center justify-center rounded-xl bg-accent text-accent-foreground",
-        className,
-      )}
-    >
-      <Icon className="size-5" aria-hidden />
-    </span>
+    <div className={cn("mt-auto pt-6", className)}>
+      <h3 className="font-heading text-lg font-semibold">{title}</h3>
+      <p className="mt-1.5 text-sm text-pretty opacity-75">{body}</p>
+    </div>
   );
 }
 
-// Mini "photo picker" illustration for the hero tile.
 const picks = [
   "/marketing/toast.jpg",
   "/marketing/rings.jpg",
@@ -100,6 +91,12 @@ async function PickerMock() {
 
 export async function FeaturesBento() {
   const t = await getTranslations("Landing.features");
+  const toggle = (
+    <span className="relative h-5 w-9 shrink-0 rounded-full bg-primary">
+      <span className="absolute end-0.5 top-0.5 size-4 rounded-full bg-white" />
+    </span>
+  );
+
   return (
     <section id="features" className="scroll-mt-20 px-4 py-24">
       <SectionHeading
@@ -108,78 +105,110 @@ export async function FeaturesBento() {
         subtitle={t("subtitle")}
       />
       <div className="mx-auto mt-14 grid max-w-6xl gap-4 md:grid-cols-6">
-        <Tile className="flex min-h-[26rem] flex-col justify-end border-0 bg-primary text-primary-foreground md:col-span-4 md:row-span-2">
+        {/* No app */}
+        <Tile className="min-h-[26rem] border-0 bg-primary text-primary-foreground md:col-span-4 md:row-span-2">
           <div
             aria-hidden
             className="absolute -end-10 -top-10 size-72 rounded-full bg-white/10"
           />
+          <PickerMock />
+          <div className="mt-auto">
+            <span className="mb-4 inline-flex w-fit items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-sm">
+              <span className="size-2 rounded-full bg-white" />
+              {t("noApp.badge")}
+            </span>
+            <h3 className="max-w-md font-heading text-3xl leading-tight font-bold sm:text-4xl">
+              {t("noApp.title")}
+            </h3>
+            <p className="mt-3 max-w-lg text-pretty text-primary-foreground/85">
+              {t("noApp.body")}
+            </p>
+          </div>
+        </Tile>
+
+        {/* Private */}
+        <Tile className="md:col-span-2">
           <div
             aria-hidden
-            className="absolute end-16 top-16 size-40 rounded-full bg-white/10"
-          />
-          <PickerMock />
-          <span className="mb-4 inline-flex w-fit items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-sm">
-            <span className="size-2 rounded-full bg-white" />
-            {t("noApp.badge")}
-          </span>
-          <h3 className="max-w-md font-heading text-3xl leading-tight font-bold sm:text-4xl">
-            {t("noApp.title")}
-          </h3>
-          <p className="mt-3 max-w-lg text-pretty text-primary-foreground/85">
-            {t("noApp.body")}
-          </p>
+            className="flex items-center gap-2 rounded-full bg-secondary px-4 py-2.5 font-mono text-[13px]"
+          >
+            <Lock className="size-3.5 shrink-0 text-success" />
+            <span className="truncate">
+              eventroll.app/e/<span className="font-semibold">k7Qm9xZ2pA</span>
+            </span>
+          </div>
+          <TileText title={t("private.title")} body={t("private.body")} />
         </Tile>
-        <Tile className="md:col-span-2">
-          <TileIcon icon={Lock} />
-          <h3 className="mt-6 font-heading text-lg font-semibold">
-            {t("private.title")}
-          </h3>
-          <p className="mt-2 text-sm text-muted-foreground">
-            {t("private.body")}
-          </p>
-        </Tile>
+
+        {/* Originals */}
         <Tile className="border-0 bg-foreground text-background md:col-span-2">
-          <TileIcon
-            icon={Download}
-            className="bg-background/10 text-background"
-          />
-          <h3 className="mt-6 font-heading text-lg font-semibold">
-            {t("originals.title")}
-          </h3>
-          <p className="mt-2 text-sm text-background/70">
-            {t("originals.body")}
-          </p>
+          <div aria-hidden className="font-mono">
+            <p className="text-3xl font-bold tracking-tight">4032 × 3024</p>
+            <p className="mt-1 text-xs tracking-widest text-background/60">
+              HEIC · 12 MP · 3.8 MB
+            </p>
+          </div>
+          <TileText title={t("originals.title")} body={t("originals.body")} />
         </Tile>
+
+        {/* Control */}
         <Tile className="md:col-span-2">
-          <TileIcon icon={Printer} />
-          <h3 className="mt-6 font-heading text-lg font-semibold">
-            {t("print.title")}
-          </h3>
-          <p className="mt-2 text-sm text-muted-foreground">
-            {t("print.body")}
-          </p>
+          <ul aria-hidden className="space-y-2 text-[13px]">
+            <li className="flex items-center justify-between rounded-xl bg-secondary px-3 py-2">
+              <span>{t("control.mock.pin")}</span>
+              {toggle}
+            </li>
+            <li className="flex items-center justify-between rounded-xl bg-secondary px-3 py-2">
+              <span>{t("control.mock.hours")}</span>
+              <span className="font-mono font-semibold">18:00 – 02:00</span>
+            </li>
+            <li className="flex items-center justify-between rounded-xl bg-secondary px-3 py-2">
+              <span>{t("control.mock.limit")}</span>
+              <span className="font-mono font-semibold">50</span>
+            </li>
+          </ul>
+          <TileText title={t("control.title")} body={t("control.body")} />
         </Tile>
-        <Tile className="md:col-span-2">
-          <TileIcon icon={Users} />
-          <h3 className="mt-6 font-heading text-lg font-semibold">
-            {t("guests.title")}
-          </h3>
-          <p className="mt-2 text-sm text-muted-foreground">
-            {t("guests.body")}
-          </p>
-        </Tile>
+
+        {/* Print */}
         <Tile className="bg-accent md:col-span-2">
-          <TileIcon icon={Eye} className="bg-background text-foreground" />
-          <h3 className="mt-6 font-heading text-lg font-semibold">
-            {t("gallery.title")}
-          </h3>
-          <p className="mt-2 text-sm text-accent-foreground/80">
-            {t("gallery.body")}
-          </p>
+          <div aria-hidden className="-mt-2 flex justify-center">
+            <QrCard className="origin-top scale-[0.72] -rotate-3" />
+          </div>
+          <TileText
+            title={t("print.title")}
+            body={t("print.body")}
+            className="-mt-14"
+          />
         </Tile>
-        <Tile className="md:col-span-6 md:flex md:items-center md:gap-6">
-          <TileIcon icon={Languages} />
-          <div className="mt-6 md:mt-0">
+
+        {/* Guests */}
+        <Tile className="md:col-span-2">
+          <div
+            aria-hidden
+            className="flex items-center -space-x-2 rtl:space-x-reverse"
+          >
+            {["S", "M", "A", "E", "K"].map((l, i) => (
+              <span
+                key={l}
+                className="flex size-10 items-center justify-center rounded-full font-semibold text-white ring-2 ring-card"
+                style={{
+                  background: `oklch(${0.6 + i * 0.04} 0.13 ${30 + i * 28})`,
+                }}
+              >
+                {l}
+              </span>
+            ))}
+            <span className="flex h-10 items-center justify-center rounded-full bg-secondary px-3 text-sm font-semibold ring-2 ring-card">
+              +137
+            </span>
+          </div>
+          <TileText title={t("guests.title")} body={t("guests.body")} />
+        </Tile>
+
+        {/* Languages */}
+        <Tile className="md:col-span-6 md:flex-row md:items-center md:justify-between md:gap-8">
+          <div>
             <h3 className="font-heading text-lg font-semibold">
               {t("languages.title")}
             </h3>
@@ -187,6 +216,16 @@ export async function FeaturesBento() {
               {t("languages.body")}
             </p>
           </div>
+          <ul aria-hidden className="mt-5 flex flex-wrap gap-2 md:mt-0">
+            {["Türkçe", "English", "Deutsch"].map((l) => (
+              <li
+                key={l}
+                className="rounded-full border border-border bg-background px-4 py-1.5 text-sm font-medium"
+              >
+                {l}
+              </li>
+            ))}
+          </ul>
         </Tile>
       </div>
     </section>

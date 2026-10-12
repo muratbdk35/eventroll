@@ -14,6 +14,7 @@ const keys = [
   "quality",
   "duration",
   "privacy",
+  "misuse",
   "guests",
   "limits",
 ] as const;

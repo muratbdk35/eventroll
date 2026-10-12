@@ -26,7 +26,10 @@ export async function QrCard({ className }: { className?: string }) {
         className="mx-auto mt-3 aspect-square w-24"
         dangerouslySetInnerHTML={{ __html: svg }}
       />
-      <p className="mt-3 text-[9px] font-semibold tracking-[0.12em] whitespace-nowrap text-[#8a6f62] uppercase">
+      <p className="mt-2.5 inline-block rounded-md bg-[#2b211c] px-2 py-0.5 font-mono text-[10px] font-bold tracking-[0.15em] text-white">
+        {t("pin")}
+      </p>
+      <p className="mt-2 text-[9px] font-semibold tracking-[0.12em] whitespace-nowrap text-[#8a6f62] uppercase">
         {t("qrBody")}
       </p>
     </div>

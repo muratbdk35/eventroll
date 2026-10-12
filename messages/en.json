@@ -1,7 +1,7 @@
 {
   "Metadata": {
     "title": "{appName} — Collect every guest photo with one QR code",
-    "description": "Guests scan a QR code and upload their photos from the phone. No app, no sign-up. Every photo in one private album, in original quality."
+    "description": "Guests scan a QR code and upload their photos from the phone. No app, no sign-up. Every photo in your private album, in original quality."
   },
   "Nav": {
     "login": "Log in",
@@ -66,13 +66,15 @@
       "date": "Sat · 14 June",
       "eventName": "Elif & Can",
       "button": "Add photos",
-      "album": "Shared album",
+      "mine": "Your uploads",
       "count": "{count} photos",
-      "notifyTitle": "{name} added {count} photos",
-      "now": "just now",
+      "notifyTitle": "{count} photos uploaded",
+      "notifyBody": "Sent straight to the couple",
+      "privacy": "Only Elif & Can can see your photos.",
       "photoBy": "by {name} · {time}",
       "qrTitle": "Share your photos with us",
-      "qrBody": "Scan · Upload · Done"
+      "qrBody": "Scan · Upload · Done",
+      "pin": "PIN 2468"
     },
     "steps": {
       "eyebrow": "How it works",
@@ -89,6 +91,15 @@
       "collect": {
         "title": "Watch the memories arrive",
         "body": "Guests scan and upload. You see everything live and download it all in one click."
+      },
+      "mock": {
+        "name": "Event name",
+        "date": "Date",
+        "dateValue": "14 June 2026",
+        "pin": "PIN",
+        "photos": "{count} photos",
+        "guests": "{count} guests",
+        "zip": "Download ZIP"
       }
     },
     "features": {
@@ -103,7 +114,7 @@
       },
       "private": {
         "title": "Private by default",
-        "body": "Only people with your link can upload. Your gallery is never public or indexed."
+        "body": "Only you can see the photos. Guests see just their own uploads, and nothing is ever public or indexed."
       },
       "originals": {
         "title": "Full-quality originals",
@@ -113,10 +124,6 @@
         "title": "Print-ready QR cards",
         "body": "Table cards, signs and posters you can personalise and print at home."
       },
-      "gallery": {
-        "title": "Shared or just for you",
-        "body": "Let guests browse the album, or keep it for your eyes only. Change it anytime."
-      },
       "languages": {
         "title": "Speaks your guests' language",
         "body": "The guest page opens in English, Turkish or German automatically, with more languages on the way."
@@ -124,6 +131,15 @@
       "guests": {
         "title": "Every guest can join",
         "body": "No limit on guests. Everyone at your event can add their photos; your plan only sets the total album size."
+      },
+      "control": {
+        "title": "You stay in control",
+        "body": "Protect uploads with a PIN, set when uploads open and close, and cap how many photos each phone can add.",
+        "mock": {
+          "pin": "PIN protection",
+          "hours": "Upload hours",
+          "limit": "Photos per phone"
+        }
       }
     },
     "eventTypes": {
@@ -152,7 +168,8 @@
       "party": {
         "title": "Any party",
         "body": "Reunions, festivals, holidays."
-      }
+      },
+      "subtitle": "Whatever you're celebrating, your guests already have the best camera in their pocket."
     },
     "pricing": {
       "eyebrow": "Simple pricing",
@@ -181,20 +198,24 @@
         },
         "premium": {
           "name": "Premium",
-          "tagline": "For big days and a live slideshow",
+          "tagline": "For big weddings and crowded events",
           "cta": "Get Premium"
         }
       },
-      "lines": {
-        "items": "{count} items · {gb} GB",
-        "original": "Stored in original quality",
-        "zip": "ZIP download for {days} days",
-        "templatesAll": "All QR templates",
-        "templatesCustom": "Templates + your colours",
-        "slideshow": "Live slideshow (soon)",
-        "removeBranding": "No EventRoll branding",
-        "support": "Email support",
-        "prioritySupport": "Priority support"
+      "rows": {
+        "photos": "Photos",
+        "storage": "Storage",
+        "quality": "Quality",
+        "zip": "ZIP download",
+        "pin": "PIN protection",
+        "uploadRules": "Upload hours & limits",
+        "templates": "QR templates"
+      },
+      "values": {
+        "original": "Original",
+        "days": "{days} days",
+        "ready": "Ready-made",
+        "customColors": "Your colours"
       }
     },
     "faq": {
@@ -215,7 +236,7 @@
         },
         "quality": {
           "q": "Are the photos compressed?",
-          "a": "Never. We keep the exact file each guest's phone uploads, in its original resolution, and your ZIP contains those originals. Guests only see smaller previews in the shared album."
+          "a": "Never. We keep the exact file each guest's phone uploads, in its original resolution, and your ZIP contains those originals."
         },
         "duration": {
           "q": "How long are my photos kept?",
@@ -223,7 +244,7 @@
         },
         "privacy": {
           "q": "Who can see the photos?",
-          "a": "Only you, plus guests who have your link if you turn on the shared album. Albums are never public or listed on search engines, and everything is stored in the EU."
+          "a": "Only you. Each guest only sees the photos they uploaded from their own phone. Nothing is public or listed on search engines, and everything is stored in the EU."
         },
         "limits": {
           "q": "What happens when the album is full?",
@@ -232,6 +253,10 @@
         "guests": {
           "q": "Is there a limit on guests?",
           "a": "No. Any number of guests can upload. Your plan only limits the total number of photos in the album: 1,500 with Standard, 5,000 with Premium."
+        },
+        "misuse": {
+          "q": "What if my QR code ends up in the wrong hands?",
+          "a": "Add a PIN that only your guests know (print it on the table card), limit uploads to the hours of your event, and cap how many photos each phone can add. Combined with our bot protection, a leaked QR code is useless to strangers."
         }
       }
     },
@@ -239,7 +264,7 @@
       "title": "Don't miss a single moment of your day",
       "body": "Create your event in a minute. Your guests will take care of the rest.",
       "cta": "Create your event",
-      "note": "Setup is free · You only pay when you open the album to guests"
+      "note": "Setup is free · You only pay when you're ready for guests to upload"
     },
     "footer": {
       "tagline": "Every guest's photos in one private album, with one QR code.",

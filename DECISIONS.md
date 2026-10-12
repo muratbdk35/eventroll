@@ -152,3 +152,20 @@ priority support.
 `lib/legal/content.ts` with a localized DRAFT banner and `noindex`. Long legal
 texts are kept out of `messages/*.json`; German/Turkish versions will come from
 the lawyer. Bracketed placeholders (company data etc.) must be filled before launch.
+
+## 21. No shared album; guest access controls; no branding (owner decision, 2026-10-12)
+
+- Guests never see other guests' photos: `events.guests_can_view` and the guest
+  gallery API are dropped. A guest only sees what they uploaded from their own
+  device. (Spec items "guest gallery toggle" and "report from guest gallery" are
+  void; reports go through `/legal/dmca-report`.)
+- Abuse controls set by the host: optional PIN (`access_pin_hash`, rate-limited),
+  upload window (`upload_opens_at` / `upload_closes_at`), and a per-device photo cap
+  (`max_uploads_per_device`, null = unlimited). Each guest browser gets a signed,
+  event-scoped random device id (cookie) after Turnstile; uploads store it in
+  `media.device_id`. A salted IP+UA hash is a fallback only, never a hard limit
+  (venue Wi-Fi is shared). Hosts can delete all photos from a device and block it.
+- No plan shows EventRoll branding on guest pages or printed templates; Premium
+  differs only by capacity and custom template colours. Slideshow, guestbook,
+  priority support are dropped from the offer.
+- Logo: "ER" monogram (`components/brand/logo.tsx`, `app/icon.svg`).

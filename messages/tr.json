@@ -4,7 +4,7 @@
   },
   "Metadata": {
     "title": "{appName} — Tüm misafir fotoğraflarını tek bir QR kodla toplayın",
-    "description": "Misafirler QR kodu okutur, fotoğraflarını telefondan yükler. Uygulama yok, kayıt yok. Tüm fotoğraflar orijinal kalitesiyle tek bir özel albümde."
+    "description": "Misafirler QR kodu okutur, fotoğraflarını telefondan yükler. Uygulama yok, kayıt yok. Tüm fotoğraflar orijinal kalitesiyle senin özel albümünde."
   },
   "Nav": {
     "login": "Giriş yap",
@@ -69,13 +69,15 @@
       "date": "Cmt · 14 Haziran",
       "eventName": "Elif & Can",
       "button": "Fotoğraf ekle",
-      "album": "Ortak albüm",
+      "mine": "Yüklediklerin",
       "count": "{count} fotoğraf",
-      "notifyTitle": "{name} {count} fotoğraf ekledi",
-      "now": "az önce",
+      "notifyTitle": "{count} fotoğraf yüklendi",
+      "notifyBody": "Doğrudan çifte ulaştı",
+      "privacy": "Fotoğraflarını sadece Elif & Can görebilir.",
       "photoBy": "{name} · {time}",
       "qrTitle": "Fotoğraflarını bizimle paylaş",
-      "qrBody": "Okut · Yükle · Bitti"
+      "qrBody": "Okut · Yükle · Bitti",
+      "pin": "PIN 2468"
     },
     "steps": {
       "eyebrow": "Nasıl çalışır",
@@ -92,6 +94,15 @@
       "collect": {
         "title": "Anıların gelişini izle",
         "body": "Misafirler okutur ve yükler. Sen her şeyi canlı görür, tek tıkla hepsini indirirsin."
+      },
+      "mock": {
+        "name": "Etkinlik adı",
+        "date": "Tarih",
+        "dateValue": "14 Haziran 2026",
+        "pin": "PIN",
+        "photos": "{count} fotoğraf",
+        "guests": "{count} misafir",
+        "zip": "ZIP indir"
       }
     },
     "features": {
@@ -106,7 +117,7 @@
       },
       "private": {
         "title": "Varsayılan olarak gizli",
-        "body": "Sadece linkine sahip olanlar yükleyebilir. Galerin asla herkese açık değildir, arama motorlarında görünmez."
+        "body": "Fotoğrafları sadece sen görürsün. Misafirler yalnızca kendi yüklediklerini görür; hiçbir şey herkese açık değildir, arama motorlarında görünmez."
       },
       "originals": {
         "title": "Orijinal kalite",
@@ -116,10 +127,6 @@
         "title": "Baskıya hazır QR kartları",
         "body": "Kişiselleştirip evde yazdırabileceğin masa kartları, tabelalar ve afişler."
       },
-      "gallery": {
-        "title": "Paylaşımlı ya da sadece senin",
-        "body": "Misafirler albüme göz atabilsin ya da sadece sen gör. İstediğin zaman değiştir."
-      },
       "languages": {
         "title": "Misafirlerinin dilini konuşur",
         "body": "Misafir sayfası otomatik olarak Türkçe, İngilizce veya Almanca açılır; daha fazla dil yolda."
@@ -127,6 +134,15 @@
       "guests": {
         "title": "Her misafir katılabilir",
         "body": "Misafir sınırı yok. Etkinliğindeki herkes fotoğraf ekleyebilir; planın sadece albümün toplam boyutunu belirler."
+      },
+      "control": {
+        "title": "Kontrol sende",
+        "body": "Yüklemeleri PIN ile koru, yüklemenin ne zaman açılıp kapanacağını belirle ve her telefonun ekleyebileceği fotoğraf sayısını sınırla.",
+        "mock": {
+          "pin": "PIN koruması",
+          "hours": "Yükleme saatleri",
+          "limit": "Telefon başına fotoğraf"
+        }
       }
     },
     "eventTypes": {
@@ -155,7 +171,8 @@
       "party": {
         "title": "Her türlü parti",
         "body": "Buluşmalar, festivaller, tatiller."
-      }
+      },
+      "subtitle": "Ne kutlarsan kutla, misafirlerinin cebinde zaten en iyi kamera var."
     },
     "pricing": {
       "eyebrow": "Basit fiyatlandırma",
@@ -184,20 +201,24 @@
         },
         "premium": {
           "name": "Premium",
-          "tagline": "Büyük günler ve canlı slayt için",
+          "tagline": "Büyük düğünler ve kalabalık etkinlikler için",
           "cta": "Premium'u al"
         }
       },
-      "lines": {
-        "items": "{count} öğe · {gb} GB",
-        "original": "Orijinal kalitede saklama",
-        "zip": "{days} gün ZIP indirme",
-        "templatesAll": "Tüm QR şablonları",
-        "templatesCustom": "Şablonlar + kendi renklerin",
-        "slideshow": "Canlı slayt (yakında)",
-        "removeBranding": "EventRoll logosu yok",
-        "support": "E-posta desteği",
-        "prioritySupport": "Öncelikli destek"
+      "rows": {
+        "photos": "Fotoğraf",
+        "storage": "Depolama",
+        "quality": "Kalite",
+        "zip": "ZIP indirme",
+        "pin": "PIN koruması",
+        "uploadRules": "Yükleme saati ve limit",
+        "templates": "QR şablonları"
+      },
+      "values": {
+        "original": "Orijinal",
+        "days": "{days} gün",
+        "ready": "Hazır",
+        "customColors": "Kendi renklerin"
       }
     },
     "faq": {
@@ -218,7 +239,7 @@
         },
         "quality": {
           "q": "Fotoğraflar sıkıştırılıyor mu?",
-          "a": "Asla. Her misafirin telefonunun yüklediği dosyayı orijinal çözünürlüğüyle olduğu gibi saklarız; ZIP'in de bu orijinalleri içerir. Misafirler ortak albümde sadece küçük önizlemeleri görür."
+          "a": "Asla. Her misafirin telefonunun yüklediği dosyayı orijinal çözünürlüğüyle olduğu gibi saklarız; ZIP'in de bu orijinalleri içerir."
         },
         "duration": {
           "q": "Fotoğraflarım ne kadar saklanır?",
@@ -226,7 +247,7 @@
         },
         "privacy": {
           "q": "Fotoğrafları kim görebilir?",
-          "a": "Sadece sen; ortak albümü açarsan linke sahip misafirler de. Albümler asla herkese açık değildir, arama motorlarında listelenmez ve her şey AB'de saklanır."
+          "a": "Sadece sen. Her misafir yalnızca kendi telefonundan yüklediği fotoğrafları görür. Hiçbir şey herkese açık değildir, arama motorlarında listelenmez ve her şey AB'de saklanır."
         },
         "limits": {
           "q": "Albüm dolarsa ne olur?",
@@ -235,6 +256,10 @@
         "guests": {
           "q": "Misafir sayısında sınır var mı?",
           "a": "Hayır. İstediğin kadar misafir yükleyebilir. Planın sadece albümdeki toplam fotoğraf sayısını sınırlar: Standart'ta 1.500, Premium'da 5.000."
+        },
+        "misuse": {
+          "q": "QR kodum yanlış ellere geçerse ne olur?",
+          "a": "Sadece misafirlerinin bildiği bir PIN ekle (masa kartına yazdırabilirsin), yüklemeyi etkinlik saatleriyle sınırla ve her telefonun ekleyebileceği fotoğraf sayısına limit koy. Bot korumamızla birlikte, dışarı sızan bir QR kod yabancıların işine yaramaz."
         }
       }
     },
@@ -242,7 +267,7 @@
       "title": "Gününün tek bir anını bile kaçırma",
       "body": "Etkinliğini bir dakikada oluştur. Gerisini misafirlerin halleder.",
       "cta": "Etkinliğini oluştur",
-      "note": "Kurulum ücretsiz · Sadece albümü misafirlere açarken ödersin"
+      "note": "Kurulum ücretsiz · Misafirler yüklemeye başlayacağı zaman ödersin"
     },
     "footer": {
       "tagline": "Tüm misafirlerin fotoğrafları, tek bir özel albümde, tek bir QR kodla.",
