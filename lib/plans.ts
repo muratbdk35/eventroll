@@ -41,7 +41,7 @@ export const plans: Record<PlanId, PlanLimits> = {
     prioritySupport: false,
   },
   standard: {
-    priceUsd: 19,
+    priceUsd: 29,
     maxItems: 1500,
     maxBytes: 10 * GB,
     allowVideo: true,
@@ -56,7 +56,7 @@ export const plans: Record<PlanId, PlanLimits> = {
     prioritySupport: false,
   },
   premium: {
-    priceUsd: 39,
+    priceUsd: 49,
     maxItems: 5000,
     maxBytes: 50 * GB,
     allowVideo: true,

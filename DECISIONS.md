@@ -102,3 +102,10 @@ fetched component ("Receipt Tiers"), rewritten as a server component with CSS-on
 motion. No testimonials section until there are real customers (no invented
 reviews). Guest "photos" in the hero are illustrated gradients, not stock images.
 SEO pages, legal pages and cookie consent remain in phase 1D.
+
+## 15. Prices: Standard $29, Premium $49 (owner decision, 2026-10-12)
+Replaces the spec's $19 / $39. The pricing section shows only the two paid plans;
+the free plan stays as a trial strip below them (signup without a card is still the
+main acquisition path). Premium is the featured plan ("Best value", shown first on
+mobile). Limits are unchanged; all values live in `lib/plans.ts`.
+Hero imagery now uses real Unsplash-licensed photos (see `public/marketing/CREDITS.md`).

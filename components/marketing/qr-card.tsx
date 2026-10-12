@@ -1,10 +1,11 @@
 import QRCode from "qrcode";
 import { getTranslations } from "next-intl/server";
 import { publicEnv } from "@/lib/public-env";
+import { cn } from "@/lib/utils";
 
-/** A real, scannable QR code rendered at build time (high error correction). */
+/** A small printed "table card" with a real, scannable QR code. */
 export async function QrCard({ className }: { className?: string }) {
-  const t = await getTranslations("Landing.hero");
+  const t = await getTranslations("Landing.demo");
   const svg = await QRCode.toString(publicEnv.appUrl, {
     type: "svg",
     errorCorrectionLevel: "H",
@@ -12,16 +13,22 @@ export async function QrCard({ className }: { className?: string }) {
     color: { dark: "#2b211cff", light: "#00000000" },
   });
   return (
-    <div className={className}>
-      <div className="w-36 rounded-2xl bg-white p-3 shadow-[0_20px_40px_-18px_rgb(60_30_10/0.5)] ring-1 ring-black/5">
-        <div
-          className="aspect-square"
-          dangerouslySetInnerHTML={{ __html: svg }}
-        />
-        <p className="mt-2 text-center text-[11px] font-semibold tracking-wide text-[oklch(0.35_0.03_40)]">
-          {t("qrLabel")}
-        </p>
-      </div>
+    <div
+      className={cn(
+        "w-40 rounded-2xl bg-[#fffaf4] p-4 text-center shadow-[0_24px_50px_-20px_rgb(60_30_10/0.55)] ring-1 ring-black/5",
+        className,
+      )}
+    >
+      <p className="font-heading text-sm leading-tight font-bold text-[#2b211c]">
+        {t("qrTitle")}
+      </p>
+      <div
+        className="mx-auto mt-3 aspect-square w-24"
+        dangerouslySetInnerHTML={{ __html: svg }}
+      />
+      <p className="mt-3 text-[9px] font-semibold tracking-[0.12em] whitespace-nowrap text-[#8a6f62] uppercase">
+        {t("qrBody")}
+      </p>
     </div>
   );
 }

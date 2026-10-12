@@ -60,23 +60,19 @@
       "secondary": "See how it works",
       "point1": "No app for guests",
       "point2": "Full-quality originals",
-      "point3": "Free for up to 25 photos",
-      "qrLabel": "Scan me",
-      "captions": {
-        "rings": "the rings!",
-        "cheers": "cheers!",
-        "dance": "first dance",
-        "cake": "cake time"
-      }
+      "point3": "Free for up to 25 photos"
     },
     "demo": {
       "date": "Sat · 14 June",
       "eventName": "Elif & Can",
-      "intro": "Share your favourite moments from today. They go straight to the couple.",
       "button": "Add photos & videos",
-      "namePlaceholder": "Your name (optional)",
-      "toast": "Thank you! 3 items added",
-      "badge": "Uploading in 10 s"
+      "album": "Shared album",
+      "count": "{count} photos",
+      "notifyTitle": "{name} added {count} photos",
+      "now": "just now",
+      "photoBy": "by {name} · {time}",
+      "qrTitle": "Share your photos with us",
+      "qrBody": "Scan · Upload · Done"
     },
     "steps": {
       "eyebrow": "How it works",
@@ -159,46 +155,49 @@
     },
     "pricing": {
       "eyebrow": "Pricing",
-      "title": "Pay once per event. That's it.",
-      "subtitle": "No subscription, no surprises on the bill. Start free and upgrade whenever you need more room.",
+      "title": "One payment. Every memory.",
+      "subtitle": "No subscription, no surprises on the bill. Pay once per event and keep every photo your guests take.",
       "merchantLine": "ONE EVENT · ONE PAYMENT",
-      "stamp": "Most popular",
-      "incl": "incl",
+      "stamp": "Best value",
       "billing": "BILLING",
       "oneTime": "ONE-TIME",
       "total": "TOTAL",
+      "perGuest": "≈ {price} per guest at {guests} guests",
       "thanks": "NO. {no} · THANK YOU",
-      "footnote": "Prices in USD, shown in your local currency at checkout, VAT included. 14-day money-back guarantee if your album hasn't been used.",
+      "seal": "Money-back guarantee · 14 days · ",
+      "sealDays": "14d",
+      "trust": {
+        "secure": "Secure checkout with Stripe",
+        "oneTime": "One-time payment, no subscription",
+        "guarantee": "14-day money-back guarantee"
+      },
+      "trial": {
+        "title": "Want to try it first?",
+        "body": "Start free with up to {photos} photos, kept for {days} days. No card needed.",
+        "cta": "Start free"
+      },
+      "footnote": "Prices in USD, shown in your local currency at checkout, VAT included.",
       "plans": {
-        "free": {
-          "name": "Free",
-          "tagline": "Try it with a small gathering",
-          "cta": "Start free"
-        },
         "standard": {
           "name": "Standard",
           "tagline": "For most weddings and parties",
-          "cta": "Choose Standard"
+          "cta": "Get Standard"
         },
         "premium": {
           "name": "Premium",
-          "tagline": "For big days and lots of video",
-          "cta": "Choose Premium"
+          "tagline": "For big days, lots of video and a live slideshow",
+          "cta": "Get Premium"
         }
       },
       "lines": {
-        "photos": "{count} photos",
         "items": "{count} items · {gb} GB",
         "video": "Videos up to {minutes} min",
-        "noVideo": "Photos only",
-        "retention": "Kept for {days} days",
-        "zip": "Full ZIP download",
-        "zipPreview": "ZIP of previews",
-        "templatesBasic": "Basic QR cards",
+        "retention": "Kept for {months} months",
+        "zip": "Full-quality ZIP download",
         "templatesAll": "All QR templates",
-        "templatesCustom": "Templates + own colours",
+        "templatesCustom": "Templates + your colours",
         "slideshow": "Live slideshow (soon)",
-        "removeBranding": "No branding",
+        "removeBranding": "No EventRoll branding",
         "support": "Email support",
         "prioritySupport": "Priority support"
       }

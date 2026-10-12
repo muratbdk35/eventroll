@@ -2,9 +2,7 @@ import { ArrowRight, Check } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/lib/i18n/navigation";
-import { PhoneDemo } from "./phone-demo";
-import { PhotoFan } from "./photo-fan";
-import { QrCard } from "./qr-card";
+import { HeroVisual } from "./hero-visual";
 
 export async function Hero() {
   const t = await getTranslations("Landing.hero");
@@ -15,7 +13,7 @@ export async function Hero() {
       {/* warm glow, inspired by 21st.dev "Gradient Hero" */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 -bottom-40 -z-10 h-[38rem] bg-[radial-gradient(60%_60%_at_50%_70%,oklch(0.85_0.1_55/0.55),transparent_70%)] dark:bg-[radial-gradient(60%_60%_at_50%_70%,oklch(0.45_0.12_40/0.35),transparent_70%)]"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(55%_50%_at_70%_55%,oklch(0.86_0.09_55/0.55),transparent_75%)] dark:bg-[radial-gradient(55%_50%_at_70%_55%,oklch(0.42_0.11_40/0.35),transparent_75%)]"
       />
       <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 pt-14 pb-20 lg:grid-cols-[1.05fr_1fr] lg:pt-20">
         <div className="text-center lg:text-start">
@@ -76,12 +74,7 @@ export async function Hero() {
           </ul>
         </div>
 
-        <div className="relative">
-          <PhotoFan>
-            <PhoneDemo />
-          </PhotoFan>
-          <QrCard className="float-y absolute -start-6 bottom-0 z-20 hidden -rotate-6 md:block lg:-start-10" />
-        </div>
+        <HeroVisual />
       </div>
     </section>
   );

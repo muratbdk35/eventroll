@@ -63,23 +63,19 @@
       "secondary": "Nasıl çalışır?",
       "point1": "Misafire uygulama yok",
       "point2": "Orijinal kalite",
-      "point3": "25 fotoğrafa kadar ücretsiz",
-      "qrLabel": "Okut beni",
-      "captions": {
-        "rings": "yüzükler!",
-        "cheers": "şerefe!",
-        "dance": "ilk dans",
-        "cake": "pasta zamanı"
-      }
+      "point3": "25 fotoğrafa kadar ücretsiz"
     },
     "demo": {
       "date": "Cmt · 14 Haziran",
       "eventName": "Elif & Can",
-      "intro": "Bugünün en güzel anlarını paylaş. Doğrudan çifte ulaşır.",
       "button": "Fotoğraf ve video ekle",
-      "namePlaceholder": "Adın (isteğe bağlı)",
-      "toast": "Teşekkürler! 3 öğe eklendi",
-      "badge": "10 sn'de yükleniyor"
+      "album": "Ortak albüm",
+      "count": "{count} fotoğraf",
+      "notifyTitle": "{name} {count} fotoğraf ekledi",
+      "now": "az önce",
+      "photoBy": "{name} · {time}",
+      "qrTitle": "Fotoğraflarını bizimle paylaş",
+      "qrBody": "Okut · Yükle · Bitti"
     },
     "steps": {
       "eyebrow": "Nasıl çalışır",
@@ -162,46 +158,49 @@
     },
     "pricing": {
       "eyebrow": "Fiyatlar",
-      "title": "Etkinlik başına bir kez öde. Bu kadar.",
-      "subtitle": "Abonelik yok, faturada sürpriz yok. Ücretsiz başla, daha fazla yere ihtiyacın olduğunda yükselt.",
+      "title": "Tek ödeme. Tüm anılar.",
+      "subtitle": "Abonelik yok, faturada sürpriz yok. Etkinlik başına bir kez öde, misafirlerinin çektiği her kareyi sakla.",
       "merchantLine": "TEK ETKİNLİK · TEK ÖDEME",
-      "stamp": "En popüler",
-      "incl": "dahil",
+      "stamp": "En iyi değer",
       "billing": "ÖDEME",
       "oneTime": "TEK SEFERLİK",
       "total": "TOPLAM",
+      "perGuest": "{guests} misafirde kişi başı ≈ {price}",
       "thanks": "NO. {no} · TEŞEKKÜRLER",
-      "footnote": "Fiyatlar USD cinsindendir; ödeme sırasında yerel para biriminde, KDV dahil gösterilir. Albümün kullanılmadıysa 14 gün içinde para iadesi.",
+      "seal": "Para iade garantisi · 14 gün · ",
+      "sealDays": "14g",
+      "trust": {
+        "secure": "Stripe ile güvenli ödeme",
+        "oneTime": "Tek seferlik ödeme, abonelik yok",
+        "guarantee": "14 gün para iade garantisi"
+      },
+      "trial": {
+        "title": "Önce denemek mi istiyorsun?",
+        "body": "{photos} fotoğrafa kadar ücretsiz başla, {days} gün saklanır. Kart gerekmez.",
+        "cta": "Ücretsiz başla"
+      },
+      "footnote": "Fiyatlar USD cinsindendir; ödeme sırasında yerel para biriminde, KDV dahil gösterilir.",
       "plans": {
-        "free": {
-          "name": "Ücretsiz",
-          "tagline": "Küçük bir buluşmada dene",
-          "cta": "Ücretsiz başla"
-        },
         "standard": {
           "name": "Standart",
           "tagline": "Çoğu düğün ve parti için",
-          "cta": "Standart'ı seç"
+          "cta": "Standart'ı al"
         },
         "premium": {
           "name": "Premium",
-          "tagline": "Büyük günler ve bol video için",
-          "cta": "Premium'u seç"
+          "tagline": "Büyük günler, bol video ve canlı slayt için",
+          "cta": "Premium'u al"
         }
       },
       "lines": {
-        "photos": "{count} fotoğraf",
         "items": "{count} öğe · {gb} GB",
         "video": "{minutes} dk'ya kadar video",
-        "noVideo": "Sadece fotoğraf",
-        "retention": "{days} gün saklanır",
-        "zip": "Tam ZIP indirme",
-        "zipPreview": "Önizleme ZIP'i",
-        "templatesBasic": "Temel QR kartları",
+        "retention": "{months} ay saklanır",
+        "zip": "Orijinal kalitede ZIP",
         "templatesAll": "Tüm QR şablonları",
         "templatesCustom": "Şablonlar + kendi renklerin",
         "slideshow": "Canlı slayt (yakında)",
-        "removeBranding": "Markasız",
+        "removeBranding": "EventRoll logosu yok",
         "support": "E-posta desteği",
         "prioritySupport": "Öncelikli destek"
       }

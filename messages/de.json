@@ -63,23 +63,19 @@
       "secondary": "So funktioniert's",
       "point1": "Keine App für Gäste",
       "point2": "Originale in voller Qualität",
-      "point3": "Kostenlos bis 25 Fotos",
-      "qrLabel": "Scan mich",
-      "captions": {
-        "rings": "die Ringe!",
-        "cheers": "Prost!",
-        "dance": "erster Tanz",
-        "cake": "Tortenzeit"
-      }
+      "point3": "Kostenlos bis 25 Fotos"
     },
     "demo": {
       "date": "Sa · 14. Juni",
       "eventName": "Elif & Can",
-      "intro": "Teile deine schönsten Momente von heute. Sie gehen direkt an das Brautpaar.",
       "button": "Fotos & Videos hinzufügen",
-      "namePlaceholder": "Dein Name (optional)",
-      "toast": "Danke! 3 Dateien hinzugefügt",
-      "badge": "Hochgeladen in 10 Sek."
+      "album": "Gemeinsames Album",
+      "count": "{count} Fotos",
+      "notifyTitle": "{name} hat {count} Fotos hinzugefügt",
+      "now": "gerade eben",
+      "photoBy": "von {name} · {time}",
+      "qrTitle": "Teile deine Fotos mit uns",
+      "qrBody": "Scannen · Hochladen · Fertig"
     },
     "steps": {
       "eyebrow": "So funktioniert's",
@@ -162,46 +158,49 @@
     },
     "pricing": {
       "eyebrow": "Preise",
-      "title": "Einmal pro Event zahlen. Fertig.",
-      "subtitle": "Kein Abo, keine Überraschungen auf der Rechnung. Starte kostenlos und upgrade, wenn du mehr Platz brauchst.",
+      "title": "Eine Zahlung. Alle Erinnerungen.",
+      "subtitle": "Kein Abo, keine Überraschungen auf der Rechnung. Einmal pro Event zahlen und jedes Foto deiner Gäste behalten.",
       "merchantLine": "EIN EVENT · EINE ZAHLUNG",
-      "stamp": "Beliebt",
-      "incl": "inkl",
+      "stamp": "Bester Wert",
       "billing": "ABRECHNUNG",
       "oneTime": "EINMALIG",
       "total": "GESAMT",
+      "perGuest": "≈ {price} pro Gast bei {guests} Gästen",
       "thanks": "NR. {no} · DANKE",
-      "footnote": "Preise in USD, an der Kasse in deiner Landeswährung angezeigt, inkl. MwSt. 14 Tage Geld-zurück-Garantie, wenn dein Album nicht genutzt wurde.",
+      "seal": "Geld-zurück-Garantie · 14 Tage · ",
+      "sealDays": "14T",
+      "trust": {
+        "secure": "Sicher bezahlen mit Stripe",
+        "oneTime": "Einmalzahlung, kein Abo",
+        "guarantee": "14 Tage Geld-zurück-Garantie"
+      },
+      "trial": {
+        "title": "Erst mal ausprobieren?",
+        "body": "Starte kostenlos mit bis zu {photos} Fotos, {days} Tage gespeichert. Keine Karte nötig.",
+        "cta": "Kostenlos starten"
+      },
+      "footnote": "Preise in USD, an der Kasse in deiner Landeswährung angezeigt, inkl. MwSt.",
       "plans": {
-        "free": {
-          "name": "Gratis",
-          "tagline": "Teste es bei einem kleinen Treffen",
-          "cta": "Kostenlos starten"
-        },
         "standard": {
           "name": "Standard",
           "tagline": "Für die meisten Hochzeiten und Partys",
-          "cta": "Standard wählen"
+          "cta": "Standard holen"
         },
         "premium": {
           "name": "Premium",
-          "tagline": "Für große Tage und viele Videos",
-          "cta": "Premium wählen"
+          "tagline": "Für große Tage, viele Videos und Live-Diashow",
+          "cta": "Premium holen"
         }
       },
       "lines": {
-        "photos": "{count} Fotos",
         "items": "{count} Dateien · {gb} GB",
         "video": "Videos bis {minutes} Min.",
-        "noVideo": "Nur Fotos",
-        "retention": "{days} Tage gespeichert",
-        "zip": "Voller ZIP-Download",
-        "zipPreview": "ZIP der Vorschauen",
-        "templatesBasic": "Einfache QR-Karten",
+        "retention": "{months} Monate gespeichert",
+        "zip": "ZIP in Originalqualität",
         "templatesAll": "Alle QR-Vorlagen",
         "templatesCustom": "Vorlagen + eigene Farben",
         "slideshow": "Live-Diashow (bald)",
-        "removeBranding": "Ohne Branding",
+        "removeBranding": "Ohne EventRoll-Branding",
         "support": "E-Mail-Support",
         "prioritySupport": "Priorisierter Support"
       }
