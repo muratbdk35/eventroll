@@ -135,3 +135,125 @@
     @apply font-sans;
   }
 }
+
+/* ── Marketing motion (CSS only; disabled for reduced motion) ───────── */
+@keyframes float-y {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -10px;
+  }
+}
+.float-y {
+  animation: float-y 6s ease-in-out infinite;
+}
+
+@keyframes demo-progress {
+  0%,
+  8% {
+    width: 0;
+  }
+  55%,
+  100% {
+    width: 100%;
+  }
+}
+.demo-progress {
+  width: 0;
+  animation: demo-progress 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes demo-check {
+  0%,
+  52% {
+    opacity: 0;
+    scale: 0.5;
+  }
+  58%,
+  100% {
+    opacity: 1;
+    scale: 1;
+  }
+}
+.demo-check {
+  opacity: 0;
+  animation: demo-check 7s ease-out infinite;
+}
+
+@keyframes demo-toast {
+  0%,
+  66% {
+    opacity: 0;
+    translate: 0 12px;
+  }
+  72%,
+  94% {
+    opacity: 1;
+    translate: 0 0;
+  }
+  100% {
+    opacity: 0;
+    translate: 0 12px;
+  }
+}
+.demo-toast {
+  opacity: 0;
+  animation: demo-toast 7s ease-out infinite;
+}
+
+@keyframes demo-press {
+  0%,
+  2%,
+  8%,
+  100% {
+    scale: 1;
+  }
+  5% {
+    scale: 0.96;
+  }
+}
+.demo-press {
+  animation: demo-press 7s ease-out infinite;
+}
+
+@keyframes receipt-in {
+  from {
+    opacity: 0;
+    translate: 0 24px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+.receipt-in {
+  animation: receipt-in 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float-y,
+  .demo-press,
+  .receipt-in {
+    animation: none;
+  }
+  .demo-progress {
+    animation: none;
+    width: 100%;
+  }
+  .demo-check,
+  .demo-toast {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

@@ -10,13 +10,6 @@
     "language": "Language",
     "account": "Account"
   },
-  "Home": {
-    "eyebrow": "For weddings, birthdays and every get-together",
-    "headline": "Scan. Upload. Done.",
-    "subhead": "Your guests scan one QR code and share their photos and videos straight from the phone browser. No app, no account. You get every moment in one private gallery.",
-    "cta": "Create your event for free",
-    "secondary": "See how it works"
-  },
   "Login": {
     "title": "Welcome to {appName}",
     "subtitle": "Enter your email and we'll send you a sign-in link. New here? The same link creates your account.",
@@ -48,6 +41,224 @@
       "body": "Tap the button below to sign in. The link works once and expires in 15 minutes.",
       "button": "Sign in",
       "ignore": "If you didn't request this email, you can safely ignore it."
+    }
+  },
+  "Landing": {
+    "nav": {
+      "how-it-works": "How it works",
+      "features": "Features",
+      "pricing": "Pricing",
+      "faq": "FAQ",
+      "cta": "Start free"
+    },
+    "hero": {
+      "eyebrow": "For weddings, birthdays and every get-together",
+      "line1": "Scan. Upload.",
+      "line2": "Done.",
+      "subhead": "One QR code on the table, and every guest's photos and videos land in your private gallery. No app to install, no account to create, straight from the phone's browser.",
+      "cta": "Create your event for free",
+      "secondary": "See how it works",
+      "point1": "No app for guests",
+      "point2": "Full-quality originals",
+      "point3": "Free for up to 25 photos",
+      "qrLabel": "Scan me",
+      "captions": {
+        "rings": "the rings!",
+        "cheers": "cheers!",
+        "dance": "first dance",
+        "cake": "cake time"
+      }
+    },
+    "demo": {
+      "date": "Sat · 14 June",
+      "eventName": "Elif & Can",
+      "intro": "Share your favourite moments from today. They go straight to the couple.",
+      "button": "Add photos & videos",
+      "namePlaceholder": "Your name (optional)",
+      "toast": "Thank you! 3 items added",
+      "badge": "Uploading in 10 s"
+    },
+    "steps": {
+      "eyebrow": "How it works",
+      "title": "Three steps, zero friction",
+      "subtitle": "Set it up in the time it takes to make a coffee.",
+      "create": {
+        "title": "Create your event",
+        "body": "Give it a name and a date. You get a QR code and a link instantly."
+      },
+      "share": {
+        "title": "Put the QR on the tables",
+        "body": "Print one of our ready-made cards or posters, or send the link in your group chat."
+      },
+      "collect": {
+        "title": "Watch the memories arrive",
+        "body": "Guests scan and upload. You see everything live and download it all in one click."
+      }
+    },
+    "features": {
+      "eyebrow": "Why hosts love it",
+      "title": "Every angle of your day, in one place",
+      "subtitle": "The photos you'd never see otherwise, from the people who took them.",
+      "noApp": {
+        "badge": "Works on any phone",
+        "title": "No app. No sign-up. Just the camera.",
+        "body": "Guests scan, tap one big button and pick their photos. It works in Safari, Chrome and even inside WhatsApp or Instagram."
+      },
+      "private": {
+        "title": "Private by default",
+        "body": "Only people with your link can upload. Your gallery is never public or indexed."
+      },
+      "originals": {
+        "title": "Full-quality originals",
+        "body": "Download everything as a ZIP: no compression, no watermarks."
+      },
+      "print": {
+        "title": "Print-ready QR cards",
+        "body": "Table cards, signs and posters you can personalise and print at home."
+      },
+      "video": {
+        "title": "Photos and videos",
+        "body": "Short clips of the speeches and the dance floor, up to 5 minutes each."
+      },
+      "gallery": {
+        "title": "Shared or just for you",
+        "body": "Let guests browse the album, or keep it for your eyes only. Change it anytime."
+      },
+      "languages": {
+        "title": "Speaks your guests' language",
+        "body": "The guest page opens in English, Turkish or German automatically, with more languages on the way."
+      }
+    },
+    "eventTypes": {
+      "eyebrow": "For every occasion",
+      "title": "Made for the moments people gather",
+      "wedding": {
+        "title": "Weddings",
+        "body": "From the vows to the last dance."
+      },
+      "birthday": {
+        "title": "Birthdays",
+        "body": "Candles, speeches and surprises."
+      },
+      "corporate": {
+        "title": "Company events",
+        "body": "Offsites, launches and parties."
+      },
+      "babyShower": {
+        "title": "Baby showers",
+        "body": "Sweet moments, all in one album."
+      },
+      "graduation": {
+        "title": "Graduations",
+        "body": "Caps in the air, from every angle."
+      },
+      "party": {
+        "title": "Any party",
+        "body": "Reunions, festivals, holidays."
+      }
+    },
+    "pricing": {
+      "eyebrow": "Pricing",
+      "title": "Pay once per event. That's it.",
+      "subtitle": "No subscription, no surprises on the bill. Start free and upgrade whenever you need more room.",
+      "merchantLine": "ONE EVENT · ONE PAYMENT",
+      "stamp": "Most popular",
+      "incl": "incl",
+      "billing": "BILLING",
+      "oneTime": "ONE-TIME",
+      "total": "TOTAL",
+      "thanks": "NO. {no} · THANK YOU",
+      "footnote": "Prices in USD, shown in your local currency at checkout, VAT included. 14-day money-back guarantee if your album hasn't been used.",
+      "plans": {
+        "free": {
+          "name": "Free",
+          "tagline": "Try it with a small gathering",
+          "cta": "Start free"
+        },
+        "standard": {
+          "name": "Standard",
+          "tagline": "For most weddings and parties",
+          "cta": "Choose Standard"
+        },
+        "premium": {
+          "name": "Premium",
+          "tagline": "For big days and lots of video",
+          "cta": "Choose Premium"
+        }
+      },
+      "lines": {
+        "photos": "{count} photos",
+        "items": "{count} items · {gb} GB",
+        "video": "Videos up to {minutes} min",
+        "noVideo": "Photos only",
+        "retention": "Kept for {days} days",
+        "zip": "Full ZIP download",
+        "zipPreview": "ZIP of previews",
+        "templatesBasic": "Basic QR cards",
+        "templatesAll": "All QR templates",
+        "templatesCustom": "Templates + own colours",
+        "slideshow": "Live slideshow (soon)",
+        "removeBranding": "No branding",
+        "support": "Email support",
+        "prioritySupport": "Priority support"
+      }
+    },
+    "faq": {
+      "eyebrow": "FAQ",
+      "title": "Questions, answered",
+      "items": {
+        "app": {
+          "q": "Do my guests need to download an app?",
+          "a": "No. Guests scan the QR code with their phone camera and upload from the browser. No app, no account and no password."
+        },
+        "how": {
+          "q": "How do guests get the link?",
+          "a": "Print the QR code on table cards or a sign (we provide ready-made templates), or share the link by message or email."
+        },
+        "privacy": {
+          "q": "Who can see the photos?",
+          "a": "Only you, plus guests who have your link if you turn on the shared gallery. Galleries are never public or listed on search engines, and we store everything in the EU."
+        },
+        "quality": {
+          "q": "Are the photos compressed?",
+          "a": "No. Originals are stored in full quality and you can download all of them as a ZIP. Guests only ever see smaller previews."
+        },
+        "video": {
+          "q": "Can guests upload videos?",
+          "a": "Yes, on Standard (up to 2 minutes per video) and Premium (up to 5 minutes). The free plan is photos only."
+        },
+        "limits": {
+          "q": "What happens when the album is full?",
+          "a": "Guests see a friendly message and you get a one-click upgrade. Nothing that was already uploaded is lost."
+        },
+        "duration": {
+          "q": "How long are my photos kept?",
+          "a": "7 days on Free, 12 months on Standard and 24 months on Premium. We remind you by email well before anything is deleted."
+        },
+        "refund": {
+          "q": "What if it's not right for me?",
+          "a": "If your album hasn't been used, you get your money back within 14 days, no questions asked."
+        }
+      }
+    },
+    "finalCta": {
+      "title": "Don't miss a single moment of your day",
+      "body": "Create your event in a minute. Your guests will take care of the rest.",
+      "cta": "Create your event for free",
+      "note": "Free for up to 25 photos · No credit card needed"
+    },
+    "footer": {
+      "tagline": "Every guest's photos and videos, in one private album, with one QR code.",
+      "product": "Product",
+      "legal": "Legal",
+      "hosting": "Hosted in Frankfurt, EU",
+      "links": {
+        "privacy": "Privacy policy",
+        "terms": "Terms",
+        "cookies": "Cookies",
+        "imprint": "Imprint",
+        "dmca-report": "Report content"
+      }
     }
   }
 }

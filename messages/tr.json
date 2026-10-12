@@ -1,5 +1,7 @@
 {
-  "_meta": { "review": "machine draft — needs human review" },
+  "_meta": {
+    "review": "machine draft — needs human review"
+  },
   "Metadata": {
     "title": "{appName} — Tüm misafir fotoğraflarını tek bir QR kodla toplayın",
     "description": "Misafirler QR kodu okutur, telefonlarından fotoğraf ve video yükler. Uygulama yok, kayıt yok. Tüm anılar tek bir özel galeride."
@@ -10,13 +12,6 @@
     "signOut": "Çıkış yap",
     "language": "Dil",
     "account": "Hesap"
-  },
-  "Home": {
-    "eyebrow": "Düğünler, doğum günleri ve tüm buluşmalar için",
-    "headline": "Okut. Yükle. Bitti.",
-    "subhead": "Misafirleriniz tek bir QR kodu okutur ve fotoğraf ile videolarını doğrudan telefon tarayıcısından paylaşır. Uygulama yok, hesap yok. Tüm anlar tek bir özel galeride sizde.",
-    "cta": "Etkinliğini ücretsiz oluştur",
-    "secondary": "Nasıl çalışır?"
   },
   "Login": {
     "title": "{appName}'a hoş geldin",
@@ -49,6 +44,224 @@
       "body": "Giriş yapmak için aşağıdaki butona dokun. Link tek kullanımlık ve 15 dakika geçerli.",
       "button": "Giriş yap",
       "ignore": "Bu e-postayı sen istemediysen görmezden gelebilirsin."
+    }
+  },
+  "Landing": {
+    "nav": {
+      "how-it-works": "Nasıl çalışır",
+      "features": "Özellikler",
+      "pricing": "Fiyatlar",
+      "faq": "SSS",
+      "cta": "Ücretsiz başla"
+    },
+    "hero": {
+      "eyebrow": "Düğünler, doğum günleri ve tüm buluşmalar için",
+      "line1": "Okut. Yükle.",
+      "line2": "Bitti.",
+      "subhead": "Masada tek bir QR kod; misafirlerin tüm fotoğraf ve videoları senin özel galerine düşer. Uygulama yok, hesap yok, doğrudan telefonun tarayıcısından.",
+      "cta": "Etkinliğini ücretsiz oluştur",
+      "secondary": "Nasıl çalışır?",
+      "point1": "Misafire uygulama yok",
+      "point2": "Orijinal kalite",
+      "point3": "25 fotoğrafa kadar ücretsiz",
+      "qrLabel": "Okut beni",
+      "captions": {
+        "rings": "yüzükler!",
+        "cheers": "şerefe!",
+        "dance": "ilk dans",
+        "cake": "pasta zamanı"
+      }
+    },
+    "demo": {
+      "date": "Cmt · 14 Haziran",
+      "eventName": "Elif & Can",
+      "intro": "Bugünün en güzel anlarını paylaş. Doğrudan çifte ulaşır.",
+      "button": "Fotoğraf ve video ekle",
+      "namePlaceholder": "Adın (isteğe bağlı)",
+      "toast": "Teşekkürler! 3 öğe eklendi",
+      "badge": "10 sn'de yükleniyor"
+    },
+    "steps": {
+      "eyebrow": "Nasıl çalışır",
+      "title": "Üç adım, sıfır zahmet",
+      "subtitle": "Bir kahve yapacak kadar sürede hazır.",
+      "create": {
+        "title": "Etkinliğini oluştur",
+        "body": "Bir isim ve tarih ver. QR kodun ve linkin anında hazır."
+      },
+      "share": {
+        "title": "QR'ı masalara koy",
+        "body": "Hazır kart ve afişlerimizden birini yazdır ya da linki grup sohbetine gönder."
+      },
+      "collect": {
+        "title": "Anıların gelişini izle",
+        "body": "Misafirler okutur ve yükler. Sen her şeyi canlı görür, tek tıkla hepsini indirirsin."
+      }
+    },
+    "features": {
+      "eyebrow": "Neden seviliyor",
+      "title": "Günün her açısı, tek bir yerde",
+      "subtitle": "Başka türlü asla göremeyeceğin fotoğraflar, onları çekenlerden.",
+      "noApp": {
+        "badge": "Her telefonda çalışır",
+        "title": "Uygulama yok. Kayıt yok. Sadece kamera.",
+        "body": "Misafirler okutur, tek büyük butona dokunur ve fotoğraflarını seçer. Safari'de, Chrome'da, hatta WhatsApp ve Instagram içinde bile çalışır."
+      },
+      "private": {
+        "title": "Varsayılan olarak gizli",
+        "body": "Sadece linkine sahip olanlar yükleyebilir. Galerin asla herkese açık değildir, arama motorlarında görünmez."
+      },
+      "originals": {
+        "title": "Orijinal kalite",
+        "body": "Hepsini ZIP olarak indir: sıkıştırma yok, filigran yok."
+      },
+      "print": {
+        "title": "Baskıya hazır QR kartları",
+        "body": "Kişiselleştirip evde yazdırabileceğin masa kartları, tabelalar ve afişler."
+      },
+      "video": {
+        "title": "Fotoğraf ve video",
+        "body": "Konuşmalardan ve dans pistinden kısa videolar, her biri 5 dakikaya kadar."
+      },
+      "gallery": {
+        "title": "Paylaşımlı ya da sadece senin",
+        "body": "Misafirler albüme göz atabilsin ya da sadece sen gör. İstediğin zaman değiştir."
+      },
+      "languages": {
+        "title": "Misafirlerinin dilini konuşur",
+        "body": "Misafir sayfası otomatik olarak Türkçe, İngilizce veya Almanca açılır; daha fazla dil yolda."
+      }
+    },
+    "eventTypes": {
+      "eyebrow": "Her özel gün için",
+      "title": "İnsanların bir araya geldiği anlar için",
+      "wedding": {
+        "title": "Düğünler",
+        "body": "Nikâhtan son dansa kadar."
+      },
+      "birthday": {
+        "title": "Doğum günleri",
+        "body": "Mumlar, konuşmalar, sürprizler."
+      },
+      "corporate": {
+        "title": "Şirket etkinlikleri",
+        "body": "Toplantılar, lansmanlar, partiler."
+      },
+      "babyShower": {
+        "title": "Baby shower",
+        "body": "Tatlı anlar, tek bir albümde."
+      },
+      "graduation": {
+        "title": "Mezuniyetler",
+        "body": "Havaya atılan kepler, her açıdan."
+      },
+      "party": {
+        "title": "Her türlü parti",
+        "body": "Buluşmalar, festivaller, tatiller."
+      }
+    },
+    "pricing": {
+      "eyebrow": "Fiyatlar",
+      "title": "Etkinlik başına bir kez öde. Bu kadar.",
+      "subtitle": "Abonelik yok, faturada sürpriz yok. Ücretsiz başla, daha fazla yere ihtiyacın olduğunda yükselt.",
+      "merchantLine": "TEK ETKİNLİK · TEK ÖDEME",
+      "stamp": "En popüler",
+      "incl": "dahil",
+      "billing": "ÖDEME",
+      "oneTime": "TEK SEFERLİK",
+      "total": "TOPLAM",
+      "thanks": "NO. {no} · TEŞEKKÜRLER",
+      "footnote": "Fiyatlar USD cinsindendir; ödeme sırasında yerel para biriminde, KDV dahil gösterilir. Albümün kullanılmadıysa 14 gün içinde para iadesi.",
+      "plans": {
+        "free": {
+          "name": "Ücretsiz",
+          "tagline": "Küçük bir buluşmada dene",
+          "cta": "Ücretsiz başla"
+        },
+        "standard": {
+          "name": "Standart",
+          "tagline": "Çoğu düğün ve parti için",
+          "cta": "Standart'ı seç"
+        },
+        "premium": {
+          "name": "Premium",
+          "tagline": "Büyük günler ve bol video için",
+          "cta": "Premium'u seç"
+        }
+      },
+      "lines": {
+        "photos": "{count} fotoğraf",
+        "items": "{count} öğe · {gb} GB",
+        "video": "{minutes} dk'ya kadar video",
+        "noVideo": "Sadece fotoğraf",
+        "retention": "{days} gün saklanır",
+        "zip": "Tam ZIP indirme",
+        "zipPreview": "Önizleme ZIP'i",
+        "templatesBasic": "Temel QR kartları",
+        "templatesAll": "Tüm QR şablonları",
+        "templatesCustom": "Şablonlar + kendi renklerin",
+        "slideshow": "Canlı slayt (yakında)",
+        "removeBranding": "Markasız",
+        "support": "E-posta desteği",
+        "prioritySupport": "Öncelikli destek"
+      }
+    },
+    "faq": {
+      "eyebrow": "SSS",
+      "title": "Sorular ve cevaplar",
+      "items": {
+        "app": {
+          "q": "Misafirlerin uygulama indirmesi gerekiyor mu?",
+          "a": "Hayır. Misafirler QR kodu telefon kamerasıyla okutur ve tarayıcıdan yükler. Uygulama, hesap veya şifre yok."
+        },
+        "how": {
+          "q": "Misafirler linke nasıl ulaşır?",
+          "a": "QR kodu masa kartlarına ya da bir tabelaya yazdır (hazır şablonlarımız var) veya linki mesajla ya da e-postayla paylaş."
+        },
+        "privacy": {
+          "q": "Fotoğrafları kim görebilir?",
+          "a": "Sadece sen; paylaşımlı galeriyi açarsan linke sahip misafirler de. Galeriler asla herkese açık değildir, arama motorlarında listelenmez ve her şeyi AB'de saklarız."
+        },
+        "quality": {
+          "q": "Fotoğraflar sıkıştırılıyor mu?",
+          "a": "Hayır. Orijinaller tam kalitede saklanır ve hepsini ZIP olarak indirebilirsin. Misafirler sadece küçük önizlemeleri görür."
+        },
+        "video": {
+          "q": "Misafirler video yükleyebilir mi?",
+          "a": "Evet; Standart'ta video başına 2 dakikaya, Premium'da 5 dakikaya kadar. Ücretsiz plan sadece fotoğraf içindir."
+        },
+        "limits": {
+          "q": "Albüm dolarsa ne olur?",
+          "a": "Misafirler nazik bir mesaj görür, sen de tek tıkla planını yükseltebilirsin. Daha önce yüklenen hiçbir şey kaybolmaz."
+        },
+        "duration": {
+          "q": "Fotoğraflarım ne kadar saklanır?",
+          "a": "Ücretsiz'de 7 gün, Standart'ta 12 ay, Premium'da 24 ay. Herhangi bir şey silinmeden çok önce sana e-postayla hatırlatırız."
+        },
+        "refund": {
+          "q": "Bana uygun olmazsa?",
+          "a": "Albümün kullanılmadıysa 14 gün içinde paranı soru sormadan iade ederiz."
+        }
+      }
+    },
+    "finalCta": {
+      "title": "Gününün tek bir anını bile kaçırma",
+      "body": "Etkinliğini bir dakikada oluştur. Gerisini misafirlerin halleder.",
+      "cta": "Etkinliğini ücretsiz oluştur",
+      "note": "25 fotoğrafa kadar ücretsiz · Kredi kartı gerekmez"
+    },
+    "footer": {
+      "tagline": "Tüm misafirlerin fotoğraf ve videoları, tek bir özel albümde, tek bir QR kodla.",
+      "product": "Ürün",
+      "legal": "Yasal",
+      "hosting": "Frankfurt'ta barındırılıyor, AB",
+      "links": {
+        "privacy": "Gizlilik politikası",
+        "terms": "Kullanım şartları",
+        "cookies": "Çerezler",
+        "imprint": "Künye",
+        "dmca-report": "İçerik bildir"
+      }
     }
   }
 }

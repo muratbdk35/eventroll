@@ -94,3 +94,11 @@ Hosting region: Frankfurt (Neon `eu-central-1`, Vercel `fra1`).
 To be written in phase 1D: Cloudflare CSAM Scanning Tool on the R2 custom domain,
 admin one-click delete + suspend, audit log, reporting to the relevant authority
 (in Germany: BKA / jugendschutz.net). _Open:_ human sign-off.
+
+## 14. Landing page built ahead of phase 1D (2026-10-12)
+At the owner's request the full landing page was built now, using 21st.dev for
+inspiration (previews of hero, steps, bento, gallery and pricing blocks) and one
+fetched component ("Receipt Tiers"), rewritten as a server component with CSS-only
+motion. No testimonials section until there are real customers (no invented
+reviews). Guest "photos" in the hero are illustrated gradients, not stock images.
+SEO pages, legal pages and cookie consent remain in phase 1D.

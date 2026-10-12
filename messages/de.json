@@ -1,5 +1,7 @@
 {
-  "_meta": { "review": "machine draft — needs human review" },
+  "_meta": {
+    "review": "machine draft — needs human review"
+  },
   "Metadata": {
     "title": "{appName} — Alle Gästefotos mit einem QR-Code sammeln",
     "description": "Gäste scannen einen QR-Code und laden Fotos und Videos direkt vom Handy hoch. Keine App, keine Anmeldung. Alle Erinnerungen in einer privaten Galerie."
@@ -10,13 +12,6 @@
     "signOut": "Abmelden",
     "language": "Sprache",
     "account": "Konto"
-  },
-  "Home": {
-    "eyebrow": "Für Hochzeiten, Geburtstage und jedes Fest",
-    "headline": "Scannen. Hochladen. Fertig.",
-    "subhead": "Deine Gäste scannen einen QR-Code und teilen Fotos und Videos direkt im Handy-Browser. Keine App, kein Konto. Du bekommst jeden Moment in einer privaten Galerie.",
-    "cta": "Event kostenlos erstellen",
-    "secondary": "So funktioniert's"
   },
   "Login": {
     "title": "Willkommen bei {appName}",
@@ -49,6 +44,224 @@
       "body": "Tippe auf den Button, um dich anzumelden. Der Link funktioniert einmal und ist 15 Minuten gültig.",
       "button": "Anmelden",
       "ignore": "Wenn du diese E-Mail nicht angefordert hast, kannst du sie ignorieren."
+    }
+  },
+  "Landing": {
+    "nav": {
+      "how-it-works": "So funktioniert's",
+      "features": "Funktionen",
+      "pricing": "Preise",
+      "faq": "FAQ",
+      "cta": "Kostenlos starten"
+    },
+    "hero": {
+      "eyebrow": "Für Hochzeiten, Geburtstage und jedes Fest",
+      "line1": "Scannen. Hochladen.",
+      "line2": "Fertig.",
+      "subhead": "Ein QR-Code auf dem Tisch, und die Fotos und Videos aller Gäste landen in deiner privaten Galerie. Keine App, kein Konto, direkt im Handy-Browser.",
+      "cta": "Event kostenlos erstellen",
+      "secondary": "So funktioniert's",
+      "point1": "Keine App für Gäste",
+      "point2": "Originale in voller Qualität",
+      "point3": "Kostenlos bis 25 Fotos",
+      "qrLabel": "Scan mich",
+      "captions": {
+        "rings": "die Ringe!",
+        "cheers": "Prost!",
+        "dance": "erster Tanz",
+        "cake": "Tortenzeit"
+      }
+    },
+    "demo": {
+      "date": "Sa · 14. Juni",
+      "eventName": "Elif & Can",
+      "intro": "Teile deine schönsten Momente von heute. Sie gehen direkt an das Brautpaar.",
+      "button": "Fotos & Videos hinzufügen",
+      "namePlaceholder": "Dein Name (optional)",
+      "toast": "Danke! 3 Dateien hinzugefügt",
+      "badge": "Hochgeladen in 10 Sek."
+    },
+    "steps": {
+      "eyebrow": "So funktioniert's",
+      "title": "Drei Schritte, null Aufwand",
+      "subtitle": "Eingerichtet in der Zeit, die ein Kaffee braucht.",
+      "create": {
+        "title": "Event erstellen",
+        "body": "Gib einen Namen und ein Datum ein. QR-Code und Link sind sofort da."
+      },
+      "share": {
+        "title": "QR-Code auf die Tische",
+        "body": "Drucke eine unserer fertigen Karten oder Plakate aus oder teile den Link im Gruppenchat."
+      },
+      "collect": {
+        "title": "Erinnerungen sammeln",
+        "body": "Gäste scannen und laden hoch. Du siehst alles live und lädst alles mit einem Klick herunter."
+      }
+    },
+    "features": {
+      "eyebrow": "Darum lieben es Gastgeber",
+      "title": "Jeder Blickwinkel deines Tages, an einem Ort",
+      "subtitle": "Die Fotos, die du sonst nie sehen würdest, von den Menschen, die sie gemacht haben.",
+      "noApp": {
+        "badge": "Funktioniert auf jedem Handy",
+        "title": "Keine App. Keine Anmeldung. Nur die Kamera.",
+        "body": "Gäste scannen, tippen auf einen großen Button und wählen ihre Fotos. Funktioniert in Safari, Chrome und sogar in WhatsApp oder Instagram."
+      },
+      "private": {
+        "title": "Standardmäßig privat",
+        "body": "Nur wer deinen Link hat, kann hochladen. Deine Galerie ist nie öffentlich und wird nicht indexiert."
+      },
+      "originals": {
+        "title": "Originale in voller Qualität",
+        "body": "Lade alles als ZIP herunter: keine Komprimierung, keine Wasserzeichen."
+      },
+      "print": {
+        "title": "Druckfertige QR-Karten",
+        "body": "Tischkarten, Schilder und Plakate, die du personalisieren und zu Hause drucken kannst."
+      },
+      "video": {
+        "title": "Fotos und Videos",
+        "body": "Kurze Clips von den Reden und der Tanzfläche, jeweils bis zu 5 Minuten."
+      },
+      "gallery": {
+        "title": "Geteilt oder nur für dich",
+        "body": "Lass Gäste im Album stöbern oder behalte es für dich. Jederzeit änderbar."
+      },
+      "languages": {
+        "title": "Spricht die Sprache deiner Gäste",
+        "body": "Die Gästeseite öffnet sich automatisch auf Deutsch, Englisch oder Türkisch, weitere Sprachen folgen."
+      }
+    },
+    "eventTypes": {
+      "eyebrow": "Für jeden Anlass",
+      "title": "Gemacht für Momente, in denen Menschen zusammenkommen",
+      "wedding": {
+        "title": "Hochzeiten",
+        "body": "Vom Jawort bis zum letzten Tanz."
+      },
+      "birthday": {
+        "title": "Geburtstage",
+        "body": "Kerzen, Reden und Überraschungen."
+      },
+      "corporate": {
+        "title": "Firmenevents",
+        "body": "Offsites, Launches und Feiern."
+      },
+      "babyShower": {
+        "title": "Babypartys",
+        "body": "Süße Momente in einem Album."
+      },
+      "graduation": {
+        "title": "Abschlussfeiern",
+        "body": "Hüte in der Luft, aus jedem Winkel."
+      },
+      "party": {
+        "title": "Jede Party",
+        "body": "Treffen, Festivals, Feiertage."
+      }
+    },
+    "pricing": {
+      "eyebrow": "Preise",
+      "title": "Einmal pro Event zahlen. Fertig.",
+      "subtitle": "Kein Abo, keine Überraschungen auf der Rechnung. Starte kostenlos und upgrade, wenn du mehr Platz brauchst.",
+      "merchantLine": "EIN EVENT · EINE ZAHLUNG",
+      "stamp": "Beliebt",
+      "incl": "inkl",
+      "billing": "ABRECHNUNG",
+      "oneTime": "EINMALIG",
+      "total": "GESAMT",
+      "thanks": "NR. {no} · DANKE",
+      "footnote": "Preise in USD, an der Kasse in deiner Landeswährung angezeigt, inkl. MwSt. 14 Tage Geld-zurück-Garantie, wenn dein Album nicht genutzt wurde.",
+      "plans": {
+        "free": {
+          "name": "Gratis",
+          "tagline": "Teste es bei einem kleinen Treffen",
+          "cta": "Kostenlos starten"
+        },
+        "standard": {
+          "name": "Standard",
+          "tagline": "Für die meisten Hochzeiten und Partys",
+          "cta": "Standard wählen"
+        },
+        "premium": {
+          "name": "Premium",
+          "tagline": "Für große Tage und viele Videos",
+          "cta": "Premium wählen"
+        }
+      },
+      "lines": {
+        "photos": "{count} Fotos",
+        "items": "{count} Dateien · {gb} GB",
+        "video": "Videos bis {minutes} Min.",
+        "noVideo": "Nur Fotos",
+        "retention": "{days} Tage gespeichert",
+        "zip": "Voller ZIP-Download",
+        "zipPreview": "ZIP der Vorschauen",
+        "templatesBasic": "Einfache QR-Karten",
+        "templatesAll": "Alle QR-Vorlagen",
+        "templatesCustom": "Vorlagen + eigene Farben",
+        "slideshow": "Live-Diashow (bald)",
+        "removeBranding": "Ohne Branding",
+        "support": "E-Mail-Support",
+        "prioritySupport": "Priorisierter Support"
+      }
+    },
+    "faq": {
+      "eyebrow": "FAQ",
+      "title": "Fragen und Antworten",
+      "items": {
+        "app": {
+          "q": "Müssen meine Gäste eine App herunterladen?",
+          "a": "Nein. Gäste scannen den QR-Code mit der Handykamera und laden im Browser hoch. Keine App, kein Konto, kein Passwort."
+        },
+        "how": {
+          "q": "Wie bekommen Gäste den Link?",
+          "a": "Drucke den QR-Code auf Tischkarten oder ein Schild (wir haben fertige Vorlagen) oder teile den Link per Nachricht oder E-Mail."
+        },
+        "privacy": {
+          "q": "Wer kann die Fotos sehen?",
+          "a": "Nur du und, wenn du die geteilte Galerie aktivierst, Gäste mit deinem Link. Galerien sind nie öffentlich, erscheinen nicht in Suchmaschinen und alles wird in der EU gespeichert."
+        },
+        "quality": {
+          "q": "Werden die Fotos komprimiert?",
+          "a": "Nein. Originale werden in voller Qualität gespeichert und du kannst alle als ZIP herunterladen. Gäste sehen nur kleinere Vorschauen."
+        },
+        "video": {
+          "q": "Können Gäste Videos hochladen?",
+          "a": "Ja, mit Standard (bis 2 Minuten pro Video) und Premium (bis 5 Minuten). Der Gratis-Plan ist nur für Fotos."
+        },
+        "limits": {
+          "q": "Was passiert, wenn das Album voll ist?",
+          "a": "Gäste sehen einen freundlichen Hinweis und du kannst mit einem Klick upgraden. Bereits Hochgeladenes geht nicht verloren."
+        },
+        "duration": {
+          "q": "Wie lange werden meine Fotos gespeichert?",
+          "a": "7 Tage mit Gratis, 12 Monate mit Standard und 24 Monate mit Premium. Wir erinnern dich rechtzeitig per E-Mail, bevor etwas gelöscht wird."
+        },
+        "refund": {
+          "q": "Und wenn es nicht passt?",
+          "a": "Wurde dein Album nicht genutzt, bekommst du dein Geld innerhalb von 14 Tagen ohne Rückfragen zurück."
+        }
+      }
+    },
+    "finalCta": {
+      "title": "Verpasse keinen einzigen Moment deines Tages",
+      "body": "Erstelle dein Event in einer Minute. Den Rest erledigen deine Gäste.",
+      "cta": "Event kostenlos erstellen",
+      "note": "Kostenlos bis 25 Fotos · Keine Kreditkarte nötig"
+    },
+    "footer": {
+      "tagline": "Die Fotos und Videos aller Gäste, in einem privaten Album, mit einem QR-Code.",
+      "product": "Produkt",
+      "legal": "Rechtliches",
+      "hosting": "Gehostet in Frankfurt, EU",
+      "links": {
+        "privacy": "Datenschutz",
+        "terms": "AGB",
+        "cookies": "Cookies",
+        "imprint": "Impressum",
+        "dmca-report": "Inhalt melden"
+      }
     }
   }
 }
