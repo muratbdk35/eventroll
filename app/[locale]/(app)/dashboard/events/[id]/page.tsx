@@ -1,11 +1,5 @@
 import type { Metadata } from "next";
-import {
-  ArrowLeft,
-  CalendarClock,
-  ExternalLink,
-  Images,
-  Users,
-} from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import Image from "next/image";
 import {
   getFormatter,
@@ -15,12 +9,11 @@ import {
 import { ActivatePlan } from "@/components/host/activate-plan";
 import { CopyLinkButton } from "@/components/host/copy-link-button";
 import { eventVisuals } from "@/components/host/event-visuals";
+import { PageBody, PageHeader } from "@/components/host/page-header";
 import { PhotoGrid } from "@/components/host/photo-grid";
 import { SettingsForm } from "@/components/host/settings-form";
 import { SharePanel } from "@/components/host/share-panel";
 import { StatusPill } from "@/components/host/status-pill";
-import { UserMenu } from "@/components/host/user-menu";
-import { SiteHeader } from "@/components/site-header";
 import { Button } from "@/components/ui/button";
 import { getSession } from "@/lib/auth";
 import { env, isProduction } from "@/lib/env";
@@ -48,8 +41,8 @@ export default async function EventPage({
   const { locale: rawLocale, id } = await params;
   const locale = rawLocale as Locale;
   setRequestLocale(locale);
-  const session = await getSession();
-  if (!session) return redirect({ href: "/login", locale });
+  // The layout already redirects signed-out visitors.
+  const session = (await getSession())!;
 
   const event = await getOwnedEvent(id, session.user.id);
   if (!event) return redirect({ href: "/dashboard", locale });
@@ -57,8 +50,9 @@ export default async function EventPage({
   const sp = await searchParams;
   const tab: Tab = TABS.includes(sp.tab as Tab) ? (sp.tab as Tab) : "overview";
 
-  const [t, format, stats, rows] = await Promise.all([
+  const [t, tDash, format, stats, rows] = await Promise.all([
     getTranslations("Events"),
+    getTranslations("Dashboard"),
     getFormatter(),
     getEventStats(event.id),
     tab === "overview" ? listEventMedia(event.id) : Promise.resolve([]),
@@ -73,10 +67,9 @@ export default async function EventPage({
       createdAt: m.createdAt.toISOString(),
     })),
   );
-  const { user } = session;
   const needsPlan = !event.plan;
   const link = guestUrl(event);
-  const { cover, Icon } = eventVisuals[event.type];
+  const { cover } = eventVisuals[event.type];
   const date = (d: Date | string) =>
     format.dateTime(typeof d === "string" ? new Date(`${d}T12:00:00Z`) : d, {
       dateStyle: "medium",
@@ -84,93 +77,75 @@ export default async function EventPage({
     });
   const limits = event.plan ? plans[event.plan] : null;
 
-  const stat = [
+  const cells = [
     {
-      Icon: Images,
       label: t("stats.photos"),
       value: format.number(stats.photos),
       sub: limits ? `/ ${format.number(limits.maxItems)}` : null,
     },
-    {
-      Icon: Users,
-      label: t("stats.guests"),
-      value: format.number(stats.guests),
-      sub: null,
-    },
-    {
-      Icon: CalendarClock,
-      label: t("stats.deletesOn"),
-      value: date(event.expiresAt),
-      sub: null,
-    },
+    { label: t("stats.guests"), value: format.number(stats.guests), sub: null },
+    { label: t("stats.deletesOn"), value: date(event.expiresAt), sub: null },
   ];
 
   return (
     <>
-      <SiteHeader>
-        <UserMenu name={user.name} email={user.email} image={user.image} />
-      </SiteHeader>
-      <main className="mx-auto w-full max-w-6xl flex-1 px-4 pt-6 pb-20">
-        <Link
-          href="/dashboard"
-          className="mb-4 inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
-        >
-          <ArrowLeft className="size-4 rtl:rotate-180" aria-hidden />
-          {t("back")}
-        </Link>
-
-        {/* Cover header */}
-        <header className="relative overflow-hidden rounded-[2rem] bg-foreground">
-          <Image
-            src={cover}
-            alt=""
-            fill
-            priority
-            sizes="(min-width: 1152px) 1120px, 100vw"
-            className="object-cover object-[center_30%] opacity-80"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-black/15" />
-          <div className="relative flex min-h-64 flex-col justify-end gap-5 p-6 text-white sm:p-8 md:flex-row md:items-end md:justify-between">
+      <PageHeader
+        crumbs={[
+          { label: tDash("listTitle"), href: "/dashboard" },
+          { label: event.name },
+        ]}
+      />
+      <PageBody>
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex min-w-0 items-center gap-3.5">
+            <span className="relative size-14 shrink-0 overflow-hidden rounded-xl bg-muted ring-1 ring-black/5">
+              <Image
+                src={cover}
+                alt=""
+                fill
+                sizes="56px"
+                priority
+                className="object-cover"
+              />
+            </span>
             <div className="min-w-0">
-              <div className="mb-3 flex flex-wrap items-center gap-2">
+              <h1 className="truncate text-[22px] font-semibold tracking-tight">
+                {event.name}
+              </h1>
+              <div className="mt-1 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[13px] text-muted-foreground">
                 <StatusPill
                   status={event.status}
                   label={t(`status.${event.status}`)}
-                  onImage
                 />
-                <span className="inline-flex h-6 items-center gap-1.5 rounded-full bg-white/15 px-2.5 text-xs font-medium backdrop-blur">
-                  <Icon className="size-3.5" aria-hidden />
-                  {t(`types.${event.type}`)}
+                <span>
+                  {t("meta", {
+                    type: t(`types.${event.type}`),
+                    date: date(event.eventDate),
+                  })}
                 </span>
                 {event.plan && (
-                  <span className="inline-flex h-6 items-center rounded-full bg-white/15 px-2.5 text-xs font-medium capitalize backdrop-blur">
-                    {event.plan}
-                  </span>
+                  <span className="capitalize">· {event.plan}</span>
                 )}
               </div>
-              <h1 className="font-heading text-3xl leading-tight font-bold tracking-tight text-balance sm:text-4xl">
-                {event.name}
-              </h1>
-              <p className="mt-1.5 text-white/80">{date(event.eventDate)}</p>
-            </div>
-            <div className="grid shrink-0 grid-cols-2 gap-2 md:flex [&>*]:min-w-0 [&>*]:px-3 sm:[&>*]:px-4">
-              <CopyLinkButton
-                link={link}
-                variant="secondary"
-                className="border-0 bg-white/15 text-white backdrop-blur hover:bg-white/25"
-              />
-              <Button
-                asChild
-                className="h-10 rounded-xl bg-white px-4 text-foreground hover:bg-white/90"
-              >
-                <a href={link} target="_blank" rel="noopener noreferrer">
-                  <ExternalLink aria-hidden />
-                  {t("openGuest")}
-                </a>
-              </Button>
             </div>
           </div>
-        </header>
+          <div className="flex shrink-0 gap-2">
+            <CopyLinkButton
+              link={link}
+              className="h-8 flex-1 px-3 sm:flex-none"
+            />
+            <Button
+              asChild
+              variant="outline"
+              className="h-8 flex-1 px-3 sm:flex-none"
+            >
+              <a href={link} target="_blank" rel="noopener noreferrer">
+                <ExternalLink aria-hidden />
+                {t("openGuest")}
+              </a>
+            </Button>
+          </div>
+        </div>
 
         {needsPlan && (
           <div className="mt-6">
@@ -181,35 +156,27 @@ export default async function EventPage({
           </div>
         )}
 
-        <dl className="mt-4 grid grid-cols-3 gap-2 sm:mt-6 sm:gap-3">
-          {stat.map(({ Icon: StatIcon, label, value, sub }) => (
-            <div
-              key={label}
-              className="flex items-center gap-4 rounded-2xl border border-border bg-card p-3 sm:p-4"
-            >
-              <span className="hidden size-11 shrink-0 items-center justify-center rounded-xl bg-accent text-accent-foreground sm:flex">
-                <StatIcon className="size-5" aria-hidden />
-              </span>
-              <div className="min-w-0">
-                <dt className="text-xs font-medium text-muted-foreground">
-                  {label}
-                </dt>
-                <dd className="font-heading text-base font-bold tabular-nums sm:text-xl">
-                  {value}
-                  {sub && (
-                    <span className="ms-1 hidden text-sm font-medium text-muted-foreground sm:inline">
-                      {sub}
-                    </span>
-                  )}
-                </dd>
-              </div>
+        <dl className="mt-6 grid grid-cols-3 divide-x divide-border overflow-hidden rounded-xl border border-border bg-background shadow-[0_1px_2px_rgb(0_0_0/0.03)] rtl:divide-x-reverse">
+          {cells.map(({ label, value, sub }) => (
+            <div key={label} className="min-w-0 px-4 py-3.5 sm:px-5 sm:py-4">
+              <dt className="truncate text-xs text-muted-foreground">
+                {label}
+              </dt>
+              <dd className="mt-1 text-[15px] leading-snug font-semibold tracking-tight tabular-nums sm:truncate sm:text-xl">
+                {value}
+                {sub && (
+                  <span className="ms-1 hidden text-sm font-normal text-muted-foreground sm:inline">
+                    {sub}
+                  </span>
+                )}
+              </dd>
             </div>
           ))}
         </dl>
 
         <nav
           aria-label={event.name}
-          className="mt-8 inline-flex rounded-2xl bg-muted p-1"
+          className="mt-8 flex gap-6 border-b border-border"
         >
           {TABS.map((key) => (
             <Link
@@ -217,15 +184,15 @@ export default async function EventPage({
               href={`/dashboard/events/${event.id}?tab=${key}`}
               aria-current={tab === key ? "page" : undefined}
               className={cn(
-                "rounded-xl px-4 py-2 text-sm font-medium transition-all sm:px-5",
+                "-mb-px flex items-center gap-1.5 border-b-2 pb-2.5 text-sm font-medium transition-colors",
                 tab === key
-                  ? "bg-card text-foreground shadow-sm"
-                  : "text-muted-foreground hover:text-foreground",
+                  ? "border-foreground text-foreground"
+                  : "border-transparent text-muted-foreground hover:text-foreground",
               )}
             >
               {t(`tabs.${key}`)}
               {key === "overview" && stats.photos > 0 && (
-                <span className="ms-1.5 rounded-full bg-accent px-1.5 py-0.5 text-[11px] font-semibold text-accent-foreground tabular-nums">
+                <span className="rounded-md bg-muted px-1.5 py-px text-[11px] text-muted-foreground tabular-nums">
                   {stats.photos}
                 </span>
               )}
@@ -261,7 +228,7 @@ export default async function EventPage({
             />
           )}
         </div>
-      </main>
+      </PageBody>
     </>
   );
 }

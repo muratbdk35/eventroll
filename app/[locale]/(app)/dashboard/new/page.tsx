@@ -1,10 +1,6 @@
 import type { Metadata } from "next";
-import { ArrowLeft } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { UserMenu } from "@/components/host/user-menu";
-import { SiteHeader } from "@/components/site-header";
-import { getSession } from "@/lib/auth";
-import { Link, redirect } from "@/lib/i18n/navigation";
+import { PageBody, PageHeader } from "@/components/host/page-header";
 import type { Locale } from "@/lib/i18n/routing";
 import { CreateEventForm } from "./create-event-form";
 
@@ -18,33 +14,28 @@ export default async function NewEventPage({
 }: PageProps<"/[locale]/dashboard/new">) {
   const locale = (await params).locale as Locale;
   setRequestLocale(locale);
-  const session = await getSession();
-  if (!session) return redirect({ href: "/login", locale });
-
-  const t = await getTranslations("Events");
-  const { user } = session;
+  const [t, tDash] = await Promise.all([
+    getTranslations("Events"),
+    getTranslations("Dashboard"),
+  ]);
 
   return (
     <>
-      <SiteHeader>
-        <UserMenu name={user.name} email={user.email} image={user.image} />
-      </SiteHeader>
-      <main className="mx-auto w-full max-w-5xl flex-1 px-4 pt-8 pb-20">
-        <Link
-          href="/dashboard"
-          className="mb-6 inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
-        >
-          <ArrowLeft className="size-4 rtl:rotate-180" aria-hidden />
-          {t("back")}
-        </Link>
-        <h1 className="font-heading text-4xl font-bold tracking-tight text-balance">
+      <PageHeader
+        crumbs={[
+          { label: tDash("listTitle"), href: "/dashboard" },
+          { label: t("newTitle") },
+        ]}
+      />
+      <PageBody className="max-w-2xl">
+        <h1 className="text-[22px] font-semibold tracking-tight">
           {t("newTitle")}
         </h1>
-        <p className="mt-2 max-w-xl text-pretty text-muted-foreground">
-          {t("newSubtitle")}
+        <p className="mt-1 text-sm text-muted-foreground">
+          {t("newSubtitleShort")}
         </p>
         <CreateEventForm />
-      </main>
+      </PageBody>
     </>
   );
 }

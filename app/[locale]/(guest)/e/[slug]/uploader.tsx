@@ -272,12 +272,12 @@ export function Uploader(props: Props) {
       <div className="space-y-5">
         {needsPin && (
           <div className="text-center">
-            <span className="mx-auto flex size-12 items-center justify-center rounded-2xl bg-accent text-accent-foreground">
-              <KeyRound className="size-6" aria-hidden />
+            <span className="mx-auto flex size-11 items-center justify-center rounded-full bg-primary/10 text-primary">
+              <KeyRound className="size-5" aria-hidden />
             </span>
             <label
               htmlFor="pin"
-              className="mt-3 block font-heading text-lg font-semibold"
+              className="mt-3 block text-[17px] font-semibold"
             >
               {t("pinTitle")}
             </label>
@@ -296,7 +296,7 @@ export function Uploader(props: Props) {
                 if (e.key === "Enter" && token && pin.length >= 4)
                   void submitGate();
               }}
-              className="mx-auto mt-4 h-14 max-w-56 rounded-2xl text-center font-mono text-2xl tracking-[0.5em]"
+              className="mx-auto mt-4 h-12 max-w-52 rounded-xl bg-background text-center font-mono text-xl tracking-[0.5em]"
             />
           </div>
         )}
@@ -321,7 +321,7 @@ export function Uploader(props: Props) {
         )}
         {needsPin ? (
           <Button
-            className="h-13 w-full rounded-2xl text-base"
+            className="h-12 w-full rounded-xl text-[15px]"
             disabled={gateBusy || !token || pin.length < 4}
             onClick={() => void submitGate()}
           >
@@ -351,6 +351,9 @@ export function Uploader(props: Props) {
   const nameMissing = props.requireName && !name.trim();
   const hasAny = items.length > 0 || props.initialMine.length > 0;
   const pct = total ? Math.round((done / total) * 100) : 0;
+  const pick = () => {
+    if (!nameMissing) fileInput.current?.click();
+  };
 
   return (
     <div className="space-y-5">
@@ -365,7 +368,7 @@ export function Uploader(props: Props) {
           required={props.requireName}
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="h-12 rounded-2xl bg-card text-base"
+          className="h-11 rounded-xl bg-background text-base"
         />
       </div>
 
@@ -380,8 +383,9 @@ export function Uploader(props: Props) {
         aria-hidden
       />
 
-      {/* Big tap target; also a drop zone on desktop. */}
+      {/* Tap target on phones, drop zone on desktop. */}
       <div
+        onClick={pick}
         onDragOver={(e) => {
           if (nameMissing) return;
           e.preventDefault();
@@ -394,72 +398,70 @@ export function Uploader(props: Props) {
           if (!nameMissing) addFiles(Array.from(e.dataTransfer.files));
         }}
         className={cn(
-          "relative overflow-hidden rounded-[1.75rem] bg-primary p-1.5 text-primary-foreground shadow-[0_20px_40px_-20px_var(--primary)] transition-transform",
-          dragging && "scale-[1.02]",
-          nameMissing && "opacity-60",
+          "flex cursor-pointer flex-col items-center rounded-2xl border border-dashed px-5 pt-7 pb-5 text-center transition-colors",
+          dragging
+            ? "border-primary bg-primary/5"
+            : "border-border bg-muted/30 hover:bg-muted/50",
+          nameMissing && "pointer-events-none opacity-50",
         )}
       >
-        <div
-          aria-hidden
-          className="absolute -end-12 -top-12 size-40 rounded-full bg-white/10"
-        />
-        <div
-          aria-hidden
-          className="absolute -start-8 -bottom-16 size-36 rounded-full bg-white/[0.07]"
-        />
-        <div className="relative flex flex-col items-center gap-4 rounded-[1.4rem] border-2 border-dashed border-white/35 px-5 py-9 text-center">
-          <span className="flex size-16 items-center justify-center rounded-full bg-white/15">
-            <Camera className="size-8" aria-hidden />
-          </span>
-          <button
-            type="button"
-            disabled={nameMissing}
-            onClick={() => fileInput.current?.click()}
-            className="inline-flex h-12 items-center gap-2 rounded-2xl bg-white px-6 text-base font-semibold text-primary shadow-sm transition-transform hover:scale-[1.02] focus-visible:ring-4 focus-visible:ring-white/50 focus-visible:outline-none active:scale-[0.98] disabled:pointer-events-none"
-          >
-            <ImagePlus className="size-5" aria-hidden />
-            {hasAny ? t("chooseMore") : t("choose")}
-          </button>
-          <p className="hidden text-sm text-primary-foreground/80 sm:block">
-            {t("dropHint")}
-          </p>
-          <p className="text-xs text-primary-foreground/70">{t("formats")}</p>
-        </div>
+        <span className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+          <Camera className="size-6" aria-hidden />
+        </span>
+
+        <p className="mt-3 text-[13px] text-muted-foreground">
+          <span className="hidden sm:inline">{t("dropHint")} · </span>
+          {t("formats")}
+        </p>
+        <button
+          type="button"
+          disabled={nameMissing}
+          onClick={(e) => {
+            e.stopPropagation();
+            pick();
+          }}
+          className="mt-5 inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-primary text-[15px] font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus-visible:ring-4 focus-visible:ring-primary/25 focus-visible:outline-none active:scale-[0.99] disabled:pointer-events-none"
+        >
+          <ImagePlus className="size-5" aria-hidden />
+          {hasAny ? t("chooseMore") : t("choose")}
+        </button>
       </div>
 
       {total > 0 && (
         <div
           className={cn(
-            "rounded-2xl border p-4 transition-colors",
-            busy ? "border-border bg-card" : "border-success/30 bg-success/10",
+            "rounded-xl border px-4 py-3",
+            busy
+              ? "border-border bg-background"
+              : "border-success/25 bg-success/[0.06]",
           )}
           aria-live="polite"
         >
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 text-sm">
             {busy ? (
               <Loader2
-                className="size-5 shrink-0 animate-spin text-primary"
+                className="size-4 shrink-0 animate-spin text-muted-foreground"
                 aria-hidden
               />
             ) : (
               <CheckCircle2
-                className="size-5 shrink-0 text-success"
+                className="size-4 shrink-0 text-success"
                 aria-hidden
               />
             )}
-            <p className="flex-1 text-sm font-medium">
+            <p className="flex-1 font-medium">
               {busy
                 ? t("uploading", { done, total })
                 : t("done", { count: done })}
             </p>
             {busy && (
-              <span className="text-sm font-semibold text-muted-foreground tabular-nums">
+              <span className="text-[13px] text-muted-foreground tabular-nums">
                 {pct}%
               </span>
             )}
           </div>
           {busy && (
-            <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-muted">
+            <div className="mt-2.5 h-1 overflow-hidden rounded-full bg-muted">
               <div
                 className="h-full rounded-full bg-primary transition-[width] duration-300"
                 style={{ width: `${pct}%` }}
@@ -471,14 +473,17 @@ export function Uploader(props: Props) {
 
       {hasAny && (
         <section aria-labelledby="mine">
-          <h2 id="mine" className="mb-2.5 text-sm font-semibold">
+          <h2
+            id="mine"
+            className="mb-2 text-sm font-medium text-muted-foreground"
+          >
             {t("yourUploads")}
           </h2>
-          <ul className="grid grid-cols-3 gap-1.5">
+          <ul className="grid grid-cols-3 gap-1">
             {items.map((item) => (
               <li
                 key={item.key}
-                className="relative aspect-square overflow-hidden rounded-xl bg-muted"
+                className="relative aspect-square overflow-hidden rounded-lg bg-muted"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element -- local blob preview */}
                 <img
@@ -487,15 +492,15 @@ export function Uploader(props: Props) {
                   className="size-full object-cover"
                 />
                 {item.status === "uploading" || item.status === "queued" ? (
-                  <span className="absolute inset-0 flex items-center justify-center bg-black/35">
+                  <span className="absolute inset-0 flex items-center justify-center bg-black/30">
                     <Loader2
-                      className="size-6 animate-spin text-white"
+                      className="size-5 animate-spin text-white"
                       aria-hidden
                     />
                   </span>
                 ) : item.status === "done" ? (
                   <CheckCircle2
-                    className="absolute end-1.5 bottom-1.5 size-5 rounded-full bg-white text-success"
+                    className="absolute end-1 bottom-1 size-[18px] rounded-full bg-white text-success"
                     aria-hidden
                   />
                 ) : (
@@ -521,19 +526,19 @@ export function Uploader(props: Props) {
             {props.initialMine.map((m) => (
               <li
                 key={m.id}
-                className="relative flex aspect-square items-center justify-center overflow-hidden rounded-xl bg-muted"
+                className="relative flex aspect-square items-center justify-center overflow-hidden rounded-lg bg-muted"
               >
                 {m.src ? (
                   // eslint-disable-next-line @next/next/no-img-element -- signed storage URL
                   <img src={m.src} alt="" className="size-full object-cover" />
                 ) : (
                   <ImageIcon
-                    className="size-6 text-muted-foreground"
+                    className="size-5 text-muted-foreground"
                     aria-hidden
                   />
                 )}
                 <CheckCircle2
-                  className="absolute end-1.5 bottom-1.5 size-5 rounded-full bg-white text-success"
+                  className="absolute end-1 bottom-1 size-[18px] rounded-full bg-white text-success"
                   aria-hidden
                 />
               </li>

@@ -37,7 +37,12 @@
     "newEventCardBody": "QR code in a minute",
     "step1": "Create your event",
     "step2": "Pick a plan",
-    "step3": "Share the QR code"
+    "step3": "Share the QR code",
+    "listTitle": "Events",
+    "listSubtitle": "Every event you've created. Photos are kept until 7 days after the event.",
+    "colEvent": "Event",
+    "colStatus": "Status",
+    "colPhotos": "Photos"
   },
   "Email": {
     "magicLink": {
@@ -436,7 +441,15 @@
       "three": "Guests scan and share. No app, no account."
     },
     "preview": "Guest page preview",
-    "previewName": "Your event"
+    "previewName": "Your event",
+    "newSubtitleShort": "You'll get the QR code right away. Guests can upload once a plan is active.",
+    "cancel": "Cancel",
+    "meta": "{type} · {date}",
+    "shareQr": "Share QR",
+    "closedTitle": "Uploads are closed",
+    "closedBody": "Pick a plan to open uploads. One payment, no subscription.",
+    "uploadsBy": "Uploaded by",
+    "allPhotos": "{count, plural, one {# photo} other {# photos}}"
   },
   "Guest": {
     "welcome": "Share your photos from {event}",
@@ -493,5 +506,13 @@
     "formats": "JPG, PNG, HEIC · original quality",
     "pinSubtitle": "You'll find it on the card at your table.",
     "for": "Photos for"
+  },
+  "App": {
+    "events": "Events",
+    "newEvent": "New event",
+    "yourEvents": "Your events",
+    "menu": "Menu",
+    "closeMenu": "Close menu",
+    "home": "Website"
   }
 }

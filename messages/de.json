@@ -40,7 +40,12 @@
     "newEventCardBody": "QR-Code in einer Minute",
     "step1": "Event erstellen",
     "step2": "Tarif wählen",
-    "step3": "QR-Code teilen"
+    "step3": "QR-Code teilen",
+    "listTitle": "Events",
+    "listSubtitle": "Alle Events, die du erstellt hast. Fotos bleiben bis 7 Tage nach dem Event gespeichert.",
+    "colEvent": "Event",
+    "colStatus": "Status",
+    "colPhotos": "Fotos"
   },
   "Email": {
     "magicLink": {
@@ -439,7 +444,15 @@
       "three": "Gäste scannen und teilen. Keine App, kein Konto."
     },
     "preview": "Vorschau der Gästeseite",
-    "previewName": "Dein Event"
+    "previewName": "Dein Event",
+    "newSubtitleShort": "Den QR-Code bekommst du sofort. Gäste können hochladen, sobald ein Tarif aktiv ist.",
+    "cancel": "Abbrechen",
+    "meta": "{type} · {date}",
+    "shareQr": "QR teilen",
+    "closedTitle": "Uploads sind geschlossen",
+    "closedBody": "Wähle einen Tarif, um Uploads zu öffnen. Einmalzahlung, kein Abo.",
+    "uploadsBy": "Hochgeladen von",
+    "allPhotos": "{count, plural, one {# Foto} other {# Fotos}}"
   },
   "Guest": {
     "welcome": "Teile deine Fotos von {event}",
@@ -496,5 +509,13 @@
     "formats": "JPG, PNG, HEIC · Originalqualität",
     "pinSubtitle": "Du findest sie auf der Karte an deinem Tisch.",
     "for": "Fotos für"
+  },
+  "App": {
+    "events": "Events",
+    "newEvent": "Neues Event",
+    "yourEvents": "Deine Events",
+    "menu": "Menü",
+    "closeMenu": "Menü schließen",
+    "home": "Website"
   }
 }

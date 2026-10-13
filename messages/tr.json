@@ -40,7 +40,12 @@
     "newEventCardBody": "Bir dakikada QR kod",
     "step1": "Etkinliğini oluştur",
     "step2": "Plan seç",
-    "step3": "QR kodu paylaş"
+    "step3": "QR kodu paylaş",
+    "listTitle": "Etkinlikler",
+    "listSubtitle": "Oluşturduğun tüm etkinlikler. Fotoğraflar etkinlikten 7 gün sonrasına kadar saklanır.",
+    "colEvent": "Etkinlik",
+    "colStatus": "Durum",
+    "colPhotos": "Fotoğraf"
   },
   "Email": {
     "magicLink": {
@@ -439,7 +444,15 @@
       "three": "Misafirler okutur ve paylaşır. Uygulama yok, hesap yok."
     },
     "preview": "Misafir sayfası önizlemesi",
-    "previewName": "Etkinliğin"
+    "previewName": "Etkinliğin",
+    "newSubtitleShort": "QR kodun hemen hazır olur. Plan aktif olunca misafirler yükleyebilir.",
+    "cancel": "Vazgeç",
+    "meta": "{type} · {date}",
+    "shareQr": "QR paylaş",
+    "closedTitle": "Yüklemeler kapalı",
+    "closedBody": "Yüklemeyi açmak için plan seç. Tek ödeme, abonelik yok.",
+    "uploadsBy": "Yükleyen",
+    "allPhotos": "{count, plural, one {# fotoğraf} other {# fotoğraf}}"
   },
   "Guest": {
     "welcome": "{event} fotoğraflarını paylaş",
@@ -496,5 +509,13 @@
     "formats": "JPG, PNG, HEIC · orijinal kalite",
     "pinSubtitle": "Masandaki kartta yazıyor.",
     "for": "Fotoğraflar"
+  },
+  "App": {
+    "events": "Etkinlikler",
+    "newEvent": "Yeni etkinlik",
+    "yourEvents": "Etkinliklerin",
+    "menu": "Menü",
+    "closeMenu": "Menüyü kapat",
+    "home": "Web sitesi"
   }
 }

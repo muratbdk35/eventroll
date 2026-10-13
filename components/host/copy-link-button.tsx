@@ -33,7 +33,7 @@ export function CopyLinkButton({
       type="button"
       variant={variant}
       onClick={copy}
-      className={cn("h-10 rounded-xl px-4", className)}
+      className={cn("h-8 px-3", className)}
       aria-live="polite"
     >
       {copied ? <Check aria-hidden /> : <Link2 aria-hidden />}

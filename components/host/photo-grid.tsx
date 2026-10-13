@@ -77,17 +77,15 @@ export function PhotoGrid({
 
   if (photos.length === 0) {
     return (
-      <div className="flex flex-col items-center rounded-[2rem] border-2 border-dashed border-border bg-card/50 px-6 py-16 text-center">
-        <span className="flex size-14 items-center justify-center rounded-2xl bg-accent text-accent-foreground">
-          <ImageIcon className="size-7" aria-hidden />
+      <div className="flex flex-col items-center rounded-xl border border-dashed border-border bg-background px-6 py-14 text-center">
+        <span className="flex size-11 items-center justify-center rounded-lg border border-border bg-muted/50">
+          <ImageIcon className="size-5 text-muted-foreground" aria-hidden />
         </span>
-        <h2 className="mt-4 font-heading text-xl font-semibold">
-          {t("emptyTitle")}
-        </h2>
+        <h2 className="mt-4 text-[15px] font-semibold">{t("emptyTitle")}</h2>
         <p className="mt-1.5 max-w-sm text-sm text-pretty text-muted-foreground">
           {t("emptyBody")}
         </p>
-        <Button asChild className="mt-6 h-11 rounded-xl px-5">
+        <Button asChild variant="dark" className="mt-5 h-9 px-4">
           <Link href={`/dashboard/events/${eventId}?tab=share`}>
             <QrCode aria-hidden />
             {t("goShare")}
@@ -102,7 +100,7 @@ export function PhotoGrid({
   return (
     <>
       <ul
-        className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
+        className="grid grid-cols-3 gap-1.5 sm:grid-cols-4 lg:grid-cols-5"
         aria-busy={pending}
       >
         {photos.map((p, i) => (
@@ -111,7 +109,7 @@ export function PhotoGrid({
               type="button"
               onClick={() => setOpen(i)}
               aria-label={`${t("open")} · ${who(p)}`}
-              className="group relative block aspect-square w-full overflow-hidden rounded-2xl bg-muted focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+              className="group relative block aspect-square w-full overflow-hidden rounded-lg bg-muted focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
             >
               {/* eslint-disable-next-line @next/next/no-img-element -- signed storage URLs */}
               <img

@@ -70,22 +70,20 @@ function Row({
   children?: React.ReactNode;
 }) {
   return (
-    <div className="px-5 py-5 sm:px-6">
+    <div className="px-5 py-4 sm:px-6">
       <div className="flex items-start gap-4">
-        <span className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-xl bg-muted text-foreground">
-          <Icon className="size-4.5" />
-        </span>
+        <Icon className="mt-0.5 hidden size-4 shrink-0 text-muted-foreground sm:block" />
         <div className="min-w-0 flex-1">
-          <label htmlFor={htmlFor} className="block font-medium">
+          <label htmlFor={htmlFor} className="block text-sm font-medium">
             {title}
           </label>
-          <p className="mt-0.5 text-sm text-pretty text-muted-foreground">
+          <p className="mt-0.5 text-[13px] text-pretty text-muted-foreground">
             {description}
           </p>
         </div>
-        {control && <div className="shrink-0 pt-1">{control}</div>}
+        {control && <div className="shrink-0">{control}</div>}
       </div>
-      {children && <div className="mt-4 ps-13">{children}</div>}
+      {children && <div className="mt-3 sm:ps-8">{children}</div>}
     </div>
   );
 }
@@ -151,23 +149,21 @@ export function SettingsForm({
   }
 
   return (
-    <div className="max-w-2xl space-y-6 pb-24">
-      <form id="settings" onSubmit={onSubmit} className="space-y-6">
-        <section className="overflow-hidden rounded-3xl border border-border bg-card">
-          <h2 className="border-b border-border px-6 py-4 font-heading text-base font-semibold">
+    <div className="max-w-2xl space-y-4 pb-24">
+      <form id="settings" onSubmit={onSubmit} className="space-y-4">
+        <section className="overflow-hidden rounded-xl border border-border bg-background shadow-[0_1px_2px_rgb(0_0_0/0.03)]">
+          <h2 className="border-b border-border px-5 py-3 text-sm font-semibold sm:px-6">
             {t("general")}
           </h2>
-          <div className="px-6 py-5">
-            <Label htmlFor="s-name" className="font-medium">
-              {tEvents("nameLabel")}
-            </Label>
+          <div className="px-5 py-4 sm:px-6">
+            <Label htmlFor="s-name">{tEvents("nameLabel")}</Label>
             <Input
               id="s-name"
               required
               maxLength={80}
               value={s.name}
               onChange={(e) => set("name", e.target.value)}
-              className="mt-2 h-11 rounded-xl"
+              className="mt-2 h-9"
             />
           </div>
           <div className="border-t border-border">
@@ -187,8 +183,8 @@ export function SettingsForm({
           </div>
         </section>
 
-        <section className="overflow-hidden rounded-3xl border border-border bg-card">
-          <h2 className="border-b border-border px-6 py-4 font-heading text-base font-semibold">
+        <section className="overflow-hidden rounded-xl border border-border bg-background shadow-[0_1px_2px_rgb(0_0_0/0.03)]">
+          <h2 className="border-b border-border px-5 py-3 text-sm font-semibold sm:px-6">
             {t("access")}
           </h2>
           <div className="divide-y divide-border">
@@ -219,7 +215,7 @@ export function SettingsForm({
                       set("pin", e.target.value.replace(/\D/g, ""))
                     }
                     aria-invalid={pinInvalid && s.pin.length > 0}
-                    className="h-11 max-w-44 rounded-xl text-center font-mono text-lg tracking-[0.4em]"
+                    className="h-9 max-w-40 text-center font-mono tracking-[0.35em]"
                   />
                   {initial.hasPin && (
                     <p className="text-xs text-muted-foreground">
@@ -257,7 +253,7 @@ export function SettingsForm({
                       type="datetime-local"
                       value={s.opens}
                       onChange={(e) => set("opens", e.target.value)}
-                      className="h-11 rounded-xl"
+                      className="h-9"
                     />
                   </div>
                   <div className="space-y-1.5">
@@ -272,7 +268,7 @@ export function SettingsForm({
                       type="datetime-local"
                       value={s.closes}
                       onChange={(e) => set("closes", e.target.value)}
-                      className="h-11 rounded-xl"
+                      className="h-9"
                     />
                   </div>
                 </div>
@@ -302,7 +298,7 @@ export function SettingsForm({
                   inputMode="numeric"
                   value={s.perPhone}
                   onChange={(e) => set("perPhone", e.target.value)}
-                  className="h-11 max-w-32 rounded-xl"
+                  className="h-9 max-w-28"
                 />
               )}
             </Row>
@@ -310,20 +306,18 @@ export function SettingsForm({
         </section>
       </form>
 
-      <section className="rounded-3xl border border-destructive/25 bg-destructive/[0.03] p-6">
+      <section className="rounded-xl border border-destructive/25 bg-background p-5 sm:px-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="font-heading text-base font-semibold">
-              {t("danger")}
-            </h2>
-            <p className="mt-0.5 text-sm text-muted-foreground">
+            <h2 className="text-sm font-semibold">{t("danger")}</h2>
+            <p className="mt-0.5 text-[13px] text-muted-foreground">
               {t("dangerBody")}
             </p>
           </div>
           <Button
             type="button"
             variant="destructive"
-            className="h-10 shrink-0 rounded-xl"
+            className="h-8 shrink-0"
             disabled={pending}
             onClick={onDelete}
           >
@@ -343,13 +337,13 @@ export function SettingsForm({
         )}
         aria-hidden={!dirty}
       >
-        <div className="flex w-full max-w-xl items-center justify-between gap-3 rounded-2xl bg-foreground py-2.5 ps-5 pe-2.5 text-background shadow-2xl">
+        <div className="flex w-full max-w-lg items-center justify-between gap-3 rounded-xl bg-foreground py-2 ps-4 pe-2 text-background shadow-2xl">
           <p className="text-sm font-medium">{t("unsaved")}</p>
           <div className="flex gap-2">
             <Button
               type="button"
               variant="ghost"
-              className="h-9 rounded-xl text-background hover:bg-white/10 hover:text-background"
+              className="h-8 text-background hover:bg-white/10 hover:text-background"
               onClick={() => setS(base)}
               disabled={pending}
               tabIndex={dirty ? 0 : -1}
@@ -359,7 +353,7 @@ export function SettingsForm({
             <Button
               type="submit"
               form="settings"
-              className="h-9 rounded-xl px-4"
+              className="h-8 bg-background px-3 text-foreground hover:bg-background/90"
               disabled={pending || pinInvalid || !s.name.trim()}
               tabIndex={dirty ? 0 : -1}
             >

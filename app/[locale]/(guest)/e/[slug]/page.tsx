@@ -57,69 +57,64 @@ export default async function GuestPage({
   const { cover } = eventVisuals[event.type];
 
   return (
-    <div className="flex flex-1 flex-col bg-secondary/60">
-      <header className="relative h-60 shrink-0 overflow-hidden bg-foreground sm:h-72">
+    <div className="flex flex-1 flex-col bg-background">
+      <header className="relative h-52 shrink-0 overflow-hidden bg-foreground">
         <Image
           src={cover}
           alt=""
           fill
           priority
           sizes="100vw"
-          className="object-cover object-[center_30%] opacity-90"
+          className="object-cover object-[center_30%]"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/10 to-black/75" />
-        <div className="relative mx-auto flex h-full max-w-md flex-col px-5 pt-4 pb-12">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/70" />
+        <div className="relative mx-auto flex h-full max-w-md flex-col px-5 pt-4 pb-5">
           <div className="flex items-center justify-between">
-            <LogoMark className="size-9 drop-shadow" />
-            <div className="[&_select]:border-white/30 [&_select]:bg-black/25 [&_select]:text-white [&_select]:backdrop-blur">
+            <LogoMark className="size-8 drop-shadow" />
+            <div className="[&_select]:h-8 [&_select]:border-white/25 [&_select]:bg-black/30 [&_select]:text-[13px] [&_select]:text-white [&_select]:backdrop-blur">
               <LocaleSwitcher />
             </div>
           </div>
           <div className="mt-auto text-white">
-            <p className="text-xs font-semibold tracking-[0.18em] uppercase opacity-80">
+            <p className="text-[11px] font-medium tracking-[0.16em] uppercase opacity-80">
               {t("for")}
             </p>
-            <h1 className="mt-1 font-heading text-3xl leading-tight font-bold text-balance drop-shadow-sm">
+            <h1 className="mt-0.5 text-2xl leading-tight font-semibold tracking-tight text-balance">
               {event.name}
             </h1>
           </div>
         </div>
       </header>
 
-      <main className="relative z-10 mx-auto -mt-6 w-full max-w-md flex-1 px-3 pb-10">
-        <div className="rounded-[2rem] bg-background p-5 shadow-[0_-8px_30px_-12px_rgb(60_30_10/0.25)] sm:p-6">
-          {state === "open" ? (
-            <>
-              <p className="mb-5 text-center text-sm text-pretty text-muted-foreground">
-                {t("welcomeSub")}
-              </p>
-              <Uploader
-                slug={event.slug}
-                requireName={event.requireName}
-                hasPin={Boolean(event.accessPinHash)}
-                maxPerDevice={event.maxUploadsPerDevice}
-                verified={guest?.verified ?? false}
-                initialMine={mine}
-                turnstileSiteKey={publicEnv.turnstileSiteKey}
+      <main className="mx-auto w-full max-w-md flex-1 px-5 pt-5 pb-10">
+        {state === "open" ? (
+          <>
+            <p className="mb-5 text-sm text-pretty text-muted-foreground">
+              {t("welcomeSub")}
+            </p>
+            <Uploader
+              slug={event.slug}
+              requireName={event.requireName}
+              hasPin={Boolean(event.accessPinHash)}
+              maxPerDevice={event.maxUploadsPerDevice}
+              verified={guest?.verified ?? false}
+              initialMine={mine}
+              turnstileSiteKey={publicEnv.turnstileSiteKey}
+            />
+            <p className="mt-8 flex items-start gap-2 border-t border-border pt-4 text-xs text-pretty text-muted-foreground">
+              <ShieldCheck
+                className="mt-px size-4 shrink-0 text-success"
+                aria-hidden
               />
-            </>
-          ) : (
-            <StateMessage
-              Icon={stateIcon[state]}
-              title={t(`state.${state}.title`)}
-              body={t(`state.${state}.body`)}
-            />
-          )}
-        </div>
-
-        {state === "open" && (
-          <p className="mx-auto mt-5 flex max-w-xs items-start justify-center gap-2 text-center text-xs text-pretty text-muted-foreground">
-            <ShieldCheck
-              className="mt-px size-4 shrink-0 text-success"
-              aria-hidden
-            />
-            {t("privacy")}
-          </p>
+              {t("privacy")}
+            </p>
+          </>
+        ) : (
+          <StateMessage
+            Icon={stateIcon[state]}
+            title={t(`state.${state}.title`)}
+            body={t(`state.${state}.body`)}
+          />
         )}
       </main>
     </div>
@@ -136,14 +131,12 @@ function StateMessage({
   body: string;
 }) {
   return (
-    <div className="flex flex-col items-center py-6 text-center">
-      <span className="flex size-14 items-center justify-center rounded-2xl bg-accent text-accent-foreground">
-        <Icon className="size-7" aria-hidden />
+    <div className="flex flex-col items-center py-10 text-center">
+      <span className="flex size-11 items-center justify-center rounded-full bg-muted">
+        <Icon className="size-5 text-muted-foreground" aria-hidden />
       </span>
-      <h2 className="mt-4 font-heading text-xl font-semibold text-balance">
-        {title}
-      </h2>
-      <p className="mt-1.5 max-w-xs text-sm text-pretty text-muted-foreground">
+      <h2 className="mt-4 text-lg font-semibold text-balance">{title}</h2>
+      <p className="mt-1 max-w-xs text-sm text-pretty text-muted-foreground">
         {body}
       </p>
     </div>

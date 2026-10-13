@@ -1,47 +1,31 @@
 import { cn } from "@/lib/utils";
 
-const tone = {
-  active: "bg-success/12 text-success ring-success/25",
-  draft: "bg-amber-500/12 text-amber-700 ring-amber-500/25",
-  expired: "bg-muted text-muted-foreground ring-border",
-  suspended: "bg-destructive/10 text-destructive ring-destructive/25",
-  deleted: "bg-muted text-muted-foreground ring-border",
+const dot = {
+  active: "bg-success",
+  draft: "bg-amber-500",
+  expired: "bg-muted-foreground/60",
+  suspended: "bg-destructive",
+  deleted: "bg-muted-foreground/60",
 } as const;
 
-/** Status chip with a live dot. `onImage` gives it a solid ground over photos. */
+/** Small neutral status badge with a coloured dot. */
 export function StatusPill({
   status,
   label,
-  onImage = false,
   className,
 }: {
-  status: keyof typeof tone;
+  status: keyof typeof dot;
   label: string;
-  onImage?: boolean;
   className?: string;
 }) {
   return (
     <span
       className={cn(
-        "inline-flex h-6 items-center gap-1.5 rounded-full px-2.5 text-xs font-semibold ring-1",
-        onImage
-          ? "bg-white/90 text-foreground ring-black/5 backdrop-blur"
-          : tone[status],
+        "inline-flex h-[22px] items-center gap-1.5 rounded-md border border-border bg-background px-2 text-[11.5px] font-medium whitespace-nowrap text-foreground/80",
         className,
       )}
     >
-      <span
-        className={cn(
-          "size-1.5 rounded-full",
-          status === "active"
-            ? "animate-pulse bg-success"
-            : status === "draft"
-              ? "bg-amber-500"
-              : status === "suspended"
-                ? "bg-destructive"
-                : "bg-muted-foreground",
-        )}
-      />
+      <span className={cn("size-1.5 rounded-full", dot[status])} aria-hidden />
       {label}
     </span>
   );
