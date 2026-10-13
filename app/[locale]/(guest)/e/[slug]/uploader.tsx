@@ -405,7 +405,7 @@ export function Uploader(props: Props) {
           nameMissing && "pointer-events-none opacity-50",
         )}
       >
-        <span className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+        <span className="flex size-12 items-center justify-center rounded-full bg-primary/15 text-primary ring-4 ring-primary/5">
           <Camera className="size-6" aria-hidden />
         </span>
 
