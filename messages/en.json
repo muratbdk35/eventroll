@@ -31,7 +31,13 @@
     "emptyTitle": "No events yet",
     "emptyBody": "Create an event to get your QR code. Guests can start uploading once you pick a plan.",
     "createEvent": "Create event",
-    "openEvent": "Open"
+    "openEvent": "Open",
+    "subtitle": "Create an event, share the QR code, collect every photo in original quality.",
+    "newEventCard": "New event",
+    "newEventCardBody": "QR code in a minute",
+    "step1": "Create your event",
+    "step2": "Pick a plan",
+    "step3": "Share the QR code"
   },
   "Email": {
     "magicLink": {
@@ -343,7 +349,14 @@
       "body": "Your QR code works as soon as a plan is active. One payment, no subscription.",
       "standard": "Standard · ${price}",
       "premium": "Premium · ${price}",
-      "devNote": "Local development: checkout isn't connected yet, so this activates the plan for free."
+      "devNote": "Local development: checkout isn't connected yet, so this activates the plan for free.",
+      "choose": "Choose {plan}",
+      "best": "Best value",
+      "oneTime": "one-time",
+      "photos": "Up to {count} photos",
+      "storage": "{gb} GB, original quality",
+      "qr": "QR code and guest link",
+      "print": "Printable table cards and posters"
     },
     "photos": {
       "empty": "No photos yet. They show up here as guests upload.",
@@ -351,7 +364,17 @@
       "block": "Delete all from this phone and block it",
       "deleteConfirm": "Delete this photo permanently?",
       "blockConfirm": "Delete every photo from this phone and block it from uploading?",
-      "failed": "That didn't work. Try again."
+      "failed": "That didn't work. Try again.",
+      "emptyTitle": "No photos yet",
+      "emptyBody": "Share your QR code. Photos appear here the moment guests upload them.",
+      "goShare": "Share QR code",
+      "by": "by {name}",
+      "anonymous": "Guest",
+      "close": "Close",
+      "open": "Open photo",
+      "download": "Download",
+      "prev": "Previous",
+      "next": "Next"
     },
     "share": {
       "title": "Your QR code",
@@ -362,7 +385,16 @@
       "png": "Download PNG",
       "svg": "Download SVG",
       "pinOn": "Guests will be asked for the PIN.",
-      "needsPlan": "The link shows a \"not open yet\" page until you pick a plan."
+      "needsPlan": "The link shows a \"not open yet\" page until you pick a plan.",
+      "cardTitle": "Share your photos",
+      "cardHint": "Scan with your phone camera",
+      "cardPin": "PIN required",
+      "stepsTitle": "How guests join",
+      "step1": "Scan the QR code with the camera",
+      "step2": "Pick photos from the gallery",
+      "step3": "They land in your album, in full quality",
+      "printPremium": "Printable table cards and posters are included with Premium.",
+      "open": "Open guest page"
     },
     "settings": {
       "general": "General",
@@ -375,9 +407,9 @@
       "hours": "Upload hours",
       "opens": "Opens",
       "closes": "Closes",
-      "hoursHint": "Leave empty to accept uploads any time while the event is live.",
+      "hoursHint": "Guests can upload only between these times.",
       "perPhone": "Photos per phone",
-      "perPhoneHint": "Leave empty for unlimited.",
+      "perPhoneHint": "Each phone can upload at most this many photos.",
       "save": "Save changes",
       "saving": "Saving…",
       "saved": "Saved",
@@ -385,8 +417,26 @@
       "danger": "Delete event",
       "dangerBody": "Permanently deletes the event and every photo. This can't be undone.",
       "deleteConfirm": "Delete this event and all its photos for good?",
-      "delete": "Delete event"
-    }
+      "delete": "Delete event",
+      "requireNameHint": "Shown next to each photo in your album.",
+      "pinToggle": "Protect with a PIN",
+      "hoursToggle": "Limit upload hours",
+      "perPhoneToggle": "Limit photos per phone",
+      "unsaved": "You have unsaved changes",
+      "discard": "Discard"
+    },
+    "openGuest": "Guest page",
+    "copyLink": "Copy link",
+    "linkCopied": "Link copied",
+    "guestsCount": "{count, plural, one {# guest} other {# guests}}",
+    "next": {
+      "title": "What happens next",
+      "one": "Your QR code is ready right away.",
+      "two": "Pick a plan to open uploads.",
+      "three": "Guests scan and share. No app, no account."
+    },
+    "preview": "Guest page preview",
+    "previewName": "Your event"
   },
   "Guest": {
     "welcome": "Share your photos from {event}",
@@ -438,6 +488,10 @@
       }
     },
     "notFoundTitle": "Event not found",
-    "notFoundBody": "Check the link or QR code and try again."
+    "notFoundBody": "Check the link or QR code and try again.",
+    "dropHint": "or drag photos here",
+    "formats": "JPG, PNG, HEIC · original quality",
+    "pinSubtitle": "You'll find it on the card at your table.",
+    "for": "Photos for"
   }
 }

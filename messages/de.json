@@ -34,7 +34,13 @@
     "emptyTitle": "Noch keine Events",
     "emptyBody": "Erstelle ein Event, um deinen QR-Code zu bekommen. Gäste können hochladen, sobald du einen Tarif wählst.",
     "createEvent": "Event erstellen",
-    "openEvent": "Öffnen"
+    "openEvent": "Öffnen",
+    "subtitle": "Event erstellen, QR-Code teilen, jedes Foto in Originalqualität sammeln.",
+    "newEventCard": "Neues Event",
+    "newEventCardBody": "QR-Code in einer Minute",
+    "step1": "Event erstellen",
+    "step2": "Tarif wählen",
+    "step3": "QR-Code teilen"
   },
   "Email": {
     "magicLink": {
@@ -346,7 +352,14 @@
       "body": "Dein QR-Code funktioniert, sobald ein Tarif aktiv ist. Einmalzahlung, kein Abo.",
       "standard": "Standard · ${price}",
       "premium": "Premium · ${price}",
-      "devNote": "Lokale Entwicklung: Die Bezahlung ist noch nicht angebunden, daher aktiviert dies den Tarif kostenlos."
+      "devNote": "Lokale Entwicklung: Die Bezahlung ist noch nicht angebunden, daher aktiviert dies den Tarif kostenlos.",
+      "choose": "{plan} wählen",
+      "best": "Bestes Angebot",
+      "oneTime": "einmalig",
+      "photos": "Bis zu {count} Fotos",
+      "storage": "{gb} GB, Originalqualität",
+      "qr": "QR-Code und Gäste-Link",
+      "print": "Druckbare Tischkarten und Poster"
     },
     "photos": {
       "empty": "Noch keine Fotos. Sie erscheinen hier, sobald Gäste hochladen.",
@@ -354,7 +367,17 @@
       "block": "Alle von diesem Handy löschen und sperren",
       "deleteConfirm": "Dieses Foto endgültig löschen?",
       "blockConfirm": "Alle Fotos von diesem Handy löschen und das Handy am Hochladen hindern?",
-      "failed": "Das hat nicht geklappt. Versuche es erneut."
+      "failed": "Das hat nicht geklappt. Versuche es erneut.",
+      "emptyTitle": "Noch keine Fotos",
+      "emptyBody": "Teile deinen QR-Code. Fotos erscheinen hier, sobald Gäste sie hochladen.",
+      "goShare": "QR-Code teilen",
+      "by": "von {name}",
+      "anonymous": "Gast",
+      "close": "Schließen",
+      "open": "Foto öffnen",
+      "download": "Herunterladen",
+      "prev": "Zurück",
+      "next": "Weiter"
     },
     "share": {
       "title": "Dein QR-Code",
@@ -365,7 +388,16 @@
       "png": "PNG herunterladen",
       "svg": "SVG herunterladen",
       "pinOn": "Gäste müssen die PIN eingeben.",
-      "needsPlan": "Bis du einen Tarif wählst, zeigt der Link eine „noch nicht geöffnet“-Seite."
+      "needsPlan": "Bis du einen Tarif wählst, zeigt der Link eine „noch nicht geöffnet“-Seite.",
+      "cardTitle": "Teile deine Fotos",
+      "cardHint": "Mit der Handykamera scannen",
+      "cardPin": "PIN erforderlich",
+      "stepsTitle": "So machen Gäste mit",
+      "step1": "QR-Code mit der Kamera scannen",
+      "step2": "Fotos aus der Galerie auswählen",
+      "step3": "Sie landen in voller Qualität in deinem Album",
+      "printPremium": "Druckbare Tischkarten und Poster sind in Premium enthalten.",
+      "open": "Gästeseite öffnen"
     },
     "settings": {
       "general": "Allgemein",
@@ -378,9 +410,9 @@
       "hours": "Upload-Zeiten",
       "opens": "Beginnt",
       "closes": "Endet",
-      "hoursHint": "Leer lassen, um Uploads jederzeit zu erlauben, solange das Event live ist.",
+      "hoursHint": "Gäste können nur in diesem Zeitraum hochladen.",
       "perPhone": "Fotos pro Handy",
-      "perPhoneHint": "Leer lassen für unbegrenzt.",
+      "perPhoneHint": "Jedes Handy kann höchstens so viele Fotos hochladen.",
       "save": "Änderungen speichern",
       "saving": "Wird gespeichert…",
       "saved": "Gespeichert",
@@ -388,8 +420,26 @@
       "danger": "Event löschen",
       "dangerBody": "Löscht das Event und alle Fotos endgültig. Das kann nicht rückgängig gemacht werden.",
       "deleteConfirm": "Dieses Event und alle Fotos endgültig löschen?",
-      "delete": "Event löschen"
-    }
+      "delete": "Event löschen",
+      "requireNameHint": "Wird in deinem Album neben jedem Foto angezeigt.",
+      "pinToggle": "Mit PIN schützen",
+      "hoursToggle": "Upload-Zeiten begrenzen",
+      "perPhoneToggle": "Fotos pro Handy begrenzen",
+      "unsaved": "Ungespeicherte Änderungen",
+      "discard": "Verwerfen"
+    },
+    "openGuest": "Gästeseite",
+    "copyLink": "Link kopieren",
+    "linkCopied": "Link kopiert",
+    "guestsCount": "{count, plural, one {# Gast} other {# Gäste}}",
+    "next": {
+      "title": "So geht es weiter",
+      "one": "Dein QR-Code ist sofort fertig.",
+      "two": "Wähle einen Tarif, um Uploads zu öffnen.",
+      "three": "Gäste scannen und teilen. Keine App, kein Konto."
+    },
+    "preview": "Vorschau der Gästeseite",
+    "previewName": "Dein Event"
   },
   "Guest": {
     "welcome": "Teile deine Fotos von {event}",
@@ -441,6 +491,10 @@
       }
     },
     "notFoundTitle": "Event nicht gefunden",
-    "notFoundBody": "Prüfe den Link oder QR-Code und versuche es erneut."
+    "notFoundBody": "Prüfe den Link oder QR-Code und versuche es erneut.",
+    "dropHint": "oder Fotos hierher ziehen",
+    "formats": "JPG, PNG, HEIC · Originalqualität",
+    "pinSubtitle": "Du findest sie auf der Karte an deinem Tisch.",
+    "for": "Fotos für"
   }
 }

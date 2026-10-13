@@ -209,3 +209,18 @@ built in the browser. Reminders 3 days and 1 day before deletion.
   accepting the files that still fit.
 - _Deploy:_ migration `0001_blocked_devices` must be applied to the Neon database
   (`drizzle-kit migrate` with the unpooled URL) before deploying this code.
+
+## 25. `next dev` uses the Neon `dev` branch, not PGlite (2026-10-13)
+
+Next 16 renders routes in several processes under `next dev`. PGlite is a
+single-process database, so each process opened its own copy of `.pglite`: data
+written in one route was missing in another, and the files could be corrupted
+("Failed query: CREATE SCHEMA drizzle"). A failed connection was also cached, so
+one error broke every page until a restart. Now:
+
+- Local development points `DATABASE_URL` at the Neon branch `dev` (branched from
+  `production`, migrations applied). Production data is never touched.
+- PGlite stays for tests and builds (`pglite:memory`). A PGlite directory under
+  `next dev` throws a clear error instead of corrupting silently.
+- A failed DB connection is no longer cached.
+- The demo login (`/api/dev-login`) is enabled only under `next dev`.

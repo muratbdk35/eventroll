@@ -4,6 +4,8 @@ import {
   Camera,
   CheckCircle2,
   ImageIcon,
+  ImagePlus,
+  KeyRound,
   Loader2,
   RotateCw,
 } from "lucide-react";
@@ -13,6 +15,7 @@ import { Turnstile } from "@/components/turnstile";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "@/lib/i18n/navigation";
+import { cn } from "@/lib/utils";
 import { isAllowedMime, MAX_FILE_BYTES, type AllowedMime } from "@/lib/uploads";
 
 type Props = {
@@ -97,6 +100,7 @@ export function Uploader(props: Props) {
   const [name, setName] = useState("");
   const [items, setItems] = useState<Item[]>([]);
   const [busy, setBusy] = useState(false);
+  const [dragging, setDragging] = useState(false);
 
   const patch = (key: string, p: Partial<Item>) =>
     setItems((all) => all.map((i) => (i.key === key ? { ...i, ...p } : i)));
@@ -223,9 +227,7 @@ export function Uploader(props: Props) {
     setBusy(false);
   }
 
-  function onPick(e: React.ChangeEvent<HTMLInputElement>) {
-    const files = Array.from(e.target.files ?? []);
-    e.target.value = "";
+  function addFiles(files: File[]) {
     if (files.length === 0) return;
     const next: Item[] = files.map((file) => {
       const mime = mimeOf(file);
@@ -252,6 +254,12 @@ export function Uploader(props: Props) {
     if (ok.length) void upload(ok);
   }
 
+  function onPick(e: React.ChangeEvent<HTMLInputElement>) {
+    const files = Array.from(e.target.files ?? []);
+    e.target.value = "";
+    addFiles(files);
+  }
+
   function retry(item: Item) {
     patch(item.key, { status: "queued", error: undefined });
     void upload([item]);
@@ -261,20 +269,34 @@ export function Uploader(props: Props) {
   if (!verified) {
     const needsPin = props.hasPin;
     return (
-      <div className="space-y-4">
+      <div className="space-y-5">
         {needsPin && (
-          <div className="space-y-1.5">
-            <label htmlFor="pin" className="text-sm font-medium">
+          <div className="text-center">
+            <span className="mx-auto flex size-12 items-center justify-center rounded-2xl bg-accent text-accent-foreground">
+              <KeyRound className="size-6" aria-hidden />
+            </span>
+            <label
+              htmlFor="pin"
+              className="mt-3 block font-heading text-lg font-semibold"
+            >
               {t("pinTitle")}
             </label>
+            <p className="mt-0.5 text-sm text-muted-foreground">
+              {t("pinSubtitle")}
+            </p>
             <Input
               id="pin"
               inputMode="numeric"
-              autoComplete="off"
+              autoComplete="one-time-code"
               maxLength={8}
+              placeholder="••••"
               value={pin}
               onChange={(e) => setPin(e.target.value.replace(/\D/g, ""))}
-              className="h-12 rounded-xl text-center text-xl tracking-[0.4em]"
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && token && pin.length >= 4)
+                  void submitGate();
+              }}
+              className="mx-auto mt-4 h-14 max-w-56 rounded-2xl text-center font-mono text-2xl tracking-[0.5em]"
             />
           </div>
         )}
@@ -290,13 +312,16 @@ export function Uploader(props: Props) {
           />
         ) : null}
         {gateError && (
-          <p className="text-center text-sm text-destructive" role="alert">
+          <p
+            className="rounded-xl bg-destructive/10 px-4 py-2.5 text-center text-sm text-destructive"
+            role="alert"
+          >
             {gateError}
           </p>
         )}
         {needsPin ? (
           <Button
-            className="h-12 w-full rounded-xl text-base"
+            className="h-13 w-full rounded-2xl text-base"
             disabled={gateBusy || !token || pin.length < 4}
             onClick={() => void submitGate()}
           >
@@ -305,10 +330,15 @@ export function Uploader(props: Props) {
           </Button>
         ) : (
           <p
-            className="text-center text-sm text-muted-foreground"
+            className="flex items-center justify-center gap-2 text-center text-sm text-muted-foreground"
             aria-live="polite"
           >
-            {gateBusy || !token ? t("verifying") : null}
+            {(gateBusy || !token) && !gateError && (
+              <>
+                <Loader2 className="size-4 animate-spin" aria-hidden />
+                {t("verifying")}
+              </>
+            )}
           </p>
         )}
       </div>
@@ -319,6 +349,8 @@ export function Uploader(props: Props) {
   const total = items.filter((i) => i.status !== "error").length;
   const done = items.filter((i) => i.status === "done").length;
   const nameMissing = props.requireName && !name.trim();
+  const hasAny = items.length > 0 || props.initialMine.length > 0;
+  const pct = total ? Math.round((done / total) * 100) : 0;
 
   return (
     <div className="space-y-5">
@@ -333,7 +365,7 @@ export function Uploader(props: Props) {
           required={props.requireName}
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="h-12 rounded-xl"
+          className="h-12 rounded-2xl bg-card text-base"
         />
       </div>
 
@@ -345,40 +377,108 @@ export function Uploader(props: Props) {
         className="sr-only"
         onChange={onPick}
         tabIndex={-1}
+        aria-hidden
       />
-      <Button
-        size="lg"
-        className="h-14 w-full rounded-2xl text-base"
-        disabled={nameMissing}
-        onClick={() => fileInput.current?.click()}
-      >
-        <Camera className="size-5" aria-hidden />
-        {items.length > 0 || props.initialMine.length > 0
-          ? t("chooseMore")
-          : t("choose")}
-      </Button>
 
+      {/* Big tap target; also a drop zone on desktop. */}
       <div
-        aria-live="polite"
-        className="text-center text-sm text-muted-foreground"
+        onDragOver={(e) => {
+          if (nameMissing) return;
+          e.preventDefault();
+          setDragging(true);
+        }}
+        onDragLeave={() => setDragging(false)}
+        onDrop={(e) => {
+          e.preventDefault();
+          setDragging(false);
+          if (!nameMissing) addFiles(Array.from(e.dataTransfer.files));
+        }}
+        className={cn(
+          "relative overflow-hidden rounded-[1.75rem] bg-primary p-1.5 text-primary-foreground shadow-[0_20px_40px_-20px_var(--primary)] transition-transform",
+          dragging && "scale-[1.02]",
+          nameMissing && "opacity-60",
+        )}
       >
-        {busy
-          ? t("uploading", { done, total })
-          : done > 0
-            ? t("done", { count: done })
-            : null}
+        <div
+          aria-hidden
+          className="absolute -end-12 -top-12 size-40 rounded-full bg-white/10"
+        />
+        <div
+          aria-hidden
+          className="absolute -start-8 -bottom-16 size-36 rounded-full bg-white/[0.07]"
+        />
+        <div className="relative flex flex-col items-center gap-4 rounded-[1.4rem] border-2 border-dashed border-white/35 px-5 py-9 text-center">
+          <span className="flex size-16 items-center justify-center rounded-full bg-white/15">
+            <Camera className="size-8" aria-hidden />
+          </span>
+          <button
+            type="button"
+            disabled={nameMissing}
+            onClick={() => fileInput.current?.click()}
+            className="inline-flex h-12 items-center gap-2 rounded-2xl bg-white px-6 text-base font-semibold text-primary shadow-sm transition-transform hover:scale-[1.02] focus-visible:ring-4 focus-visible:ring-white/50 focus-visible:outline-none active:scale-[0.98] disabled:pointer-events-none"
+          >
+            <ImagePlus className="size-5" aria-hidden />
+            {hasAny ? t("chooseMore") : t("choose")}
+          </button>
+          <p className="hidden text-sm text-primary-foreground/80 sm:block">
+            {t("dropHint")}
+          </p>
+          <p className="text-xs text-primary-foreground/70">{t("formats")}</p>
+        </div>
       </div>
 
-      {(items.length > 0 || props.initialMine.length > 0) && (
+      {total > 0 && (
+        <div
+          className={cn(
+            "rounded-2xl border p-4 transition-colors",
+            busy ? "border-border bg-card" : "border-success/30 bg-success/10",
+          )}
+          aria-live="polite"
+        >
+          <div className="flex items-center gap-3">
+            {busy ? (
+              <Loader2
+                className="size-5 shrink-0 animate-spin text-primary"
+                aria-hidden
+              />
+            ) : (
+              <CheckCircle2
+                className="size-5 shrink-0 text-success"
+                aria-hidden
+              />
+            )}
+            <p className="flex-1 text-sm font-medium">
+              {busy
+                ? t("uploading", { done, total })
+                : t("done", { count: done })}
+            </p>
+            {busy && (
+              <span className="text-sm font-semibold text-muted-foreground tabular-nums">
+                {pct}%
+              </span>
+            )}
+          </div>
+          {busy && (
+            <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-muted">
+              <div
+                className="h-full rounded-full bg-primary transition-[width] duration-300"
+                style={{ width: `${pct}%` }}
+              />
+            </div>
+          )}
+        </div>
+      )}
+
+      {hasAny && (
         <section aria-labelledby="mine">
-          <h2 id="mine" className="mb-2 text-sm font-medium">
+          <h2 id="mine" className="mb-2.5 text-sm font-semibold">
             {t("yourUploads")}
           </h2>
           <ul className="grid grid-cols-3 gap-1.5">
             {items.map((item) => (
               <li
                 key={item.key}
-                className="relative aspect-square overflow-hidden rounded-lg bg-muted"
+                className="relative aspect-square overflow-hidden rounded-xl bg-muted"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element -- local blob preview */}
                 <img
@@ -395,7 +495,7 @@ export function Uploader(props: Props) {
                   </span>
                 ) : item.status === "done" ? (
                   <CheckCircle2
-                    className="absolute end-1 bottom-1 size-5 rounded-full bg-white text-green-600"
+                    className="absolute end-1.5 bottom-1.5 size-5 rounded-full bg-white text-success"
                     aria-hidden
                   />
                 ) : (
@@ -404,7 +504,7 @@ export function Uploader(props: Props) {
                     onClick={() =>
                       item.error === "failed" ? retry(item) : undefined
                     }
-                    className="absolute inset-0 flex flex-col items-center justify-center gap-1 bg-black/60 p-1 text-center text-[11px] leading-tight font-medium text-white"
+                    className="absolute inset-0 flex flex-col items-center justify-center gap-1 bg-black/65 p-1.5 text-center text-[11px] leading-tight font-medium text-white"
                   >
                     {item.error === "failed" && (
                       <RotateCw className="size-4" aria-hidden />
@@ -421,7 +521,7 @@ export function Uploader(props: Props) {
             {props.initialMine.map((m) => (
               <li
                 key={m.id}
-                className="relative flex aspect-square items-center justify-center overflow-hidden rounded-lg bg-muted"
+                className="relative flex aspect-square items-center justify-center overflow-hidden rounded-xl bg-muted"
               >
                 {m.src ? (
                   // eslint-disable-next-line @next/next/no-img-element -- signed storage URL
@@ -433,7 +533,7 @@ export function Uploader(props: Props) {
                   />
                 )}
                 <CheckCircle2
-                  className="absolute end-1 bottom-1 size-5 rounded-full bg-white text-green-600"
+                  className="absolute end-1.5 bottom-1.5 size-5 rounded-full bg-white text-success"
                   aria-hidden
                 />
               </li>

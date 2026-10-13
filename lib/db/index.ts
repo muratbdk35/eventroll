@@ -12,25 +12,23 @@ const globalForDb = globalThis as unknown as { db?: Promise<Database> };
 
 async function createDb(): Promise<Database> {
   if (env.DATABASE_URL.startsWith("pglite:")) {
-    // DEV/TEST ONLY: in-process Postgres (PGlite), no Neon account needed.
-    // Migrations are applied automatically on first use. Never used in production (see lib/env.ts).
+    // TESTS/BUILDS ONLY: in-process Postgres (PGlite). Migrations are applied
+    // on first use. Rejected in production (lib/env.ts).
+    const dir = env.DATABASE_URL.slice("pglite:".length);
+    const isBuild = process.env.NEXT_PHASE === "phase-production-build";
+    // `next dev` (Next 16) renders routes in several processes. PGlite is
+    // single-process, so a shared directory silently diverges or corrupts
+    // (DECISIONS #25). Fail loudly instead.
+    if (env.NODE_ENV === "development" && dir !== "memory") {
+      throw new Error(
+        "PGlite can't be shared by the `next dev` processes. Set DATABASE_URL " +
+          "to the Neon `dev` branch in .env.local (see README › Local setup).",
+      );
+    }
     const { PGlite } = await import("@electric-sql/pglite");
     const { drizzle: drizzlePglite } = await import("drizzle-orm/pglite");
     const { migrate } = await import("drizzle-orm/pglite/migrator");
-    // PGlite allows one process per directory. Build workers and Next's dev
-    // workers (static params, etc.) get a throwaway in-memory instance instead.
-    const isWorker =
-      process.env.NEXT_PHASE === "phase-production-build" ||
-      process.env.IS_NEXT_WORKER === "true";
-    const dir = isWorker ? "memory" : env.DATABASE_URL.slice("pglite:".length);
-    const client = dir === "memory" ? new PGlite() : new PGlite(dir);
-    // Close cleanly on Ctrl+C / kill, otherwise the on-disk data can be corrupted.
-    // If it ever is: stop the dev server and delete the .pglite directory.
-    for (const signal of ["SIGINT", "SIGTERM"] as const) {
-      process.once(signal, () => {
-        void client.close().finally(() => process.exit(0));
-      });
-    }
+    const client = isBuild || dir === "memory" ? new PGlite() : new PGlite(dir);
     const pgliteDb = drizzlePglite({ client, schema, casing: "snake_case" });
     await migrate(pgliteDb, { migrationsFolder: "drizzle" });
     return pgliteDb as unknown as Database;
@@ -43,7 +41,13 @@ async function createDb(): Promise<Database> {
   return drizzle({ client: pool, schema, casing: "snake_case" });
 }
 
-const dbPromise = globalForDb.db ?? createDb();
+const dbPromise =
+  globalForDb.db ??
+  createDb().catch((err) => {
+    // Don't cache a failed connection: the next request gets a fresh attempt.
+    globalForDb.db = undefined;
+    throw err;
+  });
 if (env.NODE_ENV !== "production") globalForDb.db = dbPromise;
 
 export const db = await dbPromise;

@@ -20,30 +20,30 @@ npm install
 cp .env.example .env.local
 ```
 
-Minimal `.env.local` for local development (no third-party accounts needed):
+### Local setup
+
+Minimal `.env.local`. The database is the Neon **`dev` branch** (never
+`production`): `next dev` renders routes in several processes, so it needs a
+shared Postgres. PGlite (`pglite:memory`) is only for tests and builds.
 
 ```bash
 NEXT_PUBLIC_APP_URL=http://localhost:3000
-DATABASE_URL=pglite:./.pglite        # in-process Postgres, dev only
+# Neon console › Branches › dev › Connect (pooled)
+DATABASE_URL="postgresql://…-pooler…/neondb?sslmode=require"
 BETTER_AUTH_SECRET=$(openssl rand -base64 32)
 BETTER_AUTH_URL=http://localhost:3000
 ```
 
 ```bash
+npm run db:migrate   # with DATABASE_URL set to the dev branch (unpooled URL)
 npm run dev
 ```
 
-Without `RESEND_API_KEY`, sign-in emails are printed to the dev server console;
-open the link from there. The Google button appears once `GOOGLE_CLIENT_ID` /
-`GOOGLE_CLIENT_SECRET` are set.
-
-### Using Neon
-
-Set `DATABASE_URL` to the Neon pooled connection string, then:
-
-```bash
-npm run db:migrate
-```
+Open `/api/dev-login` to sign in as a demo host (only under `next dev`).
+Without R2 keys, uploads are stored in `.dev-storage/`; without Turnstile keys,
+Cloudflare's test keys are used. Without `RESEND_API_KEY`, sign-in emails are
+printed to the dev server console. The Google button appears once
+`GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` are set.
 
 ## Scripts
 

@@ -34,7 +34,13 @@
     "emptyTitle": "Henüz etkinlik yok",
     "emptyBody": "QR kodunu almak için bir etkinlik oluştur. Plan seçince misafirler yüklemeye başlayabilir.",
     "createEvent": "Etkinlik oluştur",
-    "openEvent": "Aç"
+    "openEvent": "Aç",
+    "subtitle": "Etkinlik oluştur, QR kodu paylaş, tüm fotoğrafları orijinal kalitede topla.",
+    "newEventCard": "Yeni etkinlik",
+    "newEventCardBody": "Bir dakikada QR kod",
+    "step1": "Etkinliğini oluştur",
+    "step2": "Plan seç",
+    "step3": "QR kodu paylaş"
   },
   "Email": {
     "magicLink": {
@@ -346,7 +352,14 @@
       "body": "Plan aktif olur olmaz QR kodun çalışır. Tek ödeme, abonelik yok.",
       "standard": "Standard · ${price}",
       "premium": "Premium · ${price}",
-      "devNote": "Yerel geliştirme: ödeme henüz bağlı değil, bu buton planı ücretsiz aktifleştirir."
+      "devNote": "Yerel geliştirme: ödeme henüz bağlı değil, bu buton planı ücretsiz aktifleştirir.",
+      "choose": "{plan} seç",
+      "best": "En avantajlı",
+      "oneTime": "tek seferlik",
+      "photos": "{count} fotoğrafa kadar",
+      "storage": "{gb} GB, orijinal kalite",
+      "qr": "QR kod ve misafir bağlantısı",
+      "print": "Yazdırılabilir masa kartları ve posterler"
     },
     "photos": {
       "empty": "Henüz fotoğraf yok. Misafirler yükledikçe burada görünür.",
@@ -354,7 +367,17 @@
       "block": "Bu telefondakilerin hepsini sil ve engelle",
       "deleteConfirm": "Bu fotoğraf kalıcı olarak silinsin mi?",
       "blockConfirm": "Bu telefondan yüklenen tüm fotoğraflar silinsin ve telefon engellensin mi?",
-      "failed": "Olmadı. Tekrar dene."
+      "failed": "Olmadı. Tekrar dene.",
+      "emptyTitle": "Henüz fotoğraf yok",
+      "emptyBody": "QR kodunu paylaş. Misafirler yükledikçe fotoğraflar anında burada görünür.",
+      "goShare": "QR kodu paylaş",
+      "by": "{name} yükledi",
+      "anonymous": "Misafir",
+      "close": "Kapat",
+      "open": "Fotoğrafı aç",
+      "download": "İndir",
+      "prev": "Önceki",
+      "next": "Sonraki"
     },
     "share": {
       "title": "QR kodun",
@@ -365,7 +388,16 @@
       "png": "PNG indir",
       "svg": "SVG indir",
       "pinOn": "Misafirlerden PIN istenecek.",
-      "needsPlan": "Plan seçene kadar bağlantı \"henüz açık değil\" sayfası gösterir."
+      "needsPlan": "Plan seçene kadar bağlantı \"henüz açık değil\" sayfası gösterir.",
+      "cardTitle": "Fotoğraflarını paylaş",
+      "cardHint": "Telefon kamerasıyla okut",
+      "cardPin": "PIN gerekli",
+      "stepsTitle": "Misafirler nasıl katılır",
+      "step1": "Kamerayla QR kodu okutur",
+      "step2": "Galeriden fotoğrafları seçer",
+      "step3": "Fotoğraflar tam kalitede albümüne düşer",
+      "printPremium": "Yazdırılabilir masa kartları ve posterler Premium'a dahil.",
+      "open": "Misafir sayfasını aç"
     },
     "settings": {
       "general": "Genel",
@@ -378,9 +410,9 @@
       "hours": "Yükleme saatleri",
       "opens": "Açılış",
       "closes": "Kapanış",
-      "hoursHint": "Boş bırakırsan etkinlik yayındayken her zaman yükleme kabul edilir.",
+      "hoursHint": "Misafirler sadece bu saatler arasında yükleyebilir.",
       "perPhone": "Telefon başına fotoğraf",
-      "perPhoneHint": "Sınırsız için boş bırak.",
+      "perPhoneHint": "Her telefon en fazla bu kadar fotoğraf yükleyebilir.",
       "save": "Değişiklikleri kaydet",
       "saving": "Kaydediliyor…",
       "saved": "Kaydedildi",
@@ -388,8 +420,26 @@
       "danger": "Etkinliği sil",
       "dangerBody": "Etkinliği ve tüm fotoğrafları kalıcı olarak siler. Geri alınamaz.",
       "deleteConfirm": "Bu etkinlik ve tüm fotoğrafları kalıcı olarak silinsin mi?",
-      "delete": "Etkinliği sil"
-    }
+      "delete": "Etkinliği sil",
+      "requireNameHint": "Albümünde her fotoğrafın yanında görünür.",
+      "pinToggle": "PIN ile koru",
+      "hoursToggle": "Yükleme saatlerini sınırla",
+      "perPhoneToggle": "Telefon başına fotoğrafı sınırla",
+      "unsaved": "Kaydedilmemiş değişiklikler var",
+      "discard": "Vazgeç"
+    },
+    "openGuest": "Misafir sayfası",
+    "copyLink": "Bağlantıyı kopyala",
+    "linkCopied": "Bağlantı kopyalandı",
+    "guestsCount": "{count, plural, one {# misafir} other {# misafir}}",
+    "next": {
+      "title": "Sonra ne olacak",
+      "one": "QR kodun hemen hazır olur.",
+      "two": "Yüklemeyi açmak için plan seçersin.",
+      "three": "Misafirler okutur ve paylaşır. Uygulama yok, hesap yok."
+    },
+    "preview": "Misafir sayfası önizlemesi",
+    "previewName": "Etkinliğin"
   },
   "Guest": {
     "welcome": "{event} fotoğraflarını paylaş",
@@ -441,6 +491,10 @@
       }
     },
     "notFoundTitle": "Etkinlik bulunamadı",
-    "notFoundBody": "Bağlantıyı ya da QR kodu kontrol edip tekrar dene."
+    "notFoundBody": "Bağlantıyı ya da QR kodu kontrol edip tekrar dene.",
+    "dropHint": "ya da fotoğrafları buraya sürükle",
+    "formats": "JPG, PNG, HEIC · orijinal kalite",
+    "pinSubtitle": "Masandaki kartta yazıyor.",
+    "for": "Fotoğraflar"
   }
 }
