@@ -7,7 +7,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { Turnstile } from "@/components/turnstile";
 import { authClient } from "@/lib/auth-client";
+import { publicEnv } from "@/lib/public-env";
 
 function GoogleIcon() {
   return (
@@ -39,6 +41,8 @@ export function LoginForm({ googleEnabled }: { googleEnabled: boolean }) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
     "idle",
   );
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [captchaKey, setCaptchaKey] = useState(0);
   const callbackURL = `/${locale}/dashboard`;
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -48,7 +52,15 @@ export function LoginForm({ googleEnabled }: { googleEnabled: boolean }) {
       email,
       callbackURL,
       metadata: { locale },
+      fetchOptions: {
+        headers: { "x-captcha-response": captchaToken ?? "" },
+      },
     });
+    if (error) {
+      // Tokens are single-use: get a fresh challenge for the retry.
+      setCaptchaToken(null);
+      setCaptchaKey((k) => k + 1);
+    }
     setStatus(error ? "error" : "sent");
   }
 
@@ -87,11 +99,22 @@ export function LoginForm({ googleEnabled }: { googleEnabled: boolean }) {
             className="h-11 rounded-xl"
           />
         </div>
+        {publicEnv.turnstileSiteKey && (
+          <Turnstile
+            key={captchaKey}
+            siteKey={publicEnv.turnstileSiteKey}
+            language={locale}
+            onToken={setCaptchaToken}
+          />
+        )}
         <Button
           type="submit"
           size="lg"
           className="h-11 w-full rounded-xl"
-          disabled={status === "sending"}
+          disabled={
+            status === "sending" ||
+            (Boolean(publicEnv.turnstileSiteKey) && !captchaToken)
+          }
         >
           {status === "sending" ? (
             <>

@@ -182,6 +182,30 @@ distinct devices, ZIP download), guest page (own uploads only, privacy line, suc
 toast), printed card with optional PIN line.
 
 ## 23. "Album ready" email with a download button (owner decision, 2026-10-12)
+
 The ZIP is never attached (albums are GBs). When the event ends, the host gets an
 email with a one-click button to the signed-in download page, where the ZIP is
 built in the browser. Reminders 3 days and 1 day before deletion.
+
+## 24. Phase 1B implementation notes (2026-10-13)
+
+- **Dev fallbacks:** without R2 keys, uploads go to `.dev-storage/` via `/api/dev-storage`
+  (404 in production); Turnstile uses Cloudflare's always-pass test keys outside
+  production; rate limiting is in-memory without Upstash.
+- **Upload pipeline:** `presign` (verified guest cookie, upload state, per-phone cap,
+  plan capacity), then a direct PUT, then `confirm` (HEAD size check, atomic counter bump
+  in a transaction). The client also uploads a 480px JPEG thumbnail; browsers that can't
+  decode HEIC skip it. Abandoned `pending` rows need a cleanup cron (phase 1C/1D).
+- **Guest device cookie:** `erg_<event>` = `deviceId.verifiedAt.hmac`; the proof (Turnstile
+  and PIN) lasts 12 h, the device id 1 year. PIN attempts are rate limited per IP and event.
+- **Host tools:** delete photo, "delete all from this phone and block it"
+  (`events.blocked_device_ids`, migration 0001), PIN set/remove, upload hours, per-phone cap.
+- **Owner sign-up Turnstile:** Better Auth `captcha` plugin on `/sign-in/magic-link`.
+  Google sign-in is not captcha-gated (the provider already vets accounts).
+- **Plan activation is a dev-only button** until Stripe checkout (1C). It refuses to run in
+  production or when `STRIPE_SECRET_KEY` is set.
+- **Not in 1B:** ZIP download, printable templates, reminder emails, admin (1C/1D).
+- _Open:_ a batch that exceeds the per-phone cap is rejected as a whole instead of
+  accepting the files that still fit.
+- _Deploy:_ migration `0001_blocked_devices` must be applied to the Neon database
+  (`drizzle-kit migrate` with the unpooled URL) before deploying this code.
