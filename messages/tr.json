@@ -32,9 +32,9 @@
     "title": "Etkinliklerin",
     "greeting": "Merhaba {name}",
     "emptyTitle": "Henüz etkinlik yok",
-    "emptyBody": "QR kodunu almak için bir etkinlik oluştur. Misafirler hemen yüklemeye başlayabilir.",
+    "emptyBody": "QR kodunu almak için bir etkinlik oluştur. Plan seçince misafirler yüklemeye başlayabilir.",
     "createEvent": "Etkinlik oluştur",
-    "comingSoon": "Bir sonraki sürümde geliyor"
+    "openEvent": "Aç"
   },
   "Email": {
     "magicLink": {
@@ -302,5 +302,145 @@
   "Legal": {
     "draft": "TASLAK: Bu metin yayından önce bir avukat tarafından incelenecek.",
     "englishOnly": "Şimdilik yalnızca İngilizce mevcut."
+  },
+  "Events": {
+    "newTitle": "Etkinliğini oluştur",
+    "newSubtitle": "Bir dakika sürer. QR kodun hemen hazır; plan seçince misafirler yükleyebilir.",
+    "nameLabel": "Etkinlik adı",
+    "namePlaceholder": "Ayşe & Mehmet'in düğünü",
+    "dateLabel": "Etkinlik tarihi",
+    "typeLabel": "Etkinlik türü",
+    "types": {
+      "wedding": "Düğün",
+      "birthday": "Doğum günü",
+      "corporate": "Kurumsal",
+      "baby_shower": "Baby shower",
+      "graduation": "Mezuniyet",
+      "party": "Parti",
+      "other": "Diğer"
+    },
+    "create": "Etkinlik oluştur",
+    "creating": "Oluşturuluyor…",
+    "createError": "Etkinlik oluşturulamadı. Alanları kontrol edip tekrar dene.",
+    "back": "Tüm etkinlikler",
+    "status": {
+      "draft": "Plan bekleniyor",
+      "active": "Yayında",
+      "expired": "Süresi doldu",
+      "suspended": "Askıya alındı",
+      "deleted": "Silindi"
+    },
+    "photoCount": "{count, plural, one {# fotoğraf} other {# fotoğraf}}",
+    "tabs": {
+      "overview": "Fotoğraflar",
+      "share": "Paylaş",
+      "settings": "Ayarlar"
+    },
+    "stats": {
+      "photos": "Fotoğraf",
+      "guests": "Misafir",
+      "deletesOn": "Silinme tarihi"
+    },
+    "activate": {
+      "title": "Yüklemeyi açmak için plan seç",
+      "body": "Plan aktif olur olmaz QR kodun çalışır. Tek ödeme, abonelik yok.",
+      "standard": "Standard · ${price}",
+      "premium": "Premium · ${price}",
+      "devNote": "Yerel geliştirme: ödeme henüz bağlı değil, bu buton planı ücretsiz aktifleştirir."
+    },
+    "photos": {
+      "empty": "Henüz fotoğraf yok. Misafirler yükledikçe burada görünür.",
+      "delete": "Fotoğrafı sil",
+      "block": "Bu telefondakilerin hepsini sil ve engelle",
+      "deleteConfirm": "Bu fotoğraf kalıcı olarak silinsin mi?",
+      "blockConfirm": "Bu telefondan yüklenen tüm fotoğraflar silinsin ve telefon engellensin mi?",
+      "failed": "Olmadı. Tekrar dene."
+    },
+    "share": {
+      "title": "QR kodun",
+      "hint": "Misafirler kamerayla okutur. Uygulama ya da hesap gerekmez.",
+      "linkLabel": "Misafir bağlantısı",
+      "copy": "Bağlantıyı kopyala",
+      "copied": "Bağlantı kopyalandı",
+      "png": "PNG indir",
+      "svg": "SVG indir",
+      "pinOn": "Misafirlerden PIN istenecek.",
+      "needsPlan": "Plan seçene kadar bağlantı \"henüz açık değil\" sayfası gösterir."
+    },
+    "settings": {
+      "general": "Genel",
+      "requireName": "Misafirden isim iste",
+      "access": "Erişim",
+      "pinLabel": "PIN",
+      "pinHint": "4–8 rakam. Karta yazdır, sadece etkinliğindekiler yükleyebilsin.",
+      "pinSet": "PIN ayarlı. Değiştirmek için yenisini gir.",
+      "pinRemove": "PIN'i kaldır",
+      "hours": "Yükleme saatleri",
+      "opens": "Açılış",
+      "closes": "Kapanış",
+      "hoursHint": "Boş bırakırsan etkinlik yayındayken her zaman yükleme kabul edilir.",
+      "perPhone": "Telefon başına fotoğraf",
+      "perPhoneHint": "Sınırsız için boş bırak.",
+      "save": "Değişiklikleri kaydet",
+      "saving": "Kaydediliyor…",
+      "saved": "Kaydedildi",
+      "error": "Kaydedilemedi. Değerleri kontrol edip tekrar dene.",
+      "danger": "Etkinliği sil",
+      "dangerBody": "Etkinliği ve tüm fotoğrafları kalıcı olarak siler. Geri alınamaz.",
+      "deleteConfirm": "Bu etkinlik ve tüm fotoğrafları kalıcı olarak silinsin mi?",
+      "delete": "Etkinliği sil"
+    }
+  },
+  "Guest": {
+    "welcome": "{event} fotoğraflarını paylaş",
+    "welcomeSub": "Fotoğrafların doğrudan ev sahibine gider. Sadece o görebilir.",
+    "privacy": "Yüklediklerini sadece ev sahibi görür. Fotoğrafların diğer misafirlere gösterilmez.",
+    "pinTitle": "Etkinlik PIN'ini gir",
+    "pinLabel": "PIN",
+    "pinWrong": "PIN doğru değil.",
+    "pinTooMany": "Çok fazla deneme. Birkaç dakika bekle.",
+    "continue": "Devam",
+    "yourName": "Adın",
+    "yourNameOptional": "Adın (isteğe bağlı)",
+    "choose": "Fotoğraf ekle",
+    "chooseMore": "Daha fazla fotoğraf ekle",
+    "uploading": "{total} fotoğrafın {done} tanesi yükleniyor…",
+    "done": "{count, plural, one {# fotoğraf gönderildi} other {# fotoğraf gönderildi}}. Teşekkürler!",
+    "yourUploads": "Yüklediklerin",
+    "retry": "Tekrar dene",
+    "failed": "Başarısız",
+    "tooBig": "Dosya çok büyük",
+    "badType": "Sadece fotoğraf",
+    "limitReached": "Bu telefondan en fazla {count} fotoğraf yükleyebilirsin.",
+    "verifying": "İnsan olduğun doğrulanıyor…",
+    "verifyFailed": "Doğrulanamadı. Sayfayı yenileyip tekrar dene.",
+    "state": {
+      "needs_plan": {
+        "title": "Yükleme henüz açık değil",
+        "body": "Ev sahibi albümü henüz açmadı. Biraz sonra tekrar bak."
+      },
+      "not_open_yet": {
+        "title": "Yükleme daha sonra açılacak",
+        "body": "Ev sahibi yükleme saati belirlemiş. Başladığında tekrar gel."
+      },
+      "closed": {
+        "title": "Yükleme kapandı",
+        "body": "Bu etkinliğin yükleme süresi sona erdi."
+      },
+      "expired": {
+        "title": "Bu albüm sona erdi",
+        "body": "Bu etkinliğin fotoğrafları silindi."
+      },
+      "unavailable": {
+        "title": "Ulaşılamıyor",
+        "body": "Bu etkinlik şu an kullanılamıyor."
+      },
+      "blocked": {
+        "title": "Bu telefon için yükleme kapalı",
+        "body": "Ev sahibi bu cihazdan yüklemeyi kapattı."
+      }
+    },
+    "notFoundTitle": "Etkinlik bulunamadı",
+    "notFoundBody": "Bağlantıyı ya da QR kodu kontrol edip tekrar dene."
   }
 }

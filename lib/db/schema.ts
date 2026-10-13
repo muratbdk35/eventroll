@@ -94,6 +94,11 @@ export const events = pgTable(
     // and a per-device photo cap (null = unlimited).
     accessPinHash: text(),
     maxUploadsPerDevice: integer(),
+    // Devices the host blocked from uploading (media.device_id values).
+    blockedDeviceIds: text()
+      .array()
+      .notNull()
+      .default(sql`'{}'::text[]`),
     coverKey: text(),
     storageBytes: bigint({ mode: "number" }).notNull().default(0),
     mediaCount: integer().notNull().default(0),

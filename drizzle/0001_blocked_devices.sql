@@ -1,0 +1,1 @@
+ALTER TABLE "events" ADD COLUMN "blocked_device_ids" text[] DEFAULT '{}'::text[] NOT NULL;

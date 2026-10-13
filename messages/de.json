@@ -32,9 +32,9 @@
     "title": "Deine Events",
     "greeting": "Hallo {name}",
     "emptyTitle": "Noch keine Events",
-    "emptyBody": "Erstelle ein Event, um deinen QR-Code zu erhalten. Gäste können sofort mit dem Hochladen beginnen.",
+    "emptyBody": "Erstelle ein Event, um deinen QR-Code zu bekommen. Gäste können hochladen, sobald du einen Tarif wählst.",
     "createEvent": "Event erstellen",
-    "comingSoon": "Kommt im nächsten Build"
+    "openEvent": "Öffnen"
   },
   "Email": {
     "magicLink": {
@@ -302,5 +302,145 @@
   "Legal": {
     "draft": "ENTWURF: Dieser Text wird vor dem Start anwaltlich geprüft.",
     "englishOnly": "Derzeit nur auf Englisch verfügbar."
+  },
+  "Events": {
+    "newTitle": "Event erstellen",
+    "newSubtitle": "Dauert eine Minute. Den QR-Code bekommst du sofort; Gäste können hochladen, sobald du einen Tarif wählst.",
+    "nameLabel": "Name des Events",
+    "namePlaceholder": "Hochzeit von Anna & Tom",
+    "dateLabel": "Datum",
+    "typeLabel": "Art des Events",
+    "types": {
+      "wedding": "Hochzeit",
+      "birthday": "Geburtstag",
+      "corporate": "Firmenfeier",
+      "baby_shower": "Babyparty",
+      "graduation": "Abschluss",
+      "party": "Party",
+      "other": "Sonstiges"
+    },
+    "create": "Event erstellen",
+    "creating": "Wird erstellt…",
+    "createError": "Das Event konnte nicht erstellt werden. Prüfe die Felder und versuche es erneut.",
+    "back": "Alle Events",
+    "status": {
+      "draft": "Wartet auf Tarif",
+      "active": "Live",
+      "expired": "Abgelaufen",
+      "suspended": "Gesperrt",
+      "deleted": "Gelöscht"
+    },
+    "photoCount": "{count, plural, one {# Foto} other {# Fotos}}",
+    "tabs": {
+      "overview": "Fotos",
+      "share": "Teilen",
+      "settings": "Einstellungen"
+    },
+    "stats": {
+      "photos": "Fotos",
+      "guests": "Gäste",
+      "deletesOn": "Löschung am"
+    },
+    "activate": {
+      "title": "Tarif wählen, um Uploads zu öffnen",
+      "body": "Dein QR-Code funktioniert, sobald ein Tarif aktiv ist. Einmalzahlung, kein Abo.",
+      "standard": "Standard · ${price}",
+      "premium": "Premium · ${price}",
+      "devNote": "Lokale Entwicklung: Die Bezahlung ist noch nicht angebunden, daher aktiviert dies den Tarif kostenlos."
+    },
+    "photos": {
+      "empty": "Noch keine Fotos. Sie erscheinen hier, sobald Gäste hochladen.",
+      "delete": "Foto löschen",
+      "block": "Alle von diesem Handy löschen und sperren",
+      "deleteConfirm": "Dieses Foto endgültig löschen?",
+      "blockConfirm": "Alle Fotos von diesem Handy löschen und das Handy am Hochladen hindern?",
+      "failed": "Das hat nicht geklappt. Versuche es erneut."
+    },
+    "share": {
+      "title": "Dein QR-Code",
+      "hint": "Gäste scannen ihn mit der Kamera. Keine App, kein Konto.",
+      "linkLabel": "Gäste-Link",
+      "copy": "Link kopieren",
+      "copied": "Link kopiert",
+      "png": "PNG herunterladen",
+      "svg": "SVG herunterladen",
+      "pinOn": "Gäste müssen die PIN eingeben.",
+      "needsPlan": "Bis du einen Tarif wählst, zeigt der Link eine „noch nicht geöffnet“-Seite."
+    },
+    "settings": {
+      "general": "Allgemein",
+      "requireName": "Gäste nach ihrem Namen fragen",
+      "access": "Zugang",
+      "pinLabel": "PIN",
+      "pinHint": "4–8 Ziffern. Drucke sie auf die Karte, damit nur Gäste deines Events hochladen können.",
+      "pinSet": "Eine PIN ist gesetzt. Gib eine neue ein, um sie zu ändern.",
+      "pinRemove": "PIN entfernen",
+      "hours": "Upload-Zeiten",
+      "opens": "Beginnt",
+      "closes": "Endet",
+      "hoursHint": "Leer lassen, um Uploads jederzeit zu erlauben, solange das Event live ist.",
+      "perPhone": "Fotos pro Handy",
+      "perPhoneHint": "Leer lassen für unbegrenzt.",
+      "save": "Änderungen speichern",
+      "saving": "Wird gespeichert…",
+      "saved": "Gespeichert",
+      "error": "Speichern fehlgeschlagen. Prüfe die Werte und versuche es erneut.",
+      "danger": "Event löschen",
+      "dangerBody": "Löscht das Event und alle Fotos endgültig. Das kann nicht rückgängig gemacht werden.",
+      "deleteConfirm": "Dieses Event und alle Fotos endgültig löschen?",
+      "delete": "Event löschen"
+    }
+  },
+  "Guest": {
+    "welcome": "Teile deine Fotos von {event}",
+    "welcomeSub": "Deine Fotos gehen direkt an die Gastgeber. Nur sie können sie sehen.",
+    "privacy": "Nur die Gastgeber sehen, was du hochlädst. Wir zeigen deine Fotos nie anderen Gästen.",
+    "pinTitle": "Event-PIN eingeben",
+    "pinLabel": "PIN",
+    "pinWrong": "Die PIN stimmt nicht.",
+    "pinTooMany": "Zu viele Versuche. Warte ein paar Minuten.",
+    "continue": "Weiter",
+    "yourName": "Dein Name",
+    "yourNameOptional": "Dein Name (optional)",
+    "choose": "Fotos hinzufügen",
+    "chooseMore": "Weitere Fotos hinzufügen",
+    "uploading": "Lade {done} von {total} hoch…",
+    "done": "{count, plural, one {# Foto gesendet} other {# Fotos gesendet}}. Danke!",
+    "yourUploads": "Deine Uploads",
+    "retry": "Erneut versuchen",
+    "failed": "Fehlgeschlagen",
+    "tooBig": "Datei ist zu groß",
+    "badType": "Nur Fotos",
+    "limitReached": "Du hast das Limit von {count} Fotos für dieses Handy erreicht.",
+    "verifying": "Prüfe, ob du ein Mensch bist…",
+    "verifyFailed": "Überprüfung fehlgeschlagen. Lade die Seite neu und versuche es erneut.",
+    "state": {
+      "needs_plan": {
+        "title": "Uploads sind noch nicht offen",
+        "body": "Die Gastgeber haben das Album noch nicht geöffnet. Schau bald wieder vorbei."
+      },
+      "not_open_yet": {
+        "title": "Uploads öffnen später",
+        "body": "Die Gastgeber haben Upload-Zeiten festgelegt. Komm wieder, wenn es losgeht."
+      },
+      "closed": {
+        "title": "Uploads sind geschlossen",
+        "body": "Das Upload-Fenster für dieses Event ist vorbei."
+      },
+      "expired": {
+        "title": "Dieses Album ist beendet",
+        "body": "Die Fotos dieses Events wurden gelöscht."
+      },
+      "unavailable": {
+        "title": "Nicht verfügbar",
+        "body": "Dieses Event ist nicht verfügbar."
+      },
+      "blocked": {
+        "title": "Uploads für dieses Handy aus",
+        "body": "Die Gastgeber haben Uploads von diesem Gerät deaktiviert."
+      }
+    },
+    "notFoundTitle": "Event nicht gefunden",
+    "notFoundBody": "Prüfe den Link oder QR-Code und versuche es erneut."
   }
 }

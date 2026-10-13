@@ -29,9 +29,9 @@
     "title": "Your events",
     "greeting": "Hi {name}",
     "emptyTitle": "No events yet",
-    "emptyBody": "Create an event to get your QR code. Guests can start uploading right away.",
+    "emptyBody": "Create an event to get your QR code. Guests can start uploading once you pick a plan.",
     "createEvent": "Create event",
-    "comingSoon": "Coming in the next build"
+    "openEvent": "Open"
   },
   "Email": {
     "magicLink": {
@@ -299,5 +299,145 @@
   "Legal": {
     "draft": "DRAFT: this text will be reviewed by a lawyer before launch.",
     "englishOnly": ""
+  },
+  "Events": {
+    "newTitle": "Create your event",
+    "newSubtitle": "Takes a minute. You get your QR code right away; guests can upload once you pick a plan.",
+    "nameLabel": "Event name",
+    "namePlaceholder": "Anna & Tom's wedding",
+    "dateLabel": "Event date",
+    "typeLabel": "Event type",
+    "types": {
+      "wedding": "Wedding",
+      "birthday": "Birthday",
+      "corporate": "Corporate",
+      "baby_shower": "Baby shower",
+      "graduation": "Graduation",
+      "party": "Party",
+      "other": "Other"
+    },
+    "create": "Create event",
+    "creating": "Creating…",
+    "createError": "Couldn't create the event. Check the fields and try again.",
+    "back": "All events",
+    "status": {
+      "draft": "Waiting for a plan",
+      "active": "Live",
+      "expired": "Expired",
+      "suspended": "Suspended",
+      "deleted": "Deleted"
+    },
+    "photoCount": "{count, plural, one {# photo} other {# photos}}",
+    "tabs": {
+      "overview": "Photos",
+      "share": "Share",
+      "settings": "Settings"
+    },
+    "stats": {
+      "photos": "Photos",
+      "guests": "Guests",
+      "deletesOn": "Deleted on"
+    },
+    "activate": {
+      "title": "Choose a plan to open uploads",
+      "body": "Your QR code works as soon as a plan is active. One payment, no subscription.",
+      "standard": "Standard · ${price}",
+      "premium": "Premium · ${price}",
+      "devNote": "Local development: checkout isn't connected yet, so this activates the plan for free."
+    },
+    "photos": {
+      "empty": "No photos yet. They show up here as guests upload.",
+      "delete": "Delete photo",
+      "block": "Delete all from this phone and block it",
+      "deleteConfirm": "Delete this photo permanently?",
+      "blockConfirm": "Delete every photo from this phone and block it from uploading?",
+      "failed": "That didn't work. Try again."
+    },
+    "share": {
+      "title": "Your QR code",
+      "hint": "Guests scan it with their camera. No app, no account.",
+      "linkLabel": "Guest link",
+      "copy": "Copy link",
+      "copied": "Link copied",
+      "png": "Download PNG",
+      "svg": "Download SVG",
+      "pinOn": "Guests will be asked for the PIN.",
+      "needsPlan": "The link shows a \"not open yet\" page until you pick a plan."
+    },
+    "settings": {
+      "general": "General",
+      "requireName": "Ask guests for their name",
+      "access": "Access",
+      "pinLabel": "PIN",
+      "pinHint": "4–8 digits. Print it on the card so only guests at your event can upload.",
+      "pinSet": "A PIN is set. Enter a new one to change it.",
+      "pinRemove": "Remove PIN",
+      "hours": "Upload hours",
+      "opens": "Opens",
+      "closes": "Closes",
+      "hoursHint": "Leave empty to accept uploads any time while the event is live.",
+      "perPhone": "Photos per phone",
+      "perPhoneHint": "Leave empty for unlimited.",
+      "save": "Save changes",
+      "saving": "Saving…",
+      "saved": "Saved",
+      "error": "Couldn't save. Check the values and try again.",
+      "danger": "Delete event",
+      "dangerBody": "Permanently deletes the event and every photo. This can't be undone.",
+      "deleteConfirm": "Delete this event and all its photos for good?",
+      "delete": "Delete event"
+    }
+  },
+  "Guest": {
+    "welcome": "Share your photos from {event}",
+    "welcomeSub": "Your photos go straight to the host. Only the host can see them.",
+    "privacy": "Only the host sees what you upload. We never show your photos to other guests.",
+    "pinTitle": "Enter the event PIN",
+    "pinLabel": "PIN",
+    "pinWrong": "That PIN isn't right.",
+    "pinTooMany": "Too many tries. Wait a few minutes.",
+    "continue": "Continue",
+    "yourName": "Your name",
+    "yourNameOptional": "Your name (optional)",
+    "choose": "Add photos",
+    "chooseMore": "Add more photos",
+    "uploading": "Uploading {done} of {total}…",
+    "done": "{count, plural, one {# photo sent} other {# photos sent}}. Thank you!",
+    "yourUploads": "Your uploads",
+    "retry": "Retry",
+    "failed": "Failed",
+    "tooBig": "File is too large",
+    "badType": "Photos only",
+    "limitReached": "You've reached the limit of {count} photos from this phone.",
+    "verifying": "Checking you're human…",
+    "verifyFailed": "Couldn't verify. Reload the page and try again.",
+    "state": {
+      "needs_plan": {
+        "title": "Uploads aren't open yet",
+        "body": "The host hasn't opened this album yet. Check back soon."
+      },
+      "not_open_yet": {
+        "title": "Uploads open later",
+        "body": "The host set upload hours for this event. Come back when it starts."
+      },
+      "closed": {
+        "title": "Uploads have closed",
+        "body": "The upload window for this event is over."
+      },
+      "expired": {
+        "title": "This album has ended",
+        "body": "The photos from this event have been deleted."
+      },
+      "unavailable": {
+        "title": "Not available",
+        "body": "This event isn't available."
+      },
+      "blocked": {
+        "title": "Uploads off for this phone",
+        "body": "The host has turned off uploads from this device."
+      }
+    },
+    "notFoundTitle": "Event not found",
+    "notFoundBody": "Check the link or QR code and try again."
   }
 }
