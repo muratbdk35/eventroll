@@ -42,9 +42,9 @@ export function SharePanel({
 
   return (
     <div className="space-y-4">
-      <section className="overflow-hidden rounded-xl border border-border bg-background shadow-[0_1px_2px_rgb(0_0_0/0.03)]">
+      <section className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
         <div className="grid md:grid-cols-[17rem_1fr]">
-          <div className="flex flex-col items-center gap-4 border-b border-border bg-muted/25 p-6 md:border-e md:border-b-0">
+          <div className="flex flex-col items-center gap-4 border-b border-border bg-accent/40 p-6 md:border-e md:border-b-0">
             <div className="rounded-xl border border-border bg-white p-3 shadow-xs">
               {/* eslint-disable-next-line @next/next/no-img-element -- generated per event, authenticated */}
               <img
@@ -56,13 +56,21 @@ export function SharePanel({
               />
             </div>
             <div className="flex w-full gap-2">
-              <Button asChild variant="outline" className="h-8 flex-1 px-2">
+              <Button
+                asChild
+                variant="outline"
+                className="h-9 flex-1 rounded-full px-2"
+              >
                 <a href={`${qr}?format=png&download`}>
                   <Download aria-hidden />
                   PNG
                 </a>
               </Button>
-              <Button asChild variant="outline" className="h-8 flex-1 px-2">
+              <Button
+                asChild
+                variant="outline"
+                className="h-9 flex-1 rounded-full px-2"
+              >
                 <a href={`${qr}?format=svg&download`}>
                   <Download aria-hidden />
                   SVG
@@ -72,7 +80,7 @@ export function SharePanel({
           </div>
 
           <div className="p-5 sm:p-6">
-            <h2 className="text-[15px] font-semibold">{t("title")}</h2>
+            <h2 className="font-heading text-lg font-semibold">{t("title")}</h2>
             <p className="mt-0.5 text-sm text-muted-foreground">{t("hint")}</p>
 
             <label
@@ -91,8 +99,8 @@ export function SharePanel({
               />
               <Button
                 type="button"
-                variant="dark"
-                className="h-9 px-3"
+                variant="default"
+                className="h-9 rounded-full px-4"
                 onClick={copy}
               >
                 {copied ? <Check aria-hidden /> : <Copy aria-hidden />}
@@ -125,12 +133,14 @@ export function SharePanel({
         </div>
       </section>
 
-      <section className="rounded-xl border border-border bg-background p-5 shadow-[0_1px_2px_rgb(0_0_0/0.03)] sm:p-6">
-        <h3 className="text-sm font-semibold">{t("stepsTitle")}</h3>
+      <section className="rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-6">
+        <h3 className="font-heading text-base font-semibold">
+          {t("stepsTitle")}
+        </h3>
         <ol className="mt-4 grid gap-4 sm:grid-cols-3">
           {[t("step1"), t("step2"), t("step3")].map((text, i) => (
             <li key={text} className="flex gap-3 text-[13px]">
-              <span className="flex size-6 shrink-0 items-center justify-center rounded-full border border-border text-xs font-medium tabular-nums">
+              <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-accent text-xs font-semibold text-primary tabular-nums">
                 {i + 1}
               </span>
               <span className="pt-0.5 text-muted-foreground">{text}</span>

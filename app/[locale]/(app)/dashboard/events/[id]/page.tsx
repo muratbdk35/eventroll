@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
-import { ExternalLink } from "lucide-react";
-import Image from "next/image";
+import { ChevronRight, ExternalLink, Settings } from "lucide-react";
 import {
   getFormatter,
   getTranslations,
   setRequestLocale,
 } from "next-intl/server";
-import { ActivatePlan } from "@/components/host/activate-plan";
-import { CopyLinkButton } from "@/components/host/copy-link-button";
-import { eventVisuals } from "@/components/host/event-visuals";
-import { PageBody, PageHeader } from "@/components/host/page-header";
+import { EventIcon } from "@/components/host/event-icon";
+import { NextSteps } from "@/components/host/next-steps";
+import { BackLink, PageBody } from "@/components/host/page-header";
 import { PhotoGrid } from "@/components/host/photo-grid";
 import { SettingsForm } from "@/components/host/settings-form";
 import { SharePanel } from "@/components/host/share-panel";
@@ -25,14 +23,11 @@ import {
 import { guestUrl } from "@/lib/events/urls";
 import { Link, redirect } from "@/lib/i18n/navigation";
 import type { Locale } from "@/lib/i18n/routing";
-import { plans } from "@/lib/plans";
 import { presignGet } from "@/lib/storage";
-import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = { robots: { index: false } };
 
-const TABS = ["overview", "share", "settings"] as const;
-type Tab = (typeof TABS)[number];
+type View = "main" | "share" | "settings";
 
 export default async function EventPage({
   params,
@@ -48,173 +43,64 @@ export default async function EventPage({
   if (!event) return redirect({ href: "/dashboard", locale });
 
   const sp = await searchParams;
-  const tab: Tab = TABS.includes(sp.tab as Tab) ? (sp.tab as Tab) : "overview";
+  const raw = sp.view ?? sp.tab;
+  const view: View = raw === "share" || raw === "settings" ? raw : "main";
 
-  const [t, tDash, format, stats, rows] = await Promise.all([
+  const [t, format, stats, rows] = await Promise.all([
     getTranslations("Events"),
-    getTranslations("Dashboard"),
     getFormatter(),
     getEventStats(event.id),
-    tab === "overview" ? listEventMedia(event.id) : Promise.resolve([]),
+    view === "main" ? listEventMedia(event.id) : Promise.resolve([]),
   ]);
-  const photos = await Promise.all(
-    rows.map(async (m) => ({
-      id: m.id,
-      src: await presignGet(m.thumbKey ?? m.r2Key),
-      full: await presignGet(m.r2Key),
-      uploaderName: m.uploaderName,
-      canBlock: Boolean(m.deviceId),
-      createdAt: m.createdAt.toISOString(),
-    })),
-  );
-  const needsPlan = !event.plan;
   const link = guestUrl(event);
-  const { cover } = eventVisuals[event.type];
+  const eventPath = `/dashboard/events/${event.id}`;
   const date = (d: Date | string) =>
     format.dateTime(typeof d === "string" ? new Date(`${d}T12:00:00Z`) : d, {
-      dateStyle: "medium",
+      dateStyle: "long",
       timeZone: "UTC",
     });
-  const limits = event.plan ? plans[event.plan] : null;
 
-  const cells = [
-    {
-      label: t("stats.photos"),
-      value: format.number(stats.photos),
-      sub: limits ? `/ ${format.number(limits.maxItems)}` : null,
-    },
-    { label: t("stats.guests"), value: format.number(stats.guests), sub: null },
-    { label: t("stats.deletesOn"), value: date(event.expiresAt), sub: null },
-  ];
-
-  return (
-    <>
-      <PageHeader
-        crumbs={[
-          { label: tDash("listTitle"), href: "/dashboard" },
-          { label: event.name },
-        ]}
-      />
-      <PageBody>
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex min-w-0 items-center gap-3.5">
-            <span className="relative size-14 shrink-0 overflow-hidden rounded-xl bg-muted ring-1 ring-black/5">
-              <Image
-                src={cover}
-                alt=""
-                fill
-                sizes="56px"
-                priority
-                className="object-cover"
-              />
-            </span>
-            <div className="min-w-0">
-              <h1 className="truncate text-[22px] font-semibold tracking-tight">
-                {event.name}
-              </h1>
-              <div className="mt-1 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[13px] text-muted-foreground">
-                <StatusPill
-                  status={event.status}
-                  label={t(`status.${event.status}`)}
-                />
-                <span>
-                  {t("meta", {
-                    type: t(`types.${event.type}`),
-                    date: date(event.eventDate),
-                  })}
-                </span>
-                {event.plan && (
-                  <span className="capitalize">· {event.plan}</span>
-                )}
-              </div>
-            </div>
-          </div>
-          <div className="flex shrink-0 gap-2">
-            <CopyLinkButton
-              link={link}
-              className="h-8 flex-1 px-3 sm:flex-none"
-            />
-            <Button
-              asChild
-              variant="outline"
-              className="h-8 flex-1 px-3 sm:flex-none"
-            >
-              <a href={link} target="_blank" rel="noopener noreferrer">
-                <ExternalLink aria-hidden />
-                {t("openGuest")}
-              </a>
-            </Button>
-          </div>
+  const header = (
+    <div className="flex items-start gap-4">
+      <EventIcon type={event.type} className="size-14" />
+      <div className="min-w-0 flex-1">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+          <h1 className="font-heading text-3xl leading-tight font-bold tracking-tight text-balance">
+            {event.name}
+          </h1>
+          <StatusPill
+            status={event.status}
+            label={t(`status.${event.status}`)}
+          />
         </div>
+        <p className="mt-1.5 text-sm text-muted-foreground">
+          {[
+            date(event.eventDate),
+            t("photoCount", { count: stats.photos }),
+            t("guestsCount", { count: stats.guests }),
+            t("deletesOnShort", { date: date(event.expiresAt) }),
+          ].join(" · ")}
+        </p>
+      </div>
+    </div>
+  );
 
-        {needsPlan && (
-          <div className="mt-6">
-            <ActivatePlan
-              eventId={event.id}
-              devMode={!isProduction && !env.STRIPE_SECRET_KEY}
-            />
-          </div>
-        )}
-
-        <dl className="mt-6 grid grid-cols-3 divide-x divide-border overflow-hidden rounded-xl border border-border bg-background shadow-[0_1px_2px_rgb(0_0_0/0.03)] rtl:divide-x-reverse">
-          {cells.map(({ label, value, sub }) => (
-            <div key={label} className="min-w-0 px-4 py-3.5 sm:px-5 sm:py-4">
-              <dt className="truncate text-xs text-muted-foreground">
-                {label}
-              </dt>
-              <dd className="mt-1 text-[15px] leading-snug font-semibold tracking-tight tabular-nums sm:truncate sm:text-xl">
-                {value}
-                {sub && (
-                  <span className="ms-1 hidden text-sm font-normal text-muted-foreground sm:inline">
-                    {sub}
-                  </span>
-                )}
-              </dd>
-            </div>
-          ))}
-        </dl>
-
-        <nav
-          aria-label={event.name}
-          className="mt-8 flex gap-6 border-b border-border"
-        >
-          {TABS.map((key) => (
-            <Link
-              key={key}
-              href={`/dashboard/events/${event.id}?tab=${key}`}
-              aria-current={tab === key ? "page" : undefined}
-              className={cn(
-                "-mb-px flex items-center gap-1.5 border-b-2 pb-2.5 text-sm font-medium transition-colors",
-                tab === key
-                  ? "border-foreground text-foreground"
-                  : "border-transparent text-muted-foreground hover:text-foreground",
-              )}
-            >
-              {t(`tabs.${key}`)}
-              {key === "overview" && stats.photos > 0 && (
-                <span className="rounded-md bg-muted px-1.5 py-px text-[11px] text-muted-foreground tabular-nums">
-                  {stats.photos}
-                </span>
-              )}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="mt-6">
-          {tab === "overview" && (
-            <PhotoGrid eventId={event.id} photos={photos} />
-          )}
-          {tab === "share" && (
+  if (view !== "main") {
+    return (
+      <PageBody>
+        <BackLink href={eventPath}>{t("backToEvent")}</BackLink>
+        {header}
+        <div className="mt-8">
+          {view === "share" ? (
             <SharePanel
               eventId={event.id}
               eventName={event.name}
               link={link}
               hasPin={Boolean(event.accessPinHash)}
-              hasPlan={!needsPlan}
+              hasPlan={Boolean(event.plan)}
               premium={event.plan === "premium"}
             />
-          )}
-          {tab === "settings" && (
+          ) : (
             <SettingsForm
               eventId={event.id}
               initial={{
@@ -229,6 +115,78 @@ export default async function EventPage({
           )}
         </div>
       </PageBody>
-    </>
+    );
+  }
+
+  const photos = await Promise.all(
+    rows.map(async (m) => ({
+      id: m.id,
+      src: await presignGet(m.thumbKey ?? m.r2Key),
+      full: await presignGet(m.r2Key),
+      uploaderName: m.uploaderName,
+      canBlock: Boolean(m.deviceId),
+      createdAt: m.createdAt.toISOString(),
+    })),
+  );
+
+  return (
+    <PageBody>
+      <BackLink href="/dashboard">{t("back")}</BackLink>
+      {header}
+
+      <div className="mt-8">
+        <NextSteps
+          eventId={event.id}
+          plan={event.plan}
+          devMode={!isProduction && !env.STRIPE_SECRET_KEY}
+          link={link}
+          photoCount={stats.photos}
+        />
+      </div>
+
+      <section className="mt-10">
+        <div className="mb-4 flex items-center justify-between gap-3">
+          <h2 className="font-heading text-xl font-semibold">
+            {t("photosTitle")}
+            {stats.photos > 0 && (
+              <span className="ms-2 text-base font-normal text-muted-foreground tabular-nums">
+                {stats.photos}
+              </span>
+            )}
+          </h2>
+          <Button
+            asChild
+            variant="ghost"
+            className="h-9 rounded-full px-3 text-muted-foreground"
+          >
+            <a href={link} target="_blank" rel="noopener noreferrer">
+              <ExternalLink aria-hidden />
+              {t("openGuest")}
+            </a>
+          </Button>
+        </div>
+        <PhotoGrid eventId={event.id} photos={photos} />
+      </section>
+
+      <Link
+        href={`${eventPath}?view=settings`}
+        className="group mt-10 flex items-center gap-4 rounded-2xl border border-border bg-card p-4 shadow-sm transition-colors hover:border-primary/30 sm:p-5"
+      >
+        <span className="flex size-10 items-center justify-center rounded-full bg-muted">
+          <Settings className="size-5 text-muted-foreground" aria-hidden />
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="block font-semibold">{t("tabs.settings")}</span>
+          <span className="block truncate text-sm text-muted-foreground">
+            {t("settings.pinToggle")} · {t("settings.hoursToggle")} ·{" "}
+            {t("settings.perPhoneToggle")}
+          </span>
+        </span>
+        <ChevronRight
+          className="size-5 text-muted-foreground transition-transform group-hover:translate-x-0.5 rtl:rotate-180"
+          aria-hidden
+        />
+      </Link>
+    </PageBody>
   );
 }

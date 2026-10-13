@@ -77,16 +77,22 @@ export function PhotoGrid({
 
   if (photos.length === 0) {
     return (
-      <div className="flex flex-col items-center rounded-xl border border-dashed border-border bg-background px-6 py-14 text-center">
-        <span className="flex size-11 items-center justify-center rounded-lg border border-border bg-muted/50">
-          <ImageIcon className="size-5 text-muted-foreground" aria-hidden />
+      <div className="flex flex-col items-center rounded-2xl border border-dashed border-primary/25 bg-accent/30 px-6 py-12 text-center">
+        <span className="flex size-12 items-center justify-center rounded-full bg-card text-primary shadow-sm">
+          <ImageIcon className="size-6" aria-hidden />
         </span>
-        <h2 className="mt-4 text-[15px] font-semibold">{t("emptyTitle")}</h2>
+        <h2 className="mt-4 font-heading text-lg font-semibold">
+          {t("emptyTitle")}
+        </h2>
         <p className="mt-1.5 max-w-sm text-sm text-pretty text-muted-foreground">
           {t("emptyBody")}
         </p>
-        <Button asChild variant="dark" className="mt-5 h-9 px-4">
-          <Link href={`/dashboard/events/${eventId}?tab=share`}>
+        <Button
+          asChild
+          variant="default"
+          className="mt-5 h-10 rounded-full px-5"
+        >
+          <Link href={`/dashboard/events/${eventId}?view=share`}>
             <QrCode aria-hidden />
             {t("goShare")}
           </Link>
@@ -99,17 +105,14 @@ export function PhotoGrid({
 
   return (
     <>
-      <ul
-        className="grid grid-cols-3 gap-1.5 sm:grid-cols-4 lg:grid-cols-5"
-        aria-busy={pending}
-      >
+      <ul className="grid grid-cols-3 gap-2 sm:grid-cols-4" aria-busy={pending}>
         {photos.map((p, i) => (
           <li key={p.id}>
             <button
               type="button"
               onClick={() => setOpen(i)}
               aria-label={`${t("open")} · ${who(p)}`}
-              className="group relative block aspect-square w-full overflow-hidden rounded-lg bg-muted focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+              className="group relative block aspect-square w-full overflow-hidden rounded-xl bg-muted focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
             >
               {/* eslint-disable-next-line @next/next/no-img-element -- signed storage URLs */}
               <img

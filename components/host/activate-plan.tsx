@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, Loader2, LockKeyhole } from "lucide-react";
+import { Check, Loader2 } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
@@ -15,7 +15,10 @@ const names: Record<PlanId, string> = {
   premium: "Premium",
 };
 
-/** Plan picker. Until Stripe checkout lands (1C) only the dev activation works. */
+/**
+ * Plan picker shown inside the "next steps" card. Until Stripe checkout lands
+ * (1C) only the dev activation works.
+ */
 export function ActivatePlan({
   eventId,
   devMode,
@@ -23,7 +26,6 @@ export function ActivatePlan({
   eventId: string;
   devMode: boolean;
 }) {
-  const t = useTranslations("Events");
   const ta = useTranslations("Events.activate");
   const format = useFormatter();
   const router = useRouter();
@@ -34,24 +36,8 @@ export function ActivatePlan({
   const order = [...planOrder].reverse();
 
   return (
-    <section className="overflow-hidden rounded-xl border border-border bg-background shadow-[0_1px_2px_rgb(0_0_0/0.03)]">
-      <div className="flex items-start gap-3 border-b border-border px-5 py-4">
-        <span className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-700">
-          <LockKeyhole className="size-4" aria-hidden />
-        </span>
-        <div>
-          <h2 className="text-[15px] font-semibold">{t("closedTitle")}</h2>
-          <p className="mt-0.5 text-sm text-muted-foreground">
-            {t("closedBody")}
-          </p>
-        </div>
-      </div>
-
-      <div
-        role="radiogroup"
-        aria-label={t("closedTitle")}
-        className="grid gap-3 p-5 sm:grid-cols-2"
-      >
+    <div>
+      <div role="radiogroup" className="grid gap-3 sm:grid-cols-2">
         {order.map((plan) => {
           const p = plans[plan];
           const isSel = selected === plan;
@@ -68,44 +54,41 @@ export function ActivatePlan({
               aria-checked={isSel}
               onClick={() => setSelected(plan)}
               className={cn(
-                "relative rounded-lg border p-4 text-start transition-colors focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none",
+                "rounded-xl border p-4 text-start transition-colors focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none",
                 isSel
-                  ? "border-foreground shadow-[inset_0_0_0_1px_var(--foreground)]"
-                  : "border-border hover:bg-muted/40",
+                  ? "border-primary bg-accent/50 shadow-[inset_0_0_0_1px_var(--primary)]"
+                  : "border-border bg-background hover:border-primary/40",
               )}
             >
               <div className="flex items-center justify-between gap-2">
-                <span className="flex items-center gap-2 text-sm font-semibold">
+                <span className="flex items-center gap-2 font-semibold">
                   <span
                     className={cn(
-                      "flex size-4 items-center justify-center rounded-full border",
-                      isSel
-                        ? "border-foreground bg-foreground"
-                        : "border-input",
+                      "flex size-4 items-center justify-center rounded-full border-2",
+                      isSel ? "border-primary" : "border-input",
                     )}
                     aria-hidden
                   >
                     {isSel && (
-                      <span className="size-1.5 rounded-full bg-background" />
+                      <span className="size-1.5 rounded-full bg-primary" />
                     )}
                   </span>
                   {names[plan]}
                   {plan === "premium" && (
-                    <span className="rounded-md bg-primary/10 px-1.5 py-0.5 text-[10.5px] font-semibold text-primary">
+                    <span className="rounded-full bg-primary px-2 py-0.5 text-[10.5px] font-semibold text-primary-foreground">
                       {ta("best")}
                     </span>
                   )}
                 </span>
-                <span className="text-sm whitespace-nowrap">
-                  <span className="font-semibold">${p.priceUsd}</span>{" "}
-                  <span className="text-muted-foreground">{ta("oneTime")}</span>
+                <span className="font-heading text-lg font-bold">
+                  ${p.priceUsd}
                 </span>
               </div>
-              <ul className="mt-3 space-y-1.5 ps-6 text-[13px] text-muted-foreground">
+              <ul className="mt-3 space-y-1.5 text-[13px] text-muted-foreground">
                 {features.map((f) => (
                   <li key={f} className="flex items-center gap-2">
                     <Check
-                      className="size-3.5 shrink-0 text-foreground/70"
+                      className="size-3.5 shrink-0 text-primary"
                       aria-hidden
                     />
                     {f}
@@ -117,13 +100,12 @@ export function ActivatePlan({
         })}
       </div>
 
-      <div className="flex flex-col gap-3 border-t border-border bg-muted/30 px-5 py-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mt-4 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-xs text-muted-foreground">
           {devMode ? ta("devNote") : null}
         </p>
         <Button
-          variant="dark"
-          className="h-9 px-4"
+          className="h-10 shrink-0 rounded-full px-5"
           disabled={!devMode || pending}
           onClick={() =>
             start(async () => {
@@ -133,9 +115,10 @@ export function ActivatePlan({
           }
         >
           {pending && <Loader2 className="animate-spin" aria-hidden />}
-          {ta("choose", { plan: names[selected] })}
+          {ta("choose", { plan: names[selected] })} · $
+          {plans[selected].priceUsd}
         </Button>
       </div>
-    </section>
+    </div>
   );
 }

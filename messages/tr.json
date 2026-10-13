@@ -45,7 +45,8 @@
     "listSubtitle": "Oluşturduğun tüm etkinlikler. Fotoğraflar etkinlikten 7 gün sonrasına kadar saklanır.",
     "colEvent": "Etkinlik",
     "colStatus": "Durum",
-    "colPhotos": "Fotoğraf"
+    "colPhotos": "Fotoğraf",
+    "eventsTitle": "Etkinliklerin"
   },
   "Email": {
     "magicLink": {
@@ -452,7 +453,25 @@
     "closedTitle": "Yüklemeler kapalı",
     "closedBody": "Yüklemeyi açmak için plan seç. Tek ödeme, abonelik yok.",
     "uploadsBy": "Yükleyen",
-    "allPhotos": "{count, plural, one {# fotoğraf} other {# fotoğraf}}"
+    "allPhotos": "{count, plural, one {# fotoğraf} other {# fotoğraf}}",
+    "backToEvent": "Etkinliğe dön",
+    "photosTitle": "Fotoğraflar",
+    "deletesOnShort": "{date} tarihinde silinir",
+    "steps": {
+      "title": "Yapılacaklar",
+      "create": "Etkinliği oluştur",
+      "createDone": "Tamam",
+      "plan": "Plan seç",
+      "planBody": "Plan aktif olur olmaz misafirler yüklemeye başlayabilir.",
+      "planDone": "{plan} aktif",
+      "share": "QR kodu paylaş",
+      "shareBody": "Masalara koy ya da bağlantıyı misafirlerine gönder.",
+      "downloadQr": "QR indir",
+      "allOptions": "Tüm paylaşım seçenekleri",
+      "collect": "Fotoğrafları topla",
+      "collectBody": "Misafirler yükledikçe fotoğraflar aşağıda görünür.",
+      "collectDone": "{count, plural, one {Şu ana kadar # fotoğraf} other {Şu ana kadar # fotoğraf}}"
+    }
   },
   "Guest": {
     "welcome": "{event} fotoğraflarını paylaş",

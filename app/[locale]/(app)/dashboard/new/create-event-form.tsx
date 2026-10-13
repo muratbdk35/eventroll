@@ -32,7 +32,7 @@ export function CreateEventForm() {
     setError(false);
     start(async () => {
       const res = await createEvent({ name, eventDate, type });
-      if (res.ok) router.push(`/dashboard/events/${res.id}?tab=share`);
+      if (res.ok) router.push(`/dashboard/events/${res.id}`);
       else setError(true);
     });
   }
@@ -40,7 +40,7 @@ export function CreateEventForm() {
   return (
     <form
       onSubmit={onSubmit}
-      className="mt-6 overflow-hidden rounded-xl border border-border bg-background shadow-[0_1px_2px_rgb(0_0_0/0.03)]"
+      className="mt-8 overflow-hidden rounded-2xl border border-border bg-card shadow-sm"
     >
       <div className="space-y-6 p-5 sm:p-6">
         <div className="space-y-2">
@@ -53,7 +53,7 @@ export function CreateEventForm() {
             placeholder={t("namePlaceholder")}
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="h-10"
+            className="h-11 text-base"
           />
         </div>
 
@@ -65,7 +65,7 @@ export function CreateEventForm() {
             required
             value={eventDate}
             onChange={(e) => setEventDate(e.target.value)}
-            className="h-10 sm:max-w-52"
+            className="h-11 text-base sm:max-w-56"
           />
         </div>
 
@@ -73,7 +73,7 @@ export function CreateEventForm() {
           <legend className="mb-2 text-sm leading-none font-medium">
             {t("typeLabel")}
           </legend>
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+          <div className="flex flex-wrap gap-2">
             {EVENT_TYPES.map((value) => {
               const { Icon } = eventVisuals[value];
               const selected = type === value;
@@ -81,9 +81,9 @@ export function CreateEventForm() {
                 <label
                   key={value}
                   className={cn(
-                    "flex h-10 cursor-pointer items-center gap-2 rounded-lg border px-3 text-[13px] font-medium transition-colors has-focus-visible:ring-2 has-focus-visible:ring-ring/50",
+                    "flex h-11 cursor-pointer items-center gap-2 rounded-full border px-3.5 text-sm font-medium transition-colors has-focus-visible:ring-2 has-focus-visible:ring-ring/50",
                     selected
-                      ? "border-foreground bg-foreground/[0.03] shadow-[inset_0_0_0_1px_var(--foreground)]"
+                      ? "border-primary bg-accent text-accent-foreground shadow-[inset_0_0_0_1px_var(--primary)]"
                       : "border-border text-foreground/80 hover:bg-muted/50",
                   )}
                 >
@@ -98,11 +98,13 @@ export function CreateEventForm() {
                   <Icon
                     className={cn(
                       "size-4 shrink-0",
-                      selected ? "text-foreground" : "text-muted-foreground",
+                      selected ? "text-primary" : "text-muted-foreground",
                     )}
                     aria-hidden
                   />
-                  <span className="truncate">{t(`types.${value}`)}</span>
+                  <span className="whitespace-nowrap">
+                    {t(`types.${value}`)}
+                  </span>
                 </label>
               );
             })}
@@ -119,14 +121,13 @@ export function CreateEventForm() {
         )}
       </div>
 
-      <div className="flex items-center justify-end gap-2 border-t border-border bg-muted/30 px-5 py-3 sm:px-6">
-        <Button asChild variant="ghost" className="h-9">
+      <div className="flex items-center justify-end gap-2 border-t border-border bg-muted/40 px-5 py-4 sm:px-6">
+        <Button asChild variant="ghost" className="h-10 rounded-full px-4">
           <Link href="/dashboard">{t("cancel")}</Link>
         </Button>
         <Button
           type="submit"
-          variant="dark"
-          className="h-9 px-4"
+          className="h-10 rounded-full px-5"
           disabled={pending || !name.trim()}
         >
           {pending && <Loader2 className="animate-spin" aria-hidden />}

@@ -149,10 +149,10 @@ export function SettingsForm({
   }
 
   return (
-    <div className="max-w-2xl space-y-4 pb-24">
+    <div className="space-y-4 pb-24">
       <form id="settings" onSubmit={onSubmit} className="space-y-4">
-        <section className="overflow-hidden rounded-xl border border-border bg-background shadow-[0_1px_2px_rgb(0_0_0/0.03)]">
-          <h2 className="border-b border-border px-5 py-3 text-sm font-semibold sm:px-6">
+        <section className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+          <h2 className="border-b border-border px-5 py-3.5 font-heading text-base font-semibold sm:px-6">
             {t("general")}
           </h2>
           <div className="px-5 py-4 sm:px-6">
@@ -183,8 +183,8 @@ export function SettingsForm({
           </div>
         </section>
 
-        <section className="overflow-hidden rounded-xl border border-border bg-background shadow-[0_1px_2px_rgb(0_0_0/0.03)]">
-          <h2 className="border-b border-border px-5 py-3 text-sm font-semibold sm:px-6">
+        <section className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+          <h2 className="border-b border-border px-5 py-3.5 font-heading text-base font-semibold sm:px-6">
             {t("access")}
           </h2>
           <div className="divide-y divide-border">
@@ -306,7 +306,7 @@ export function SettingsForm({
         </section>
       </form>
 
-      <section className="rounded-xl border border-destructive/25 bg-background p-5 sm:px-6">
+      <section className="rounded-2xl border border-destructive/20 bg-card p-5 shadow-sm sm:px-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 className="text-sm font-semibold">{t("danger")}</h2>
@@ -317,7 +317,7 @@ export function SettingsForm({
           <Button
             type="button"
             variant="destructive"
-            className="h-8 shrink-0"
+            className="h-9 shrink-0 rounded-full px-4"
             disabled={pending}
             onClick={onDelete}
           >
@@ -337,13 +337,13 @@ export function SettingsForm({
         )}
         aria-hidden={!dirty}
       >
-        <div className="flex w-full max-w-lg items-center justify-between gap-3 rounded-xl bg-foreground py-2 ps-4 pe-2 text-background shadow-2xl">
+        <div className="flex w-full max-w-lg items-center justify-between gap-3 rounded-full bg-foreground py-2 ps-5 pe-2 text-background shadow-2xl">
           <p className="text-sm font-medium">{t("unsaved")}</p>
           <div className="flex gap-2">
             <Button
               type="button"
               variant="ghost"
-              className="h-8 text-background hover:bg-white/10 hover:text-background"
+              className="h-8 rounded-full text-background hover:bg-white/10 hover:text-background"
               onClick={() => setS(base)}
               disabled={pending}
               tabIndex={dirty ? 0 : -1}
@@ -353,7 +353,7 @@ export function SettingsForm({
             <Button
               type="submit"
               form="settings"
-              className="h-8 bg-background px-3 text-foreground hover:bg-background/90"
+              className="h-8 rounded-full px-4"
               disabled={pending || pinInvalid || !s.name.trim()}
               tabIndex={dirty ? 0 : -1}
             >

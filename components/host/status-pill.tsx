@@ -1,5 +1,13 @@
 import { cn } from "@/lib/utils";
 
+const tone = {
+  active: "bg-success/10 text-success",
+  draft: "bg-amber-500/12 text-amber-800",
+  expired: "bg-muted text-muted-foreground",
+  suspended: "bg-destructive/10 text-destructive",
+  deleted: "bg-muted text-muted-foreground",
+} as const;
+
 const dot = {
   active: "bg-success",
   draft: "bg-amber-500",
@@ -8,20 +16,21 @@ const dot = {
   deleted: "bg-muted-foreground/60",
 } as const;
 
-/** Small neutral status badge with a coloured dot. */
+/** Soft, tinted status chip with a dot. */
 export function StatusPill({
   status,
   label,
   className,
 }: {
-  status: keyof typeof dot;
+  status: keyof typeof tone;
   label: string;
   className?: string;
 }) {
   return (
     <span
       className={cn(
-        "inline-flex h-[22px] items-center gap-1.5 rounded-md border border-border bg-background px-2 text-[11.5px] font-medium whitespace-nowrap text-foreground/80",
+        "inline-flex h-6 items-center gap-1.5 rounded-full px-2.5 text-xs font-semibold whitespace-nowrap",
+        tone[status],
         className,
       )}
     >

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { PageBody, PageHeader } from "@/components/host/page-header";
+import { BackLink, PageBody } from "@/components/host/page-header";
 import type { Locale } from "@/lib/i18n/routing";
 import { CreateEventForm } from "./create-event-form";
 
@@ -14,28 +14,18 @@ export default async function NewEventPage({
 }: PageProps<"/[locale]/dashboard/new">) {
   const locale = (await params).locale as Locale;
   setRequestLocale(locale);
-  const [t, tDash] = await Promise.all([
-    getTranslations("Events"),
-    getTranslations("Dashboard"),
-  ]);
+  const t = await getTranslations("Events");
 
   return (
-    <>
-      <PageHeader
-        crumbs={[
-          { label: tDash("listTitle"), href: "/dashboard" },
-          { label: t("newTitle") },
-        ]}
-      />
-      <PageBody className="max-w-2xl">
-        <h1 className="text-[22px] font-semibold tracking-tight">
-          {t("newTitle")}
-        </h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          {t("newSubtitleShort")}
-        </p>
-        <CreateEventForm />
-      </PageBody>
-    </>
+    <PageBody className="max-w-xl">
+      <BackLink href="/dashboard">{t("back")}</BackLink>
+      <h1 className="font-heading text-3xl font-bold tracking-tight">
+        {t("newTitle")}
+      </h1>
+      <p className="mt-2 text-pretty text-muted-foreground">
+        {t("newSubtitleShort")}
+      </p>
+      <CreateEventForm />
+    </PageBody>
   );
 }

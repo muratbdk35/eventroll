@@ -45,7 +45,8 @@
     "listSubtitle": "Alle Events, die du erstellt hast. Fotos bleiben bis 7 Tage nach dem Event gespeichert.",
     "colEvent": "Event",
     "colStatus": "Status",
-    "colPhotos": "Fotos"
+    "colPhotos": "Fotos",
+    "eventsTitle": "Deine Events"
   },
   "Email": {
     "magicLink": {
@@ -452,7 +453,25 @@
     "closedTitle": "Uploads sind geschlossen",
     "closedBody": "Wähle einen Tarif, um Uploads zu öffnen. Einmalzahlung, kein Abo.",
     "uploadsBy": "Hochgeladen von",
-    "allPhotos": "{count, plural, one {# Foto} other {# Fotos}}"
+    "allPhotos": "{count, plural, one {# Foto} other {# Fotos}}",
+    "backToEvent": "Zurück zum Event",
+    "photosTitle": "Fotos",
+    "deletesOnShort": "Wird am {date} gelöscht",
+    "steps": {
+      "title": "Nächste Schritte",
+      "create": "Event erstellen",
+      "createDone": "Erledigt",
+      "plan": "Tarif wählen",
+      "planBody": "Sobald ein Tarif aktiv ist, können Gäste hochladen.",
+      "planDone": "{plan} ist aktiv",
+      "share": "QR-Code teilen",
+      "shareBody": "Stell ihn auf die Tische oder schick den Link an deine Gäste.",
+      "downloadQr": "QR herunterladen",
+      "allOptions": "Alle Teilen-Optionen",
+      "collect": "Fotos sammeln",
+      "collectBody": "Fotos erscheinen unten, sobald Gäste sie hochladen.",
+      "collectDone": "{count, plural, one {Bisher # Foto} other {Bisher # Fotos}}"
+    }
   },
   "Guest": {
     "welcome": "Teile deine Fotos von {event}",

@@ -42,7 +42,8 @@
     "listSubtitle": "Every event you've created. Photos are kept until 7 days after the event.",
     "colEvent": "Event",
     "colStatus": "Status",
-    "colPhotos": "Photos"
+    "colPhotos": "Photos",
+    "eventsTitle": "Your events"
   },
   "Email": {
     "magicLink": {
@@ -449,7 +450,25 @@
     "closedTitle": "Uploads are closed",
     "closedBody": "Pick a plan to open uploads. One payment, no subscription.",
     "uploadsBy": "Uploaded by",
-    "allPhotos": "{count, plural, one {# photo} other {# photos}}"
+    "allPhotos": "{count, plural, one {# photo} other {# photos}}",
+    "backToEvent": "Back to event",
+    "photosTitle": "Photos",
+    "deletesOnShort": "Deleted on {date}",
+    "steps": {
+      "title": "Next steps",
+      "create": "Create your event",
+      "createDone": "Done",
+      "plan": "Choose a plan",
+      "planBody": "Guests can upload as soon as a plan is active.",
+      "planDone": "{plan} is active",
+      "share": "Share your QR code",
+      "shareBody": "Put it on the tables or send the link to your guests.",
+      "downloadQr": "Download QR",
+      "allOptions": "All sharing options",
+      "collect": "Collect the photos",
+      "collectBody": "Photos appear below as guests upload them.",
+      "collectDone": "{count, plural, one {# photo so far} other {# photos so far}}"
+    }
   },
   "Guest": {
     "welcome": "Share your photos from {event}",
