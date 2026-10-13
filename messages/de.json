@@ -471,7 +471,10 @@
       "collect": "Fotos sammeln",
       "collectBody": "Fotos erscheinen unten, sobald Gäste sie hochladen.",
       "collectDone": "{count, plural, one {Bisher # Foto} other {Bisher # Fotos}}"
-    }
+    },
+    "startLabel": "Beginn",
+    "endLabel": "Ende",
+    "dateRangeError": "Das Ende muss nach dem Beginn liegen (max. 14 Tage)."
   },
   "Guest": {
     "welcome": "Teile deine Fotos von {event}",

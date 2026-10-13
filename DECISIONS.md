@@ -168,7 +168,7 @@ the lawyer. Bracketed placeholders (company data etc.) must be filled before lau
 - No plan shows EventRoll branding on guest pages or printed templates; Premium
   differs only by capacity and custom template colours. Slideshow, guestbook,
   priority support are dropped from the offer.
-- Logo: "ER" monogram (`components/brand/logo.tsx`, `app/icon.svg`).
+- Logo: tilted photo-frame mark supplied by the owner (2026-10-14), traced to SVG (`components/brand/logo.tsx`, `app/icon.svg`, source in `public/brand/`).
 
 ## 22. Print templates are Premium-only; marketing mocks are a build contract (2026-10-12)
 

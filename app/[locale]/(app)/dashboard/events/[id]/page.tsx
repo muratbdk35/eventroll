@@ -106,6 +106,13 @@ export default async function EventPage({
               initial={{
                 name: event.name,
                 requireName: event.requireName,
+                eventDate: event.eventDate,
+                startsAt: (
+                  event.startsAt ?? new Date(`${event.eventDate}T18:00:00Z`)
+                ).toISOString(),
+                endsAt: (
+                  event.endsAt ?? new Date(`${event.eventDate}T23:00:00Z`)
+                ).toISOString(),
                 hasPin: Boolean(event.accessPinHash),
                 uploadOpensAt: event.uploadOpensAt?.toISOString() ?? null,
                 uploadClosesAt: event.uploadClosesAt?.toISOString() ?? null,

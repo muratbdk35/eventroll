@@ -85,7 +85,7 @@ export default async function GuestPage({
           <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/5 to-black/75" />
           <div className="relative flex h-full flex-col px-5 pt-4 pb-5">
             <div className="flex items-center justify-between">
-              <LogoMark className="size-8 drop-shadow" />
+              <LogoMark className="size-8 text-white drop-shadow" />
               <div className="[&_option]:text-foreground [&_select]:h-8 [&_select]:border-white/25! [&_select]:bg-black/35! [&_select]:pe-1 [&_select]:text-[13px] [&_select]:text-white! [&_select]:backdrop-blur">
                 <LocaleSwitcher />
               </div>

@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { computeExpiresAt, DOWNLOAD_WINDOW_DAYS, plans } from "@/lib/plans";
+import {
+  computeExpiresAt,
+  computeExpiresAtFromEnd,
+  DOWNLOAD_WINDOW_DAYS,
+  plans,
+} from "@/lib/plans";
 
 describe("plans", () => {
   it("has the owner-approved prices", () => {
@@ -25,5 +30,13 @@ describe("computeExpiresAt", () => {
     expect(computeExpiresAt("2026-12-28").toISOString()).toBe(
       "2027-01-04T23:59:59.999Z",
     );
+  });
+});
+
+describe("computeExpiresAtFromEnd", () => {
+  it("counts the download window from the day the event ends", () => {
+    expect(
+      computeExpiresAtFromEnd(new Date("2026-06-15T01:30:00Z")).toISOString(),
+    ).toBe("2026-06-22T23:59:59.999Z");
   });
 });

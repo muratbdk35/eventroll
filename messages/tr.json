@@ -471,7 +471,10 @@
       "collect": "Fotoğrafları topla",
       "collectBody": "Misafirler yükledikçe fotoğraflar aşağıda görünür.",
       "collectDone": "{count, plural, one {Şu ana kadar # fotoğraf} other {Şu ana kadar # fotoğraf}}"
-    }
+    },
+    "startLabel": "Başlangıç",
+    "endLabel": "Bitiş",
+    "dateRangeError": "Bitiş başlangıçtan sonra olmalı (en fazla 14 gün)."
   },
   "Guest": {
     "welcome": "{event} fotoğraflarını paylaş",

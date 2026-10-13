@@ -29,23 +29,49 @@ describe("generateSlug", () => {
 });
 
 describe("schemas", () => {
+  const times = {
+    startsAt: "2026-06-14T16:00:00.000Z",
+    endsAt: "2026-06-14T23:00:00.000Z",
+    eventDate: "2026-06-14",
+  };
+
   it("validates create input", () => {
     expect(
       createEventSchema.safeParse({
         name: "  Anna & Tom ",
-        eventDate: "2026-06-14",
         type: "wedding",
+        ...times,
       }).success,
     ).toBe(true);
     expect(
-      createEventSchema.safeParse({ name: "", eventDate: "x", type: "wedding" })
+      createEventSchema.safeParse({ name: "", type: "wedding", ...times })
         .success,
     ).toBe(false);
   });
+
+  it("requires the end after the start and caps the length", () => {
+    const base = { name: "x", type: "party" as const, eventDate: "2026-06-14" };
+    expect(
+      createEventSchema.safeParse({
+        ...base,
+        startsAt: "2026-06-14T20:00:00.000Z",
+        endsAt: "2026-06-14T19:00:00.000Z",
+      }).success,
+    ).toBe(false);
+    expect(
+      createEventSchema.safeParse({
+        ...base,
+        startsAt: "2026-06-14T20:00:00.000Z",
+        endsAt: "2026-07-14T20:00:00.000Z",
+      }).success,
+    ).toBe(false);
+  });
+
   it("rejects bad pins and inverted windows", () => {
     const base = {
       name: "x",
       requireName: false,
+      ...times,
       uploadOpensAt: null,
       uploadClosesAt: null,
       maxUploadsPerDevice: null,

@@ -468,7 +468,10 @@
       "collect": "Collect the photos",
       "collectBody": "Photos appear below as guests upload them.",
       "collectDone": "{count, plural, one {# photo so far} other {# photos so far}}"
-    }
+    },
+    "startLabel": "Starts",
+    "endLabel": "Ends",
+    "dateRangeError": "The end must be after the start (max. 14 days)."
   },
   "Guest": {
     "welcome": "Share your photos from {event}",

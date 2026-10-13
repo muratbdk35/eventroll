@@ -81,7 +81,11 @@ export const events = pgTable(
     slug: text().notNull().unique(),
     name: text().notNull(),
     type: eventType().notNull().default("other"),
+    // Local calendar date of the start (kept for display and older rows).
     eventDate: date({ mode: "string" }).notNull(),
+    // Required for new events (create form); null only on rows made before.
+    startsAt: timestamp(tz),
+    endsAt: timestamp(tz),
     locale: text().notNull().default("en"),
     plan: plan(),
     status: eventStatus().notNull().default("draft"),
@@ -132,6 +136,8 @@ export const media = pgTable(
     // Event-scoped random device id from the signed guest cookie.
     deviceId: text(),
     uploaderFingerprint: text(),
+    // When the guest ticked "I accept the terms / I may share these photos".
+    guestConsentAt: timestamp(tz),
     status: mediaStatus().notNull().default("pending"),
     createdAt: createdAt(),
   },

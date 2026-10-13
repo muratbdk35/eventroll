@@ -12,10 +12,19 @@ import { EVENT_TYPES } from "@/lib/events/schemas";
 import { Link, useRouter } from "@/lib/i18n/navigation";
 import { cn } from "@/lib/utils";
 
-function today(): string {
-  const d = new Date();
+function localInput(d: Date): string {
   const pad = (n: number) => String(n).padStart(2, "0");
-  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+/** Default: today 19:00 (or the next full hour if later) for five hours. */
+function defaultTimes(): [string, string] {
+  const start = new Date();
+  start.setMinutes(0, 0, 0);
+  if (start.getHours() < 19) start.setHours(19);
+  else start.setHours(start.getHours() + 1);
+  const end = new Date(start.getTime() + 5 * 3_600_000);
+  return [localInput(start), localInput(end)];
 }
 
 export function CreateEventForm() {
@@ -24,14 +33,22 @@ export function CreateEventForm() {
   const [pending, start] = useTransition();
   const [error, setError] = useState(false);
   const [name, setName] = useState("");
-  const [eventDate, setEventDate] = useState(today);
+  const [startLocal, setStartLocal] = useState(() => defaultTimes()[0]);
+  const [endLocal, setEndLocal] = useState(() => defaultTimes()[1]);
+  const rangeOk = new Date(endLocal) > new Date(startLocal);
   const [type, setType] = useState<(typeof EVENT_TYPES)[number]>("wedding");
 
   function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(false);
     start(async () => {
-      const res = await createEvent({ name, eventDate, type });
+      const res = await createEvent({
+        name,
+        type,
+        startsAt: new Date(startLocal).toISOString(),
+        endsAt: new Date(endLocal).toISOString(),
+        eventDate: startLocal.slice(0, 10),
+      });
       if (res.ok) router.push(`/dashboard/events/${res.id}`);
       else setError(true);
     });
@@ -57,16 +74,36 @@ export function CreateEventForm() {
           />
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="date">{t("dateLabel")}</Label>
-          <Input
-            id="date"
-            type="date"
-            required
-            value={eventDate}
-            onChange={(e) => setEventDate(e.target.value)}
-            className="h-11 text-base sm:max-w-56"
-          />
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div className="space-y-2">
+            <Label htmlFor="starts">{t("startLabel")}</Label>
+            <Input
+              id="starts"
+              type="datetime-local"
+              required
+              value={startLocal}
+              onChange={(e) => setStartLocal(e.target.value)}
+              className="h-11 text-base"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="ends">{t("endLabel")}</Label>
+            <Input
+              id="ends"
+              type="datetime-local"
+              required
+              min={startLocal}
+              value={endLocal}
+              onChange={(e) => setEndLocal(e.target.value)}
+              aria-invalid={!rangeOk}
+              className="h-11 text-base"
+            />
+          </div>
+          {!rangeOk && (
+            <p className="text-sm text-destructive sm:col-span-2" role="alert">
+              {t("dateRangeError")}
+            </p>
+          )}
         </div>
 
         <fieldset className="space-y-2">
@@ -128,7 +165,7 @@ export function CreateEventForm() {
         <Button
           type="submit"
           className="h-10 rounded-full px-5"
-          disabled={pending || !name.trim()}
+          disabled={pending || !name.trim() || !rangeOk}
         >
           {pending && <Loader2 className="animate-spin" aria-hidden />}
           {pending ? t("creating") : t("create")}

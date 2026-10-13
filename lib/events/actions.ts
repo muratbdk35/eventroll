@@ -7,7 +7,7 @@ import { getSession } from "@/lib/auth";
 import { db, schema } from "@/lib/db";
 import { env, isProduction } from "@/lib/env";
 import { hashPin } from "@/lib/guest/session";
-import { computeExpiresAt, type PlanId } from "@/lib/plans";
+import { computeExpiresAtFromEnd, type PlanId } from "@/lib/plans";
 import { deleteObjects } from "@/lib/storage";
 import { getOwnedEvent } from "./queries";
 import {
@@ -50,8 +50,10 @@ export async function createEvent(
         name: parsed.data.name,
         type: parsed.data.type,
         eventDate: parsed.data.eventDate,
+        startsAt: new Date(parsed.data.startsAt),
+        endsAt: new Date(parsed.data.endsAt),
         locale,
-        expiresAt: computeExpiresAt(parsed.data.eventDate),
+        expiresAt: computeExpiresAtFromEnd(new Date(parsed.data.endsAt)),
       })
       .onConflictDoNothing({ target: events.slug })
       .returning({ id: events.id });
@@ -80,6 +82,10 @@ export async function updateSettings(
     .set({
       name: d.name,
       requireName: d.requireName,
+      eventDate: d.eventDate,
+      startsAt: new Date(d.startsAt),
+      endsAt: new Date(d.endsAt),
+      expiresAt: computeExpiresAtFromEnd(new Date(d.endsAt)),
       uploadOpensAt: d.uploadOpensAt ? new Date(d.uploadOpensAt) : null,
       uploadClosesAt: d.uploadClosesAt ? new Date(d.uploadClosesAt) : null,
       maxUploadsPerDevice: d.maxUploadsPerDevice,

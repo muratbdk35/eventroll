@@ -22,6 +22,9 @@ import { cn } from "@/lib/utils";
 type Initial = {
   name: string;
   requireName: boolean;
+  startsAt: string;
+  endsAt: string;
+  eventDate: string;
   hasPin: boolean;
   uploadOpensAt: string | null;
   uploadClosesAt: string | null;
@@ -117,6 +120,9 @@ export function SettingsForm({
       const res = await updateSettings(eventId, {
         name: s.name,
         requireName: s.requireName,
+        startsAt: initial.startsAt,
+        endsAt: initial.endsAt,
+        eventDate: initial.eventDate,
         pin: !s.pinOn
           ? initial.hasPin
             ? null
