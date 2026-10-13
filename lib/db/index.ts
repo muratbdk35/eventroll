@@ -17,9 +17,12 @@ async function createDb(): Promise<Database> {
     const { PGlite } = await import("@electric-sql/pglite");
     const { drizzle: drizzlePglite } = await import("drizzle-orm/pglite");
     const { migrate } = await import("drizzle-orm/pglite/migrator");
-    // Build workers run in parallel and cannot share one PGlite directory.
-    const isBuild = process.env.NEXT_PHASE === "phase-production-build";
-    const dir = isBuild ? "memory" : env.DATABASE_URL.slice("pglite:".length);
+    // PGlite allows one process per directory. Build workers and Next's dev
+    // workers (static params, etc.) get a throwaway in-memory instance instead.
+    const isWorker =
+      process.env.NEXT_PHASE === "phase-production-build" ||
+      process.env.IS_NEXT_WORKER === "true";
+    const dir = isWorker ? "memory" : env.DATABASE_URL.slice("pglite:".length);
     const client = dir === "memory" ? new PGlite() : new PGlite(dir);
     // Close cleanly on Ctrl+C / kill, otherwise the on-disk data can be corrupted.
     // If it ever is: stop the dev server and delete the .pglite directory.
