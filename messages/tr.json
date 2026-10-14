@@ -432,7 +432,8 @@
       "hoursToggle": "Yükleme saatlerini sınırla",
       "perPhoneToggle": "Telefon başına fotoğrafı sınırla",
       "unsaved": "Kaydedilmemiş değişiklikler var",
-      "discard": "Vazgeç"
+      "discard": "Vazgeç",
+      "when": "Tarih ve saat"
     },
     "openGuest": "Misafir sayfası",
     "copyLink": "Bağlantıyı kopyala",
@@ -477,7 +478,9 @@
     },
     "startLabel": "Başlangıç",
     "endLabel": "Bitiş",
-    "dateRangeError": "Bitiş başlangıçtan sonra olmalı (en fazla 14 gün)."
+    "dateRangeError": "Bitiş başlangıçtan sonra olmalı (en fazla 14 gün).",
+    "timeLabel": "Saat",
+    "done": "Tamam"
   },
   "Guest": {
     "welcome": "{event} fotoğraflarını paylaş",

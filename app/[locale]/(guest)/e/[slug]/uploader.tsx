@@ -11,8 +11,10 @@ import {
   X,
 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { useRef, useState } from "react";
+import confetti from "canvas-confetti";
+import { useEffect, useRef, useState } from "react";
 import { Turnstile } from "@/components/turnstile";
+import Stack from "@/components/ui/stack";
 import { Link, useRouter } from "@/lib/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { isAllowedMime, MAX_FILE_BYTES, type AllowedMime } from "@/lib/uploads";
@@ -48,6 +50,13 @@ const EXT_MIME: Record<string, AllowedMime> = {
   heif: "image/heif",
   gif: "image/gif",
 };
+
+/** Prints shown in the deck before the guest picks anything. */
+const SAMPLE_PRINTS = [
+  "/marketing/toast.jpg",
+  "/marketing/sparklers.jpg",
+  "/marketing/rings.jpg",
+];
 
 /** Polaroid tilt pattern, in degrees. */
 const TILTS = [-2.5, 1.5, -1, 2.5, -1.5, 1];
@@ -154,6 +163,25 @@ export function Uploader(props: Props) {
   const [busy, setBusy] = useState(false);
   const [sentNow, setSentNow] = useState(0);
   const [dragging, setDragging] = useState(false);
+
+  useEffect(() => {
+    if (sentNow === 0) return;
+    const colors = ["#c2410c", "#ea580c", "#fb923c", "#fed7aa", "#ffffff"];
+    const shot = (x: number, angle: number) =>
+      confetti({
+        particleCount: 70,
+        angle,
+        spread: 65,
+        startVelocity: 55,
+        origin: { x, y: 0.85 },
+        colors,
+        scalar: 0.9,
+        zIndex: 60,
+        disableForReducedMotion: true,
+      });
+    void shot(0.1, 60);
+    void shot(0.9, 120);
+  }, [sentNow]);
 
   const patch = (key: string, p: Partial<Item>) =>
     setItems((all) => all.map((i) => (i.key === key ? { ...i, ...p } : i)));
@@ -444,9 +472,14 @@ export function Uploader(props: Props) {
           (inFlight.length + doneCount)) *
         100
       : 0;
-  const stack = [...items.filter((i) => i.status !== "error")]
-    .slice(0, 3)
+  // The deck shows the guest's own picks; before that, the cover and a few prints.
+  const picked = items
+    .filter((i) => i.status !== "error")
     .map((i) => i.preview);
+  const deck =
+    picked.length > 0
+      ? picked.slice(0, 8)
+      : [props.coverSrc, ...SAMPLE_PRINTS.filter((p) => p !== props.coverSrc)];
   const pick = () => fileInput.current?.click();
 
   return (
@@ -493,10 +526,8 @@ export function Uploader(props: Props) {
         aria-hidden
       />
 
-      {/* Hero action: a fanned stack of prints with a shutter button. */}
-      <button
-        type="button"
-        onClick={pick}
+      {/* Hero: a swipeable pile of prints (React Bits Stack) and a shutter button. */}
+      <div
         onDragOver={(e) => {
           e.preventDefault();
           setDragging(true);
@@ -508,57 +539,50 @@ export function Uploader(props: Props) {
           addFiles(Array.from(e.dataTransfer.files));
         }}
         className={cn(
-          "group relative flex w-full flex-col items-center rounded-[2rem] pt-3 pb-1 transition-transform duration-300 ease-out outline-none focus-visible:ring-4 focus-visible:ring-primary/25 active:scale-[0.97]",
+          "flex flex-col items-center pt-2 transition-transform duration-300 ease-out",
           dragging && "scale-[1.02]",
         )}
       >
-        <span className="relative block h-48 w-full">
-          {[0, 1, 2].map((n) => {
-            const src = stack[2 - n] ?? props.coverSrc;
-            const pose = [
-              "-translate-x-[72%] -rotate-[9deg] group-hover:-translate-x-[82%] group-hover:-rotate-[13deg]",
-              "-translate-x-[28%] rotate-[8deg] group-hover:-translate-x-[18%] group-hover:rotate-[12deg]",
-              "-translate-x-1/2 -rotate-[1.5deg] group-hover:-translate-y-2",
-            ][n];
-            return (
-              <span
-                key={n}
-                aria-hidden
-                className={cn(
-                  "absolute top-1 left-1/2 w-36 rounded-[6px] bg-white p-2 pb-7 shadow-xl ring-1 shadow-black/15 ring-black/5 transition-transform duration-500 ease-out",
-                  pose,
-                )}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element -- local blob or static cover */}
-                <img
-                  src={src}
-                  alt=""
-                  className={cn(
-                    "aspect-[4/5] w-full rounded-[3px] object-cover",
-                    n < 2 && stack.length < 3 - n && "opacity-80 saturate-50",
-                  )}
-                />
-              </span>
-            );
-          })}
-          {/* Shutter */}
-          <span className="absolute -bottom-3 left-1/2 flex -translate-x-1/2 items-center justify-center">
+        <div className="relative h-56 w-44">
+          <Stack
+            key={deck.length}
+            cards={deck.map((src) => (
+              // eslint-disable-next-line @next/next/no-img-element -- local blob or static print
+              <img key={src} src={src} alt="" draggable={false} />
+            ))}
+            layout="pile"
+            spread={0.9}
+            visible={4}
+            frame={8}
+            frameColor="#ffffff"
+            radius={8}
+            tilt={22}
+            threshold={70}
+            sendToBackOnClick
+          />
+        </div>
+        <button
+          type="button"
+          onClick={pick}
+          className="group relative z-10 -mt-7 flex flex-col items-center rounded-[2rem] px-6 pb-1 outline-none focus-visible:ring-4 focus-visible:ring-primary/25"
+        >
+          <span className="relative flex items-center justify-center">
             <span
               aria-hidden
               className="breathe absolute size-[5.5rem] rounded-full border-2 border-primary/60"
             />
-            <span className="relative flex size-[4.75rem] items-center justify-center rounded-full bg-primary text-primary-foreground shadow-2xl ring-[6px] shadow-primary/40 ring-white transition-transform duration-300 ease-out group-active:scale-90">
+            <span className="relative flex size-[4.75rem] items-center justify-center rounded-full bg-primary text-primary-foreground shadow-2xl ring-[6px] shadow-primary/40 ring-white transition-transform duration-300 ease-out group-hover:scale-105 group-active:scale-90">
               <Camera className="size-8" strokeWidth={1.75} aria-hidden />
             </span>
           </span>
-        </span>
-        <span className="mt-9 font-heading text-2xl font-semibold tracking-tight">
-          {items.length > 0 ? t("chooseMore") : t("heroTitle")}
-        </span>
-        <span className="mt-1 text-sm text-muted-foreground">
-          {t("heroHint")}
-        </span>
-      </button>
+          <span className="mt-5 font-heading text-2xl font-semibold tracking-tight">
+            {items.length > 0 ? t("chooseMore") : t("heroTitle")}
+          </span>
+          <span className="mt-1 text-sm text-muted-foreground">
+            {t("heroHint")}
+          </span>
+        </button>
+      </div>
 
       {/* Tray: picked prints drop in, then fill up while sending. */}
       {items.length > 0 && (

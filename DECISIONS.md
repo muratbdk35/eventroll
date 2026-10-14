@@ -261,3 +261,19 @@ Design language: modern, calm but alive (Apple Photos / Partiful / Luma quality)
 - Photos adapted from the 21st.dev Masonry Lightbox (ayushmxxn): masonry at the
   photos' real proportions, blur-in entrance, hover caption, shared-element spring
   into the viewer. Adds `framer-motion` (host pages only).
+
+## 28. Free component sources besides 21st.dev (2026-10-14)
+
+21st.dev's free tier allows 2 code fetches a day; most of its catalogue comes from
+free (mostly MIT) shadcn-style registries we can use directly: Magic UI, React
+Bits, Motion Primitives, Aceternity (free items only), Origin UI, shadcn/ui.
+Vendored files keep a source line at the top.
+
+- Guest deck: React Bits `Stack` (`components/ui/stack.tsx`, swipe/fling pile),
+  import switched to `framer-motion`; React Compiler ref rules are disabled for
+  that file only (motion values live in refs by design).
+- Confetti on a finished send: `canvas-confetti` in brand colours, the Magic UI
+  pattern; off for reduced motion.
+- Date & time: shadcn/ui Calendar + Popover (`react-day-picker`, `date-fns`
+  locales) in `components/ui/date-time-field.tsx`; used for start/end in the
+  create form and in settings (which can now change the event times).

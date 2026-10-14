@@ -12,6 +12,7 @@ import { useTranslations } from "next-intl";
 import { useMemo, useState, useTransition } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { DateTimeField } from "@/components/ui/date-time-field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
@@ -46,6 +47,8 @@ function toIso(local: string): string | null {
 function initialState(i: Initial) {
   return {
     name: i.name,
+    starts: toLocalInput(i.startsAt),
+    ends: toLocalInput(i.endsAt),
     requireName: i.requireName,
     pinOn: i.hasPin,
     pin: "",
@@ -112,17 +115,18 @@ export function SettingsForm({
     [s, base],
   );
   const pinInvalid = s.pinOn && !initial.hasPin && !/^\d{4,8}$/.test(s.pin);
+  const rangeOk = new Date(s.ends) > new Date(s.starts);
 
   function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (pinInvalid) return;
+    if (pinInvalid || !rangeOk) return;
     start(async () => {
       const res = await updateSettings(eventId, {
         name: s.name,
         requireName: s.requireName,
-        startsAt: initial.startsAt,
-        endsAt: initial.endsAt,
-        eventDate: initial.eventDate,
+        startsAt: new Date(s.starts).toISOString(),
+        endsAt: new Date(s.ends).toISOString(),
+        eventDate: s.starts.slice(0, 10),
         pin: !s.pinOn
           ? initial.hasPin
             ? null
@@ -171,6 +175,34 @@ export function SettingsForm({
               onChange={(e) => set("name", e.target.value)}
               className="mt-2 h-9"
             />
+          </div>
+          <div className="grid gap-4 border-t border-border px-5 py-4 sm:grid-cols-2 sm:px-6">
+            <div className="space-y-2">
+              <Label htmlFor="s-starts">{tEvents("startLabel")}</Label>
+              <DateTimeField
+                id="s-starts"
+                value={s.starts}
+                onChange={(v) => set("starts", v)}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="s-ends">{tEvents("endLabel")}</Label>
+              <DateTimeField
+                id="s-ends"
+                value={s.ends}
+                min={s.starts}
+                onChange={(v) => set("ends", v)}
+                invalid={!rangeOk}
+              />
+            </div>
+            {!rangeOk && (
+              <p
+                className="text-sm text-destructive sm:col-span-2"
+                role="alert"
+              >
+                {tEvents("dateRangeError")}
+              </p>
+            )}
           </div>
           <div className="border-t border-border">
             <Row
@@ -360,7 +392,7 @@ export function SettingsForm({
               type="submit"
               form="settings"
               className="h-8 rounded-full px-4"
-              disabled={pending || pinInvalid || !s.name.trim()}
+              disabled={pending || pinInvalid || !rangeOk || !s.name.trim()}
               tabIndex={dirty ? 0 : -1}
             >
               {pending && <Loader2 className="animate-spin" aria-hidden />}

@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import { eventVisuals } from "@/components/host/event-visuals";
 import { Button } from "@/components/ui/button";
+import { DateTimeField } from "@/components/ui/date-time-field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createEvent } from "@/lib/events/actions";
@@ -77,26 +78,28 @@ export function CreateEventForm() {
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-2">
             <Label htmlFor="starts">{t("startLabel")}</Label>
-            <Input
+            <DateTimeField
               id="starts"
-              type="datetime-local"
-              required
               value={startLocal}
-              onChange={(e) => setStartLocal(e.target.value)}
-              className="h-11 text-base"
+              onChange={(v) => {
+                setStartLocal(v);
+                // Keep a sensible end when the start moves past it.
+                if (new Date(endLocal) <= new Date(v)) {
+                  setEndLocal(
+                    localInput(new Date(new Date(v).getTime() + 5 * 3_600_000)),
+                  );
+                }
+              }}
             />
           </div>
           <div className="space-y-2">
             <Label htmlFor="ends">{t("endLabel")}</Label>
-            <Input
+            <DateTimeField
               id="ends"
-              type="datetime-local"
-              required
-              min={startLocal}
               value={endLocal}
-              onChange={(e) => setEndLocal(e.target.value)}
-              aria-invalid={!rangeOk}
-              className="h-11 text-base"
+              min={startLocal}
+              onChange={setEndLocal}
+              invalid={!rangeOk}
             />
           </div>
           {!rangeOk && (

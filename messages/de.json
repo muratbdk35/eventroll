@@ -432,7 +432,8 @@
       "hoursToggle": "Upload-Zeiten begrenzen",
       "perPhoneToggle": "Fotos pro Handy begrenzen",
       "unsaved": "Ungespeicherte Änderungen",
-      "discard": "Verwerfen"
+      "discard": "Verwerfen",
+      "when": "Datum & Uhrzeit"
     },
     "openGuest": "Gästeseite",
     "copyLink": "Link kopieren",
@@ -477,7 +478,9 @@
     },
     "startLabel": "Beginn",
     "endLabel": "Ende",
-    "dateRangeError": "Das Ende muss nach dem Beginn liegen (max. 14 Tage)."
+    "dateRangeError": "Das Ende muss nach dem Beginn liegen (max. 14 Tage).",
+    "timeLabel": "Uhrzeit",
+    "done": "Fertig"
   },
   "Guest": {
     "welcome": "Teile deine Fotos von {event}",
