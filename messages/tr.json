@@ -527,7 +527,8 @@
       "premiumBody": "Standard planda QR kodu PNG ya da SVG olarak indirip kendin kullanabilirsin.",
       "cutHint": "Kesik çizgilerden kes",
       "foldHint": "Ortadan katla"
-    }
+    },
+    "backToReview": "Son kontrole dön"
   },
   "Guest": {
     "welcome": "{event} fotoğraflarını paylaş",
@@ -604,5 +605,81 @@
     "menu": "Menü",
     "closeMenu": "Menüyü kapat",
     "home": "Web sitesi"
+  },
+  "Create": {
+    "metaTitle": "Etkinlik oluştur",
+    "stepOf": "Adım {n} / {total}",
+    "exit": "Çık",
+    "back": "Geri",
+    "steps": {
+      "details": "Etkinlik",
+      "plan": "Plan",
+      "account": "Hesap",
+      "pay": "Ödeme",
+      "review": "Yayınla"
+    },
+    "details": {
+      "title": "Etkinliğini anlat",
+      "subtitle": "Her şeyi şimdi ayarla; yayınlamadan önce yine değiştirebilirsin.",
+      "nameRequired": "Etkinliğe bir ad ver.",
+      "guestSettings": "Misafir ayarları",
+      "guestSettingsHint": "İsteğe bağlı. Hepsi kapalıyken misafirler QR'ı okutup hemen yükler.",
+      "next": "Plan seç"
+    },
+    "plan": {
+      "title": "Planını seç",
+      "subtitle": "Tek ödeme, abonelik yok. İki planda da her şey dahil; fark kapasite ve baskı şablonları.",
+      "choose": "{plan} ile devam et",
+      "yourPick": "Seçtiğin plan",
+      "hint": "Ödeme bir sonraki adımda"
+    },
+    "account": {
+      "title": "Hesabını oluştur",
+      "subtitle": "Etkinliğini kaydedelim. Google ile tek tıkla ya da e-postana gelen linkle devam et.",
+      "saved": "Doldurduğun bilgiler bu tarayıcıda duruyor; giriş yapınca hesabına kaydedilir."
+    },
+    "pay": {
+      "title": "Ödeme",
+      "subtitle": "Tek seferlik ödeme. Sonra her şeyi son kez gözden geçirip yayınlarsın.",
+      "saving": "Etkinliğin hesabına kaydediliyor…",
+      "draftMissing": "Bu tarayıcıda kayıtlı bir etkinlik bulamadık. Linki başka bir cihazda açtıysan bilgileri yeniden gir.",
+      "saveFailed": "Etkinlik kaydedilemedi. Bilgileri kontrol edip tekrar dene.",
+      "backToDetails": "Etkinlik bilgilerine dön",
+      "event": "Etkinlik",
+      "plan": "{plan} planı",
+      "includes": "{photos} fotoğraf · {gb} GB · {days} gün ZIP",
+      "tax": "KDV",
+      "taxValue": "ödemede hesaplanır",
+      "total": "Toplam",
+      "button": "{price} öde",
+      "secure": "Stripe ile güvenli ödeme",
+      "devNote": "Yerel geliştirme: ödeme henüz bağlı değil, bu buton planı ücretsiz aktifleştirir.",
+      "changePlan": "Planı değiştir"
+    },
+    "review": {
+      "title": "Son kontrol",
+      "subtitle": "Ödemen alındı. Her şey doğruysa yayınla; düzeltmek istediğin yer varsa düzenle.",
+      "event": "Etkinlik",
+      "plan": "Plan",
+      "planName": "Plan",
+      "paid": "ödendi",
+      "capacity": "Kapasite",
+      "on": "Açık",
+      "off": "Kapalı",
+      "edit": "Düzenle",
+      "upgrade": "Premium'a yükselt",
+      "publishHint": "Yayınladığında misafir sayfası açılır ve QR kodun hazır olur. Sonrasında da ayarları değiştirebilirsin.",
+      "publish": "Etkinliği yayınla",
+      "publishing": "Yayınlanıyor…",
+      "publishFailed": "Yayınlanamadı. Tekrar dene."
+    },
+    "resume": {
+      "titlePlan": "Kurulumu tamamla",
+      "bodyPlan": "Plan seçip ödemeyi yaptığında etkinliğini yayınlayabilirsin.",
+      "ctaPlan": "Plan seç",
+      "titlePublish": "Yayınlamaya hazır",
+      "bodyPublish": "Ödemen alındı. Son kez kontrol et ve yayınla.",
+      "ctaPublish": "Kontrol et ve yayınla"
+    }
   }
 }

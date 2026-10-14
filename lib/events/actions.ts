@@ -25,11 +25,7 @@ export type ActionResult<T = object> =
   | {
       ok: false;
       error:
-        | "unauthorized"
-        | "invalid"
-        | "not_found"
-        | "forbidden"
-        | "needs_plan";
+        "unauthorized" | "invalid" | "not_found" | "forbidden" | "needs_plan";
     };
 
 async function requireUser() {
@@ -68,6 +64,27 @@ export async function createEvent(
     }
   }
   return { ok: false, error: "invalid" };
+}
+
+/**
+ * The create flow collects everything before sign-in (DECISIONS #32) and saves
+ * it in one go once the host has an account: the event, then its settings.
+ */
+export async function createEventFromDraft(
+  input: CreateEventInput,
+  settings: Omit<SettingsInput, "name" | "startsAt" | "endsAt" | "eventDate">,
+): Promise<ActionResult<{ id: string }>> {
+  const created = await createEvent(input);
+  if (!created.ok) return created;
+  const saved = await updateSettings(created.id, {
+    ...settings,
+    name: input.name,
+    startsAt: input.startsAt,
+    endsAt: input.endsAt,
+    eventDate: input.eventDate,
+  });
+  // The event exists either way; settings can still be fixed on review.
+  return saved.ok ? created : { ok: true, id: created.id };
 }
 
 export async function updateSettings(
@@ -220,10 +237,7 @@ export async function devActivate(
   if (!user) return { ok: false, error: "unauthorized" };
   const event = await getOwnedEvent(eventId, user.id);
   if (!event) return { ok: false, error: "not_found" };
-  await db
-    .update(events)
-    .set({ plan })
-    .where(eq(events.id, event.id));
+  await db.update(events).set({ plan }).where(eq(events.id, event.id));
   revalidatePath("/[locale]/dashboard", "layout");
   return { ok: true };
 }

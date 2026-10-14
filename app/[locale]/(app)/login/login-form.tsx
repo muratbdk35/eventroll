@@ -34,7 +34,14 @@ function GoogleIcon() {
   );
 }
 
-export function LoginForm({ googleEnabled }: { googleEnabled: boolean }) {
+export function LoginForm({
+  googleEnabled,
+  callbackPath = "/dashboard",
+}: {
+  googleEnabled: boolean;
+  /** Where to land after signing in, without the locale prefix. */
+  callbackPath?: string;
+}) {
   const t = useTranslations("Login");
   const locale = useLocale();
   const [email, setEmail] = useState("");
@@ -43,7 +50,7 @@ export function LoginForm({ googleEnabled }: { googleEnabled: boolean }) {
   );
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [captchaKey, setCaptchaKey] = useState(0);
-  const callbackURL = `/${locale}/dashboard`;
+  const callbackURL = `/${locale}${callbackPath}`;
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -132,26 +139,26 @@ export function LoginForm({ googleEnabled }: { googleEnabled: boolean }) {
         )}
       </form>
 
-      {googleEnabled && (
-        <>
-          <div className="flex items-center gap-4 py-1">
-            <Separator className="flex-1" />
-            <span className="text-sm text-muted-foreground">{t("or")}</span>
-            <Separator className="flex-1" />
-          </div>
-          <Button
-            variant="outline"
-            size="lg"
-            className="h-11 w-full rounded-xl"
-            onClick={() =>
-              authClient.signIn.social({ provider: "google", callbackURL })
-            }
-          >
-            <GoogleIcon />
-            {t("google")}
-          </Button>
-        </>
-      )}
+      <div className="flex items-center gap-4 py-1">
+        <Separator className="flex-1" />
+        <span className="text-sm text-muted-foreground">{t("or")}</span>
+        <Separator className="flex-1" />
+      </div>
+      {/* Shown even before the Google keys exist, disabled, so the screen
+          already looks like production (keys: GOOGLE_CLIENT_ID/SECRET). */}
+      <Button
+        variant="outline"
+        size="lg"
+        className="h-11 w-full rounded-xl"
+        disabled={!googleEnabled}
+        title={googleEnabled ? undefined : "GOOGLE_CLIENT_ID missing"}
+        onClick={() =>
+          authClient.signIn.social({ provider: "google", callbackURL })
+        }
+      >
+        <GoogleIcon />
+        {t("google")}
+      </Button>
     </div>
   );
 }

@@ -61,7 +61,7 @@ function initialState(i: Initial) {
   };
 }
 
-function Row({
+export function Row({
   icon: Icon,
   title,
   description,

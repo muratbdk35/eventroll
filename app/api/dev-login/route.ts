@@ -32,6 +32,12 @@ export async function GET(req: Request) {
 
   const verify = new URL("/api/auth/magic-link/verify", url.origin);
   verify.searchParams.set("token", token);
-  verify.searchParams.set("callbackURL", `/${locale}/dashboard`);
+  // Same-site paths only, so this cannot become an open redirect.
+  const next = url.searchParams.get("next");
+  const safeNext =
+    next && next.startsWith(`/${locale}/`) && !next.startsWith("//")
+      ? next
+      : `/${locale}/dashboard`;
+  verify.searchParams.set("callbackURL", safeNext);
   return NextResponse.redirect(verify);
 }

@@ -335,3 +335,27 @@ album ZIP and printable table cards are phase 1C/1D work (#22, #23).
   QR stays black on white for reliable scanning. Standard sees a blurred
   preview with PNG/SVG downloads.
 - Marketing and dashboard copy no longer promise a free QR code right away.
+
+## 32. One create flow from the landing receipts to publish (owner decision, 2026-10-14)
+
+- `/[locale]/create` is the only way to make an event, in five steps: event
+  (name, type, times and every guest setting) → plan (paywall) → account →
+  payment → final check & publish. The landing receipts and "New event" lead
+  here; `/dashboard/new` redirects. Supersedes the checklist of #31.
+- Signed-out hosts get the first two steps without an account. The draft lives
+  in this browser (localStorage `eventroll:draft`); after sign-in (email link,
+  Google, or the dev login with a safe `next` path) `createEventFromDraft` saves
+  event and settings at once and clears it. A magic link opened on another
+  device has no draft; the host is told to re-enter the details.
+- The chosen plan travels in the URL (`plan=`), not in the database, until
+  payment. Payment calls `devActivate` locally; Stripe Checkout replaces it in
+  1C. The final check summarises the saved event with "Edit" links to settings
+  (which lead back to the review), then `publishEvent` and the event page.
+- A draft event's page shows a "finish setup" card that resumes the flow (plan
+  step if unpaid, review if paid).
+- Components, all from the 21st.dev catalogue as the owner asked: the paywall
+  reuses the landing "Receipt Tiers" receipts (Spectrum UI, Apache-2.0), now
+  shared in `components/billing` so both look identical; the shell follows
+  "Multi-Step Setup Wizard"; the account step "Sign Up 2" (Tailark Veil); the
+  payment summary "Checkout Summary". The Google button is always shown and
+  stays disabled until `GOOGLE_CLIENT_ID/SECRET` exist.

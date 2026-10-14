@@ -7,10 +7,10 @@ import {
 } from "next-intl/server";
 import { EventIcon } from "@/components/host/event-icon";
 import { LiveShare } from "@/components/host/live-share";
-import { NextSteps } from "@/components/host/next-steps";
 import { BackLink, PageBody } from "@/components/host/page-header";
 import { PhotoGrid } from "@/components/host/photo-grid";
 import { PrintTemplates } from "@/components/host/print-templates";
+import { ResumeSetup } from "@/components/host/resume-setup";
 import { SettingsForm } from "@/components/host/settings-form";
 import { SharePanel } from "@/components/host/share-panel";
 import { StatusPill } from "@/components/host/status-pill";
@@ -93,11 +93,17 @@ export default async function EventPage({
   if (view !== "main") {
     return (
       <PageBody>
-        <BackLink
-          href={view === "print" ? `${eventPath}?view=share` : eventPath}
-        >
-          {view === "print" ? t("print.back") : t("backToEvent")}
-        </BackLink>
+        {view === "settings" && sp.from === "review" ? (
+          <BackLink href={`/create?step=review&event=${event.id}`}>
+            {t("backToReview")}
+          </BackLink>
+        ) : (
+          <BackLink
+            href={view === "print" ? `${eventPath}?view=share` : eventPath}
+          >
+            {view === "print" ? t("print.back") : t("backToEvent")}
+          </BackLink>
+        )}
         {header}
         <div className="mt-8">
           {view === "print" ? (
@@ -184,18 +190,7 @@ export default async function EventPage({
         {published ? (
           <LiveShare eventId={event.id} link={link} />
         ) : (
-          <NextSteps
-            // Remount when the plan changes so the next step opens.
-            key={event.plan ?? "none"}
-            eventId={event.id}
-            plan={event.plan}
-            devMode={devMode}
-            when={{
-              date: date(event.eventDate),
-              startsAt: event.startsAt?.toISOString() ?? null,
-              endsAt: event.endsAt?.toISOString() ?? null,
-            }}
-          />
+          <ResumeSetup eventId={event.id} plan={event.plan} />
         )}
       </div>
 

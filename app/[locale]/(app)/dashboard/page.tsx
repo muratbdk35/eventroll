@@ -70,7 +70,7 @@ export default async function DashboardPage({
             size="lg"
             className="mt-7 h-12 rounded-full px-7 text-base shadow-xl shadow-primary/25 transition-all duration-300 ease-out hover:shadow-2xl active:scale-[0.97]"
           >
-            <Link href="/dashboard/new">
+            <Link href="/create">
               <Plus aria-hidden />
               {t("createEvent")}
             </Link>
@@ -109,7 +109,7 @@ export default async function DashboardPage({
           ))}
           <li>
             <Link
-              href="/dashboard/new"
+              href="/create"
               className="group flex h-full min-h-56 flex-col items-center justify-center gap-3 rounded-[1.75rem] border-2 border-dashed border-primary/20 p-6 text-center transition-all duration-300 ease-out hover:border-primary/40 hover:bg-card/60 active:scale-[0.99]"
             >
               <span className="flex size-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-xl shadow-primary/25 transition-transform duration-300 ease-out group-hover:scale-110 group-active:scale-95">

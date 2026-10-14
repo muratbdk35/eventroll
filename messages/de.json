@@ -527,7 +527,8 @@
       "premiumBody": "Mit Standard kannst du den QR-Code als PNG oder SVG laden und selbst verwenden.",
       "cutHint": "Entlang der gestrichelten Linien schneiden",
       "foldHint": "Hier falten"
-    }
+    },
+    "backToReview": "Zurück zur Übersicht"
   },
   "Guest": {
     "welcome": "Teile deine Fotos von {event}",
@@ -604,5 +605,81 @@
     "menu": "Menü",
     "closeMenu": "Menü schließen",
     "home": "Website"
+  },
+  "Create": {
+    "metaTitle": "Event erstellen",
+    "stepOf": "Schritt {n} von {total}",
+    "exit": "Schließen",
+    "back": "Zurück",
+    "steps": {
+      "details": "Event",
+      "plan": "Plan",
+      "account": "Konto",
+      "pay": "Zahlung",
+      "review": "Veröffentlichen"
+    },
+    "details": {
+      "title": "Erzähl uns von deinem Event",
+      "subtitle": "Richte jetzt alles ein; vor dem Veröffentlichen kannst du es noch ändern.",
+      "nameRequired": "Gib deinem Event einen Namen.",
+      "guestSettings": "Gäste-Einstellungen",
+      "guestSettingsHint": "Optional. Ist alles aus, scannen Gäste den QR-Code und laden sofort hoch.",
+      "next": "Plan wählen"
+    },
+    "plan": {
+      "title": "Wähle deinen Plan",
+      "subtitle": "Einmalzahlung, kein Abo. Beide Pläne enthalten alles; sie unterscheiden sich in Kapazität und Druckvorlagen.",
+      "choose": "Weiter mit {plan}",
+      "yourPick": "Deine Wahl",
+      "hint": "Die Zahlung folgt im nächsten Schritt"
+    },
+    "account": {
+      "title": "Erstelle dein Konto",
+      "subtitle": "Lass uns dein Event speichern. Mit Google per Klick oder mit einem Link an deine E-Mail.",
+      "saved": "Deine Angaben bleiben in diesem Browser und werden nach der Anmeldung in deinem Konto gespeichert."
+    },
+    "pay": {
+      "title": "Zahlung",
+      "subtitle": "Eine Einmalzahlung. Danach prüfst du alles noch einmal und veröffentlichst.",
+      "saving": "Dein Event wird in deinem Konto gespeichert…",
+      "draftMissing": "In diesem Browser ist kein Event gespeichert. Hast du den Link auf einem anderen Gerät geöffnet, gib die Angaben bitte erneut ein.",
+      "saveFailed": "Dein Event konnte nicht gespeichert werden. Prüfe die Angaben und versuch es noch einmal.",
+      "backToDetails": "Zurück zu den Event-Angaben",
+      "event": "Event",
+      "plan": "{plan}-Plan",
+      "includes": "{photos} Fotos · {gb} GB · {days} Tage ZIP",
+      "tax": "MwSt.",
+      "taxValue": "wird an der Kasse berechnet",
+      "total": "Gesamt",
+      "button": "{price} bezahlen",
+      "secure": "Sichere Zahlung mit Stripe",
+      "devNote": "Lokale Entwicklung: Zahlungen sind noch nicht angebunden, dieser Button aktiviert den Plan kostenlos.",
+      "changePlan": "Plan ändern"
+    },
+    "review": {
+      "title": "Letzte Prüfung",
+      "subtitle": "Zahlung erhalten. Stimmt alles, veröffentliche; sonst bearbeite es vorher.",
+      "event": "Event",
+      "plan": "Plan",
+      "planName": "Plan",
+      "paid": "bezahlt",
+      "capacity": "Kapazität",
+      "on": "An",
+      "off": "Aus",
+      "edit": "Bearbeiten",
+      "upgrade": "Auf Premium upgraden",
+      "publishHint": "Beim Veröffentlichen öffnet sich die Gästeseite und dein QR-Code ist bereit. Einstellungen kannst du auch danach ändern.",
+      "publish": "Event veröffentlichen",
+      "publishing": "Wird veröffentlicht…",
+      "publishFailed": "Veröffentlichen fehlgeschlagen. Bitte erneut versuchen."
+    },
+    "resume": {
+      "titlePlan": "Einrichtung abschließen",
+      "bodyPlan": "Wähle einen Plan und bezahle, dann kannst du dein Event veröffentlichen.",
+      "ctaPlan": "Plan wählen",
+      "titlePublish": "Bereit zum Veröffentlichen",
+      "bodyPublish": "Zahlung erhalten. Prüfe alles noch einmal und veröffentliche.",
+      "ctaPublish": "Prüfen und veröffentlichen"
+    }
   }
 }

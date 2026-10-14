@@ -524,7 +524,8 @@
       "premiumBody": "On Standard you can download the QR code as PNG or SVG and use it yourself.",
       "cutHint": "Cut along the dashed lines",
       "foldHint": "Fold here"
-    }
+    },
+    "backToReview": "Back to review"
   },
   "Guest": {
     "welcome": "Share your photos from {event}",
@@ -601,5 +602,81 @@
     "menu": "Menu",
     "closeMenu": "Close menu",
     "home": "Website"
+  },
+  "Create": {
+    "metaTitle": "Create an event",
+    "stepOf": "Step {n} of {total}",
+    "exit": "Exit",
+    "back": "Back",
+    "steps": {
+      "details": "Event",
+      "plan": "Plan",
+      "account": "Account",
+      "pay": "Payment",
+      "review": "Publish"
+    },
+    "details": {
+      "title": "Tell us about your event",
+      "subtitle": "Set everything up now; you can still change it before publishing.",
+      "nameRequired": "Give your event a name.",
+      "guestSettings": "Guest settings",
+      "guestSettingsHint": "Optional. With everything off, guests scan the QR code and upload right away.",
+      "next": "Choose a plan"
+    },
+    "plan": {
+      "title": "Choose your plan",
+      "subtitle": "One payment, no subscription. Both plans include everything; they differ in capacity and print templates.",
+      "choose": "Continue with {plan}",
+      "yourPick": "Your pick",
+      "hint": "Payment is the next step"
+    },
+    "account": {
+      "title": "Create your account",
+      "subtitle": "Let's save your event. Continue with Google in one click, or with a link sent to your email.",
+      "saved": "What you filled in stays in this browser and is saved to your account once you sign in."
+    },
+    "pay": {
+      "title": "Payment",
+      "subtitle": "A one-time payment. Then you review everything once more and publish.",
+      "saving": "Saving your event to your account…",
+      "draftMissing": "We couldn't find an event saved in this browser. If you opened the link on another device, please enter the details again.",
+      "saveFailed": "Your event couldn't be saved. Check the details and try again.",
+      "backToDetails": "Back to event details",
+      "event": "Event",
+      "plan": "{plan} plan",
+      "includes": "{photos} photos · {gb} GB · {days}-day ZIP",
+      "tax": "VAT",
+      "taxValue": "calculated at checkout",
+      "total": "Total",
+      "button": "Pay {price}",
+      "secure": "Secure payment with Stripe",
+      "devNote": "Local development: payments aren't connected yet, this button activates the plan for free.",
+      "changePlan": "Change plan"
+    },
+    "review": {
+      "title": "Final check",
+      "subtitle": "Payment received. If everything looks right, publish; if not, edit it first.",
+      "event": "Event",
+      "plan": "Plan",
+      "planName": "Plan",
+      "paid": "paid",
+      "capacity": "Capacity",
+      "on": "On",
+      "off": "Off",
+      "edit": "Edit",
+      "upgrade": "Upgrade to Premium",
+      "publishHint": "Publishing opens the guest page and gets your QR code ready. You can still change settings afterwards.",
+      "publish": "Publish event",
+      "publishing": "Publishing…",
+      "publishFailed": "Couldn't publish. Please try again."
+    },
+    "resume": {
+      "titlePlan": "Finish setting up",
+      "bodyPlan": "Choose a plan and pay, then you can publish your event.",
+      "ctaPlan": "Choose a plan",
+      "titlePublish": "Ready to publish",
+      "bodyPublish": "Payment received. Check everything once more and publish.",
+      "ctaPublish": "Review and publish"
+    }
   }
 }
