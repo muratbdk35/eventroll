@@ -12,6 +12,12 @@
     "url": "https://github.com/aws/aws-sdk-js-v3"
   },
   {
+    "name": "@base-ui/react",
+    "version": "1.9.0",
+    "license": "MIT",
+    "url": "https://github.com/mui/base-ui"
+  },
+  {
     "name": "@neon/config",
     "version": "1.9.1",
     "license": "Apache-2.0",
@@ -40,6 +46,12 @@
     "version": "11.6.0",
     "license": "MIT",
     "url": "https://github.com/getsentry/sentry-javascript"
+  },
+  {
+    "name": "@shadcn/react",
+    "version": "0.3.1",
+    "license": "MIT",
+    "url": "https://github.com/shadcn-ui/ui"
   },
   {
     "name": "@upstash/ratelimit",

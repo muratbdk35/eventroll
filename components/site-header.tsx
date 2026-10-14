@@ -9,7 +9,11 @@ export async function SiteHeader({ children }: { children?: React.ReactNode }) {
   return (
     <header className="border-b border-border/60 bg-background/80 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4">
-        <Link href="/" aria-label="Home">
+        <Link
+          href="/"
+          aria-label="Home"
+          className="shrink-0 max-[369px]:[&>span]:hidden"
+        >
           <Logo />
         </Link>
         <div className="flex items-center gap-2">

@@ -1,21 +1,15 @@
 "use client";
 
-import { ArrowRight, Clock, KeyRound, Smartphone } from "lucide-react";
+import { Clock, KeyRound, Smartphone } from "lucide-react";
 import { useTranslations } from "next-intl";
-import {
-  FlowCard,
-  StepFooter,
-  StepHeading,
-} from "@/app/[locale]/(app)/create/create-flow";
-import { TypeChips } from "@/app/[locale]/(app)/create/details-step";
+import { FlowShell } from "@/app/[locale]/(app)/create/create-flow";
+import { DetailsQuestions } from "@/app/[locale]/(app)/create/details-step";
+import { emptyDraft } from "@/app/[locale]/(app)/create/draft";
 import { GuestLinkField } from "@/components/host/guest-link-field";
 import { PhotoGrid } from "@/components/host/photo-grid";
 import { Face } from "@/components/host/print-templates";
 import { Row } from "@/components/host/settings-form";
-import { Button } from "@/components/ui/button";
-import { DateTimeField } from "@/components/ui/date-time-field";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 
 // Landing visuals are the real app components (DECISIONS #33), rendered at a
@@ -43,42 +37,28 @@ export function AppPreview({
   );
 }
 
-/** Step 1 of the create flow, as hosts see it. */
+// Fixed dates: `emptyDraft()` reads the clock and would differ between the
+// server render and hydration.
+const previewDraft = {
+  ...emptyDraft(),
+  name: "Elif & Can",
+  type: "wedding" as const,
+  starts: "2026-06-14T19:00",
+  ends: "2026-06-15T02:00",
+};
+
+/** Step 1 of the create flow on its "what are you celebrating" question. */
 export function CreatePreview() {
-  const t = useTranslations("Create");
-  const te = useTranslations("Events");
   return (
-    <FlowCard step="details" exit="/">
-      <StepHeading title={t("details.title")} />
-      <div className="space-y-5">
-        <div className="space-y-2">
-          <Label htmlFor="lp-name">{te("nameLabel")}</Label>
-          <Input
-            id="lp-name"
-            readOnly
-            value="Elif & Can"
-            className="h-11 text-base"
-          />
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <Label>{te("startLabel")}</Label>
-            <DateTimeField value="2026-06-14T19:00" onChange={ignore} />
-          </div>
-          <div className="space-y-2">
-            <Label>{te("endLabel")}</Label>
-            <DateTimeField value="2026-06-15T02:00" onChange={ignore} />
-          </div>
-        </div>
-        <TypeChips value="wedding" onChange={ignore} />
-      </div>
-      <StepFooter>
-        <Button className="h-11 rounded-full px-6">
-          {t("details.next")}
-          <ArrowRight aria-hidden />
-        </Button>
-      </StepFooter>
-    </FlowCard>
+    <FlowShell step="details" exit="/">
+      <DetailsQuestions
+        draft={previewDraft}
+        setDraft={ignore}
+        item="type"
+        onItemChange={ignore}
+        onDone={ignore}
+      />
+    </FlowShell>
   );
 }
 

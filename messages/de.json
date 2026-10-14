@@ -610,7 +610,18 @@
       "nameRequired": "Gib deinem Event einen Namen.",
       "guestSettings": "Gäste-Einstellungen",
       "guestSettingsHint": "Optional. Ist alles aus, scannen Gäste den QR-Code und laden sofort hoch.",
-      "next": "Plan wählen"
+      "next": "Plan wählen",
+      "continue": "Weiter",
+      "question": "Frage {n} von {total}",
+      "q": {
+        "name": "Wie heißt dein Event?",
+        "nameHint": "Diesen Namen sehen Gäste, wenn sie die Seite öffnen.",
+        "type": "Was feiert ihr?",
+        "typeHint": "Danach wählen wir Titelbild und Symbol. Du kannst es später ändern.",
+        "when": "Wann ist es?",
+        "whenHint": "Beginn und Ende des Events, in deiner Zeitzone.",
+        "guests": "Wie sollen Gäste teilnehmen?"
+      }
     },
     "plan": {
       "title": "Wähle deinen Plan",

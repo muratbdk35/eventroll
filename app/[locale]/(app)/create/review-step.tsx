@@ -2,7 +2,6 @@
 
 import {
   CalendarHeart,
-  Loader2,
   Pencil,
   Receipt,
   Rocket,
@@ -12,7 +11,7 @@ import {
 import { useFormatter, useLocale, useTranslations } from "next-intl";
 import { useTransition } from "react";
 import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
+import { HaloButton } from "@/components/halo/halo-button";
 import { devActivate, publishEvent } from "@/lib/events/actions";
 import { Link, useRouter } from "@/lib/i18n/navigation";
 import type { EVENT_TYPES } from "@/lib/events/schemas";
@@ -34,7 +33,7 @@ function Section({
   children?: React.ReactNode;
 }) {
   return (
-    <section className="rounded-2xl border border-border bg-card p-4 sm:p-5">
+    <section className="rounded-2xl border border-border/80 bg-card/70 p-4 sm:p-5">
       <div className="flex items-center gap-3">
         <span className="flex size-8 items-center justify-center rounded-full bg-accent text-primary">
           <Icon className="size-4" />
@@ -82,12 +81,13 @@ export function ReviewStep({ event, devPay }: FlowProps) {
   const yes = t("review.on");
   const no = t("review.off");
   const edit = (
-    <Button asChild variant="ghost" className="h-8 rounded-full px-3">
-      <Link href={`/dashboard/events/${ev.id}?view=settings&from=review`}>
-        <Pencil aria-hidden />
-        {t("review.edit")}
-      </Link>
-    </Button>
+    <Link
+      href={`/dashboard/events/${ev.id}?view=settings&from=review`}
+      className="inline-flex h-9 items-center gap-1.5 rounded-full px-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-black/5 hover:text-foreground"
+    >
+      <Pencil className="size-3.5" aria-hidden />
+      {t("review.edit")}
+    </Link>
   );
 
   function publish() {
@@ -155,10 +155,10 @@ export function ReviewStep({ event, devPay }: FlowProps) {
           ]}
         >
           {planId === "standard" && devPay && (
-            <Button
-              variant="outline"
-              className="h-9 rounded-full bg-card px-4"
-              disabled={upgrading}
+            <HaloButton
+              tone="secondary"
+              isLoading={upgrading}
+              leading={<Sparkles aria-hidden />}
               onClick={() =>
                 startUpgrade(async () => {
                   await devActivate(ev.id, "premium");
@@ -166,13 +166,8 @@ export function ReviewStep({ event, devPay }: FlowProps) {
                 })
               }
             >
-              {upgrading ? (
-                <Loader2 className="animate-spin" aria-hidden />
-              ) : (
-                <Sparkles aria-hidden />
-              )}
               {t("review.upgrade")}
-            </Button>
+            </HaloButton>
           )}
         </Section>
       </div>
@@ -182,18 +177,15 @@ export function ReviewStep({ event, devPay }: FlowProps) {
       </div>
 
       <StepFooter>
-        <Button
-          className="h-12 rounded-full px-7 text-[15px] shadow-[0_10px_24px_-10px_var(--primary)]"
-          disabled={publishing}
+        <HaloButton
+          size="lg"
+          isLoading={publishing}
+          loadingText={t("review.publishing")}
+          leading={<Rocket aria-hidden />}
           onClick={publish}
         >
-          {publishing ? (
-            <Loader2 className="animate-spin" aria-hidden />
-          ) : (
-            <Rocket aria-hidden />
-          )}
-          {publishing ? t("review.publishing") : t("review.publish")}
-        </Button>
+          {t("review.publish")}
+        </HaloButton>
       </StepFooter>
     </div>
   );

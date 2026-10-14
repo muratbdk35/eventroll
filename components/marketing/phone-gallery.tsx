@@ -1,8 +1,8 @@
-import { Check, Sparkles, UserRound } from "lucide-react";
+import { Check, Send, UserRound } from "lucide-react";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { LogoMark } from "@/components/brand/logo";
-import { MockAddMore, MockPolaroid } from "./mock";
+import { MockAddMore, MockThumb } from "./mock";
 
 // The guest page (DECISIONS #26) at real iPhone proportions: cover, name pill,
 // pile of prints with the shutter, the tray and the frosted send bar.
@@ -90,7 +90,7 @@ export async function PhoneGallery() {
 
         {/* Sheet over the cover */}
         <div className="relative -mt-4 flex flex-1 flex-col rounded-t-[1.5rem] bg-[oklch(0.975_0.012_70)] px-3.5 pt-3">
-          <div className="flex h-8 items-center gap-1.5 rounded-full border border-white/70 bg-white/80 px-3 text-[10px] text-muted-foreground shadow-sm ring-1 ring-black/5">
+          <div className="flex h-8 items-center gap-1.5 rounded-xl border border-[color-mix(in_oklch,var(--border)_70%,oklch(0.86_0.07_55))] bg-white/90 px-3 text-[10px] text-muted-foreground shadow-[0_6px_14px_-10px_rgba(194,65,12,0.4)]">
             <UserRound className="size-3 text-primary" />
             {tg("yourNameOptional")}
           </div>
@@ -103,7 +103,7 @@ export async function PhoneGallery() {
           </p>
 
           <div className="grid grid-cols-3 gap-2 px-1">
-            <MockPolaroid src="/marketing/toast.jpg" tilt={-2.5}>
+            <MockThumb src="/marketing/toast.jpg">
               <span className="demo-upload absolute inset-0 flex items-center justify-center bg-black/40">
                 <svg viewBox="0 0 36 36" className="size-6 -rotate-90">
                   <circle
@@ -129,12 +129,12 @@ export async function PhoneGallery() {
                   />
                 </svg>
               </span>
-            </MockPolaroid>
-            <MockPolaroid src="/marketing/rings.jpg" tilt={1.5} done />
-            <MockPolaroid src="/marketing/dance-floor.jpg" tilt={-1} done />
+            </MockThumb>
+            <MockThumb src="/marketing/rings.jpg" done />
+            <MockThumb src="/marketing/dance-floor.jpg" done />
           </div>
 
-          <div className="mt-auto mb-6 rounded-2xl border border-white/70 bg-white/85 p-1.5 shadow-lg ring-1 shadow-primary/15 ring-black/5">
+          <div className="mt-auto mb-6 rounded-2xl border border-[color-mix(in_oklch,var(--border)_60%,oklch(0.8_0.1_50))] bg-white p-1.5 shadow-[0_10px_24px_-12px_rgba(194,65,12,0.45)]">
             <p className="flex items-start gap-1.5 px-1 pt-0.5 pb-2 text-[8.5px] leading-snug text-muted-foreground">
               <span className="mt-px flex size-2.5 shrink-0 items-center justify-center rounded-[3px] bg-primary text-primary-foreground">
                 <Check className="size-2" strokeWidth={4} />
@@ -150,8 +150,8 @@ export async function PhoneGallery() {
                 })}
               </span>
             </p>
-            <div className="demo-press flex h-8 items-center justify-center gap-1.5 rounded-xl bg-primary text-[11px] font-semibold text-primary-foreground">
-              <Sparkles className="size-3.5" />
+            <div className="demo-press flex h-8 items-center justify-center gap-1.5 rounded-full bg-[linear-gradient(180deg,oklch(0.63_0.175_42),var(--primary)_55%,oklch(0.52_0.17_35))] text-[11px] font-semibold text-primary-foreground shadow-[0_6px_14px_-6px_var(--primary)]">
+              <Send className="size-3" />
               {tg("send", { count: 3 })}
             </div>
           </div>

@@ -193,7 +193,7 @@ export function PhotoGrid({
           <div className="relative flex min-h-0 flex-1 items-center justify-center px-3 pb-8 sm:px-20">
             <motion.div
               layoutId={`photo-${current.id}`}
-              className="relative overflow-hidden rounded-2xl bg-neutral-900 shadow-2xl"
+              className="clip-round relative overflow-hidden rounded-2xl bg-neutral-900 shadow-2xl"
               transition={{ type: "spring", stiffness: 260, damping: 28 }}
               onClick={(e) => e.stopPropagation()}
             >
@@ -255,7 +255,7 @@ export function PhotoGrid({
                   layoutId={`photo-${p.id}`}
                   onClick={() => setOpen(i)}
                   aria-label={`${t("open")} · ${who(p)}`}
-                  className="group relative block w-full overflow-hidden rounded-2xl bg-muted text-start shadow-sm ring-1 ring-black/5 transition-shadow duration-300 hover:shadow-xl hover:shadow-primary/10 focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+                  className="group clip-round relative block w-full overflow-hidden rounded-2xl bg-muted text-start shadow-sm ring-1 ring-black/5 transition-shadow duration-300 hover:shadow-xl hover:shadow-primary/10 focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
                   initial={reduce ? false : { opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-40px" }}

@@ -49,8 +49,8 @@ export default async function ConfirmedPage({
         aria-hidden
         className="pointer-events-none fixed inset-0 overflow-hidden"
       >
-        <div className="absolute -top-48 -left-40 size-[36rem] rounded-full bg-primary/15 blur-[100px]" />
-        <div className="absolute -right-48 -bottom-56 size-[40rem] rounded-full bg-[oklch(0.86_0.1_65)]/40 blur-[100px]" />
+        <div className="absolute -top-64 -left-56 size-[48rem] rounded-full bg-[radial-gradient(closest-side,oklch(0.57_0.175_38/0.13),transparent)]" />
+        <div className="absolute -right-64 -bottom-72 size-[52rem] rounded-full bg-[radial-gradient(closest-side,oklch(0.86_0.1_65/0.4),transparent)]" />
       </div>
 
       <section className="relative w-full max-w-md rounded-3xl border border-border bg-card p-7 text-center shadow-[0_30px_60px_-40px_rgb(60_30_10/0.35)] sm:p-9">

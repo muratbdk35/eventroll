@@ -3,16 +3,23 @@
 import {
   Camera,
   Check,
+  ImagePlus,
   KeyRound,
   Loader2,
   RotateCw,
-  Sparkles,
+  Send,
   UserRound,
   X,
 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import confetti from "canvas-confetti";
 import { useEffect, useRef, useState } from "react";
+import { HaloButton } from "@/components/halo/halo-button";
+import { HaloCard } from "@/components/halo/halo-card";
+import { HaloDropzone } from "@/components/halo/halo-dropzone";
+import { HaloInput } from "@/components/halo/halo-input";
+import { HaloNotification } from "@/components/halo/halo-notification";
+import { HaloProgress } from "@/components/halo/halo-progress";
 import { Turnstile } from "@/components/turnstile";
 import { Link, useRouter } from "@/lib/i18n/navigation";
 import { cn } from "@/lib/utils";
@@ -47,9 +54,6 @@ const EXT_MIME: Record<string, AllowedMime> = {
   heif: "image/heif",
   gif: "image/gif",
 };
-
-/** Polaroid tilt pattern, in degrees. */
-const TILTS = [-2.5, 1.5, -1, 2.5, -1.5, 1];
 
 function mimeOf(file: File): AllowedMime | null {
   if (isAllowedMime(file.type)) return file.type;
@@ -137,7 +141,7 @@ export function Uploader(props: Props) {
   const t = useTranslations("Guest");
   const locale = useLocale();
   const router = useRouter();
-  const fileInput = useRef<HTMLInputElement>(null);
+  const pickerInput = useRef<HTMLInputElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
   const [verified, setVerified] = useState(props.verified);
   const [token, setToken] = useState<string | null>(null);
@@ -153,7 +157,6 @@ export function Uploader(props: Props) {
   const [items, setItems] = useState<Item[]>([]);
   const [busy, setBusy] = useState(false);
   const [sentNow, setSentNow] = useState(0);
-  const [dragging, setDragging] = useState(false);
 
   useEffect(() => {
     if (sentNow === 0) return;
@@ -395,20 +398,21 @@ export function Uploader(props: Props) {
       <div className="space-y-5 py-2">
         {needsPin && (
           <div className="text-center">
-            <span className="mx-auto flex size-14 items-center justify-center rounded-full bg-white text-primary shadow-lg ring-1 shadow-primary/10 ring-black/5">
+            <span className="mx-auto flex size-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-[0_12px_26px_-12px_var(--primary)] ring-[5px] ring-white/80">
               <KeyRound className="size-6" aria-hidden />
             </span>
             <label
               htmlFor="pin"
-              className="mt-4 block font-heading text-xl font-semibold"
+              className="mt-4 block font-heading text-2xl font-semibold tracking-tight"
             >
               {t("pinTitle")}
             </label>
             <p className="mt-1 text-sm text-muted-foreground">
               {t("pinSubtitle")}
             </p>
-            <input
+            <HaloInput
               id="pin"
+              size="lg"
               inputMode="numeric"
               autoComplete="one-time-code"
               maxLength={8}
@@ -419,7 +423,8 @@ export function Uploader(props: Props) {
                 if (e.key === "Enter" && token && pin.length >= 4)
                   void submitGate();
               }}
-              className="mx-auto mt-5 block h-14 w-full max-w-56 rounded-2xl border border-white/70 bg-white/80 text-center font-mono text-2xl tracking-[0.5em] shadow-sm ring-1 ring-black/5 backdrop-blur-xl transition-all duration-300 ease-out outline-none focus:shadow-lg focus:ring-2 focus:shadow-primary/10 focus:ring-primary/40"
+              shellClassName="mx-auto mt-6 max-w-60"
+              className="text-center font-mono text-2xl tracking-[0.5em]"
             />
           </div>
         )}
@@ -436,24 +441,22 @@ export function Uploader(props: Props) {
         ) : null}
         {gateError && (
           <p
-            className="rounded-2xl bg-destructive/10 px-4 py-2.5 text-center text-sm text-destructive"
+            className="rounded-2xl bg-destructive/10 px-4 py-2.5 text-center text-sm font-medium text-destructive"
             role="alert"
           >
             {gateError}
           </p>
         )}
         {needsPin ? (
-          <button
-            type="button"
-            className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-primary text-base font-semibold text-primary-foreground shadow-xl shadow-primary/25 transition-all duration-300 ease-out hover:shadow-2xl active:scale-[0.97] disabled:opacity-50 disabled:shadow-none"
-            disabled={gateBusy || !token || pin.length < 4}
+          <HaloButton
+            size="lg"
+            fullWidth
+            isLoading={gateBusy}
+            disabled={!token || pin.length < 4}
             onClick={() => void submitGate()}
           >
-            {gateBusy && (
-              <Loader2 className="size-5 animate-spin" aria-hidden />
-            )}
             {t("continue")}
-          </button>
+          </HaloButton>
         ) : (
           <p
             className="flex items-center justify-center gap-2 py-6 text-center text-sm text-muted-foreground"
@@ -483,104 +486,55 @@ export function Uploader(props: Props) {
           (inFlight.length + doneCount)) *
         100
       : 0;
-  const pick = () => fileInput.current?.click();
+  const pickMore = () => pickerInput.current?.click();
 
   return (
     <div className="space-y-5">
-      {/* Name as a soft pill; never blocks picking photos. */}
-      <label
-        key={nameShake}
-        className={cn(
-          "flex h-12 items-center gap-2.5 rounded-full border border-white/70 bg-white/70 ps-4 pe-2 shadow-sm ring-1 ring-black/5 backdrop-blur-xl transition-all duration-300 ease-out focus-within:bg-white focus-within:shadow-lg focus-within:ring-2 focus-within:shadow-primary/10 focus-within:ring-primary/40",
-          nameShake > 0 && "shake-x ring-2 ring-primary/50",
-        )}
-      >
-        <UserRound className="size-4.5 shrink-0 text-primary" aria-hidden />
-        <input
+      {/* Name first; never blocks picking photos. */}
+      <div key={nameShake} className={cn(nameShake > 0 && "shake-x")}>
+        <HaloInput
           ref={nameRef}
           id="uploader-name"
+          size="lg"
           maxLength={60}
           autoComplete="name"
+          leadingSlot={<UserRound className="text-primary" aria-hidden />}
           placeholder={
             props.requireName ? t("yourName") : t("yourNameOptional")
           }
           aria-label={props.requireName ? t("yourName") : t("yourNameOptional")}
+          invalid={notice === "name"}
           value={name}
           onChange={(e) => {
             setName(e.target.value);
             if (notice === "name") setNotice(null);
           }}
-          className="h-full min-w-0 flex-1 bg-transparent text-[15px] outline-none placeholder:text-muted-foreground/80"
+          className="text-base font-normal"
         />
-      </label>
+      </div>
 
-      <input
-        ref={fileInput}
-        type="file"
-        accept="image/*,.heic,.heif"
-        multiple
-        className="sr-only"
-        onChange={(e) => {
-          const files = Array.from(e.target.files ?? []);
-          e.target.value = "";
-          addFiles(files);
-        }}
-        tabIndex={-1}
-        aria-hidden
-      />
+      <div>
+        <HaloDropzone
+          inputRef={pickerInput}
+          accept="image/*,.heic,.heif"
+          compact={items.length > 0}
+          icon={
+            items.length > 0 ? (
+              <ImagePlus aria-hidden />
+            ) : (
+              <Camera strokeWidth={1.75} aria-hidden />
+            )
+          }
+          title={items.length > 0 ? t("chooseMore") : t("heroTitle")}
+          hint={items.length > 0 ? undefined : t("heroHint")}
+          onFiles={addFiles}
+        />
+      </div>
 
-      {/* One clear action: a big tappable card, then a slim "add more" row. */}
-      <button
-        type="button"
-        onClick={pick}
-        onDragOver={(e) => {
-          e.preventDefault();
-          setDragging(true);
-        }}
-        onDragLeave={() => setDragging(false)}
-        onDrop={(e) => {
-          e.preventDefault();
-          setDragging(false);
-          addFiles(Array.from(e.dataTransfer.files));
-        }}
-        className={cn(
-          "group flex w-full items-center rounded-[1.75rem] bg-white text-center shadow-sm ring-1 ring-black/5 transition-all duration-300 ease-out outline-none hover:shadow-md focus-visible:ring-4 focus-visible:ring-primary/25 active:scale-[0.98]",
-          items.length > 0
-            ? "gap-3 px-4 py-3 text-start"
-            : "flex-col px-6 pt-9 pb-8",
-          dragging && "scale-[1.02] ring-2 ring-primary/40",
-        )}
-      >
-        <span
-          className={cn(
-            "flex shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/30 transition-transform duration-300 ease-out group-active:scale-90",
-            items.length > 0 ? "size-11" : "size-[4.5rem]",
-          )}
-        >
-          <Camera
-            className={items.length > 0 ? "size-5" : "size-8"}
-            strokeWidth={1.75}
-            aria-hidden
-          />
-        </span>
-        {items.length > 0 ? (
-          <span className="text-[15px] font-semibold">{t("chooseMore")}</span>
-        ) : (
-          <>
-            <span className="mt-5 font-heading text-2xl font-semibold tracking-tight">
-              {t("heroTitle")}
-            </span>
-            <span className="mt-1 text-sm text-muted-foreground">
-              {t("heroHint")}
-            </span>
-          </>
-        )}
-      </button>
-
-      {/* Tray: picked prints drop in, then fill up while sending. */}
+      {/* Picked photos: square thumbnails that fill up while sending. */}
       {items.length > 0 && (
         <section aria-labelledby="tray">
-          <div className="mb-3 flex items-center justify-between">
+          <div className="mb-3 flex items-center justify-between px-1">
             <h2 id="tray" className="text-sm font-semibold">
               {selected.length > 0
                 ? t("selected", { count: selected.length })
@@ -590,32 +544,29 @@ export function Uploader(props: Props) {
               <button
                 type="button"
                 onClick={() => selected.forEach((i) => remove(i.key))}
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                className="rounded-full px-2 py-1 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
               >
                 {t("clear")}
               </button>
             )}
           </div>
-          <ul className="grid grid-cols-3 gap-x-3 gap-y-4 px-1">
+          <ul className="grid grid-cols-3 gap-2.5">
             {items.map((item, i) => (
               <li
                 key={item.key}
-                className="polaroid relative rounded-[5px] bg-white p-1.5 pb-5 shadow-lg ring-1 shadow-black/10 ring-black/5"
-                style={
-                  {
-                    "--r": `${TILTS[i % TILTS.length]}deg`,
-                  } as React.CSSProperties
-                }
+                className="thumb-in relative"
+                style={{ animationDelay: `${Math.min(i, 8) * 40}ms` }}
               >
-                <div className="relative aspect-square overflow-hidden rounded-[3px] bg-muted">
+                <div className="relative aspect-square overflow-hidden rounded-[14px] bg-muted shadow-[0_1px_0_rgba(255,255,255,0.5)_inset,0_6px_16px_-6px_rgba(60,30,10,0.3)] ring-1 ring-black/10 ring-inset">
                   {/* eslint-disable-next-line @next/next/no-img-element -- local blob preview */}
                   <img
                     src={item.preview}
                     alt=""
+                    decoding="async"
                     className="size-full object-cover"
                   />
                   {item.status === "uploading" && (
-                    <span className="absolute inset-0 flex items-center justify-center bg-black/35 backdrop-blur-[1px]">
+                    <span className="absolute inset-0 flex items-center justify-center bg-black/35">
                       <ProgressRing value={item.progress} />
                     </span>
                   )}
@@ -641,23 +592,27 @@ export function Uploader(props: Props) {
                           : t(item.error ?? "failed")}
                     </button>
                   )}
+                  {item.status === "done" && (
+                    <span className="pop absolute end-1.5 bottom-1.5 flex size-6 items-center justify-center rounded-full bg-success text-white shadow-md ring-2 ring-white">
+                      <Check
+                        className="size-3.5"
+                        strokeWidth={3.5}
+                        aria-hidden
+                      />
+                    </span>
+                  )}
                 </div>
                 {item.status === "selected" && !busy && (
                   <button
                     type="button"
                     onClick={() => remove(item.key)}
                     aria-label={t("remove")}
-                    className="group/x absolute -end-4 -top-4 flex size-11 items-center justify-center rounded-full outline-none"
+                    className="group/x absolute -end-3 -top-3 flex size-11 items-center justify-center rounded-full outline-none"
                   >
                     <span className="flex size-7 items-center justify-center rounded-full bg-white text-foreground shadow-md ring-1 ring-black/10 transition-transform duration-200 ease-out group-hover/x:scale-110 group-focus-visible/x:ring-2 group-focus-visible/x:ring-primary group-active/x:scale-90">
                       <X className="size-3.5" strokeWidth={2.5} aria-hidden />
                     </span>
                   </button>
-                )}
-                {item.status === "done" && (
-                  <span className="pop absolute end-1.5 bottom-1 flex size-5 items-center justify-center rounded-full bg-success text-white shadow-sm">
-                    <Check className="size-3" strokeWidth={3.5} aria-hidden />
-                  </span>
                 )}
               </li>
             ))}
@@ -665,36 +620,37 @@ export function Uploader(props: Props) {
         </section>
       )}
 
-      {/* Floating glass bar: consent + send, progress, then thanks. */}
+      {/* Sticky Halo bar: consent + send, then progress, then thanks. */}
       {(selected.length > 0 || busy || sentNow > 0) && (
-        <div className="sticky bottom-[calc(1rem+env(safe-area-inset-bottom))] z-20 rounded-[1.75rem] border border-white/70 bg-white/75 p-3 shadow-2xl ring-1 shadow-primary/15 ring-black/5 backdrop-blur-xl">
+        <div className="sticky bottom-[calc(1rem+env(safe-area-inset-bottom))] z-20">
           {busy ? (
-            <div className="px-2 py-2.5" aria-live="polite">
-              <div className="flex items-center gap-2.5 text-[15px] font-semibold">
-                <Loader2
-                  className="size-4 animate-spin text-primary"
-                  aria-hidden
-                />
-                <span className="flex-1">
-                  {t("sending", {
+            <HaloCard
+              interactive={false}
+              emphasis
+              translucent={false}
+              padding="sm"
+            >
+              <div aria-live="polite" className="px-1 py-1">
+                <HaloProgress
+                  size="md"
+                  value={Math.max(4, overall)}
+                  label={t("sending", {
                     done: doneCount,
                     total: inFlight.length + doneCount,
                   })}
-                </span>
-                <span className="text-sm text-muted-foreground tabular-nums">
-                  {Math.round(overall)}%
-                </span>
-              </div>
-              <div className="mt-3 h-2 overflow-hidden rounded-full bg-primary/12">
-                <div
-                  className="h-full rounded-full bg-gradient-to-r from-primary/80 to-primary transition-[width] duration-500 ease-out"
-                  style={{ width: `${Math.max(4, overall)}%` }}
+                  aside={`${Math.round(overall)}%`}
                 />
               </div>
-            </div>
+            </HaloCard>
           ) : selected.length > 0 ? (
-            <>
-              <label className="flex cursor-pointer items-start gap-3 px-1.5 pt-1 pb-3">
+            <HaloCard
+              interactive={false}
+              emphasis
+              translucent={false}
+              padding="sm"
+              surfaceClassName="gap-3"
+            >
+              <label className="flex cursor-pointer items-start gap-3 px-1 pt-0.5">
                 <button
                   type="button"
                   key={consentShake}
@@ -710,7 +666,7 @@ export function Uploader(props: Props) {
                     consent
                       ? "scale-105 border-primary bg-primary text-primary-foreground"
                       : notice === "consent"
-                        ? "border-destructive"
+                        ? "border-destructive bg-white"
                         : "border-input bg-white",
                   )}
                 >
@@ -747,44 +703,39 @@ export function Uploader(props: Props) {
               </label>
               {notice && (
                 <p
-                  className="px-1.5 pb-2 text-[12.5px] font-medium text-destructive"
+                  className="px-1 text-[12.5px] font-medium text-destructive"
                   role="alert"
                 >
                   {notice === "consent" ? t("consentNeeded") : t("nameNeeded")}
                 </p>
               )}
-              <button
-                type="button"
+              <HaloButton
+                size="lg"
+                fullWidth
+                leading={<Send aria-hidden />}
                 onClick={send}
-                className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-primary text-base font-semibold text-primary-foreground shadow-xl shadow-primary/30 transition-all duration-300 ease-out hover:shadow-2xl hover:shadow-primary/40 active:scale-[0.97]"
               >
-                <Sparkles className="size-5" aria-hidden />
                 {t("send", { count: selected.length })}
-              </button>
-            </>
+              </HaloButton>
+            </HaloCard>
           ) : (
-            <div className="p-1.5" role="status">
-              <div className="flex items-center gap-3">
-                <span className="pop flex size-11 shrink-0 items-center justify-center rounded-full bg-success text-white shadow-lg shadow-success/30">
-                  <Check className="size-6" strokeWidth={3} aria-hidden />
-                </span>
-                <div className="min-w-0 flex-1">
-                  <p className="font-heading text-lg leading-tight font-semibold">
-                    {t("thanksTitle")}
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    {t("thanksBody", { count: sentNow })}
-                  </p>
-                </div>
-              </div>
-              <button
-                type="button"
-                onClick={pick}
-                className="mt-3 h-12 w-full rounded-2xl bg-foreground text-[15px] font-semibold text-background transition-all duration-300 ease-out active:scale-[0.97]"
-              >
-                {t("chooseMore")}
-              </button>
-            </div>
+            <HaloNotification
+              variant="success"
+              translucent={false}
+              icon={<Check strokeWidth={3} aria-hidden />}
+              title={t("thanksTitle")}
+              description={t("thanksBody", { count: sentNow })}
+              action={
+                <HaloButton
+                  tone="secondary"
+                  fullWidth
+                  leading={<ImagePlus aria-hidden />}
+                  onClick={pickMore}
+                >
+                  {t("chooseMore")}
+                </HaloButton>
+              }
+            />
           )}
         </div>
       )}

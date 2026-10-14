@@ -67,7 +67,7 @@ export function EventCard({
           responsive ? "hidden sm:flex" : "flex",
         )}
       >
-        <div className="relative overflow-hidden rounded-[1.25rem] bg-gradient-to-br from-accent/70 via-accent/30 to-transparent pt-4">
+        <div className="clip-round relative overflow-hidden rounded-[1.25rem] bg-gradient-to-br from-accent/70 via-accent/30 to-transparent pt-4">
           <PhotoStack srcs={srcs} type={type} />
           <StatusPill
             status={status}
@@ -96,7 +96,7 @@ function Thumb({ src, type }: { src?: string; type: EventType }) {
   return (
     <span className="relative size-[4.5rem] shrink-0" aria-hidden>
       <span className="absolute inset-1 -rotate-6 rounded-lg bg-accent shadow-sm ring-1 ring-black/5" />
-      <span className="absolute inset-0 rotate-2 overflow-hidden rounded-xl bg-white p-1 shadow-md ring-1 ring-black/5">
+      <span className="clip-round absolute inset-0 rotate-2 overflow-hidden rounded-xl bg-white p-1 shadow-md ring-1 ring-black/5">
         {src ? (
           // eslint-disable-next-line @next/next/no-img-element -- signed storage URL
           <img

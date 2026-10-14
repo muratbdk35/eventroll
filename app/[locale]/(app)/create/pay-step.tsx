@@ -3,9 +3,9 @@
 import { ArrowLeft, Loader2, Lock, Receipt } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 import { useEffect, useRef, useState, useTransition } from "react";
-import { Button } from "@/components/ui/button";
+import { HaloButton } from "@/components/halo/halo-button";
 import { createEventFromDraft, devActivate } from "@/lib/events/actions";
-import { Link, useRouter } from "@/lib/i18n/navigation";
+import { useRouter } from "@/lib/i18n/navigation";
 import { DOWNLOAD_WINDOW_DAYS, plans } from "@/lib/plans";
 import { StepFooter, StepHeading } from "./create-flow";
 import { type FlowProps, flowHref } from "./flow";
@@ -51,11 +51,9 @@ export function PayStep({ plan, event, devPay }: FlowProps) {
                 saveError === "missing" ? "pay.draftMissing" : "pay.saveFailed",
               )}
             </p>
-            <Button asChild className="mt-5 h-10 rounded-full px-5">
-              <Link href={flowHref("details", { plan })}>
-                {t("pay.backToDetails")}
-              </Link>
-            </Button>
+            <HaloButton href={flowHref("details", { plan })} className="mt-5">
+              {t("pay.backToDetails")}
+            </HaloButton>
           </>
         ) : (
           <>
@@ -72,11 +70,9 @@ export function PayStep({ plan, event, devPay }: FlowProps) {
   if (!plan) {
     return (
       <div className="py-12 text-center">
-        <Button asChild className="h-10 rounded-full px-5">
-          <Link href={flowHref("plan", { event: event.id })}>
-            {t("steps.plan")}
-          </Link>
-        </Button>
+        <HaloButton href={flowHref("plan", { event: event.id })}>
+          {t("steps.plan")}
+        </HaloButton>
       </div>
     );
   }
@@ -105,7 +101,7 @@ export function PayStep({ plan, event, devPay }: FlowProps) {
     <div>
       <StepHeading title={t("pay.title")} subtitle={t("pay.subtitle")} />
 
-      <div className="mx-auto max-w-md rounded-3xl border border-border bg-card p-5 shadow-sm sm:p-6">
+      <div className="rounded-2xl border border-border/80 bg-card/70 p-4 sm:p-5">
         <div className="flex items-center gap-3">
           <span className="flex size-10 items-center justify-center rounded-full bg-accent text-primary">
             <Receipt className="size-5" aria-hidden />
@@ -144,32 +140,31 @@ export function PayStep({ plan, event, devPay }: FlowProps) {
             {usd(p.priceUsd)}
           </span>
         </div>
-
-        <Button
-          className="mt-5 h-12 w-full rounded-full text-[15px] shadow-[0_10px_24px_-10px_var(--primary)]"
-          disabled={!devPay || paying}
-          onClick={pay}
-        >
-          {paying ? (
-            <Loader2 className="animate-spin" aria-hidden />
-          ) : (
-            <Lock aria-hidden />
-          )}
-          {t("pay.button", { price: usd(p.priceUsd) })}
-        </Button>
-        <p className="mt-3 text-center text-xs text-muted-foreground">
-          {devPay ? t("pay.devNote") : t("pay.secure")}
-        </p>
       </div>
+      <HaloButton
+        size="lg"
+        fullWidth
+        className="mt-6"
+        disabled={!devPay}
+        isLoading={paying}
+        leading={<Lock aria-hidden />}
+        onClick={pay}
+      >
+        {t("pay.button", { price: usd(p.priceUsd) })}
+      </HaloButton>
+      <p className="mt-3 text-center text-xs text-pretty text-muted-foreground">
+        {devPay ? t("pay.devNote") : t("pay.secure")}
+      </p>
 
       <StepFooter
         back={
-          <Button asChild variant="ghost" className="h-10 rounded-full px-4">
-            <Link href={flowHref("plan", { plan, event: event.id })}>
-              <ArrowLeft className="rtl:rotate-180" aria-hidden />
-              {t("pay.changePlan")}
-            </Link>
-          </Button>
+          <HaloButton
+            tone="secondary"
+            href={flowHref("plan", { plan, event: event.id })}
+            leading={<ArrowLeft className="rtl:rotate-180" aria-hidden />}
+          >
+            {t("pay.changePlan")}
+          </HaloButton>
         }
       />
     </div>

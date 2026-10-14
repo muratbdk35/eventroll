@@ -7,7 +7,7 @@ import {
   receiptCtaClass,
 } from "@/components/billing/receipt-card";
 import { receiptContent } from "@/components/billing/receipt-content";
-import { Button } from "@/components/ui/button";
+import { HaloButton } from "@/components/halo/halo-button";
 import { Link } from "@/lib/i18n/navigation";
 import { planOrder } from "@/lib/plans";
 import { publicEnv } from "@/lib/public-env";
@@ -30,14 +30,14 @@ export function PlanStep({ plan, event }: FlowProps) {
     <div>
       <StepHeading title={t("plan.title")} subtitle={t("plan.subtitle")} />
 
-      <div className="relative overflow-hidden rounded-[1.75rem] bg-[linear-gradient(160deg,oklch(0.64_0.17_42)_0%,oklch(0.56_0.18_36)_55%,oklch(0.47_0.16_30)_100%)] px-5 pt-12 pb-14 sm:px-10">
+      <div className="clip-round relative overflow-hidden rounded-[1.75rem] bg-[linear-gradient(160deg,oklch(0.64_0.17_42)_0%,oklch(0.56_0.18_36)_55%,oklch(0.47_0.16_30)_100%)] px-5 pt-12 pb-14 sm:px-10">
         <div
           aria-hidden
-          className="absolute -start-32 -top-32 size-[26rem] rounded-full bg-[oklch(0.9_0.09_70/0.35)] blur-3xl"
+          className="absolute -start-40 -top-40 size-[34rem] rounded-full bg-[radial-gradient(closest-side,oklch(0.9_0.09_70/0.4),transparent)]"
         />
         <div
           aria-hidden
-          className="absolute -end-24 bottom-0 size-[22rem] rounded-full bg-[oklch(0.8_0.12_30/0.35)] blur-3xl"
+          className="absolute -end-32 -bottom-16 size-[30rem] rounded-full bg-[radial-gradient(closest-side,oklch(0.8_0.12_30/0.4),transparent)]"
         />
         <div
           aria-hidden
@@ -104,12 +104,13 @@ export function PlanStep({ plan, event }: FlowProps) {
       <StepFooter
         back={
           !event && (
-            <Button asChild variant="ghost" className="h-10 rounded-full px-4">
-              <Link href={flowHref("details", { plan })}>
-                <ArrowLeft className="rtl:rotate-180" aria-hidden />
-                {t("back")}
-              </Link>
-            </Button>
+            <HaloButton
+              tone="secondary"
+              href={flowHref("details", { plan })}
+              leading={<ArrowLeft className="rtl:rotate-180" aria-hidden />}
+            >
+              {t("back")}
+            </HaloButton>
           )
         }
       >

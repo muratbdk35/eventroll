@@ -11,7 +11,7 @@ import {
   PrintPreview,
   PrivatePreview,
 } from "./app-previews";
-import { MockAddMore, MockPolaroid } from "./mock";
+import { MockAddMore, MockThumb } from "./mock";
 import { SectionHeading } from "./section-heading";
 
 // Bento grid inspired by 21st.dev "Feature Bento" (uilayout). Every tile carries
@@ -66,9 +66,9 @@ async function PickerMock() {
         {t("selected", { count: 3 })}
       </p>
       <div className="mt-1.5 grid grid-cols-3 gap-1.5 px-0.5">
-        <MockPolaroid src="/marketing/cake.jpg" tilt={-2.5} done />
-        <MockPolaroid src="/marketing/confetti.jpg" tilt={1.5} done />
-        <MockPolaroid src="/marketing/arch-night.jpg" tilt={-1}>
+        <MockThumb src="/marketing/cake.jpg" done />
+        <MockThumb src="/marketing/confetti.jpg" done />
+        <MockThumb src="/marketing/arch-night.jpg">
           <span className="absolute inset-0 flex items-center justify-center bg-black/35">
             <svg viewBox="0 0 36 36" className="size-6 -rotate-90">
               <circle
@@ -94,7 +94,7 @@ async function PickerMock() {
               />
             </svg>
           </span>
-        </MockPolaroid>
+        </MockThumb>
       </div>
       <div className="mt-3 rounded-2xl border border-white/70 bg-white/80 p-1.5 shadow-lg ring-1 shadow-primary/10 ring-black/5">
         <div className="flex h-8 items-center justify-center gap-1.5 rounded-xl bg-primary text-[11.5px] font-semibold text-primary-foreground">

@@ -1,26 +1,31 @@
 "use client";
 
-import {
-  ArrowRight,
-  Clock,
-  KeyRound,
-  Smartphone,
-  UserRound,
-} from "lucide-react";
+import { Clock, KeyRound, Smartphone, UserRound } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+import { HaloInput } from "@/components/halo/halo-input";
+import { HaloSwitch } from "@/components/halo/halo-switch";
+import {
+  Questionnaire,
+  QuestionnaireActions,
+  QuestionnaireBody,
+  QuestionnaireChoice,
+  QuestionnaireChoices,
+  QuestionnaireDescription,
+  QuestionnaireItem,
+  QuestionnaireNext,
+  QuestionnairePrevious,
+  QuestionnaireSubmit,
+  QuestionnaireTitle,
+} from "@/components/halo/questionnaire";
 import { eventVisuals } from "@/components/host/event-visuals";
 import { Row } from "@/components/host/settings-form";
-import { Button } from "@/components/ui/button";
 import { DateTimeField } from "@/components/ui/date-time-field";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
 import { EVENT_TYPES } from "@/lib/events/schemas";
 import { adjustEnd, clampEnd, maxEnd } from "@/lib/events/times";
 import { useRouter } from "@/lib/i18n/navigation";
 import { cn } from "@/lib/utils";
-import { StepFooter, StepHeading } from "./create-flow";
 import { type FlowProps, flowHref } from "./flow";
 import {
   type Draft,
@@ -31,60 +36,176 @@ import {
   saveDraft,
 } from "./draft";
 
-/** Step 1: the event and every guest setting, before any account. */
+/** Step 1: the event, one question per screen, before any account. */
 export function DetailsStep({ plan }: FlowProps) {
-  const t = useTranslations("Create");
-  const tEvents = useTranslations("Events");
-  const ts = useTranslations("Events.settings");
   const router = useRouter();
   const [d, setD] = useState<Draft>(() => loadDraft() ?? emptyDraft());
-  const [tried, setTried] = useState(false);
-  const set = <K extends keyof Draft>(k: K, v: Draft[K]) =>
-    setD((prev) => ({ ...prev, [k]: v }));
+  const [item, setItem] = useState<Question>("name");
 
   // Every change is kept in this browser, so nothing is lost on sign-in.
   useEffect(() => saveDraft(d), [d]);
 
-  const problems = draftProblems(d);
-  const show = (p: boolean) => p && tried;
+  return (
+    <DetailsQuestions
+      draft={d}
+      setDraft={setD}
+      item={item}
+      onItemChange={setItem}
+      onDone={() => router.push(flowHref("plan", { plan }))}
+    />
+  );
+}
 
-  function next(e: React.FormEvent) {
+export const QUESTIONS = ["name", "type", "when", "guests"] as const;
+export type Question = (typeof QUESTIONS)[number];
+
+/**
+ * The four questions (name → type → when → guest settings). Also rendered,
+ * inert, on the landing page.
+ */
+export function DetailsQuestions({
+  draft: d,
+  setDraft: setD,
+  item,
+  onItemChange,
+  onDone,
+}: {
+  draft: Draft;
+  setDraft: React.Dispatch<React.SetStateAction<Draft>>;
+  item: Question;
+  onItemChange: (q: Question) => void;
+  onDone: () => void;
+}) {
+  const t = useTranslations("Create");
+  const tEvents = useTranslations("Events");
+  const ts = useTranslations("Events.settings");
+  // Errors show once the host tried to go on from that question.
+  const [tried, setTried] = useState<Partial<Record<Question, boolean>>>({});
+  const set = <K extends keyof Draft>(k: K, v: Draft[K]) =>
+    setD((prev) => ({ ...prev, [k]: v }));
+
+  const problems = draftProblems(d);
+  const blocked: Record<Question, boolean> = {
+    name: problems.name,
+    type: false,
+    when: problems.range,
+    guests: problems.pin || problems.hours,
+  };
+  const show = (q: Question, p: boolean) => Boolean(p && tried[q]);
+  // Navigation is ours: the primitive only counts its own inputs as answers,
+  // and the date and settings questions have none.
+  const forward = (q: Question) => (e?: React.SyntheticEvent) => {
+    e?.preventDefault();
+    if (blocked[q]) {
+      setTried((all) => ({ ...all, [q]: true }));
+      return;
+    }
+    const i = QUESTIONS.indexOf(q);
+    if (i === QUESTIONS.length - 1) onDone();
+    else onItemChange(QUESTIONS[i + 1]);
+  };
+  const backward = (q: Question) => (e: React.SyntheticEvent) => {
     e.preventDefault();
-    setTried(true);
-    if (!draftOk(d)) return;
-    router.push(flowHref("plan", { plan }));
-  }
+    onItemChange(QUESTIONS[Math.max(0, QUESTIONS.indexOf(q) - 1)]);
+  };
+  const back = t("back");
+  const next = t("details.continue");
 
   return (
-    <form onSubmit={next} noValidate>
-      <StepHeading
-        title={t("details.title")}
-        subtitle={t("details.subtitle")}
-      />
+    <Questionnaire
+      noValidate
+      item={item}
+      onItemChange={(v) => onItemChange(v as Question)}
+      shortcuts="letters"
+      onSubmit={(e) => {
+        e.preventDefault();
+        setTried({ name: true, when: true, guests: true });
+        if (draftOk(d)) onDone();
+      }}
+    >
+      <p className="mb-5 text-xs font-semibold tracking-[0.14em] text-primary uppercase tabular-nums">
+        {t("details.question", {
+          n: QUESTIONS.indexOf(item) + 1,
+          total: QUESTIONS.length,
+        })}
+      </p>
 
-      <div className="space-y-6">
-        <div className="space-y-2">
-          <Label htmlFor="name">{tEvents("nameLabel")}</Label>
-          <Input
-            id="name"
+      <QuestionnaireItem name="name" invalid={show("name", blocked.name)}>
+        <QuestionnaireTitle>{t("details.q.name")}</QuestionnaireTitle>
+        <QuestionnaireDescription>
+          {t("details.q.nameHint")}
+        </QuestionnaireDescription>
+        <QuestionnaireBody>
+          <HaloInput
+            size="lg"
+            aria-label={tEvents("nameLabel")}
             maxLength={80}
             autoFocus
             placeholder={tEvents("namePlaceholder")}
             value={d.name}
             onChange={(e) => set("name", e.target.value)}
-            aria-invalid={show(problems.name)}
-            className="h-11 text-base"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") forward("name")(e);
+            }}
+            invalid={show("name", problems.name)}
           />
-          {show(problems.name) && (
-            <p className="text-sm text-destructive" role="alert">
+          {show("name", problems.name) && (
+            <p
+              className="mt-3 text-sm font-medium text-destructive"
+              role="alert"
+            >
               {t("details.nameRequired")}
             </p>
           )}
-        </div>
+        </QuestionnaireBody>
+        <QuestionnaireActions>
+          <QuestionnaireNext onClick={forward("name")}>
+            {next}
+          </QuestionnaireNext>
+        </QuestionnaireActions>
+      </QuestionnaireItem>
 
-        <TypeChips value={d.type} onChange={(v) => set("type", v)} />
+      <QuestionnaireItem name="type">
+        <QuestionnaireTitle>{t("details.q.type")}</QuestionnaireTitle>
+        <QuestionnaireDescription>
+          {t("details.q.typeHint")}
+        </QuestionnaireDescription>
+        <QuestionnaireBody>
+          <QuestionnaireChoices className="sm:grid-cols-2">
+            {EVENT_TYPES.map((value) => {
+              const { Icon } = eventVisuals[value];
+              return (
+                <QuestionnaireChoice
+                  key={value}
+                  value={value}
+                  checked={d.type === value}
+                  onChange={(e) => {
+                    if (e.target.checked) set("type", value);
+                  }}
+                  icon={<Icon />}
+                >
+                  {tEvents(`types.${value}`)}
+                </QuestionnaireChoice>
+              );
+            })}
+          </QuestionnaireChoices>
+        </QuestionnaireBody>
+        <QuestionnaireActions>
+          <QuestionnairePrevious onClick={backward("type")}>
+            {back}
+          </QuestionnairePrevious>
+          <QuestionnaireNext onClick={forward("type")}>
+            {next}
+          </QuestionnaireNext>
+        </QuestionnaireActions>
+      </QuestionnaireItem>
 
-        <div className="grid gap-4 sm:grid-cols-2">
+      <QuestionnaireItem name="when" invalid={show("when", blocked.when)}>
+        <QuestionnaireTitle>{t("details.q.when")}</QuestionnaireTitle>
+        <QuestionnaireDescription>
+          {t("details.q.whenHint")}
+        </QuestionnaireDescription>
+        <QuestionnaireBody className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-2">
             <Label htmlFor="starts">{tEvents("startLabel")}</Label>
             <DateTimeField
@@ -111,219 +232,182 @@ export function DetailsStep({ plan }: FlowProps) {
             />
           </div>
           {problems.range && (
-            <p className="text-sm text-destructive sm:col-span-2" role="alert">
+            <p
+              className="text-sm font-medium text-destructive sm:col-span-2"
+              role="alert"
+            >
               {tEvents("dateRangeError")}
             </p>
           )}
-        </div>
-      </div>
+        </QuestionnaireBody>
+        <QuestionnaireActions>
+          <QuestionnairePrevious onClick={backward("when")}>
+            {back}
+          </QuestionnairePrevious>
+          <QuestionnaireNext onClick={forward("when")}>
+            {next}
+          </QuestionnaireNext>
+        </QuestionnaireActions>
+      </QuestionnaireItem>
 
-      <h2 className="mt-9 mb-1 font-heading text-base font-semibold">
-        {t("details.guestSettings")}
-      </h2>
-      <p className="mb-3 text-[13px] text-muted-foreground">
-        {t("details.guestSettingsHint")}
-      </p>
-      <div className="divide-y divide-border overflow-hidden rounded-2xl border border-border [&>div]:px-4 sm:[&>div]:px-5">
-        <Row
-          icon={UserRound}
-          title={ts("requireName")}
-          description={ts("requireNameHint")}
-          htmlFor="d-require-name"
-          control={
-            <Switch
-              id="d-require-name"
-              checked={d.requireName}
-              onCheckedChange={(v) => set("requireName", v)}
-            />
-          }
-        />
-        <Row
-          icon={KeyRound}
-          title={ts("pinToggle")}
-          description={ts("pinHint")}
-          htmlFor="d-pin-on"
-          control={
-            <Switch
-              id="d-pin-on"
-              checked={d.pinOn}
-              onCheckedChange={(v) => set("pinOn", v)}
-            />
-          }
-        >
-          {d.pinOn && (
-            <div className="space-y-1.5">
-              <Input
-                aria-label={ts("pinLabel")}
-                inputMode="numeric"
-                autoComplete="off"
-                maxLength={8}
-                placeholder="1234"
-                value={d.pin}
-                onChange={(e) => set("pin", e.target.value.replace(/\D/g, ""))}
-                aria-invalid={show(problems.pin)}
-                className="h-9 max-w-40 text-center font-mono tracking-[0.35em]"
+      <QuestionnaireItem name="guests" invalid={show("guests", blocked.guests)}>
+        <QuestionnaireTitle>{t("details.q.guests")}</QuestionnaireTitle>
+        <QuestionnaireDescription>
+          {t("details.guestSettingsHint")}
+        </QuestionnaireDescription>
+        <QuestionnaireBody className="-mx-1 divide-y divide-border/70 overflow-hidden rounded-2xl border border-border/80 bg-card/70 [&>div]:px-4 sm:[&>div]:px-5">
+          <Row
+            icon={UserRound}
+            title={ts("requireName")}
+            description={ts("requireNameHint")}
+            htmlFor="d-require-name"
+            control={
+              <HaloSwitch
+                id="d-require-name"
+                checked={d.requireName}
+                onCheckedChange={(v) => set("requireName", v)}
               />
-              <p
-                className={cn(
-                  "text-xs",
-                  show(problems.pin)
-                    ? "text-destructive"
-                    : "text-muted-foreground",
-                )}
-              >
-                {ts("pinFormat")}
-              </p>
-            </div>
-          )}
-        </Row>
-        <Row
-          icon={Clock}
-          title={ts("hoursToggle")}
-          description={ts("hoursHint")}
-          htmlFor="d-hours-on"
-          control={
-            <Switch
-              id="d-hours-on"
-              checked={d.hoursOn}
-              onCheckedChange={(v) =>
-                setD((prev) => ({
-                  ...prev,
-                  hoursOn: v,
-                  opens: prev.opens || prev.starts,
-                  closes: prev.closes || prev.ends,
-                }))
-              }
-            />
-          }
-        >
-          {d.hoursOn && (
-            <div className="grid gap-3 sm:grid-cols-2">
+            }
+          />
+          <Row
+            icon={KeyRound}
+            title={ts("pinToggle")}
+            description={ts("pinHint")}
+            htmlFor="d-pin-on"
+            control={
+              <HaloSwitch
+                id="d-pin-on"
+                checked={d.pinOn}
+                onCheckedChange={(v) => set("pinOn", v)}
+              />
+            }
+          >
+            {d.pinOn && (
               <div className="space-y-1.5">
-                <Label
-                  htmlFor="d-opens"
-                  className="text-xs text-muted-foreground"
-                >
-                  {ts("opens")}
-                </Label>
-                <DateTimeField
-                  id="d-opens"
-                  value={d.opens}
-                  onChange={(v) => set("opens", v)}
+                <HaloInput
+                  aria-label={ts("pinLabel")}
+                  inputMode="numeric"
+                  autoComplete="off"
+                  maxLength={8}
+                  placeholder="1234"
+                  value={d.pin}
+                  onChange={(e) =>
+                    set("pin", e.target.value.replace(/\D/g, ""))
+                  }
+                  invalid={show("guests", problems.pin)}
+                  shellClassName="max-w-44"
+                  className="text-center font-mono tracking-[0.35em]"
                 />
-              </div>
-              <div className="space-y-1.5">
-                <Label
-                  htmlFor="d-closes"
-                  className="text-xs text-muted-foreground"
-                >
-                  {ts("closes")}
-                </Label>
-                <DateTimeField
-                  id="d-closes"
-                  value={d.closes}
-                  min={d.opens}
-                  onChange={(v) => set("closes", v)}
-                  invalid={problems.hours}
-                />
-              </div>
-              {problems.hours && (
                 <p
-                  className="text-sm text-destructive sm:col-span-2"
-                  role="alert"
+                  className={cn(
+                    "text-xs",
+                    show("guests", problems.pin)
+                      ? "font-medium text-destructive"
+                      : "text-muted-foreground",
+                  )}
                 >
-                  {ts("hoursError")}
+                  {ts("pinFormat")}
                 </p>
-              )}
-            </div>
-          )}
-        </Row>
-        <Row
-          icon={Smartphone}
-          title={ts("perPhoneToggle")}
-          description={ts("perPhoneHint")}
-          htmlFor="d-per-on"
-          control={
-            <Switch
-              id="d-per-on"
-              checked={d.perPhoneOn}
-              onCheckedChange={(v) => set("perPhoneOn", v)}
-            />
-          }
-        >
-          {d.perPhoneOn && (
-            <Input
-              aria-label={ts("perPhone")}
-              type="number"
-              min={1}
-              max={5000}
-              inputMode="numeric"
-              value={d.perPhone}
-              onChange={(e) => set("perPhone", e.target.value)}
-              className="h-9 max-w-28"
-            />
-          )}
-        </Row>
-      </div>
-
-      <StepFooter>
-        <Button type="submit" className="h-11 rounded-full px-6">
-          {t("details.next")}
-          <ArrowRight className="rtl:rotate-180" aria-hidden />
-        </Button>
-      </StepFooter>
-    </form>
-  );
-}
-
-/** Event type as radio chips (also shown on the landing page). */
-export function TypeChips({
-  value: current,
-  onChange,
-}: {
-  value: Draft["type"];
-  onChange: (v: Draft["type"]) => void;
-}) {
-  const t = useTranslations("Events");
-  return (
-    <fieldset>
-      <legend className="mb-2.5 text-sm leading-none font-medium">
-        {t("typeLabel")}
-      </legend>
-      <div className="flex flex-wrap gap-2">
-        {EVENT_TYPES.map((value) => {
-          const { Icon } = eventVisuals[value];
-          const selected = value === current;
-          return (
-            <label
-              key={value}
-              className={cn(
-                "flex h-10 cursor-pointer items-center gap-2 rounded-full border px-3.5 text-sm font-medium transition-colors has-focus-visible:ring-2 has-focus-visible:ring-ring/50",
-                selected
-                  ? "border-primary bg-accent text-accent-foreground shadow-[inset_0_0_0_1px_var(--primary)]"
-                  : "border-border text-foreground/80 hover:bg-muted/50",
-              )}
-            >
-              <input
-                type="radio"
-                name="type"
-                value={value}
-                checked={selected}
-                onChange={() => onChange(value)}
-                className="sr-only"
+              </div>
+            )}
+          </Row>
+          <Row
+            icon={Clock}
+            title={ts("hoursToggle")}
+            description={ts("hoursHint")}
+            htmlFor="d-hours-on"
+            control={
+              <HaloSwitch
+                id="d-hours-on"
+                checked={d.hoursOn}
+                onCheckedChange={(v) =>
+                  setD((prev) => ({
+                    ...prev,
+                    hoursOn: v,
+                    opens: prev.opens || prev.starts,
+                    closes: prev.closes || prev.ends,
+                  }))
+                }
               />
-              <Icon
-                className={cn(
-                  "size-4 shrink-0",
-                  selected ? "text-primary" : "text-muted-foreground",
+            }
+          >
+            {d.hoursOn && (
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div className="space-y-1.5">
+                  <Label
+                    htmlFor="d-opens"
+                    className="text-xs text-muted-foreground"
+                  >
+                    {ts("opens")}
+                  </Label>
+                  <DateTimeField
+                    id="d-opens"
+                    value={d.opens}
+                    onChange={(v) => set("opens", v)}
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <Label
+                    htmlFor="d-closes"
+                    className="text-xs text-muted-foreground"
+                  >
+                    {ts("closes")}
+                  </Label>
+                  <DateTimeField
+                    id="d-closes"
+                    value={d.closes}
+                    min={d.opens}
+                    onChange={(v) => set("closes", v)}
+                    invalid={problems.hours}
+                  />
+                </div>
+                {problems.hours && (
+                  <p
+                    className="text-sm font-medium text-destructive sm:col-span-2"
+                    role="alert"
+                  >
+                    {ts("hoursError")}
+                  </p>
                 )}
-                aria-hidden
+              </div>
+            )}
+          </Row>
+          <Row
+            icon={Smartphone}
+            title={ts("perPhoneToggle")}
+            description={ts("perPhoneHint")}
+            htmlFor="d-per-on"
+            control={
+              <HaloSwitch
+                id="d-per-on"
+                checked={d.perPhoneOn}
+                onCheckedChange={(v) => set("perPhoneOn", v)}
               />
-              <span className="whitespace-nowrap">{t(`types.${value}`)}</span>
-            </label>
-          );
-        })}
-      </div>
-    </fieldset>
+            }
+          >
+            {d.perPhoneOn && (
+              <HaloInput
+                aria-label={ts("perPhone")}
+                type="number"
+                min={1}
+                max={5000}
+                inputMode="numeric"
+                value={d.perPhone}
+                onChange={(e) => set("perPhone", e.target.value)}
+                shellClassName="max-w-32"
+              />
+            )}
+          </Row>
+        </QuestionnaireBody>
+        <QuestionnaireActions>
+          <QuestionnairePrevious onClick={backward("guests")}>
+            {back}
+          </QuestionnairePrevious>
+          <QuestionnaireSubmit onClick={forward("guests")}>
+            {t("details.next")}
+          </QuestionnaireSubmit>
+        </QuestionnaireActions>
+      </QuestionnaireItem>
+    </Questionnaire>
   );
 }

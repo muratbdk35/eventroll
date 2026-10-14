@@ -3,8 +3,8 @@
 import { Clock, Loader2, Mail, RotateCw } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { HaloButton } from "@/components/halo/halo-button";
+import { HaloInput } from "@/components/halo/halo-input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Turnstile } from "@/components/turnstile";
@@ -166,14 +166,15 @@ export function LoginForm({
             </div>
           </div>
         )}
-        <Button
-          variant="outline"
-          className="mt-4 h-10 w-full rounded-xl bg-card"
+        <HaloButton
+          tone="secondary"
+          fullWidth
+          className="mt-4"
+          leading={<RotateCw aria-hidden />}
           onClick={() => setStatus("idle")}
         >
-          <RotateCw aria-hidden />
           {t("resend")}
-        </Button>
+        </HaloButton>
       </div>
     );
   }
@@ -183,16 +184,16 @@ export function LoginForm({
       <form onSubmit={onSubmit} className="space-y-3">
         <div className="space-y-1.5">
           <Label htmlFor="email">{t("emailLabel")}</Label>
-          <Input
+          <HaloInput
             id="email"
             type="email"
             required
             autoComplete="email"
             inputMode="email"
+            leadingSlot={<Mail aria-hidden />}
             placeholder={t("emailPlaceholder")}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="h-11 rounded-xl"
           />
         </div>
         {publicEnv.turnstileSiteKey && (
@@ -203,24 +204,16 @@ export function LoginForm({
             onToken={setCaptchaToken}
           />
         )}
-        <Button
+        <HaloButton
           type="submit"
+          fullWidth
           size="lg"
-          className="h-11 w-full rounded-xl"
-          disabled={
-            status === "sending" ||
-            (Boolean(publicEnv.turnstileSiteKey) && !captchaToken)
-          }
+          isLoading={status === "sending"}
+          loadingText={t("submitting")}
+          disabled={Boolean(publicEnv.turnstileSiteKey) && !captchaToken}
         >
-          {status === "sending" ? (
-            <>
-              <Loader2 className="animate-spin" aria-hidden />
-              {t("submitting")}
-            </>
-          ) : (
-            t("submit")
-          )}
-        </Button>
+          {t("submit")}
+        </HaloButton>
         {status === "error" && (
           <p className="text-sm text-destructive" role="alert">
             {t("error")}
@@ -235,12 +228,13 @@ export function LoginForm({
       </div>
       {/* Shown even before the Google keys exist, disabled, so the screen
           already looks like production (keys: GOOGLE_CLIENT_ID/SECRET). */}
-      <Button
-        variant="outline"
+      <HaloButton
+        tone="secondary"
+        fullWidth
         size="lg"
-        className="h-11 w-full rounded-xl"
         disabled={!googleEnabled}
         title={googleEnabled ? undefined : "GOOGLE_CLIENT_ID missing"}
+        leading={<GoogleIcon />}
         onClick={() =>
           authClient.signIn.social({
             provider: "google",
@@ -248,9 +242,8 @@ export function LoginForm({
           })
         }
       >
-        <GoogleIcon />
         {t("google")}
-      </Button>
+      </HaloButton>
     </div>
   );
 }

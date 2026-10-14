@@ -438,3 +438,37 @@ album ZIP and printable table cards are phase 1C/1D work (#22, #23).
 - Any newly copied or adapted outside code gets an entry in
   `lib/legal/notices.ts` in the same change.
 - Removed the unused `components/ui/stack.tsx` and `border-beam.tsx`.
+
+## 37. Create flow and guest page rebuilt on cult/ui Halo (owner request, 2026-10-14)
+
+- The owner found both screens "vibecoded" and asked for real components from
+  21st.dev. Code comes only from public sources: cult/ui's Halo set (MIT,
+  github.com/nolly-studio/cult-ui) and uiable's Questionnaire (MIT,
+  github.com/codedthemes/uiable) on the headless `@shadcn/react`. Nothing is
+  scraped from 21st.dev pages; its daily fetches stay for components that
+  exist nowhere else. Credits in `lib/legal/notices.ts`.
+- `components/halo/` holds the adapted set (input, switch, button, card,
+  progress, dropzone, notification, questionnaire) with one shared glow
+  (`glow.tsx`): our terracotta/apricot/rose ramp instead of magenta/cyan, the
+  blobs only drift on hover/focus (the original loops forever, which is what
+  made the dashboard lag, #35), no backdrop-filter. The switch uses Radix so
+  `<label htmlFor>` names it; Base UI put the id on a hidden input.
+- Create flow: Halo progress + card shell; step 1 asks one question per
+  screen (name → type with letter shortcuts → when → guest settings). The
+  questionnaire primitive only counts its own inputs as answers, so we drive
+  next/back ourselves. Plan receipts stay. Login form uses Halo too.
+- Guest page: Halo name field, photo dropzone (compact once photos are
+  picked), square thumbnails, solid Halo bar for consent + send, Halo
+  progress while sending, green Halo notification as thanks. Upload logic
+  unchanged. Landing mocks follow (#22): thumbnails instead of polaroids.
+- Glow layers are clipped with `clip-path: inset(0 round …)` (`roundClip`),
+  not only `overflow: hidden`: on the owner's Chrome the animated, blurred
+  blobs escaped the rounded corners as hard boxes. Glows no longer extend
+  outside buttons, switches and the progress bar.
+- Owner follow-up: no grid background (tried Magic UI's, removed), nothing
+  moves inside text fields, and decorative spots everywhere in the app are
+  radial gradients instead of `blur()` filters (no filter, nothing to escape
+  the corners). Rounded boxes whose children scale or move get `.clip-round`
+  (`isolation: isolate`) so Chrome keeps their corners while animating.
+- Not yet: the "Admit One" ticket (MIT, only on 21st.dev) for the guest
+  header and the publish step, to be fetched with a daily 21st retrieval.

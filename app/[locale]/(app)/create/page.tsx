@@ -59,8 +59,8 @@ export default async function CreatePage({
         aria-hidden
         className="pointer-events-none fixed inset-0 overflow-hidden"
       >
-        <div className="absolute -top-48 -left-40 size-[36rem] rounded-full bg-primary/15 blur-[100px]" />
-        <div className="absolute -right-48 -bottom-56 size-[40rem] rounded-full bg-[oklch(0.86_0.1_65)]/40 blur-[100px]" />
+        <div className="absolute -top-64 -left-56 size-[48rem] rounded-full bg-[radial-gradient(closest-side,oklch(0.57_0.175_38/0.13),transparent)]" />
+        <div className="absolute -right-64 -bottom-72 size-[52rem] rounded-full bg-[radial-gradient(closest-side,oklch(0.86_0.1_65/0.4),transparent)]" />
       </div>
       <main className="relative flex flex-1 justify-center px-4 py-8 sm:py-12">
         <CreateFlow

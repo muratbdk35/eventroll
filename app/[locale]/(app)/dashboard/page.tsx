@@ -57,7 +57,7 @@ export default async function DashboardPage({
       </h1>
 
       {events.length === 0 ? (
-        <div className="mt-10 flex flex-col items-center rounded-[2rem] border border-white/70 bg-card/80 p-10 text-center shadow-xl ring-1 shadow-primary/5 ring-black/5 backdrop-blur-xl">
+        <div className="mt-10 flex flex-col items-center rounded-[2rem] border border-white/70 bg-card/80 p-10 text-center shadow-xl ring-1 shadow-primary/5 ring-black/5">
           <PhotoStack srcs={[]} type="party" className="group w-full" />
           <h2 className="mt-6 font-heading text-2xl font-semibold">
             {t("emptyTitle")}

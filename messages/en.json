@@ -607,7 +607,18 @@
       "nameRequired": "Give your event a name.",
       "guestSettings": "Guest settings",
       "guestSettingsHint": "Optional. With everything off, guests scan the QR code and upload right away.",
-      "next": "Choose a plan"
+      "next": "Choose a plan",
+      "continue": "Continue",
+      "question": "Question {n} of {total}",
+      "q": {
+        "name": "What's your event called?",
+        "nameHint": "Guests see this name when they open the page.",
+        "type": "What are you celebrating?",
+        "typeHint": "We pick the cover photo and icon to match. You can change it later.",
+        "when": "When is it?",
+        "whenHint": "Start and end of the event, in your time zone.",
+        "guests": "How should guests join?"
+      }
     },
     "plan": {
       "title": "Choose your plan",

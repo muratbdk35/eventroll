@@ -610,7 +610,18 @@
       "nameRequired": "Etkinliğe bir ad ver.",
       "guestSettings": "Misafir ayarları",
       "guestSettingsHint": "İsteğe bağlı. Hepsi kapalıyken misafirler QR'ı okutup hemen yükler.",
-      "next": "Plan seç"
+      "next": "Plan seç",
+      "continue": "Devam",
+      "question": "Soru {n} / {total}",
+      "q": {
+        "name": "Etkinliğinin adı ne?",
+        "nameHint": "Misafirler sayfayı açınca bu adı görür.",
+        "type": "Ne kutluyorsunuz?",
+        "typeHint": "Kapak fotoğrafını ve simgeyi buna göre seçeriz. Sonra değiştirebilirsin.",
+        "when": "Ne zaman?",
+        "whenHint": "Etkinliğin başlangıç ve bitişi, kendi saat diliminde.",
+        "guests": "Misafirler nasıl katılsın?"
+      }
     },
     "plan": {
       "title": "Planını seç",

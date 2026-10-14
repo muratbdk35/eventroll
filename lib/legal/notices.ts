@@ -2,7 +2,7 @@
  * Third-party notices: UI code we adapted, fonts and photos. Runtime libraries
  * come from third-party-libs.json (`npm run notices`). Licences were checked
  * on 2026-10-14 against the author's repo or 21st.dev page; add an entry here
- * whenever code from outside is copied or adapted (DECISIONS #36).
+ * whenever code from outside is copied or adapted (DECISIONS #36, #37).
  */
 import libs from "./third-party-libs.json";
 
@@ -15,6 +15,22 @@ export type Notice = {
 };
 
 export const adaptedComponents: Notice[] = [
+  {
+    name: "Halo (cult/ui): input, switch, button, card, progress, dropzone, notification",
+    author: "Jordan Gilliam (cult/ui, Nolly Studio)",
+    license: "MIT",
+    url: "https://github.com/nolly-studio/cult-ui",
+    usedFor:
+      "Create flow and guest page controls. Modified: our colours, glow only moves on interaction, photo-only dropzone.",
+  },
+  {
+    name: "Questionnaire (uiable)",
+    author: "CodedThemes",
+    license: "MIT",
+    url: "https://github.com/codedthemes/uiable",
+    usedFor:
+      "One question per screen in the create flow. Modified: Halo styling, our navigation and validation.",
+  },
   {
     name: "Receipt Tiers (Spectrum UI)",
     author: "arihantcodes",
@@ -29,13 +45,6 @@ export const adaptedComponents: Notice[] = [
     license: "MIT",
     url: "https://21st.dev/@ayushmxxn/components/masonry-lightbox",
     usedFor: "Host photo grid and viewer. Modified.",
-  },
-  {
-    name: "Multi-Step Setup Wizard",
-    author: "Oliver (olewandowski1)",
-    license: "MIT-0",
-    url: "https://21st.dev/@olewandowski1/components/onboarding-3",
-    usedFor: "Create-event step layout. Modified.",
   },
   {
     name: "Veil Sign Up 2 (Tailark)",
@@ -111,6 +120,5 @@ export const libraries: (Omit<Notice, "author" | "usedFor"> & {
 export const licenseTexts: Record<string, string> = {
   "Apache-2.0": "/licenses/Apache-2.0.txt",
   MIT: "/licenses/MIT.txt",
-  "MIT-0": "/licenses/MIT-0.txt",
   "OFL-1.1": "https://openfontlicense.org/open-font-license-official-text/",
 };

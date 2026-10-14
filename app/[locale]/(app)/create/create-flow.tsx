@@ -1,17 +1,11 @@
 "use client";
 
-import {
-  CalendarHeart,
-  Check,
-  CreditCard,
-  Receipt,
-  Rocket,
-  UserRound,
-  X,
-} from "lucide-react";
+import { X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useSyncExternalStore } from "react";
 import { LogoMark } from "@/components/brand/logo";
+import { HaloCard } from "@/components/halo/halo-card";
+import { HaloProgress } from "@/components/halo/halo-progress";
 import { Link } from "@/lib/i18n/navigation";
 import { publicEnv } from "@/lib/public-env";
 import { cn } from "@/lib/utils";
@@ -22,17 +16,9 @@ import { PayStep } from "./pay-step";
 import { PlanStep } from "./plan-step";
 import { ReviewStep } from "./review-step";
 
-// Shell adapted from the 21st.dev "Multi-Step Setup Wizard" (olewandowski1):
-// brand row with a "step x of y" chip, a progress bar, labelled step icons,
-// then the step's title, body and back/next footer.
-
-const icons = {
-  details: CalendarHeart,
-  plan: Receipt,
-  account: UserRound,
-  pay: CreditCard,
-  review: Rocket,
-} as const;
+// Built from cult/ui Halo parts (DECISIONS #37): a quiet top bar, the Halo
+// progress bar with the step name, then each step on a Halo card. The plan
+// step keeps its terracotta receipt panel and sits without a card.
 
 const noop = () => () => {};
 
@@ -51,31 +37,29 @@ export function CreateFlow(props: FlowProps) {
       : "/";
 
   return (
-    <div className={cn("w-full", step === "plan" ? "max-w-4xl" : "max-w-2xl")}>
-      <FlowCard step={step} exit={exit}>
-        {!hydrated ? (
-          <div className="h-64" />
-        ) : step === "details" ? (
-          <DetailsStep {...props} />
-        ) : step === "plan" ? (
-          <PlanStep {...props} />
-        ) : step === "account" ? (
-          <AccountStep {...props} />
-        ) : step === "pay" ? (
-          <PayStep {...props} />
-        ) : (
-          <ReviewStep {...props} />
-        )}
-      </FlowCard>
-    </div>
+    <FlowShell step={step} exit={exit}>
+      {!hydrated ? (
+        <div className="h-72" />
+      ) : step === "details" ? (
+        <DetailsStep {...props} />
+      ) : step === "plan" ? (
+        <PlanStep {...props} />
+      ) : step === "account" ? (
+        <AccountStep {...props} />
+      ) : step === "pay" ? (
+        <PayStep {...props} />
+      ) : (
+        <ReviewStep {...props} />
+      )}
+    </FlowShell>
   );
 }
 
 /**
- * The wizard card: brand row with "step x of y", progress bar, labelled step
- * icons, then the step itself. The landing page shows this same card.
+ * Top bar (brand, close), progress with the step's name, then the step on a
+ * Halo card. The landing page renders this same shell.
  */
-export function FlowCard({
+export function FlowShell({
   step,
   exit,
   children,
@@ -86,8 +70,9 @@ export function FlowCard({
 }) {
   const t = useTranslations("Create");
   const index = STEPS.indexOf(step);
+  const wide = step === "plan";
   return (
-    <section className="rounded-3xl border border-border bg-card p-5 shadow-[0_30px_60px_-40px_rgb(60_30_10/0.35)] sm:p-8">
+    <div className={cn("w-full", wide ? "max-w-4xl" : "max-w-xl")}>
       <div className="flex items-center justify-between gap-3">
         <Link
           href="/"
@@ -96,66 +81,32 @@ export function FlowCard({
           <LogoMark className="size-7" />
           {publicEnv.appName}
         </Link>
-        <div className="flex items-center gap-2">
-          <span className="rounded-full bg-muted px-3 py-1 text-xs font-semibold tabular-nums">
-            {t("stepOf", { n: index + 1, total: STEPS.length })}
-          </span>
-          <Link
-            href={exit}
-            aria-label={t("exit")}
-            className="flex size-8 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-          >
-            <X className="size-4" aria-hidden />
-          </Link>
-        </div>
+        <Link
+          href={exit}
+          aria-label={t("exit")}
+          className="flex size-10 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-black/5 hover:text-foreground"
+        >
+          <X className="size-5" aria-hidden />
+        </Link>
       </div>
 
-      <div className="mt-6 h-1.5 overflow-hidden rounded-full bg-muted">
-        <div
-          className="h-full rounded-full bg-primary transition-[width] duration-500 ease-out"
-          style={{ width: `${((index + 1) / STEPS.length) * 100}%` }}
-        />
-      </div>
-      <ol className="mt-4 grid grid-cols-5 gap-1">
-        {STEPS.map((s, i) => {
-          const Icon = icons[s];
-          const isDone = i < index;
-          const current = s === step;
-          return (
-            <li key={s} className="flex flex-col items-center gap-1.5">
-              <span
-                className={cn(
-                  "flex size-9 items-center justify-center rounded-full border transition-colors",
-                  current
-                    ? "border-primary bg-primary text-primary-foreground shadow-[0_8px_18px_-8px_var(--primary)]"
-                    : isDone
-                      ? "border-primary/30 bg-accent text-primary"
-                      : "border-border bg-card text-muted-foreground",
-                )}
-              >
-                {isDone && !current ? (
-                  <Check className="size-4" strokeWidth={2.5} aria-hidden />
-                ) : (
-                  <Icon className="size-4" aria-hidden />
-                )}
-              </span>
-              <span
-                className={cn(
-                  "text-center text-[11px] leading-tight sm:text-xs",
-                  current
-                    ? "font-semibold text-foreground"
-                    : "text-muted-foreground",
-                )}
-              >
-                {t(`steps.${s}`)}
-              </span>
-            </li>
-          );
-        })}
-      </ol>
+      <HaloProgress
+        className="mt-6"
+        value={((index + 1) / STEPS.length) * 100}
+        label={t(`steps.${step}`)}
+        aside={t("stepOf", { n: index + 1, total: STEPS.length })}
+      />
 
-      <div className="mt-8">{children}</div>
-    </section>
+      <div className="mt-6">
+        {wide ? (
+          children
+        ) : (
+          <HaloCard padding="lg" interactive={false}>
+            {children}
+          </HaloCard>
+        )}
+      </div>
+    </div>
   );
 }
 
@@ -168,12 +119,12 @@ export function StepHeading({
   subtitle?: string;
 }) {
   return (
-    <div className="mb-6">
-      <h1 className="font-heading text-2xl font-bold tracking-tight text-balance">
+    <div className="mb-7">
+      <h1 className="font-heading text-[1.65rem] leading-tight font-bold tracking-tight text-balance sm:text-3xl">
         {title}
       </h1>
       {subtitle && (
-        <p className="mt-1.5 text-sm text-pretty text-muted-foreground">
+        <p className="mt-2 text-[15px] text-pretty text-muted-foreground">
           {subtitle}
         </p>
       )}
@@ -190,7 +141,7 @@ export function StepFooter({
   children?: React.ReactNode;
 }) {
   return (
-    <div className="mt-8 flex items-center justify-between gap-3 border-t border-border pt-5">
+    <div className="mt-9 flex flex-wrap items-center justify-between gap-3">
       <div>{back}</div>
       <div className="flex items-center gap-2">{children}</div>
     </div>
