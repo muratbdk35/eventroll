@@ -24,7 +24,12 @@ export type ActionResult<T = object> =
   | ({ ok: true } & T)
   | {
       ok: false;
-      error: "unauthorized" | "invalid" | "not_found" | "forbidden";
+      error:
+        | "unauthorized"
+        | "invalid"
+        | "not_found"
+        | "forbidden"
+        | "needs_plan";
     };
 
 async function requireUser() {
@@ -217,7 +222,26 @@ export async function devActivate(
   if (!event) return { ok: false, error: "not_found" };
   await db
     .update(events)
-    .set({ plan, status: "active" })
+    .set({ plan })
+    .where(eq(events.id, event.id));
+  revalidatePath("/[locale]/dashboard", "layout");
+  return { ok: true };
+}
+
+/**
+ * Opens the album to guests. Choosing a plan only records the plan; the host
+ * publishes as a separate, deliberate step, and only then gets the QR code.
+ */
+export async function publishEvent(eventId: string): Promise<ActionResult> {
+  const user = await requireUser();
+  if (!user) return { ok: false, error: "unauthorized" };
+  const event = await getOwnedEvent(eventId, user.id);
+  if (!event) return { ok: false, error: "not_found" };
+  if (!event.plan) return { ok: false, error: "needs_plan" };
+  if (event.status !== "draft") return { ok: false, error: "invalid" };
+  await db
+    .update(events)
+    .set({ status: "active" })
     .where(eq(events.id, event.id));
   revalidatePath("/[locale]/dashboard", "layout");
   return { ok: true };

@@ -30,7 +30,7 @@
     "title": "Your events",
     "greeting": "Hi {name}",
     "emptyTitle": "No events yet",
-    "emptyBody": "Create an event to get your QR code. Guests can start uploading once you pick a plan.",
+    "emptyBody": "Create your first event. Your QR code is ready once you pick a plan and publish.",
     "createEvent": "Create event",
     "openEvent": "Open",
     "subtitle": "Create an event, share the QR code, collect every photo in original quality.",
@@ -222,7 +222,7 @@
         "original": "Original quality, never compressed",
         "zip": "{days}-day full ZIP download"
       },
-      "howToPay": "Set up your event and QR code for free. Pick a plan when you're ready for guests to upload.",
+      "howToPay": "Set up your event for free. Pick a plan and publish when you're ready for guests to upload.",
       "footnote": "Prices in USD, shown in your local currency at checkout, VAT included.",
       "plans": {
         "standard": {
@@ -265,7 +265,7 @@
         },
         "payment": {
           "q": "When do I pay?",
-          "a": "Creating your event and getting your QR code is free. When you're ready for guests to start uploading, you choose Standard or Premium and pay once. No subscription, nothing renews."
+          "a": "Creating your event is free. When you're ready, you choose Standard or Premium, pay once and publish, and your QR code is ready. No subscription, nothing renews."
         },
         "quality": {
           "q": "Are the photos compressed?",
@@ -319,7 +319,7 @@
   },
   "Events": {
     "newTitle": "Create your event",
-    "newSubtitle": "Takes a minute. You get your QR code right away; guests can upload once you pick a plan.",
+    "newSubtitle": "Takes a minute. Then pick a plan and publish to get your QR code.",
     "nameLabel": "Event name",
     "namePlaceholder": "Anna & Tom's wedding",
     "dateLabel": "Event date",
@@ -338,7 +338,7 @@
     "createError": "Couldn't create the event. Check the fields and try again.",
     "back": "All events",
     "status": {
-      "draft": "Waiting for a plan",
+      "draft": "Draft",
       "active": "Live",
       "expired": "Expired",
       "suspended": "Suspended",
@@ -357,7 +357,7 @@
     },
     "activate": {
       "title": "Choose a plan to open uploads",
-      "body": "Your QR code works as soon as a plan is active. One payment, no subscription.",
+      "body": "After choosing a plan you publish the event and your QR code is ready. One payment, no subscription.",
       "standard": "Standard · ${price}",
       "premium": "Premium · ${price}",
       "devNote": "Local development: checkout isn't connected yet, so this activates the plan for free.",
@@ -398,7 +398,6 @@
       "png": "Download PNG",
       "svg": "Download SVG",
       "pinOn": "Guests will be asked for the PIN.",
-      "needsPlan": "The link shows a \"not open yet\" page until you pick a plan.",
       "cardTitle": "Share your photos",
       "cardHint": "Scan with your phone camera",
       "cardPin": "PIN required",
@@ -408,7 +407,7 @@
       "step3": "They land in your album, in full quality",
       "printPremium": "Printable table cards and posters are included with Premium.",
       "open": "Open guest page",
-      "locked": "Unlocks after you choose a plan"
+      "locked": "Unlocks once the event is published"
     },
     "settings": {
       "general": "General",
@@ -448,13 +447,13 @@
     "guestsCount": "{count, plural, one {# guest} other {# guests}}",
     "next": {
       "title": "What happens next",
-      "one": "Your QR code is ready right away.",
+      "one": "Pick a plan and publish to get your QR code.",
       "two": "Pick a plan to open uploads.",
       "three": "Guests scan and share. No app, no account."
     },
     "preview": "Guest page preview",
     "previewName": "Your event",
-    "newSubtitleShort": "You'll get the QR code right away. Guests can upload once a plan is active.",
+    "newSubtitleShort": "Your QR code is ready once you pick a plan and publish.",
     "cancel": "Cancel",
     "meta": "{type} · {date}",
     "shareQr": "Share QR",
@@ -466,29 +465,66 @@
     "photosTitle": "Photos",
     "deletesOnShort": "Deleted on {date}",
     "steps": {
-      "title": "Next steps",
       "create": "Create your event",
-      "createDone": "Done",
+      "createDone": "Event created",
       "plan": "Choose a plan",
-      "planBody": "Guests can upload as soon as a plan is active.",
-      "planDone": "{plan} is active",
-      "share": "Share your QR code",
-      "shareBody": "Put it on the tables or send the link to your guests.",
-      "downloadQr": "Download QR",
-      "allOptions": "All sharing options",
-      "collect": "Collect the photos",
-      "collectBody": "Photos appear below as guests upload them.",
-      "collectDone": "{count, plural, one {# photo so far} other {# photos so far}}",
+      "planBody": "One payment, no subscription. After choosing a plan you publish the event.",
+      "planDone": "{plan} selected",
       "cardTitle": "Get your event ready",
-      "progress": "{done} / {total} done",
-      "openGuestPage": "Open guest page",
-      "shareLocked": "Unlocks after you choose a plan"
+      "progress": "{done} of {total} done",
+      "createBody": "{date} · {start}–{end}",
+      "editDetails": "Edit details",
+      "planSummary": "Up to {photos} photos · {gb} GB, original quality",
+      "upgrade": "Upgrade to Premium",
+      "publish": "Publish your event",
+      "publishBody": "Publishing opens the guest page and gets your QR code ready.",
+      "publishLocked": "Choose a plan first",
+      "publishing": "Publishing…"
     },
     "startLabel": "Starts",
     "endLabel": "Ends",
     "dateRangeError": "The end must be after the start, at most 24 hours later.",
     "timeLabel": "Time",
-    "done": "Done"
+    "done": "Done",
+    "live": {
+      "title": "Your event is live",
+      "body": "Put the QR code on the tables or send the link to your guests.",
+      "downloadQr": "Download QR",
+      "templates": "QR templates",
+      "allOptions": "All sharing options"
+    },
+    "print": {
+      "title": "QR templates",
+      "subtitle": "Pick a template, choose a colour and print. Sized for A4 paper.",
+      "back": "Back to sharing",
+      "templates": {
+        "cards": "Table cards",
+        "cardsHint": "4 cards on A4, cut and place on tables",
+        "tent": "Tent card",
+        "tentHint": "Fold A4 in half and it stands on its own",
+        "poster": "Poster",
+        "posterHint": "A4 poster for the entrance or photo corner"
+      },
+      "colorLabel": "Colour",
+      "colors": {
+        "terracotta": "Terracotta",
+        "midnight": "Midnight",
+        "sage": "Sage",
+        "blush": "Blush"
+      },
+      "headlineLabel": "Headline",
+      "headlineDefault": "Share your memories with us",
+      "subline": "Scan with your phone camera and upload your photos",
+      "steps": "SCAN · PICK · SEND",
+      "noApp": "No app or account needed",
+      "pinNote": "Tell your guests the PIN separately",
+      "printButton": "Print / save as PDF",
+      "printHint": "In the print dialog set margins to \"None\" and scale to 100%.",
+      "premiumTitle": "Templates are part of Premium",
+      "premiumBody": "On Standard you can download the QR code as PNG or SVG and use it yourself.",
+      "cutHint": "Cut along the dashed lines",
+      "foldHint": "Fold here"
+    }
   },
   "Guest": {
     "welcome": "Share your photos from {event}",

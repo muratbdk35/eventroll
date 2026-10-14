@@ -53,7 +53,7 @@ async function CreateMock() {
 
 async function ShareMock() {
   const [t, te] = await Promise.all([
-    getTranslations("Events.steps"),
+    getTranslations("Events.live"),
     getTranslations("Events"),
   ]);
   const svg = await QRCode.toString(publicEnv.appUrl, {
@@ -70,9 +70,9 @@ async function ShareMock() {
           dangerouslySetInnerHTML={{ __html: svg }}
         />
         <div className="min-w-0">
-          <p className="font-semibold">{t("share")}</p>
+          <p className="font-semibold">{t("title")}</p>
           <p className="text-[11px] leading-snug text-muted-foreground">
-            {t("shareBody")}
+            {t("body")}
           </p>
         </div>
       </div>

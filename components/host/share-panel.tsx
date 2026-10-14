@@ -1,6 +1,15 @@
 "use client";
 
-import { Check, Copy, Download, ExternalLink, Info, Lock } from "lucide-react";
+import {
+  Check,
+  ChevronRight,
+  Copy,
+  Download,
+  ExternalLink,
+  Info,
+  Lock,
+  Printer,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -11,18 +20,20 @@ export function SharePanel({
   eventName,
   link,
   hasPin,
-  hasPlan,
+  published,
   premium,
 }: {
   eventId: string;
   eventName: string;
   link: string;
   hasPin: boolean;
-  hasPlan: boolean;
+  published: boolean;
   premium: boolean;
 }) {
   const t = useTranslations("Events.share");
   const tSteps = useTranslations("Events.steps");
+  const tLive = useTranslations("Events.live");
+  const tPrint = useTranslations("Events.print");
   const [copied, setCopied] = useState(false);
   const qr = `/api/events/${eventId}/qr`;
 
@@ -36,8 +47,8 @@ export function SharePanel({
     }
   }
 
-  // No QR or link before a plan is active (the API refuses it too).
-  if (!hasPlan) {
+  // No QR or link before the event is published (the API refuses it too).
+  if (!published) {
     return (
       <section className="flex flex-col items-center rounded-3xl border border-border bg-card px-6 py-12 text-center shadow-sm">
         <span className="flex size-14 items-center justify-center rounded-full bg-accent text-primary">
@@ -47,18 +58,16 @@ export function SharePanel({
           {t("title")}
         </h2>
         <p className="mt-1 max-w-sm text-sm text-pretty text-muted-foreground">
-          {t("locked")}. {t("needsPlan")}
+          {t("locked")}
         </p>
         <Button asChild className="mt-5 h-10 rounded-full px-5">
-          <Link href={`/dashboard/events/${eventId}`}>{tSteps("plan")}</Link>
+          <Link href={`/dashboard/events/${eventId}`}>{tSteps("publish")}</Link>
         </Button>
       </section>
     );
   }
 
-  const notes = [hasPin && t("pinOn"), !premium && t("printPremium")].filter(
-    Boolean,
-  ) as string[];
+  const notes = [hasPin && t("pinOn")].filter(Boolean) as string[];
 
   return (
     <div className="space-y-4">
@@ -152,6 +161,25 @@ export function SharePanel({
           </div>
         </div>
       </section>
+
+      <Link
+        href={`/dashboard/events/${eventId}?view=print`}
+        className="group flex items-center gap-4 rounded-2xl border border-border bg-card p-4 shadow-sm transition-colors hover:border-primary/30 sm:p-5"
+      >
+        <span className="flex size-10 items-center justify-center rounded-full bg-accent text-primary">
+          <Printer className="size-5" aria-hidden />
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="block font-semibold">{tLive("templates")}</span>
+          <span className="block text-sm text-pretty text-muted-foreground">
+            {premium ? tPrint("subtitle") : t("printPremium")}
+          </span>
+        </span>
+        <ChevronRight
+          className="size-5 text-muted-foreground transition-transform group-hover:translate-x-0.5 rtl:rotate-180"
+          aria-hidden
+        />
+      </Link>
 
       <section className="rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-6">
         <h3 className="font-heading text-base font-semibold">

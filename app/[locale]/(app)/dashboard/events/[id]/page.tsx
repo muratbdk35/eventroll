@@ -6,9 +6,11 @@ import {
   setRequestLocale,
 } from "next-intl/server";
 import { EventIcon } from "@/components/host/event-icon";
+import { LiveShare } from "@/components/host/live-share";
 import { NextSteps } from "@/components/host/next-steps";
 import { BackLink, PageBody } from "@/components/host/page-header";
 import { PhotoGrid } from "@/components/host/photo-grid";
+import { PrintTemplates } from "@/components/host/print-templates";
 import { SettingsForm } from "@/components/host/settings-form";
 import { SharePanel } from "@/components/host/share-panel";
 import { StatusPill } from "@/components/host/status-pill";
@@ -27,7 +29,7 @@ import { presignGet } from "@/lib/storage";
 
 export const metadata: Metadata = { robots: { index: false } };
 
-type View = "main" | "share" | "settings";
+type View = "main" | "share" | "settings" | "print";
 
 export default async function EventPage({
   params,
@@ -44,7 +46,8 @@ export default async function EventPage({
 
   const sp = await searchParams;
   const raw = sp.view ?? sp.tab;
-  const view: View = raw === "share" || raw === "settings" ? raw : "main";
+  const view: View =
+    raw === "share" || raw === "settings" || raw === "print" ? raw : "main";
 
   const [t, format, stats, rows] = await Promise.all([
     getTranslations("Events"),
@@ -54,6 +57,8 @@ export default async function EventPage({
   ]);
   const link = guestUrl(event);
   const eventPath = `/dashboard/events/${event.id}`;
+  const published = event.status === "active";
+  const devMode = !isProduction && !env.STRIPE_SECRET_KEY;
   const date = (d: Date | string) =>
     format.dateTime(typeof d === "string" ? new Date(`${d}T12:00:00Z`) : d, {
       dateStyle: "long",
@@ -88,16 +93,48 @@ export default async function EventPage({
   if (view !== "main") {
     return (
       <PageBody>
-        <BackLink href={eventPath}>{t("backToEvent")}</BackLink>
+        <BackLink
+          href={view === "print" ? `${eventPath}?view=share` : eventPath}
+        >
+          {view === "print" ? t("print.back") : t("backToEvent")}
+        </BackLink>
         {header}
         <div className="mt-8">
-          {view === "share" ? (
+          {view === "print" ? (
+            published ? (
+              <>
+                <h2 className="font-heading text-xl font-semibold">
+                  {t("print.title")}
+                </h2>
+                <p className="mt-1 mb-6 text-sm text-muted-foreground">
+                  {t("print.subtitle")}
+                </p>
+                <PrintTemplates
+                  eventId={event.id}
+                  eventName={event.name}
+                  date={date(event.eventDate)}
+                  hasPin={Boolean(event.accessPinHash)}
+                  premium={event.plan === "premium"}
+                  devMode={devMode}
+                />
+              </>
+            ) : (
+              <SharePanel
+                eventId={event.id}
+                eventName={event.name}
+                link={link}
+                hasPin={Boolean(event.accessPinHash)}
+                published={false}
+                premium={event.plan === "premium"}
+              />
+            )
+          ) : view === "share" ? (
             <SharePanel
               eventId={event.id}
               eventName={event.name}
               link={link}
               hasPin={Boolean(event.accessPinHash)}
-              hasPlan={Boolean(event.plan)}
+              published={published}
               premium={event.plan === "premium"}
             />
           ) : (
@@ -144,13 +181,22 @@ export default async function EventPage({
       {header}
 
       <div className="mt-8">
-        <NextSteps
-          eventId={event.id}
-          plan={event.plan}
-          devMode={!isProduction && !env.STRIPE_SECRET_KEY}
-          link={link}
-          photoCount={stats.photos}
-        />
+        {published ? (
+          <LiveShare eventId={event.id} link={link} />
+        ) : (
+          <NextSteps
+            // Remount when the plan changes so the next step opens.
+            key={event.plan ?? "none"}
+            eventId={event.id}
+            plan={event.plan}
+            devMode={devMode}
+            when={{
+              date: date(event.eventDate),
+              startsAt: event.startsAt?.toISOString() ?? null,
+              endsAt: event.endsAt?.toISOString() ?? null,
+            }}
+          />
+        )}
       </div>
 
       <section className="mt-10">
@@ -174,7 +220,7 @@ export default async function EventPage({
             </a>
           </Button>
         </div>
-        <PhotoGrid eventId={event.id} photos={photos} />
+        <PhotoGrid eventId={event.id} photos={photos} published={published} />
       </section>
 
       <Link

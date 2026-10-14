@@ -53,9 +53,11 @@ const isWide = () => window.matchMedia(WIDE).matches;
 export function PhotoGrid({
   eventId,
   photos,
+  published,
 }: {
   eventId: string;
   photos: GridPhoto[];
+  published: boolean;
 }) {
   const t = useTranslations("Events.photos");
   const format = useFormatter();
@@ -121,12 +123,14 @@ export function PhotoGrid({
         <p className="mt-1.5 max-w-sm text-sm text-pretty text-muted-foreground">
           {t("emptyBody")}
         </p>
-        <Button asChild className="mt-5 h-10 rounded-full px-5">
-          <Link href={`/dashboard/events/${eventId}?view=share`}>
-            <QrCode aria-hidden />
-            {t("goShare")}
-          </Link>
-        </Button>
+        {published && (
+          <Button asChild className="mt-5 h-10 rounded-full px-5">
+            <Link href={`/dashboard/events/${eventId}?view=share`}>
+              <QrCode aria-hidden />
+              {t("goShare")}
+            </Link>
+          </Button>
+        )}
       </div>
     );
   }

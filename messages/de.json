@@ -33,7 +33,7 @@
     "title": "Deine Events",
     "greeting": "Hallo {name}",
     "emptyTitle": "Noch keine Events",
-    "emptyBody": "Erstelle ein Event, um deinen QR-Code zu bekommen. Gäste können hochladen, sobald du einen Tarif wählst.",
+    "emptyBody": "Erstelle dein erstes Event. Dein QR-Code ist bereit, sobald du einen Plan wählst und veröffentlichst.",
     "createEvent": "Event erstellen",
     "openEvent": "Öffnen",
     "subtitle": "Event erstellen, QR-Code teilen, jedes Foto in Originalqualität sammeln.",
@@ -98,7 +98,7 @@
       "subtitle": "Eingerichtet in der Zeit, die ein Kaffee braucht.",
       "create": {
         "title": "Event erstellen",
-        "body": "Gib einen Namen und ein Datum ein. QR-Code und Link sind sofort da."
+        "body": "Gib einen Namen und ein Datum ein. Nach Planwahl und Veröffentlichung ist dein QR-Code da."
       },
       "share": {
         "title": "QR-Code teilen",
@@ -225,7 +225,7 @@
         "original": "Originalqualität, nie komprimiert",
         "zip": "{days} Tage ZIP-Download"
       },
-      "howToPay": "Richte Event und QR-Code kostenlos ein. Wähle einen Plan, sobald deine Gäste hochladen sollen.",
+      "howToPay": "Richte dein Event kostenlos ein. Wähle einen Plan und veröffentliche, sobald deine Gäste hochladen sollen.",
       "footnote": "Preise in USD, an der Kasse in deiner Landeswährung angezeigt, inkl. MwSt.",
       "plans": {
         "standard": {
@@ -268,7 +268,7 @@
         },
         "payment": {
           "q": "Wann bezahle ich?",
-          "a": "Event erstellen und QR-Code erhalten ist kostenlos. Sobald deine Gäste hochladen sollen, wählst du Standard oder Premium und zahlst einmal. Kein Abo, nichts verlängert sich."
+          "a": "Ein Event zu erstellen ist kostenlos. Wenn du bereit bist, wählst du Standard oder Premium, zahlst einmal und veröffentlichst, dann ist dein QR-Code da. Kein Abo, nichts verlängert sich."
         },
         "quality": {
           "q": "Werden die Fotos komprimiert?",
@@ -322,7 +322,7 @@
   },
   "Events": {
     "newTitle": "Event erstellen",
-    "newSubtitle": "Dauert eine Minute. Den QR-Code bekommst du sofort; Gäste können hochladen, sobald du einen Tarif wählst.",
+    "newSubtitle": "Dauert eine Minute. Danach wählst du einen Plan und veröffentlichst, dann ist dein QR-Code da.",
     "nameLabel": "Name des Events",
     "namePlaceholder": "Hochzeit von Anna & Tom",
     "dateLabel": "Datum",
@@ -341,7 +341,7 @@
     "createError": "Das Event konnte nicht erstellt werden. Prüfe die Felder und versuche es erneut.",
     "back": "Alle Events",
     "status": {
-      "draft": "Wartet auf Tarif",
+      "draft": "Entwurf",
       "active": "Live",
       "expired": "Abgelaufen",
       "suspended": "Gesperrt",
@@ -401,7 +401,6 @@
       "png": "PNG herunterladen",
       "svg": "SVG herunterladen",
       "pinOn": "Gäste müssen die PIN eingeben.",
-      "needsPlan": "Bis du einen Tarif wählst, zeigt der Link eine „noch nicht geöffnet“-Seite.",
       "cardTitle": "Teile deine Fotos",
       "cardHint": "Mit der Handykamera scannen",
       "cardPin": "PIN erforderlich",
@@ -411,7 +410,7 @@
       "step3": "Sie landen in voller Qualität in deinem Album",
       "printPremium": "Druckbare Tischkarten und Poster sind in Premium enthalten.",
       "open": "Gästeseite öffnen",
-      "locked": "Wird nach der Tarifwahl freigeschaltet"
+      "locked": "Wird nach dem Veröffentlichen freigeschaltet"
     },
     "settings": {
       "general": "Allgemein",
@@ -451,13 +450,13 @@
     "guestsCount": "{count, plural, one {# Gast} other {# Gäste}}",
     "next": {
       "title": "So geht es weiter",
-      "one": "Dein QR-Code ist sofort fertig.",
+      "one": "Wähle einen Plan und veröffentliche, um deinen QR-Code zu bekommen.",
       "two": "Wähle einen Tarif, um Uploads zu öffnen.",
       "three": "Gäste scannen und teilen. Keine App, kein Konto."
     },
     "preview": "Vorschau der Gästeseite",
     "previewName": "Dein Event",
-    "newSubtitleShort": "Den QR-Code bekommst du sofort. Gäste können hochladen, sobald ein Tarif aktiv ist.",
+    "newSubtitleShort": "Dein QR-Code ist bereit, sobald du einen Plan wählst und veröffentlichst.",
     "cancel": "Abbrechen",
     "meta": "{type} · {date}",
     "shareQr": "QR teilen",
@@ -469,29 +468,66 @@
     "photosTitle": "Fotos",
     "deletesOnShort": "Wird am {date} gelöscht",
     "steps": {
-      "title": "Nächste Schritte",
       "create": "Event erstellen",
-      "createDone": "Erledigt",
-      "plan": "Tarif wählen",
-      "planBody": "Sobald ein Tarif aktiv ist, können Gäste hochladen.",
-      "planDone": "{plan} ist aktiv",
-      "share": "QR-Code teilen",
-      "shareBody": "Stell ihn auf die Tische oder schick den Link an deine Gäste.",
-      "downloadQr": "QR herunterladen",
-      "allOptions": "Alle Teilen-Optionen",
-      "collect": "Fotos sammeln",
-      "collectBody": "Fotos erscheinen unten, sobald Gäste sie hochladen.",
-      "collectDone": "{count, plural, one {Bisher # Foto} other {Bisher # Fotos}}",
-      "cardTitle": "Mach dein Event bereit",
-      "progress": "{done} / {total} erledigt",
-      "openGuestPage": "Gästeseite öffnen",
-      "shareLocked": "Wird nach der Tarifwahl freigeschaltet"
+      "createDone": "Event erstellt",
+      "plan": "Plan wählen",
+      "planBody": "Einmalzahlung, kein Abo. Nach der Planwahl veröffentlichst du das Event.",
+      "planDone": "{plan} gewählt",
+      "cardTitle": "Bereite dein Event vor",
+      "progress": "{done} von {total} erledigt",
+      "createBody": "{date} · {start}–{end}",
+      "editDetails": "Details bearbeiten",
+      "planSummary": "Bis zu {photos} Fotos · {gb} GB, Originalqualität",
+      "upgrade": "Auf Premium upgraden",
+      "publish": "Event veröffentlichen",
+      "publishBody": "Beim Veröffentlichen öffnet sich die Gästeseite und dein QR-Code ist bereit.",
+      "publishLocked": "Wähle zuerst einen Plan",
+      "publishing": "Wird veröffentlicht…"
     },
     "startLabel": "Beginn",
     "endLabel": "Ende",
     "dateRangeError": "Das Ende muss nach dem Beginn liegen, höchstens 24 Stunden später.",
     "timeLabel": "Uhrzeit",
-    "done": "Fertig"
+    "done": "Fertig",
+    "live": {
+      "title": "Dein Event ist live",
+      "body": "Stell den QR-Code auf die Tische oder schick den Link an deine Gäste.",
+      "downloadQr": "QR herunterladen",
+      "templates": "QR-Vorlagen",
+      "allOptions": "Alle Teilen-Optionen"
+    },
+    "print": {
+      "title": "QR-Vorlagen",
+      "subtitle": "Wähle eine Vorlage und Farbe und drucke sie aus. Für A4-Papier.",
+      "back": "Zurück zum Teilen",
+      "templates": {
+        "cards": "Tischkarten",
+        "cardsHint": "4 Karten auf A4, ausschneiden und aufstellen",
+        "tent": "Klappkarte",
+        "tentHint": "A4 in der Mitte falten, steht von allein",
+        "poster": "Poster",
+        "posterHint": "A4-Poster für Eingang oder Fotoecke"
+      },
+      "colorLabel": "Farbe",
+      "colors": {
+        "terracotta": "Terrakotta",
+        "midnight": "Nachtblau",
+        "sage": "Salbei",
+        "blush": "Rosé"
+      },
+      "headlineLabel": "Überschrift",
+      "headlineDefault": "Teilt eure Erinnerungen mit uns",
+      "subline": "Mit der Handykamera scannen und Fotos hochladen",
+      "steps": "SCANNEN · AUSWÄHLEN · SENDEN",
+      "noApp": "Keine App, kein Konto nötig",
+      "pinNote": "Sag deinen Gästen die PIN separat",
+      "printButton": "Drucken / als PDF sichern",
+      "printHint": "Im Druckdialog Ränder auf \"Keine\" und Skalierung auf 100 % stellen.",
+      "premiumTitle": "Vorlagen sind in Premium enthalten",
+      "premiumBody": "Mit Standard kannst du den QR-Code als PNG oder SVG laden und selbst verwenden.",
+      "cutHint": "Entlang der gestrichelten Linien schneiden",
+      "foldHint": "Hier falten"
+    }
   },
   "Guest": {
     "welcome": "Teile deine Fotos von {event}",

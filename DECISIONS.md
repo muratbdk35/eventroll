@@ -310,3 +310,28 @@ Not bugs / already planned: the send button stays enabled on purpose (pressing i
 explains what is missing; consent is enforced server-side); `localhost:3100` in
 the exported HTML is the dev value of `NEXT_PUBLIC_APP_URL`, not hard-coded; the
 album ZIP and printable table cards are phase 1C/1D work (#22, #23).
+
+## 31. Publish step and printable QR templates (owner decision, 2026-10-14)
+
+- Setup is three steps: create → choose plan → publish. Choosing a plan (dev
+  button now, Stripe in 1C) only records the plan; the event stays `draft`.
+  `publishEvent` turns a planned draft into `active`. No migration: the
+  `event_status` enum already had both values, and the guest page shows "not
+  open yet" for drafts (`getUploadState`).
+- The checklist only exists while the event is a draft. Every step opens, done
+  ones too (created: date and times plus "edit details"; plan: limits plus an
+  upgrade button in dev). The page re-keys the checklist on plan change so the
+  publish step opens instead of everything collapsing.
+- QR code and guest link appear only after publishing: the event page swaps the
+  checklist for a "your event is live" card (QR, download, templates, copy
+  link), and `/api/events/[id]/qr` answers 402 without a plan and 409 while a
+  draft. Supersedes the "locked until a plan" rule in #30.
+- Printable templates (`?view=print`, Premium per #22): 4 table cards on A4 with
+  cut guides, a fold-in-half tent card (top half upside down) and an A4 poster;
+  four palettes and an editable headline; no EventRoll branding (#21). Printing
+  uses the browser dialog (also "save as PDF"): the sheet is portalled under
+  `<body>` and print CSS hides everything else, with `@page` A4 and no margins.
+  The face is sized in container query units so one design fits all three. The
+  QR stays black on white for reliable scanning. Standard sees a blurred
+  preview with PNG/SVG downloads.
+- Marketing and dashboard copy no longer promise a free QR code right away.

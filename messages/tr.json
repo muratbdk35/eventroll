@@ -33,7 +33,7 @@
     "title": "Etkinliklerin",
     "greeting": "Merhaba {name}",
     "emptyTitle": "Henüz etkinlik yok",
-    "emptyBody": "QR kodunu almak için bir etkinlik oluştur. Plan seçince misafirler yüklemeye başlayabilir.",
+    "emptyBody": "İlk etkinliğini oluştur. Plan seçip yayınladığında QR kodun hazır olur.",
     "createEvent": "Etkinlik oluştur",
     "openEvent": "Aç",
     "subtitle": "Etkinlik oluştur, QR kodu paylaş, tüm fotoğrafları orijinal kalitede topla.",
@@ -225,7 +225,7 @@
         "original": "Orijinal kalite, asla sıkıştırılmaz",
         "zip": "{days} gün tam ZIP indirme"
       },
-      "howToPay": "Etkinliğini ve QR kodunu ücretsiz hazırla. Misafirler yüklemeye başlamadan önce planını seç.",
+      "howToPay": "Etkinliğini ücretsiz hazırla. Misafirler yüklemeye başlamadan önce planını seç ve yayınla.",
       "footnote": "Fiyatlar USD cinsindendir; ödeme sırasında yerel para biriminde, KDV dahil gösterilir.",
       "plans": {
         "standard": {
@@ -268,7 +268,7 @@
         },
         "payment": {
           "q": "Ödemeyi ne zaman yaparım?",
-          "a": "Etkinliğini oluşturmak ve QR kodunu almak ücretsiz. Misafirlerin yüklemeye başlamasına hazır olduğunda Standart ya da Premium'u seçip bir kez ödersin. Abonelik yok, hiçbir şey yenilenmez."
+          "a": "Etkinliğini oluşturmak ücretsiz. Hazır olduğunda Standard ya da Premium'u seçip bir kez ödersin, yayınlarsın ve QR kodun hazır olur. Abonelik yok, hiçbir şey yenilenmez."
         },
         "quality": {
           "q": "Fotoğraflar sıkıştırılıyor mu?",
@@ -322,7 +322,7 @@
   },
   "Events": {
     "newTitle": "Etkinliğini oluştur",
-    "newSubtitle": "Bir dakika sürer. QR kodun hemen hazır; plan seçince misafirler yükleyebilir.",
+    "newSubtitle": "Bir dakika sürer. Sonra plan seçip yayınlarsın, QR kodun hazır olur.",
     "nameLabel": "Etkinlik adı",
     "namePlaceholder": "Ayşe & Mehmet'in düğünü",
     "dateLabel": "Etkinlik tarihi",
@@ -341,7 +341,7 @@
     "createError": "Etkinlik oluşturulamadı. Alanları kontrol edip tekrar dene.",
     "back": "Tüm etkinlikler",
     "status": {
-      "draft": "Plan bekleniyor",
+      "draft": "Taslak",
       "active": "Yayında",
       "expired": "Süresi doldu",
       "suspended": "Askıya alındı",
@@ -360,7 +360,7 @@
     },
     "activate": {
       "title": "Yüklemeyi açmak için plan seç",
-      "body": "Plan aktif olur olmaz QR kodun çalışır. Tek ödeme, abonelik yok.",
+      "body": "Plan seçtikten sonra etkinliği yayınlarsın ve QR kodun hazır olur. Tek ödeme, abonelik yok.",
       "standard": "Standard · ${price}",
       "premium": "Premium · ${price}",
       "devNote": "Yerel geliştirme: ödeme henüz bağlı değil, bu buton planı ücretsiz aktifleştirir.",
@@ -401,7 +401,6 @@
       "png": "PNG indir",
       "svg": "SVG indir",
       "pinOn": "Misafirlerden PIN istenecek.",
-      "needsPlan": "Plan seçene kadar bağlantı \"henüz açık değil\" sayfası gösterir.",
       "cardTitle": "Fotoğraflarını paylaş",
       "cardHint": "Telefon kamerasıyla okut",
       "cardPin": "PIN gerekli",
@@ -411,7 +410,7 @@
       "step3": "Fotoğraflar tam kalitede albümüne düşer",
       "printPremium": "Yazdırılabilir masa kartları ve posterler Premium'a dahil.",
       "open": "Misafir sayfasını aç",
-      "locked": "Plan seçildikten sonra açılır"
+      "locked": "Etkinlik yayınlandıktan sonra açılır"
     },
     "settings": {
       "general": "Genel",
@@ -451,13 +450,13 @@
     "guestsCount": "{count, plural, one {# misafir} other {# misafir}}",
     "next": {
       "title": "Sonra ne olacak",
-      "one": "QR kodun hemen hazır olur.",
+      "one": "Plan seç ve yayınla, QR kodun hazır olsun.",
       "two": "Yüklemeyi açmak için plan seçersin.",
       "three": "Misafirler okutur ve paylaşır. Uygulama yok, hesap yok."
     },
     "preview": "Misafir sayfası önizlemesi",
     "previewName": "Etkinliğin",
-    "newSubtitleShort": "QR kodun hemen hazır olur. Plan aktif olunca misafirler yükleyebilir.",
+    "newSubtitleShort": "Plan seçip yayınladığında QR kodun hazır olur.",
     "cancel": "Vazgeç",
     "meta": "{type} · {date}",
     "shareQr": "QR paylaş",
@@ -469,29 +468,66 @@
     "photosTitle": "Fotoğraflar",
     "deletesOnShort": "{date} tarihinde silinir",
     "steps": {
-      "title": "Yapılacaklar",
       "create": "Etkinliği oluştur",
-      "createDone": "Tamam",
+      "createDone": "Etkinlik oluşturuldu",
       "plan": "Plan seç",
-      "planBody": "Plan aktif olur olmaz misafirler yüklemeye başlayabilir.",
-      "planDone": "{plan} aktif",
-      "share": "QR kodu paylaş",
-      "shareBody": "Masalara koy ya da bağlantıyı misafirlerine gönder.",
-      "downloadQr": "QR indir",
-      "allOptions": "Tüm paylaşım seçenekleri",
-      "collect": "Fotoğrafları topla",
-      "collectBody": "Misafirler yükledikçe fotoğraflar aşağıda görünür.",
-      "collectDone": "{count, plural, one {Şu ana kadar # fotoğraf} other {Şu ana kadar # fotoğraf}}",
+      "planBody": "Tek ödeme, abonelik yok. Planı seçtikten sonra etkinliği yayınlarsın.",
+      "planDone": "{plan} seçildi",
       "cardTitle": "Etkinliğini hazırla",
       "progress": "{done} / {total} tamamlandı",
-      "openGuestPage": "Misafir sayfasını aç",
-      "shareLocked": "Plan seçildikten sonra açılır"
+      "createBody": "{date} · {start}–{end}",
+      "editDetails": "Bilgileri düzenle",
+      "planSummary": "{photos} fotoğrafa kadar · {gb} GB, orijinal kalite",
+      "upgrade": "Premium'a yükselt",
+      "publish": "Etkinliği yayınla",
+      "publishBody": "Yayınladığında misafir sayfası açılır ve QR kodun hazır olur.",
+      "publishLocked": "Önce bir plan seç",
+      "publishing": "Yayınlanıyor…"
     },
     "startLabel": "Başlangıç",
     "endLabel": "Bitiş",
     "dateRangeError": "Bitiş, başlangıçtan sonra ve en fazla 24 saat içinde olmalı.",
     "timeLabel": "Saat",
-    "done": "Tamam"
+    "done": "Tamam",
+    "live": {
+      "title": "Etkinliğin yayında",
+      "body": "QR kodu masalara koy ya da bağlantıyı misafirlerine gönder.",
+      "downloadQr": "QR indir",
+      "templates": "QR şablonları",
+      "allOptions": "Tüm paylaşım seçenekleri"
+    },
+    "print": {
+      "title": "QR şablonları",
+      "subtitle": "Bir şablon seç, rengini ayarla ve yazdır. A4 kâğıda göre hazırlanmıştır.",
+      "back": "Paylaşıma dön",
+      "templates": {
+        "cards": "Masa kartı",
+        "cardsHint": "A4'te 4 kart, kesip masalara koy",
+        "tent": "Katlanır kart",
+        "tentHint": "A4'ü ortadan katla, masada kendi durur",
+        "poster": "Poster",
+        "posterHint": "Girişe ya da fotoğraf köşesine A4 poster"
+      },
+      "colorLabel": "Renk",
+      "colors": {
+        "terracotta": "Kiremit",
+        "midnight": "Gece",
+        "sage": "Adaçayı",
+        "blush": "Pudra"
+      },
+      "headlineLabel": "Başlık",
+      "headlineDefault": "Anılarını bizimle paylaş",
+      "subline": "Telefon kameranla okut, fotoğraflarını yükle",
+      "steps": "OKUT · SEÇ · GÖNDER",
+      "noApp": "Uygulama ya da üyelik gerekmez",
+      "pinNote": "PIN'i ayrıca misafirlerine söyle",
+      "printButton": "Yazdır / PDF kaydet",
+      "printHint": "Yazdırma penceresinde kenar boşluğu \"Yok\", ölçek %100 olsun.",
+      "premiumTitle": "Şablonlar Premium'a dahil",
+      "premiumBody": "Standard planda QR kodu PNG ya da SVG olarak indirip kendin kullanabilirsin.",
+      "cutHint": "Kesik çizgilerden kes",
+      "foldHint": "Ortadan katla"
+    }
   },
   "Guest": {
     "welcome": "{event} fotoğraflarını paylaş",

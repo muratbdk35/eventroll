@@ -1,33 +1,40 @@
 "use client";
 
 import {
+  ChevronRight,
   CircleCheck,
   CircleDashed,
-  ChevronRight,
-  Download,
-  ExternalLink,
+  Loader2,
   Lock,
+  Pencil,
+  Rocket,
+  Sparkles,
 } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useFormatter, useTranslations } from "next-intl";
+import { useState, useSyncExternalStore, useTransition } from "react";
 import { Button } from "@/components/ui/button";
-import { Link } from "@/lib/i18n/navigation";
-import type { PlanId } from "@/lib/plans";
+import { devActivate, publishEvent } from "@/lib/events/actions";
+import { Link, useRouter } from "@/lib/i18n/navigation";
+import { plans, type PlanId } from "@/lib/plans";
 import { cn } from "@/lib/utils";
 import { ActivatePlan } from "./activate-plan";
-import { CopyLinkButton } from "./copy-link-button";
 
 // Adapted from the 21st.dev "Onboarding Checklist" (ephraimduncan): circular
 // progress in the header, the open step on a tinted surface with its action,
-// the rest as single rows with a chevron.
+// the rest as single rows with a chevron. Only shown while the event is a
+// draft: create → plan → publish (DECISIONS #31). Every step can be opened,
+// done ones included.
 
 type Step = {
-  id: "create" | "plan" | "share" | "collect";
+  id: "create" | "plan" | "publish";
   title: string;
-  body?: string;
+  body: string;
   done: boolean;
   action?: React.ReactNode;
 };
+
+const GB = 1024 ** 3;
+const noop = () => () => {};
 
 function CircularProgress({ value }: { value: number }) {
   return (
@@ -61,110 +68,142 @@ export function NextSteps({
   eventId,
   plan,
   devMode,
-  link,
-  photoCount,
+  when,
 }: {
   eventId: string;
   plan: PlanId | null;
   devMode: boolean;
-  link: string;
-  photoCount: number;
+  /** Pre-formatted event date plus raw times for the "created" summary. */
+  when: { date: string; startsAt: string | null; endsAt: string | null };
 }) {
   const t = useTranslations("Events.steps");
+  const format = useFormatter();
+  // Times are shown in the host's own time zone, so only after mount (the
+  // server does not know it).
+  const hydrated = useSyncExternalStore(
+    noop,
+    () => true,
+    () => false,
+  );
+  const hm = (iso: string) =>
+    new Date(iso).toLocaleTimeString(undefined, {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  const clock =
+    hydrated && when.startsAt && when.endsAt
+      ? { start: hm(when.startsAt), end: hm(when.endsAt) }
+      : null;
+  const router = useRouter();
+  const [publishing, startPublish] = useTransition();
+  const [upgrading, startUpgrade] = useTransition();
   const planName = plan === "premium" ? "Premium" : "Standard";
 
-  const lockedShare = (
-    <p className="inline-flex items-center gap-2 rounded-full bg-muted px-3.5 py-2 text-sm text-muted-foreground">
-      <Lock className="size-3.5" aria-hidden />
-      {t("shareLocked")}
-    </p>
-  );
+  function publish() {
+    startPublish(async () => {
+      const res = await publishEvent(eventId);
+      if (res.ok) {
+        const confetti = (await import("canvas-confetti")).default;
+        if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          confetti({ particleCount: 90, spread: 70, origin: { y: 0.35 } });
+        }
+      }
+      router.refresh();
+    });
+  }
 
-  const shareActions = (
-    <div className="flex flex-wrap items-center gap-2">
-      <Button asChild className="h-9 rounded-full px-4">
-        <a href={`/api/events/${eventId}/qr?format=png&download`}>
-          <Download aria-hidden />
-          {t("downloadQr")}
-        </a>
-      </Button>
-      <CopyLinkButton link={link} className="h-9 rounded-full bg-card px-4" />
-      <Link
-        href={`/dashboard/events/${eventId}?view=share`}
-        className="inline-flex h-9 items-center gap-0.5 px-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-      >
-        {t("allOptions")}
-        <ChevronRight className="size-4 rtl:rotate-180" aria-hidden />
-      </Link>
-    </div>
-  );
+  function upgrade() {
+    startUpgrade(async () => {
+      await devActivate(eventId, "premium");
+      router.refresh();
+    });
+  }
 
   const steps: Step[] = [
-    { id: "create", title: t("create"), done: true },
     {
-      id: "plan",
-      title: plan ? t("planDone", { plan: planName }) : t("plan"),
-      body: plan ? undefined : t("planBody"),
-      done: Boolean(plan),
-      action: plan ? undefined : (
-        <ActivatePlan eventId={eventId} devMode={devMode} />
-      ),
-    },
-    {
-      id: "share",
-      title: t("share"),
-      body: t("shareBody"),
-      done: photoCount > 0,
-      action: plan ? shareActions : lockedShare,
-    },
-    {
-      id: "collect",
-      title: t("collect"),
-      body:
-        photoCount > 0
-          ? t("collectDone", { count: photoCount })
-          : t("collectBody"),
-      done: photoCount > 0,
+      id: "create",
+      title: t("createDone"),
+      body: clock ? t("createBody", { date: when.date, ...clock }) : when.date,
+      done: true,
       action: (
         <Button
           asChild
           variant="outline"
           className="h-9 rounded-full bg-card px-4"
         >
-          <a href={link} target="_blank" rel="noopener noreferrer">
-            <ExternalLink aria-hidden />
-            {t("openGuestPage")}
-          </a>
+          <Link href={`/dashboard/events/${eventId}?view=settings`}>
+            <Pencil aria-hidden />
+            {t("editDetails")}
+          </Link>
         </Button>
+      ),
+    },
+    plan
+      ? {
+          id: "plan",
+          title: t("planDone", { plan: planName }),
+          body: t("planSummary", {
+            photos: format.number(plans[plan].maxItems),
+            gb: plans[plan].maxBytes / GB,
+          }),
+          done: true,
+          action:
+            plan === "standard" && devMode ? (
+              <Button
+                variant="outline"
+                className="h-9 rounded-full bg-card px-4"
+                disabled={upgrading}
+                onClick={upgrade}
+              >
+                {upgrading ? (
+                  <Loader2 className="animate-spin" aria-hidden />
+                ) : (
+                  <Sparkles aria-hidden />
+                )}
+                {t("upgrade")}
+              </Button>
+            ) : undefined,
+        }
+      : {
+          id: "plan",
+          title: t("plan"),
+          body: t("planBody"),
+          done: false,
+          action: <ActivatePlan eventId={eventId} devMode={devMode} />,
+        },
+    {
+      id: "publish",
+      title: t("publish"),
+      body: t("publishBody"),
+      done: false,
+      action: plan ? (
+        <Button
+          className="h-10 rounded-full px-5 shadow-[0_10px_24px_-10px_var(--primary)]"
+          disabled={publishing}
+          onClick={publish}
+        >
+          {publishing ? (
+            <Loader2 className="animate-spin" aria-hidden />
+          ) : (
+            <Rocket aria-hidden />
+          )}
+          {publishing ? t("publishing") : t("publish")}
+        </Button>
+      ) : (
+        <p className="inline-flex items-center gap-2 rounded-full bg-muted px-3.5 py-2 text-sm text-muted-foreground">
+          <Lock className="size-3.5" aria-hidden />
+          {t("publishLocked")}
+        </p>
       ),
     },
   ];
 
   const doneCount = steps.filter((s) => s.done).length;
+  // The page re-keys this component when the plan changes, so after choosing
+  // a plan it remounts with the publish step open instead of collapsing.
   const [openId, setOpenId] = useState<Step["id"] | null>(
     () => steps.find((s) => !s.done)?.id ?? null,
   );
-
-  // Once everything is set up, the checklist shrinks to a share bar.
-  if (doneCount === steps.length) {
-    return (
-      <section className="flex flex-wrap items-center gap-x-4 gap-y-3 rounded-3xl border border-border bg-card p-4 shadow-sm sm:p-5">
-        {/* eslint-disable-next-line @next/next/no-img-element -- generated per event, authenticated */}
-        <img
-          src={`/api/events/${eventId}/qr?format=svg`}
-          alt=""
-          width={56}
-          height={56}
-          className="hidden size-14 rounded-xl border border-border bg-white p-1 sm:block"
-        />
-        <div className="min-w-[14rem] flex-1">
-          <p className="font-semibold">{t("share")}</p>
-          <p className="text-sm text-muted-foreground">{t("shareBody")}</p>
-        </div>
-        {shareActions}
-      </section>
-    );
-  }
 
   return (
     <section className="rounded-3xl border border-border bg-card p-3 shadow-sm sm:p-4">
@@ -172,10 +211,7 @@ export function NextSteps({
         <h2 className="font-heading text-lg font-semibold">{t("cardTitle")}</h2>
         <p className="flex items-center gap-2 text-sm text-muted-foreground">
           <CircularProgress value={doneCount / steps.length} />
-          {t("progress", {
-            done: doneCount,
-            total: steps.length,
-          })}
+          {t("progress", { done: doneCount, total: steps.length })}
         </p>
       </div>
 
@@ -221,15 +257,13 @@ export function NextSteps({
                   >
                     {step.title}
                   </span>
-                  {(step.body || step.action) && (
-                    <ChevronRight
-                      className={cn(
-                        "size-4 shrink-0 text-muted-foreground transition-transform duration-300 ease-out rtl:rotate-180",
-                        open && "rotate-90 rtl:rotate-90",
-                      )}
-                      aria-hidden
-                    />
-                  )}
+                  <ChevronRight
+                    className={cn(
+                      "size-4 shrink-0 text-muted-foreground transition-transform duration-300 ease-out rtl:rotate-180",
+                      open && "rotate-90 rtl:rotate-90",
+                    )}
+                    aria-hidden
+                  />
                 </button>
                 {/* Smooth height animation without measuring (grid rows 0fr → 1fr). */}
                 <div
@@ -238,13 +272,11 @@ export function NextSteps({
                     open ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
                   )}
                 >
-                  <div className="overflow-hidden">
+                  <div className="overflow-hidden" inert={!open}>
                     <div className="px-3 ps-11 pb-4">
-                      {step.body && (
-                        <p className="text-sm text-pretty text-muted-foreground">
-                          {step.body}
-                        </p>
-                      )}
+                      <p className="text-sm text-pretty text-muted-foreground">
+                        {step.body}
+                      </p>
                       {step.action && <div className="mt-3">{step.action}</div>}
                     </div>
                   </div>
