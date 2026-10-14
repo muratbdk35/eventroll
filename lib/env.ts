@@ -130,6 +130,18 @@ export function parseEnv(source: Record<string, string | undefined>): Env {
           message: "pglite is dev-only",
         });
       }
+      // QR codes and guest links are built from this: never localhost in prod.
+      const appUrl = new URL(env.NEXT_PUBLIC_APP_URL);
+      if (
+        appUrl.protocol !== "https:" ||
+        ["localhost", "127.0.0.1", "[::1]"].includes(appUrl.hostname)
+      ) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["NEXT_PUBLIC_APP_URL"],
+          message: "must be the public https URL in production",
+        });
+      }
       for (const key of requiredInProduction) {
         if (!env[key]) {
           ctx.addIssue({

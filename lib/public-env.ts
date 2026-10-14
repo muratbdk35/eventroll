@@ -5,5 +5,10 @@ export const publicEnv = {
   posthogKey: process.env.NEXT_PUBLIC_POSTHOG_KEY,
   posthogHost:
     process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://eu.i.posthog.com",
-  turnstileSiteKey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
+  // Outside production, falls back to Cloudflare's always-pass test site key.
+  turnstileSiteKey:
+    process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ||
+    (process.env.NODE_ENV === "production"
+      ? undefined
+      : "1x00000000000000000000AA"),
 } as const;

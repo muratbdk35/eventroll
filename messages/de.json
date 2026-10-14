@@ -11,7 +11,8 @@
     "dashboard": "Dashboard",
     "signOut": "Abmelden",
     "language": "Sprache",
-    "account": "Konto"
+    "account": "Konto",
+    "leaveWarning": "Beim Sprachwechsel gehen die ausgewählten Fotos verloren. Fortfahren?"
   },
   "Login": {
     "title": "Willkommen bei {appName}",
@@ -23,27 +24,56 @@
     "or": "oder",
     "google": "Weiter mit Google",
     "sentTitle": "Schau in dein Postfach",
-    "sentBody": "Wir haben einen Anmeldelink an {email} gesendet. Er ist 15 Minuten gültig.",
-    "useDifferentEmail": "Andere E-Mail verwenden",
+    "sentBody": "Wir haben einen Bestätigungslink an <b>{email}</b> geschickt. Sobald du ihn antippst, geht es hier von selbst weiter, auch wenn du die E-Mail auf dem Handy öffnest.",
     "error": "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
-    "legal": "Mit dem Fortfahren akzeptierst du unsere <terms>AGB</terms> und unsere <privacy>Datenschutzerklärung</privacy>."
+    "legal": "Mit dem Fortfahren akzeptierst du unsere <terms>AGB</terms> und unsere <privacy>Datenschutzerklärung</privacy>.",
+    "waiting": "Warte auf Bestätigung…",
+    "notReceived": "Keine E-Mail?",
+    "notReceivedHint": "Sieh im Spam- und Werbeordner nach. Kommt in einer Minute nichts, schick sie erneut.",
+    "resend": "Erneut senden",
+    "expiredTitle": "Der Link ist abgelaufen",
+    "expiredBody": "Zu deiner Sicherheit gelten Links 15 Minuten. Wir schicken dir einen neuen.",
+    "confirmed": {
+      "title": "E-Mail bestätigt",
+      "body": "Du bist als {email} angemeldet.",
+      "otherTab": "Der Tab oder Computer, der den Link angefordert hat, macht von selbst weiter. Du kannst diese Seite schließen.",
+      "continue": "Hier weitermachen",
+      "errorTitle": "Ungültiger Link",
+      "errorBody": "Dieser Link wurde vielleicht schon benutzt oder ist abgelaufen. Fordere einen neuen an.",
+      "tryAgain": "Neuen Link anfordern"
+    }
   },
   "Dashboard": {
     "title": "Deine Events",
     "greeting": "Hallo {name}",
     "emptyTitle": "Noch keine Events",
-    "emptyBody": "Erstelle ein Event, um deinen QR-Code zu erhalten. Gäste können sofort mit dem Hochladen beginnen.",
+    "emptyBody": "Erstelle dein erstes Event. Dein QR-Code ist bereit, sobald du einen Plan wählst und veröffentlichst.",
     "createEvent": "Event erstellen",
-    "comingSoon": "Kommt im nächsten Build"
+    "openEvent": "Öffnen",
+    "subtitle": "Event erstellen, QR-Code teilen, jedes Foto in Originalqualität sammeln.",
+    "newEventCard": "Neues Event",
+    "newEventCardBody": "QR-Code in einer Minute",
+    "step1": "Event erstellen",
+    "step2": "Tarif wählen",
+    "step3": "QR-Code teilen",
+    "listTitle": "Events",
+    "listSubtitle": "Alle Events, die du erstellt hast. Fotos bleiben bis 7 Tage nach dem Event gespeichert.",
+    "colEvent": "Event",
+    "colStatus": "Status",
+    "colPhotos": "Fotos",
+    "eventsTitle": "Deine Events"
   },
   "Email": {
     "magicLink": {
-      "subject": "Dein Anmeldelink für {appName}",
-      "preview": "Bei {appName} anmelden",
-      "heading": "Bei {appName} anmelden",
-      "body": "Tippe auf den Button, um dich anzumelden. Der Link funktioniert einmal und ist 15 Minuten gültig.",
-      "button": "Anmelden",
-      "ignore": "Wenn du diese E-Mail nicht angefordert hast, kannst du sie ignorieren."
+      "subject": "Dein {appName}-Bestätigungslink",
+      "preview": "Bestätige deine E-Mail und mach dort weiter, wo du warst",
+      "heading": "✨ Bestätige deine E-Mail",
+      "body": "Hallo! Tipp auf den Button, um deine E-Mail zu bestätigen und dort weiterzumachen, wo du warst.",
+      "button": "E-Mail bestätigen",
+      "validity": "Der Link gilt 15 Minuten und nur einmal.",
+      "fallback": "Funktioniert der Button nicht, kopiere diesen Link in deinen Browser:",
+      "ignore": "Wenn du das nicht angefordert hast, ignoriere diese E-Mail einfach; an deinem Konto ändert sich nichts.",
+      "footer": "Alle Fotos deines Events an einem Ort."
     }
   },
   "Landing": {
@@ -85,7 +115,7 @@
       "subtitle": "Eingerichtet in der Zeit, die ein Kaffee braucht.",
       "create": {
         "title": "Event erstellen",
-        "body": "Gib einen Namen und ein Datum ein. QR-Code und Link sind sofort da."
+        "body": "Richte dein Event ein, wähle einen Plan und veröffentliche. Ein kurzer Ablauf, ein paar Minuten."
       },
       "share": {
         "title": "QR-Code teilen",
@@ -94,18 +124,6 @@
       "collect": {
         "title": "Erinnerungen sammeln",
         "body": "Gäste scannen und laden hoch. Du siehst jedes Foto sofort und lädst alles mit einem Klick herunter."
-      },
-      "mock": {
-        "name": "Eventname",
-        "date": "Datum",
-        "dateValue": "14. Juni 2026",
-        "type": "Art",
-        "typeValue": "Hochzeit",
-        "create": "Event erstellen",
-        "shareTitle": "Dein QR-Code",
-        "copy": "Link kopieren",
-        "photosLabel": "Fotos",
-        "zip": "ZIP herunterladen"
       }
     },
     "features": {
@@ -120,20 +138,11 @@
       },
       "private": {
         "title": "Standardmäßig privat",
-        "body": "Nur du siehst die Fotos. Gäste sehen nur ihre eigenen Uploads, nichts ist öffentlich oder wird indexiert.",
-        "mock": {
-          "link": "Gäste-Link",
-          "visibility": "Wer sieht die Fotos",
-          "onlyYou": "Nur du"
-        }
+        "body": "Nur du siehst die Fotos. Gäste sehen nur ihre eigenen Uploads, nichts ist öffentlich oder wird indexiert."
       },
       "originals": {
         "title": "Originale in voller Qualität",
-        "body": "Lade alles als ZIP herunter: Originalauflösung, keine Komprimierung, keine Wasserzeichen.",
-        "mock": {
-          "resolution": "Auflösung",
-          "file": "Datei"
-        }
+        "body": "Lade alles als ZIP herunter: Originalauflösung, keine Komprimierung, keine Wasserzeichen."
       },
       "print": {
         "title": "Druckfertige QR-Karten",
@@ -145,21 +154,11 @@
       },
       "guests": {
         "title": "Jeder Gast kann mitmachen",
-        "body": "Keine Begrenzung bei Gästen. Alle auf deinem Event können Fotos hinzufügen; dein Plan bestimmt nur die Gesamtgröße des Albums.",
-        "mock": {
-          "guests": "Gäste",
-          "limit": "Gästelimit",
-          "none": "Keins"
-        }
+        "body": "Keine Begrenzung bei Gästen. Alle auf deinem Event können Fotos hinzufügen; dein Plan bestimmt nur die Gesamtgröße des Albums."
       },
       "control": {
         "title": "Du behältst die Kontrolle",
-        "body": "Schütze Uploads mit einer PIN, lege fest, wann Uploads möglich sind, und begrenze, wie viele Fotos jedes Handy hinzufügen kann.",
-        "mock": {
-          "pin": "PIN-Schutz",
-          "hours": "Upload-Zeiten",
-          "limit": "Fotos pro Handy"
-        }
+        "body": "Schütze Uploads mit einer PIN, lege fest, wann Uploads möglich sind, und begrenze, wie viele Fotos jedes Handy hinzufügen kann."
       }
     },
     "eventTypes": {
@@ -208,7 +207,7 @@
         "original": "Originalqualität, nie komprimiert",
         "zip": "{days} Tage ZIP-Download"
       },
-      "howToPay": "Richte Event und QR-Code kostenlos ein. Wähle einen Plan, sobald deine Gäste hochladen sollen.",
+      "howToPay": "Richte dein Event kostenlos ein. Wähle einen Plan und veröffentliche, sobald deine Gäste hochladen sollen.",
       "footnote": "Preise in USD, an der Kasse in deiner Landeswährung angezeigt, inkl. MwSt.",
       "plans": {
         "standard": {
@@ -251,7 +250,7 @@
         },
         "payment": {
           "q": "Wann bezahle ich?",
-          "a": "Event erstellen und QR-Code erhalten ist kostenlos. Sobald deine Gäste hochladen sollen, wählst du Standard oder Premium und zahlst einmal. Kein Abo, nichts verlängert sich."
+          "a": "Ein Event zu erstellen ist kostenlos. Wenn du bereit bist, wählst du Standard oder Premium, zahlst einmal und veröffentlichst, dann ist dein QR-Code da. Kein Abo, nichts verlängert sich."
         },
         "quality": {
           "q": "Werden die Fotos komprimiert?",
@@ -302,5 +301,372 @@
   "Legal": {
     "draft": "ENTWURF: Dieser Text wird vor dem Start anwaltlich geprüft.",
     "englishOnly": "Derzeit nur auf Englisch verfügbar."
+  },
+  "Events": {
+    "newTitle": "Event erstellen",
+    "newSubtitle": "Dauert eine Minute. Danach wählst du einen Plan und veröffentlichst, dann ist dein QR-Code da.",
+    "nameLabel": "Name des Events",
+    "namePlaceholder": "Hochzeit von Anna & Tom",
+    "dateLabel": "Datum",
+    "typeLabel": "Art des Events",
+    "types": {
+      "wedding": "Hochzeit",
+      "birthday": "Geburtstag",
+      "corporate": "Firmenfeier",
+      "baby_shower": "Babyparty",
+      "graduation": "Abschluss",
+      "party": "Party",
+      "other": "Sonstiges"
+    },
+    "create": "Event erstellen",
+    "creating": "Wird erstellt…",
+    "createError": "Das Event konnte nicht erstellt werden. Prüfe die Felder und versuche es erneut.",
+    "back": "Alle Events",
+    "status": {
+      "draft": "Entwurf",
+      "active": "Live",
+      "expired": "Abgelaufen",
+      "suspended": "Gesperrt",
+      "deleted": "Gelöscht"
+    },
+    "photoCount": "{count, plural, one {# Foto} other {# Fotos}}",
+    "tabs": {
+      "overview": "Fotos",
+      "share": "Teilen",
+      "settings": "Einstellungen"
+    },
+    "stats": {
+      "photos": "Fotos",
+      "guests": "Gäste",
+      "deletesOn": "Löschung am"
+    },
+    "activate": {
+      "title": "Tarif wählen, um Uploads zu öffnen",
+      "body": "Dein QR-Code funktioniert, sobald ein Tarif aktiv ist. Einmalzahlung, kein Abo.",
+      "standard": "Standard · ${price}",
+      "premium": "Premium · ${price}",
+      "devNote": "Lokale Entwicklung: Die Bezahlung ist noch nicht angebunden, daher aktiviert dies den Tarif kostenlos.",
+      "choose": "{plan} wählen",
+      "best": "Bestes Angebot",
+      "oneTime": "einmalig",
+      "photos": "Bis zu {count} Fotos",
+      "storage": "{gb} GB, Originalqualität",
+      "qr": "QR-Code und Gäste-Link",
+      "print": "Druckbare Tischkarten und Poster",
+      "taglinePremium": "Für große Feiern",
+      "taglineStandard": "Für kleinere Treffen"
+    },
+    "photos": {
+      "empty": "Noch keine Fotos. Sie erscheinen hier, sobald Gäste hochladen.",
+      "delete": "Foto löschen",
+      "block": "Alle von diesem Handy löschen und sperren",
+      "deleteConfirm": "Dieses Foto endgültig löschen?",
+      "blockConfirm": "Alle Fotos von diesem Handy löschen und das Handy am Hochladen hindern?",
+      "failed": "Das hat nicht geklappt. Versuche es erneut.",
+      "emptyTitle": "Noch keine Fotos",
+      "emptyBody": "Teile deinen QR-Code. Fotos erscheinen hier, sobald Gäste sie hochladen.",
+      "goShare": "QR-Code teilen",
+      "by": "von {name}",
+      "anonymous": "Gast",
+      "close": "Schließen",
+      "open": "Foto öffnen",
+      "download": "Herunterladen",
+      "prev": "Zurück",
+      "next": "Weiter"
+    },
+    "share": {
+      "title": "Dein QR-Code",
+      "hint": "Gäste scannen ihn mit der Kamera. Keine App, kein Konto.",
+      "linkLabel": "Gäste-Link",
+      "copy": "Link kopieren",
+      "copied": "Link kopiert",
+      "png": "PNG herunterladen",
+      "svg": "SVG herunterladen",
+      "pinOn": "Gäste müssen die PIN eingeben.",
+      "cardTitle": "Teile deine Fotos",
+      "cardHint": "Mit der Handykamera scannen",
+      "cardPin": "PIN erforderlich",
+      "stepsTitle": "So machen Gäste mit",
+      "step1": "QR-Code mit der Kamera scannen",
+      "step2": "Fotos aus der Galerie auswählen",
+      "step3": "Sie landen in voller Qualität in deinem Album",
+      "printPremium": "Druckbare Tischkarten und Poster sind in Premium enthalten.",
+      "open": "Gästeseite öffnen",
+      "locked": "Wird nach dem Veröffentlichen freigeschaltet"
+    },
+    "settings": {
+      "general": "Allgemein",
+      "requireName": "Gäste nach ihrem Namen fragen",
+      "access": "Zugang",
+      "pinLabel": "PIN",
+      "pinHint": "4–8 Ziffern. Drucke sie auf die Karte, damit nur Gäste deines Events hochladen können.",
+      "pinSet": "Eine PIN ist gesetzt. Gib eine neue ein, um sie zu ändern.",
+      "pinRemove": "PIN entfernen",
+      "hours": "Upload-Zeiten",
+      "opens": "Beginnt",
+      "closes": "Endet",
+      "hoursHint": "Gäste können nur in diesem Zeitraum hochladen.",
+      "perPhone": "Fotos pro Handy",
+      "perPhoneHint": "Jedes Handy kann höchstens so viele Fotos hochladen.",
+      "save": "Änderungen speichern",
+      "saving": "Wird gespeichert…",
+      "saved": "Gespeichert",
+      "error": "Speichern fehlgeschlagen. Prüfe die Werte und versuche es erneut.",
+      "danger": "Event löschen",
+      "dangerBody": "Löscht das Event und alle Fotos endgültig. Das kann nicht rückgängig gemacht werden.",
+      "deleteConfirm": "Dieses Event und alle Fotos endgültig löschen?",
+      "delete": "Event löschen",
+      "requireNameHint": "Wird in deinem Album neben jedem Foto angezeigt.",
+      "pinToggle": "Mit PIN schützen",
+      "hoursToggle": "Upload-Zeiten begrenzen",
+      "perPhoneToggle": "Fotos pro Handy begrenzen",
+      "unsaved": "Ungespeicherte Änderungen",
+      "discard": "Verwerfen",
+      "when": "Datum & Uhrzeit",
+      "pinFormat": "Gib 4 bis 8 Ziffern ein.",
+      "hoursError": "Das Upload-Fenster muss nach dem Öffnen schließen (auch nach Mitternacht)."
+    },
+    "openGuest": "Gästeseite",
+    "copyLink": "Link kopieren",
+    "linkCopied": "Link kopiert",
+    "guestsCount": "{count, plural, one {# Gast} other {# Gäste}}",
+    "next": {
+      "title": "So geht es weiter",
+      "one": "Wähle einen Plan und veröffentliche, um deinen QR-Code zu bekommen.",
+      "two": "Wähle einen Tarif, um Uploads zu öffnen.",
+      "three": "Gäste scannen und teilen. Keine App, kein Konto."
+    },
+    "preview": "Vorschau der Gästeseite",
+    "previewName": "Dein Event",
+    "newSubtitleShort": "Dein QR-Code ist bereit, sobald du einen Plan wählst und veröffentlichst.",
+    "cancel": "Abbrechen",
+    "meta": "{type} · {date}",
+    "shareQr": "QR teilen",
+    "closedTitle": "Uploads sind geschlossen",
+    "closedBody": "Wähle einen Tarif, um Uploads zu öffnen. Einmalzahlung, kein Abo.",
+    "uploadsBy": "Hochgeladen von",
+    "allPhotos": "{count, plural, one {# Foto} other {# Fotos}}",
+    "backToEvent": "Zurück zum Event",
+    "photosTitle": "Fotos",
+    "deletesOnShort": "Wird am {date} gelöscht",
+    "steps": {
+      "create": "Event erstellen",
+      "createDone": "Event erstellt",
+      "plan": "Plan wählen",
+      "planBody": "Einmalzahlung, kein Abo. Nach der Planwahl veröffentlichst du das Event.",
+      "planDone": "{plan} gewählt",
+      "cardTitle": "Bereite dein Event vor",
+      "progress": "{done} von {total} erledigt",
+      "createBody": "{date} · {start}–{end}",
+      "editDetails": "Details bearbeiten",
+      "planSummary": "Bis zu {photos} Fotos · {gb} GB, Originalqualität",
+      "upgrade": "Auf Premium upgraden",
+      "publish": "Event veröffentlichen",
+      "publishBody": "Beim Veröffentlichen öffnet sich die Gästeseite und dein QR-Code ist bereit.",
+      "publishLocked": "Wähle zuerst einen Plan",
+      "publishing": "Wird veröffentlicht…"
+    },
+    "startLabel": "Beginn",
+    "endLabel": "Ende",
+    "dateRangeError": "Das Ende muss nach dem Beginn liegen, höchstens 24 Stunden später.",
+    "timeLabel": "Uhrzeit",
+    "done": "Fertig",
+    "live": {
+      "title": "Dein Event ist live",
+      "body": "Stell den QR-Code auf die Tische oder schick den Link an deine Gäste.",
+      "downloadQr": "QR herunterladen",
+      "templates": "QR-Vorlagen",
+      "allOptions": "Alle Teilen-Optionen"
+    },
+    "print": {
+      "title": "QR-Vorlagen",
+      "subtitle": "Wähle eine Vorlage und Farbe und drucke sie aus. Für A4-Papier.",
+      "back": "Zurück zum Teilen",
+      "templates": {
+        "cards": "Tischkarten",
+        "cardsHint": "4 Karten auf A4, ausschneiden und aufstellen",
+        "tent": "Klappkarte",
+        "tentHint": "A4 in der Mitte falten, steht von allein",
+        "poster": "Poster",
+        "posterHint": "A4-Poster für Eingang oder Fotoecke"
+      },
+      "colorLabel": "Farbe",
+      "colors": {
+        "terracotta": "Terrakotta",
+        "midnight": "Nachtblau",
+        "sage": "Salbei",
+        "blush": "Rosé"
+      },
+      "headlineLabel": "Überschrift",
+      "headlineDefault": "Teilt eure Erinnerungen mit uns",
+      "subline": "Mit der Handykamera scannen und Fotos hochladen",
+      "steps": "SCANNEN · AUSWÄHLEN · SENDEN",
+      "noApp": "Keine App, kein Konto nötig",
+      "printButton": "Drucken / als PDF sichern",
+      "printHint": "Im Druckdialog Ränder auf \"Keine\" und Skalierung auf 100 % stellen.",
+      "premiumTitle": "Vorlagen sind in Premium enthalten",
+      "premiumBody": "Mit Standard kannst du den QR-Code als PNG oder SVG laden und selbst verwenden.",
+      "cutHint": "Entlang der gestrichelten Linien schneiden",
+      "foldHint": "Hier falten",
+      "showPin": "PIN auf der Karte zeigen",
+      "showPinHint": "Ist es aus, sagst du den Gästen die PIN selbst.",
+      "showPinResave": "Um sie zu zeigen, speichere die PIN in den Einstellungen noch einmal."
+    },
+    "backToReview": "Zurück zur Übersicht"
+  },
+  "Guest": {
+    "welcome": "Teile deine Fotos von {event}",
+    "welcomeSub": "Deine Fotos gehen direkt an die Gastgeber. Nur sie können sie sehen.",
+    "privacy": "Nur die Gastgeber sehen, was du hochlädst. Wir zeigen deine Fotos nie anderen Gästen.",
+    "pinTitle": "Event-PIN eingeben",
+    "pinLabel": "PIN",
+    "pinWrong": "Die PIN stimmt nicht.",
+    "pinTooMany": "Zu viele Versuche. Warte ein paar Minuten.",
+    "continue": "Weiter",
+    "yourName": "Dein Name",
+    "yourNameOptional": "Dein Name (optional)",
+    "choose": "Fotos hinzufügen",
+    "chooseMore": "Weitere Fotos hinzufügen",
+    "uploading": "Lade {done} von {total} hoch…",
+    "done": "{count, plural, one {# Foto gesendet} other {# Fotos gesendet}}. Danke!",
+    "yourUploads": "Deine Uploads",
+    "retry": "Erneut versuchen",
+    "failed": "Fehlgeschlagen",
+    "tooBig": "Datei ist zu groß",
+    "badType": "Nur Fotos",
+    "limitReached": "Du hast das Limit von {count} Fotos für dieses Handy erreicht.",
+    "verifying": "Prüfe, ob du ein Mensch bist…",
+    "verifyFailed": "Überprüfung fehlgeschlagen. Lade die Seite neu und versuche es erneut.",
+    "state": {
+      "needs_plan": {
+        "title": "Uploads sind noch nicht offen",
+        "body": "Die Gastgeber haben das Album noch nicht geöffnet. Schau bald wieder vorbei."
+      },
+      "not_open_yet": {
+        "title": "Uploads öffnen später",
+        "body": "Die Gastgeber haben Upload-Zeiten festgelegt. Komm wieder, wenn es losgeht."
+      },
+      "closed": {
+        "title": "Uploads sind geschlossen",
+        "body": "Das Upload-Fenster für dieses Event ist vorbei."
+      },
+      "expired": {
+        "title": "Dieses Album ist beendet",
+        "body": "Die Fotos dieses Events wurden gelöscht."
+      },
+      "unavailable": {
+        "title": "Nicht verfügbar",
+        "body": "Dieses Event ist nicht verfügbar."
+      },
+      "blocked": {
+        "title": "Uploads für dieses Handy aus",
+        "body": "Die Gastgeber haben Uploads von diesem Gerät deaktiviert."
+      }
+    },
+    "notFoundTitle": "Event nicht gefunden",
+    "notFoundBody": "Prüfe den Link oder QR-Code und versuche es erneut.",
+    "dropHint": "oder Fotos hierher ziehen",
+    "formats": "JPG, PNG, HEIC · Originalqualität",
+    "pinSubtitle": "Du findest sie auf der Karte an deinem Tisch.",
+    "for": "Fotos für",
+    "heroTitle": "Hinterlasse eine Erinnerung",
+    "heroHint": "Wähle Fotos aus deiner Galerie oder mach gleich eins",
+    "selected": "{count, plural, one {# Foto bereit} other {# Fotos bereit}}",
+    "send": "{count, plural, one {# Foto senden} other {# Fotos senden}}",
+    "sending": "Sende {done} von {total}…",
+    "consent": "Ich akzeptiere die <terms>Nutzungsbedingungen</terms> und die <privacy>Datenschutzerklärung</privacy> und darf diese Fotos teilen.",
+    "consentNeeded": "Bitte bestätige das Kästchen.",
+    "nameNeeded": "Bitte gib zuerst deinen Namen ein.",
+    "remove": "Entfernen",
+    "clear": "Leeren",
+    "thanksTitle": "Danke!",
+    "thanksBody": "{count, plural, one {Du hast den Gastgebern # Erinnerung hinterlassen.} other {Du hast den Gastgebern # Erinnerungen hinterlassen.}}"
+  },
+  "App": {
+    "events": "Events",
+    "newEvent": "Neues Event",
+    "yourEvents": "Deine Events",
+    "menu": "Menü",
+    "closeMenu": "Menü schließen",
+    "home": "Website"
+  },
+  "Create": {
+    "metaTitle": "Event erstellen",
+    "stepOf": "Schritt {n} von {total}",
+    "exit": "Schließen",
+    "back": "Zurück",
+    "steps": {
+      "details": "Event",
+      "plan": "Plan",
+      "account": "Konto",
+      "pay": "Zahlung",
+      "review": "Veröffentlichen"
+    },
+    "details": {
+      "title": "Erzähl uns von deinem Event",
+      "subtitle": "Richte jetzt alles ein; vor dem Veröffentlichen kannst du es noch ändern.",
+      "nameRequired": "Gib deinem Event einen Namen.",
+      "guestSettings": "Gäste-Einstellungen",
+      "guestSettingsHint": "Optional. Ist alles aus, scannen Gäste den QR-Code und laden sofort hoch.",
+      "next": "Plan wählen"
+    },
+    "plan": {
+      "title": "Wähle deinen Plan",
+      "subtitle": "Einmalzahlung, kein Abo. Beide Pläne enthalten alles; sie unterscheiden sich in Kapazität und Druckvorlagen.",
+      "choose": "Weiter mit {plan}",
+      "yourPick": "Deine Wahl",
+      "hint": "Die Zahlung folgt im nächsten Schritt"
+    },
+    "account": {
+      "title": "Erstelle dein Konto",
+      "subtitle": "Lass uns dein Event speichern. Mit Google per Klick oder mit einem Link an deine E-Mail.",
+      "saved": "Deine Angaben bleiben in diesem Browser und werden nach der Anmeldung in deinem Konto gespeichert.",
+      "signedInAs": "Angemeldet als",
+      "continue": "Mit diesem Konto weiter",
+      "switch": "Anderes Konto verwenden"
+    },
+    "pay": {
+      "title": "Zahlung",
+      "subtitle": "Eine Einmalzahlung. Danach prüfst du alles noch einmal und veröffentlichst.",
+      "saving": "Dein Event wird in deinem Konto gespeichert…",
+      "draftMissing": "In diesem Browser ist kein Event gespeichert. Hast du den Link auf einem anderen Gerät geöffnet, gib die Angaben bitte erneut ein.",
+      "saveFailed": "Dein Event konnte nicht gespeichert werden. Prüfe die Angaben und versuch es noch einmal.",
+      "backToDetails": "Zurück zu den Event-Angaben",
+      "event": "Event",
+      "plan": "{plan}-Plan",
+      "includes": "{photos} Fotos · {gb} GB · {days} Tage ZIP",
+      "tax": "MwSt.",
+      "taxValue": "wird an der Kasse berechnet",
+      "total": "Gesamt",
+      "button": "{price} bezahlen",
+      "secure": "Sichere Zahlung mit Stripe",
+      "devNote": "Lokale Entwicklung: Zahlungen sind noch nicht angebunden, dieser Button aktiviert den Plan kostenlos.",
+      "changePlan": "Plan ändern"
+    },
+    "review": {
+      "title": "Letzte Prüfung",
+      "subtitle": "Zahlung erhalten. Stimmt alles, veröffentliche; sonst bearbeite es vorher.",
+      "event": "Event",
+      "plan": "Plan",
+      "planName": "Plan",
+      "paid": "bezahlt",
+      "capacity": "Kapazität",
+      "on": "An",
+      "off": "Aus",
+      "edit": "Bearbeiten",
+      "upgrade": "Auf Premium upgraden",
+      "publishHint": "Beim Veröffentlichen öffnet sich die Gästeseite und dein QR-Code ist bereit. Einstellungen kannst du auch danach ändern.",
+      "publish": "Event veröffentlichen",
+      "publishing": "Wird veröffentlicht…",
+      "publishFailed": "Veröffentlichen fehlgeschlagen. Bitte erneut versuchen."
+    },
+    "resume": {
+      "titlePlan": "Einrichtung abschließen",
+      "bodyPlan": "Wähle einen Plan und bezahle, dann kannst du dein Event veröffentlichen.",
+      "ctaPlan": "Plan wählen",
+      "titlePublish": "Bereit zum Veröffentlichen",
+      "bodyPublish": "Zahlung erhalten. Prüfe alles noch einmal und veröffentliche.",
+      "ctaPublish": "Prüfen und veröffentlichen"
+    }
   }
 }

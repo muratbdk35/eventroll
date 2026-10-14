@@ -26,6 +26,14 @@ export function LocaleSwitcher() {
         disabled={pending}
         onChange={(e) => {
           const next = e.target.value as Locale;
+          // Guest page: picked-but-unsent photos would be lost on navigation.
+          if (
+            document.documentElement.dataset.pendingPhotos &&
+            !window.confirm(t("leaveWarning"))
+          ) {
+            e.target.value = locale;
+            return;
+          }
           startTransition(() => router.replace(pathname, { locale: next }));
         }}
         className="h-9 rounded-lg border border-input bg-background px-2 text-sm"

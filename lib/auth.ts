@@ -2,12 +2,13 @@ import "server-only";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
-import { magicLink } from "better-auth/plugins";
+import { captcha, magicLink } from "better-auth/plugins";
 import { headers } from "next/headers";
 import { db } from "@/lib/db";
 import * as schema from "@/lib/db/schema";
 import { sendMagicLinkEmail } from "@/lib/email/magic-link";
 import { env } from "@/lib/env";
+import { turnstileSecret } from "@/lib/turnstile";
 
 const google =
   env.GOOGLE_CLIENT_ID && env.GOOGLE_CLIENT_SECRET
@@ -37,6 +38,12 @@ export const auth = betterAuth({
     accountLinking: { enabled: true, trustedProviders: ["google"] },
   },
   plugins: [
+    // Bot protection on owner sign-up/sign-in (the magic link creates accounts).
+    captcha({
+      provider: "cloudflare-turnstile",
+      secretKey: turnstileSecret() ?? "",
+      endpoints: ["/sign-in/magic-link"],
+    }),
     magicLink({
       expiresIn: 60 * 15,
       sendMagicLink: async ({ email, url, metadata }) => {

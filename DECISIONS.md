@@ -168,7 +168,7 @@ the lawyer. Bracketed placeholders (company data etc.) must be filled before lau
 - No plan shows EventRoll branding on guest pages or printed templates; Premium
   differs only by capacity and custom template colours. Slideshow, guestbook,
   priority support are dropped from the offer.
-- Logo: "ER" monogram (`components/brand/logo.tsx`, `app/icon.svg`).
+- Logo: tilted photo-frame mark supplied by the owner (2026-10-14), traced to SVG (`components/brand/logo.tsx`, `app/icon.svg`, source in `public/brand/`).
 
 ## 22. Print templates are Premium-only; marketing mocks are a build contract (2026-10-12)
 
@@ -182,6 +182,216 @@ distinct devices, ZIP download), guest page (own uploads only, privacy line, suc
 toast), printed card with optional PIN line.
 
 ## 23. "Album ready" email with a download button (owner decision, 2026-10-12)
+
 The ZIP is never attached (albums are GBs). When the event ends, the host gets an
 email with a one-click button to the signed-in download page, where the ZIP is
 built in the browser. Reminders 3 days and 1 day before deletion.
+
+## 24. Phase 1B implementation notes (2026-10-13)
+
+- **Dev fallbacks:** without R2 keys, uploads go to `.dev-storage/` via `/api/dev-storage`
+  (404 in production); Turnstile uses Cloudflare's always-pass test keys outside
+  production; rate limiting is in-memory without Upstash.
+- **Upload pipeline:** `presign` (verified guest cookie, upload state, per-phone cap,
+  plan capacity), then a direct PUT, then `confirm` (HEAD size check, atomic counter bump
+  in a transaction). The client also uploads a 480px JPEG thumbnail; browsers that can't
+  decode HEIC skip it. Abandoned `pending` rows need a cleanup cron (phase 1C/1D).
+- **Guest device cookie:** `erg_<event>` = `deviceId.verifiedAt.hmac`; the proof (Turnstile
+  and PIN) lasts 12 h, the device id 1 year. PIN attempts are rate limited per IP and event.
+- **Host tools:** delete photo, "delete all from this phone and block it"
+  (`events.blocked_device_ids`, migration 0001), PIN set/remove, upload hours, per-phone cap.
+- **Owner sign-up Turnstile:** Better Auth `captcha` plugin on `/sign-in/magic-link`.
+  Google sign-in is not captcha-gated (the provider already vets accounts).
+- **Plan activation is a dev-only button** until Stripe checkout (1C). It refuses to run in
+  production or when `STRIPE_SECRET_KEY` is set.
+- **Not in 1B:** ZIP download, printable templates, reminder emails, admin (1C/1D).
+- _Open:_ a batch that exceeds the per-phone cap is rejected as a whole instead of
+  accepting the files that still fit.
+- _Deploy:_ migration `0001_blocked_devices` must be applied to the Neon database
+  (`drizzle-kit migrate` with the unpooled URL) before deploying this code.
+
+## 25. `next dev` uses the Neon `dev` branch, not PGlite (2026-10-13)
+
+Next 16 renders routes in several processes under `next dev`. PGlite is a
+single-process database, so each process opened its own copy of `.pglite`: data
+written in one route was missing in another, and the files could be corrupted
+("Failed query: CREATE SCHEMA drizzle"). A failed connection was also cached, so
+one error broke every page until a restart. Now:
+
+- Local development points `DATABASE_URL` at the Neon branch `dev` (branched from
+  `production`, migrations applied). Production data is never touched.
+- PGlite stays for tests and builds (`pglite:memory`). A PGlite directory under
+  `next dev` throws a clear error instead of corrupting silently.
+- A failed DB connection is no longer cached.
+- The demo login (`/api/dev-login`) is enabled only under `next dev`.
+
+## 26. Guest page: "leave a memory", not "upload a file" (owner brief, 2026-10-14)
+
+Design language: modern, calm but alive (Apple Photos / Partiful / Luma quality).
+
+- Main action is a fanned stack of polaroids with a shutter button (springy press),
+  never a dashed drop box. Picking photos is always allowed; the name is a soft pill
+  and only checked when sending (if the host requires it).
+- Photos are **not** sent on pick: they drop into a tray as tilted polaroids and
+  are sent with an explicit "Send N photos" button in a frosted bar.
+- **Consent:** sending requires an unticked-by-default checkbox ("I accept the
+  Terms and Privacy Policy and may share these photos"). The API rejects uploads
+  without it (`consent: true`) and stores `media.guest_consent_at`. This is a
+  click-wrap record, not a signed contract; the legal texts are still drafts (#20)
+  and need a lawyer before launch.
+- Per-photo progress ring (XHR upload progress), springy check on success, a
+  thank-you state, ambient glows, grain texture and frosted glass. All motion is
+  CSS and turned off for `prefers-reduced-motion`.
+- Cover: the host's own cover (`events.cover_key`) when set, otherwise the stock
+  photo for the event type. Host-side cover upload is still to do.
+- Dev note: Turbopack's persistent cache served a stale `app/globals.css` (hand-
+  written rules missing while Tailwind utilities updated). If CSS changes don't
+  show up, stop `next dev` and delete `.next/dev`. Restart `next dev` after
+  schema migrations too (the cached DB client keeps the old shape).
+- The guest page no longer lists photos sent in earlier visits (owner decision).
+
+## 27. Host dashboard in the guest page's language (2026-10-14)
+
+- Same ambient glows, grain and frosted surfaces as the guest page; glassy top bar.
+- Event list: each card shows a fanned polaroid stack of the newest photos
+  (`latestPhotoKeys`); empty events show blank prints with the type icon.
+- "Get your event ready" checklist adapted from the 21st.dev Onboarding Checklist
+  (ephraimduncan): circular progress, the open step on a tinted surface with its
+  action, the rest as rows; it collapses to a share bar once photos arrive.
+- Photos adapted from the 21st.dev Masonry Lightbox (ayushmxxn): masonry at the
+  photos' real proportions, blur-in entrance, hover caption, shared-element spring
+  into the viewer. Adds `framer-motion` (host pages only).
+
+## 28. Free component sources besides 21st.dev (2026-10-14)
+
+21st.dev's free tier allows 2 code fetches a day; most of its catalogue comes from
+free (mostly MIT) shadcn-style registries we can use directly: Magic UI, React
+Bits, Motion Primitives, Aceternity (free items only), Origin UI, shadcn/ui.
+Vendored files keep a source line at the top.
+
+- Guest deck: React Bits `Stack` (`components/ui/stack.tsx`, swipe/fling pile),
+  import switched to `framer-motion`; React Compiler ref rules are disabled for
+  that file only (motion values live in refs by design).
+- Confetti on a finished send: `canvas-confetti` in brand colours, the Magic UI
+  pattern; off for reduced motion.
+- Date & time: shadcn/ui Calendar + Popover (`react-day-picker`, `date-fns`
+  locales) in `components/ui/date-time-field.tsx`; used for start/end in the
+  create form and in settings (which can now change the event times).
+
+## 29. Events last at most 24 hours; plan cards (owner decision, 2026-10-14)
+
+- `MAX_EVENT_HOURS = 24` (was 14 days), enforced by the schema. The pickers only
+  offer days up to start + 24 h, a later end snaps to that limit, and moving the
+  start keeps the end valid (`lib/events/times.ts`).
+- Plan choice is two pricing cards with their own buttons: Premium is the dark,
+  featured card (glow + Magic UI Border Beam, `components/ui/border-beam.tsx`),
+  Standard the light one.
+
+## 30. Review fixes (external review via Gemini, 2026-10-14)
+
+Fixed:
+
+- Settings: a typed PIN must be 4–8 digits even when one is already set (inline
+  hint, save disabled); upload hours use the date-time field, start from the
+  event's times, and show an error unless they close after they open (a window
+  can run past midnight because both values carry a date).
+- QR and guest link are locked until a plan is active: checklist and Share view
+  show "unlocks after you choose a plan", and `/api/events/[id]/qr` answers 402.
+- Guest page: tapping the deck opens the picker (a swipe still flips cards); the
+  remove button has a 44 px hit area; sending without consent shakes the box
+  (the API already rejected it); switching language with unsent photos asks
+  first, and leaving the page warns; floating bars respect the iPhone safe area.
+- Photos are distributed into columns round-robin, so the newest fill the top
+  row left to right.
+- Production refuses a localhost or non-https `NEXT_PUBLIC_APP_URL` (guest links
+  and QR codes are built from it).
+
+Not bugs / already planned: the send button stays enabled on purpose (pressing it
+explains what is missing; consent is enforced server-side); `localhost:3100` in
+the exported HTML is the dev value of `NEXT_PUBLIC_APP_URL`, not hard-coded; the
+album ZIP and printable table cards are phase 1C/1D work (#22, #23).
+
+## 31. Publish step and printable QR templates (owner decision, 2026-10-14)
+
+- Setup is three steps: create → choose plan → publish. Choosing a plan (dev
+  button now, Stripe in 1C) only records the plan; the event stays `draft`.
+  `publishEvent` turns a planned draft into `active`. No migration: the
+  `event_status` enum already had both values, and the guest page shows "not
+  open yet" for drafts (`getUploadState`).
+- The checklist only exists while the event is a draft. Every step opens, done
+  ones too (created: date and times plus "edit details"; plan: limits plus an
+  upgrade button in dev). The page re-keys the checklist on plan change so the
+  publish step opens instead of everything collapsing.
+- QR code and guest link appear only after publishing: the event page swaps the
+  checklist for a "your event is live" card (QR, download, templates, copy
+  link), and `/api/events/[id]/qr` answers 402 without a plan and 409 while a
+  draft. Supersedes the "locked until a plan" rule in #30.
+- Printable templates (`?view=print`, Premium per #22): 4 table cards on A4 with
+  cut guides, a fold-in-half tent card (top half upside down) and an A4 poster;
+  four palettes and an editable headline; no EventRoll branding (#21). Printing
+  uses the browser dialog (also "save as PDF"): the sheet is portalled under
+  `<body>` and print CSS hides everything else, with `@page` A4 and no margins.
+  The face is sized in container query units so one design fits all three. The
+  QR stays black on white for reliable scanning. Standard sees a blurred
+  preview with PNG/SVG downloads.
+- Marketing and dashboard copy no longer promise a free QR code right away.
+
+## 32. One create flow from the landing receipts to publish (owner decision, 2026-10-14)
+
+- `/[locale]/create` is the only way to make an event, in five steps: event
+  (name, type, times and every guest setting) → plan (paywall) → account →
+  payment → final check & publish. The landing receipts and "New event" lead
+  here; `/dashboard/new` redirects. Supersedes the checklist of #31.
+- Signed-out hosts get the first two steps without an account. The draft lives
+  in this browser (localStorage `eventroll:draft`); after sign-in (email link,
+  Google, or the dev login with a safe `next` path) `createEventFromDraft` saves
+  event and settings at once and clears it. A magic link opened on another
+  device has no draft; the host is told to re-enter the details.
+- The chosen plan travels in the URL (`plan=`), not in the database, until
+  payment. Payment calls `devActivate` locally; Stripe Checkout replaces it in
+  1C. The final check summarises the saved event with "Edit" links to settings
+  (which lead back to the review), then `publishEvent` and the event page.
+- A draft event's page shows a "finish setup" card that resumes the flow (plan
+  step if unpaid, review if paid).
+- Components, all from the 21st.dev catalogue as the owner asked: the paywall
+  reuses the landing "Receipt Tiers" receipts (Spectrum UI, Apache-2.0), now
+  shared in `components/billing` so both look identical; the shell follows
+  "Multi-Step Setup Wizard"; the account step "Sign Up 2" (Tailark Veil); the
+  payment summary "Checkout Summary". The Google button is always shown and
+  stays disabled until `GOOGLE_CLIENT_ID/SECRET` exist.
+
+## 33. Landing visuals are the real app components (owner request, 2026-10-14)
+
+- "How it works", the features bento and the hero no longer draw mock copies.
+  They render the real components, inert and scaled down with CSS `zoom`
+  (`components/marketing/app-previews.tsx`, `AppPreview`): the create-flow card
+  (`FlowCard`, `TypeChips`, `DateTimeField`), the "your event is live" card
+  (`LiveShare` with an inline QR), the dashboard `EventCard`, the share view's
+  `GuestLinkField`, the real `PhotoGrid`, the settings `Row` + `Switch`, and a
+  printed table card from the templates (`Face`). Changing the app changes the
+  landing; the old mock helpers and `qr-card.tsx` are gone.
+- To make that possible these were extracted and shared with the app:
+  `EventCard` (dashboard), `GuestLinkField` (share view), `FlowCard` and
+  `TypeChips` (create flow); `LiveShare` accepts `qrSvg`; `Face` is exported.
+- The create flow always shows the account step; a signed-in host sees who they
+  are with "continue" or "use another account", so nobody pays from the wrong
+  account.
+
+## 34. Cross-device email confirmation, PIN on QR cards, branded email (owner request, 2026-10-14)
+
+- The email link no longer drops people into payment. It opens
+  `/[locale]/auth/confirmed` ("Email confirmed"), and the tab that asked for the
+  link continues by itself, even when the email is opened on another device:
+  the asking tab opens a login request (`/api/login-request`, stored in Better
+  Auth's `verification` table, 15 minutes), the confirmed page approves it for
+  the signed-in email, and the waiting tab polls and receives a one-time
+  magic-link URL of its own (`lib/login-requests.ts`). The waiting screen
+  follows the 21st.dev "Auth Verify Email" card plus the "Push Approval"
+  waiting pill. Local dev now uses Cloudflare's always-pass Turnstile site key.
+- The PIN is also stored readable (`events.access_pin`, migration 0003; the
+  hash still does the checking) so the print templates can show it. Hosts
+  choose with "Show the PIN on the card"; PINs set before 0003 need one
+  re-save. The host-facing "tell guests the PIN" note is gone from the card.
+- The sign-in email is restyled from the React Email "Raycast magic link"
+  template (MIT): logo PNG (`public/brand/email-logo.png`), one headline, one
+  pill button, the plain link as fallback, a quiet footer.

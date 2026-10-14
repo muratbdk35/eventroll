@@ -81,7 +81,11 @@ export const events = pgTable(
     slug: text().notNull().unique(),
     name: text().notNull(),
     type: eventType().notNull().default("other"),
+    // Local calendar date of the start (kept for display and older rows).
     eventDate: date({ mode: "string" }).notNull(),
+    // Required for new events (create form); null only on rows made before.
+    startsAt: timestamp(tz),
+    endsAt: timestamp(tz),
     locale: text().notNull().default("en"),
     plan: plan(),
     status: eventStatus().notNull().default("draft"),
@@ -93,7 +97,15 @@ export const events = pgTable(
     // Guest access controls (DECISIONS #21): optional PIN, upload window above,
     // and a per-device photo cap (null = unlimited).
     accessPinHash: text(),
+    /** The PIN itself, so it can be printed on the QR cards (DECISIONS #34).
+     *  Guests are told it anyway; checks still use the hash. */
+    accessPin: text(),
     maxUploadsPerDevice: integer(),
+    // Devices the host blocked from uploading (media.device_id values).
+    blockedDeviceIds: text()
+      .array()
+      .notNull()
+      .default(sql`'{}'::text[]`),
     coverKey: text(),
     storageBytes: bigint({ mode: "number" }).notNull().default(0),
     mediaCount: integer().notNull().default(0),
@@ -127,6 +139,8 @@ export const media = pgTable(
     // Event-scoped random device id from the signed guest cookie.
     deviceId: text(),
     uploaderFingerprint: text(),
+    // When the guest ticked "I accept the terms / I may share these photos".
+    guestConsentAt: timestamp(tz),
     status: mediaStatus().notNull().default("pending"),
     createdAt: createdAt(),
   },

@@ -4,6 +4,7 @@ import { LogoMark } from "@/components/brand/logo";
 import { SiteHeader } from "@/components/site-header";
 import { Card, CardContent } from "@/components/ui/card";
 import { getSession, googleAuthEnabled } from "@/lib/auth";
+import { devLoginEnabled } from "@/lib/dev";
 import { Link, redirect } from "@/lib/i18n/navigation";
 import type { Locale } from "@/lib/i18n/routing";
 import { publicEnv } from "@/lib/public-env";
@@ -40,6 +41,15 @@ export default async function LoginPage({
               </p>
             </div>
             <LoginForm googleEnabled={googleAuthEnabled} />
+            {devLoginEnabled && (
+              // DEV ONLY: hidden unless running locally on PGlite.
+              <a
+                href={`/api/dev-login?locale=${locale}`}
+                className="rounded-lg border border-dashed border-border px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground"
+              >
+                Dev: continue as demo host
+              </a>
+            )}
             <p className="text-center text-xs text-pretty text-muted-foreground">
               {t.rich("legal", {
                 terms: (chunks) => (

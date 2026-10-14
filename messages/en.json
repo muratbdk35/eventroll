@@ -8,7 +8,8 @@
     "dashboard": "Dashboard",
     "signOut": "Sign out",
     "language": "Language",
-    "account": "Account"
+    "account": "Account",
+    "leaveWarning": "Changing the language clears the photos you picked. Continue?"
   },
   "Login": {
     "title": "Welcome to {appName}",
@@ -20,27 +21,56 @@
     "or": "or",
     "google": "Continue with Google",
     "sentTitle": "Check your inbox",
-    "sentBody": "We sent a sign-in link to {email}. It expires in 15 minutes.",
-    "useDifferentEmail": "Use a different email",
+    "sentBody": "We sent a confirmation link to <b>{email}</b>. Once you tap it, this page carries on by itself, even if you open the email on your phone.",
     "error": "Something went wrong. Please try again.",
-    "legal": "By continuing you agree to our <terms>Terms</terms> and <privacy>Privacy Policy</privacy>."
+    "legal": "By continuing you agree to our <terms>Terms</terms> and <privacy>Privacy Policy</privacy>.",
+    "waiting": "Waiting for confirmation…",
+    "notReceived": "No email?",
+    "notReceivedHint": "Check your spam and promotions folders. If nothing arrives within a minute, send it again.",
+    "resend": "Send again",
+    "expiredTitle": "The link expired",
+    "expiredBody": "For your security links are valid for 15 minutes. Let's send a new one.",
+    "confirmed": {
+      "title": "Email confirmed",
+      "body": "You're signed in as {email}.",
+      "otherTab": "The tab or computer that asked for the link is carrying on by itself. You can close this page.",
+      "continue": "Continue here",
+      "errorTitle": "Invalid link",
+      "errorBody": "This link may have been used already or expired. Ask for a new one.",
+      "tryAgain": "Get a new link"
+    }
   },
   "Dashboard": {
     "title": "Your events",
     "greeting": "Hi {name}",
     "emptyTitle": "No events yet",
-    "emptyBody": "Create an event to get your QR code. Guests can start uploading right away.",
+    "emptyBody": "Create your first event. Your QR code is ready once you pick a plan and publish.",
     "createEvent": "Create event",
-    "comingSoon": "Coming in the next build"
+    "openEvent": "Open",
+    "subtitle": "Create an event, share the QR code, collect every photo in original quality.",
+    "newEventCard": "New event",
+    "newEventCardBody": "QR code in a minute",
+    "step1": "Create your event",
+    "step2": "Pick a plan",
+    "step3": "Share the QR code",
+    "listTitle": "Events",
+    "listSubtitle": "Every event you've created. Photos are kept until 7 days after the event.",
+    "colEvent": "Event",
+    "colStatus": "Status",
+    "colPhotos": "Photos",
+    "eventsTitle": "Your events"
   },
   "Email": {
     "magicLink": {
-      "subject": "Your {appName} sign-in link",
-      "preview": "Sign in to {appName}",
-      "heading": "Sign in to {appName}",
-      "body": "Tap the button below to sign in. The link works once and expires in 15 minutes.",
-      "button": "Sign in",
-      "ignore": "If you didn't request this email, you can safely ignore it."
+      "subject": "Your {appName} confirmation link",
+      "preview": "Confirm your email and pick up where you left off",
+      "heading": "✨ Confirm your email",
+      "body": "Hi! Tap the button below to confirm your email and continue where you left off.",
+      "button": "Confirm my email",
+      "validity": "The link is valid for 15 minutes and works once.",
+      "fallback": "If the button doesn't work, paste this link into your browser:",
+      "ignore": "If you didn't ask for this, you can ignore this email; nothing changes on your account.",
+      "footer": "Every photo from your event, in one place."
     }
   },
   "Landing": {
@@ -82,7 +112,7 @@
       "subtitle": "Set it up in the time it takes to make a coffee.",
       "create": {
         "title": "Create your event",
-        "body": "Give it a name and a date. You get a QR code and a link instantly."
+        "body": "Set up your event, pick a plan and publish. One short flow, a few minutes."
       },
       "share": {
         "title": "Share the QR code",
@@ -91,18 +121,6 @@
       "collect": {
         "title": "Watch the memories arrive",
         "body": "Guests scan and upload. You see every photo as it arrives and download them all in one click."
-      },
-      "mock": {
-        "name": "Event name",
-        "date": "Date",
-        "dateValue": "14 June 2026",
-        "type": "Type",
-        "typeValue": "Wedding",
-        "create": "Create event",
-        "shareTitle": "Your QR code",
-        "copy": "Copy link",
-        "photosLabel": "Photos",
-        "zip": "Download ZIP"
       }
     },
     "features": {
@@ -117,20 +135,11 @@
       },
       "private": {
         "title": "Private by default",
-        "body": "Only you can see the photos. Guests see just their own uploads, and nothing is ever public or indexed.",
-        "mock": {
-          "link": "Guest link",
-          "visibility": "Who can see photos",
-          "onlyYou": "Only you"
-        }
+        "body": "Only you can see the photos. Guests see just their own uploads, and nothing is ever public or indexed."
       },
       "originals": {
         "title": "Full-quality originals",
-        "body": "Download everything as a ZIP: original resolution, no compression, no watermarks.",
-        "mock": {
-          "resolution": "Resolution",
-          "file": "File"
-        }
+        "body": "Download everything as a ZIP: original resolution, no compression, no watermarks."
       },
       "print": {
         "title": "Print-ready QR cards",
@@ -142,21 +151,11 @@
       },
       "guests": {
         "title": "Every guest can join",
-        "body": "No limit on guests. Everyone at your event can add their photos; your plan only sets the total album size.",
-        "mock": {
-          "guests": "Guests",
-          "limit": "Guest limit",
-          "none": "None"
-        }
+        "body": "No limit on guests. Everyone at your event can add their photos; your plan only sets the total album size."
       },
       "control": {
         "title": "You stay in control",
-        "body": "Protect uploads with a PIN, set when uploads open and close, and cap how many photos each phone can add.",
-        "mock": {
-          "pin": "PIN protection",
-          "hours": "Upload hours",
-          "limit": "Photos per phone"
-        }
+        "body": "Protect uploads with a PIN, set when uploads open and close, and cap how many photos each phone can add."
       }
     },
     "eventTypes": {
@@ -205,7 +204,7 @@
         "original": "Original quality, never compressed",
         "zip": "{days}-day full ZIP download"
       },
-      "howToPay": "Set up your event and QR code for free. Pick a plan when you're ready for guests to upload.",
+      "howToPay": "Set up your event for free. Pick a plan and publish when you're ready for guests to upload.",
       "footnote": "Prices in USD, shown in your local currency at checkout, VAT included.",
       "plans": {
         "standard": {
@@ -248,7 +247,7 @@
         },
         "payment": {
           "q": "When do I pay?",
-          "a": "Creating your event and getting your QR code is free. When you're ready for guests to start uploading, you choose Standard or Premium and pay once. No subscription, nothing renews."
+          "a": "Creating your event is free. When you're ready, you choose Standard or Premium, pay once and publish, and your QR code is ready. No subscription, nothing renews."
         },
         "quality": {
           "q": "Are the photos compressed?",
@@ -299,5 +298,372 @@
   "Legal": {
     "draft": "DRAFT: this text will be reviewed by a lawyer before launch.",
     "englishOnly": ""
+  },
+  "Events": {
+    "newTitle": "Create your event",
+    "newSubtitle": "Takes a minute. Then pick a plan and publish to get your QR code.",
+    "nameLabel": "Event name",
+    "namePlaceholder": "Anna & Tom's wedding",
+    "dateLabel": "Event date",
+    "typeLabel": "Event type",
+    "types": {
+      "wedding": "Wedding",
+      "birthday": "Birthday",
+      "corporate": "Corporate",
+      "baby_shower": "Baby shower",
+      "graduation": "Graduation",
+      "party": "Party",
+      "other": "Other"
+    },
+    "create": "Create event",
+    "creating": "Creating…",
+    "createError": "Couldn't create the event. Check the fields and try again.",
+    "back": "All events",
+    "status": {
+      "draft": "Draft",
+      "active": "Live",
+      "expired": "Expired",
+      "suspended": "Suspended",
+      "deleted": "Deleted"
+    },
+    "photoCount": "{count, plural, one {# photo} other {# photos}}",
+    "tabs": {
+      "overview": "Photos",
+      "share": "Share",
+      "settings": "Settings"
+    },
+    "stats": {
+      "photos": "Photos",
+      "guests": "Guests",
+      "deletesOn": "Deleted on"
+    },
+    "activate": {
+      "title": "Choose a plan to open uploads",
+      "body": "After choosing a plan you publish the event and your QR code is ready. One payment, no subscription.",
+      "standard": "Standard · ${price}",
+      "premium": "Premium · ${price}",
+      "devNote": "Local development: checkout isn't connected yet, so this activates the plan for free.",
+      "choose": "Choose {plan}",
+      "best": "Best value",
+      "oneTime": "one-time",
+      "photos": "Up to {count} photos",
+      "storage": "{gb} GB, original quality",
+      "qr": "QR code and guest link",
+      "print": "Printable table cards and posters",
+      "taglinePremium": "For big celebrations",
+      "taglineStandard": "For smaller gatherings"
+    },
+    "photos": {
+      "empty": "No photos yet. They show up here as guests upload.",
+      "delete": "Delete photo",
+      "block": "Delete all from this phone and block it",
+      "deleteConfirm": "Delete this photo permanently?",
+      "blockConfirm": "Delete every photo from this phone and block it from uploading?",
+      "failed": "That didn't work. Try again.",
+      "emptyTitle": "No photos yet",
+      "emptyBody": "Share your QR code. Photos appear here the moment guests upload them.",
+      "goShare": "Share QR code",
+      "by": "by {name}",
+      "anonymous": "Guest",
+      "close": "Close",
+      "open": "Open photo",
+      "download": "Download",
+      "prev": "Previous",
+      "next": "Next"
+    },
+    "share": {
+      "title": "Your QR code",
+      "hint": "Guests scan it with their camera. No app, no account.",
+      "linkLabel": "Guest link",
+      "copy": "Copy link",
+      "copied": "Link copied",
+      "png": "Download PNG",
+      "svg": "Download SVG",
+      "pinOn": "Guests will be asked for the PIN.",
+      "cardTitle": "Share your photos",
+      "cardHint": "Scan with your phone camera",
+      "cardPin": "PIN required",
+      "stepsTitle": "How guests join",
+      "step1": "Scan the QR code with the camera",
+      "step2": "Pick photos from the gallery",
+      "step3": "They land in your album, in full quality",
+      "printPremium": "Printable table cards and posters are included with Premium.",
+      "open": "Open guest page",
+      "locked": "Unlocks once the event is published"
+    },
+    "settings": {
+      "general": "General",
+      "requireName": "Ask guests for their name",
+      "access": "Access",
+      "pinLabel": "PIN",
+      "pinHint": "4–8 digits. Print it on the card so only guests at your event can upload.",
+      "pinSet": "A PIN is set. Enter a new one to change it.",
+      "pinRemove": "Remove PIN",
+      "hours": "Upload hours",
+      "opens": "Opens",
+      "closes": "Closes",
+      "hoursHint": "Guests can upload only between these times.",
+      "perPhone": "Photos per phone",
+      "perPhoneHint": "Each phone can upload at most this many photos.",
+      "save": "Save changes",
+      "saving": "Saving…",
+      "saved": "Saved",
+      "error": "Couldn't save. Check the values and try again.",
+      "danger": "Delete event",
+      "dangerBody": "Permanently deletes the event and every photo. This can't be undone.",
+      "deleteConfirm": "Delete this event and all its photos for good?",
+      "delete": "Delete event",
+      "requireNameHint": "Shown next to each photo in your album.",
+      "pinToggle": "Protect with a PIN",
+      "hoursToggle": "Limit upload hours",
+      "perPhoneToggle": "Limit photos per phone",
+      "unsaved": "You have unsaved changes",
+      "discard": "Discard",
+      "when": "Date & time",
+      "pinFormat": "Enter 4 to 8 digits.",
+      "hoursError": "The upload window must close after it opens (it can run past midnight)."
+    },
+    "openGuest": "Guest page",
+    "copyLink": "Copy link",
+    "linkCopied": "Link copied",
+    "guestsCount": "{count, plural, one {# guest} other {# guests}}",
+    "next": {
+      "title": "What happens next",
+      "one": "Pick a plan and publish to get your QR code.",
+      "two": "Pick a plan to open uploads.",
+      "three": "Guests scan and share. No app, no account."
+    },
+    "preview": "Guest page preview",
+    "previewName": "Your event",
+    "newSubtitleShort": "Your QR code is ready once you pick a plan and publish.",
+    "cancel": "Cancel",
+    "meta": "{type} · {date}",
+    "shareQr": "Share QR",
+    "closedTitle": "Uploads are closed",
+    "closedBody": "Pick a plan to open uploads. One payment, no subscription.",
+    "uploadsBy": "Uploaded by",
+    "allPhotos": "{count, plural, one {# photo} other {# photos}}",
+    "backToEvent": "Back to event",
+    "photosTitle": "Photos",
+    "deletesOnShort": "Deleted on {date}",
+    "steps": {
+      "create": "Create your event",
+      "createDone": "Event created",
+      "plan": "Choose a plan",
+      "planBody": "One payment, no subscription. After choosing a plan you publish the event.",
+      "planDone": "{plan} selected",
+      "cardTitle": "Get your event ready",
+      "progress": "{done} of {total} done",
+      "createBody": "{date} · {start}–{end}",
+      "editDetails": "Edit details",
+      "planSummary": "Up to {photos} photos · {gb} GB, original quality",
+      "upgrade": "Upgrade to Premium",
+      "publish": "Publish your event",
+      "publishBody": "Publishing opens the guest page and gets your QR code ready.",
+      "publishLocked": "Choose a plan first",
+      "publishing": "Publishing…"
+    },
+    "startLabel": "Starts",
+    "endLabel": "Ends",
+    "dateRangeError": "The end must be after the start, at most 24 hours later.",
+    "timeLabel": "Time",
+    "done": "Done",
+    "live": {
+      "title": "Your event is live",
+      "body": "Put the QR code on the tables or send the link to your guests.",
+      "downloadQr": "Download QR",
+      "templates": "QR templates",
+      "allOptions": "All sharing options"
+    },
+    "print": {
+      "title": "QR templates",
+      "subtitle": "Pick a template, choose a colour and print. Sized for A4 paper.",
+      "back": "Back to sharing",
+      "templates": {
+        "cards": "Table cards",
+        "cardsHint": "4 cards on A4, cut and place on tables",
+        "tent": "Tent card",
+        "tentHint": "Fold A4 in half and it stands on its own",
+        "poster": "Poster",
+        "posterHint": "A4 poster for the entrance or photo corner"
+      },
+      "colorLabel": "Colour",
+      "colors": {
+        "terracotta": "Terracotta",
+        "midnight": "Midnight",
+        "sage": "Sage",
+        "blush": "Blush"
+      },
+      "headlineLabel": "Headline",
+      "headlineDefault": "Share your memories with us",
+      "subline": "Scan with your phone camera and upload your photos",
+      "steps": "SCAN · PICK · SEND",
+      "noApp": "No app or account needed",
+      "printButton": "Print / save as PDF",
+      "printHint": "In the print dialog set margins to \"None\" and scale to 100%.",
+      "premiumTitle": "Templates are part of Premium",
+      "premiumBody": "On Standard you can download the QR code as PNG or SVG and use it yourself.",
+      "cutHint": "Cut along the dashed lines",
+      "foldHint": "Fold here",
+      "showPin": "Show the PIN on the card",
+      "showPinHint": "If off, tell your guests the PIN yourself.",
+      "showPinResave": "To show it, save the PIN once more in settings."
+    },
+    "backToReview": "Back to review"
+  },
+  "Guest": {
+    "welcome": "Share your photos from {event}",
+    "welcomeSub": "Your photos go straight to the host. Only the host can see them.",
+    "privacy": "Only the host sees what you upload. We never show your photos to other guests.",
+    "pinTitle": "Enter the event PIN",
+    "pinLabel": "PIN",
+    "pinWrong": "That PIN isn't right.",
+    "pinTooMany": "Too many tries. Wait a few minutes.",
+    "continue": "Continue",
+    "yourName": "Your name",
+    "yourNameOptional": "Your name (optional)",
+    "choose": "Add photos",
+    "chooseMore": "Add more photos",
+    "uploading": "Uploading {done} of {total}…",
+    "done": "{count, plural, one {# photo sent} other {# photos sent}}. Thank you!",
+    "yourUploads": "Your uploads",
+    "retry": "Retry",
+    "failed": "Failed",
+    "tooBig": "File is too large",
+    "badType": "Photos only",
+    "limitReached": "You've reached the limit of {count} photos from this phone.",
+    "verifying": "Checking you're human…",
+    "verifyFailed": "Couldn't verify. Reload the page and try again.",
+    "state": {
+      "needs_plan": {
+        "title": "Uploads aren't open yet",
+        "body": "The host hasn't opened this album yet. Check back soon."
+      },
+      "not_open_yet": {
+        "title": "Uploads open later",
+        "body": "The host set upload hours for this event. Come back when it starts."
+      },
+      "closed": {
+        "title": "Uploads have closed",
+        "body": "The upload window for this event is over."
+      },
+      "expired": {
+        "title": "This album has ended",
+        "body": "The photos from this event have been deleted."
+      },
+      "unavailable": {
+        "title": "Not available",
+        "body": "This event isn't available."
+      },
+      "blocked": {
+        "title": "Uploads off for this phone",
+        "body": "The host has turned off uploads from this device."
+      }
+    },
+    "notFoundTitle": "Event not found",
+    "notFoundBody": "Check the link or QR code and try again.",
+    "dropHint": "or drag photos here",
+    "formats": "JPG, PNG, HEIC · original quality",
+    "pinSubtitle": "You'll find it on the card at your table.",
+    "for": "Photos for",
+    "heroTitle": "Leave a memory",
+    "heroHint": "Pick photos from your gallery or take one now",
+    "selected": "{count, plural, one {# photo ready} other {# photos ready}}",
+    "send": "{count, plural, one {Send # photo} other {Send # photos}}",
+    "sending": "Sending {done} of {total}…",
+    "consent": "I accept the <terms>Terms</terms> and <privacy>Privacy Policy</privacy> and may share these photos.",
+    "consentNeeded": "Tick the box to send.",
+    "nameNeeded": "Add your name first.",
+    "remove": "Remove",
+    "clear": "Clear",
+    "thanksTitle": "Thank you!",
+    "thanksBody": "{count, plural, one {You left # memory for the hosts.} other {You left # memories for the hosts.}}"
+  },
+  "App": {
+    "events": "Events",
+    "newEvent": "New event",
+    "yourEvents": "Your events",
+    "menu": "Menu",
+    "closeMenu": "Close menu",
+    "home": "Website"
+  },
+  "Create": {
+    "metaTitle": "Create an event",
+    "stepOf": "Step {n} of {total}",
+    "exit": "Exit",
+    "back": "Back",
+    "steps": {
+      "details": "Event",
+      "plan": "Plan",
+      "account": "Account",
+      "pay": "Payment",
+      "review": "Publish"
+    },
+    "details": {
+      "title": "Tell us about your event",
+      "subtitle": "Set everything up now; you can still change it before publishing.",
+      "nameRequired": "Give your event a name.",
+      "guestSettings": "Guest settings",
+      "guestSettingsHint": "Optional. With everything off, guests scan the QR code and upload right away.",
+      "next": "Choose a plan"
+    },
+    "plan": {
+      "title": "Choose your plan",
+      "subtitle": "One payment, no subscription. Both plans include everything; they differ in capacity and print templates.",
+      "choose": "Continue with {plan}",
+      "yourPick": "Your pick",
+      "hint": "Payment is the next step"
+    },
+    "account": {
+      "title": "Create your account",
+      "subtitle": "Let's save your event. Continue with Google in one click, or with a link sent to your email.",
+      "saved": "What you filled in stays in this browser and is saved to your account once you sign in.",
+      "signedInAs": "Signed in as",
+      "continue": "Continue with this account",
+      "switch": "Use another account"
+    },
+    "pay": {
+      "title": "Payment",
+      "subtitle": "A one-time payment. Then you review everything once more and publish.",
+      "saving": "Saving your event to your account…",
+      "draftMissing": "We couldn't find an event saved in this browser. If you opened the link on another device, please enter the details again.",
+      "saveFailed": "Your event couldn't be saved. Check the details and try again.",
+      "backToDetails": "Back to event details",
+      "event": "Event",
+      "plan": "{plan} plan",
+      "includes": "{photos} photos · {gb} GB · {days}-day ZIP",
+      "tax": "VAT",
+      "taxValue": "calculated at checkout",
+      "total": "Total",
+      "button": "Pay {price}",
+      "secure": "Secure payment with Stripe",
+      "devNote": "Local development: payments aren't connected yet, this button activates the plan for free.",
+      "changePlan": "Change plan"
+    },
+    "review": {
+      "title": "Final check",
+      "subtitle": "Payment received. If everything looks right, publish; if not, edit it first.",
+      "event": "Event",
+      "plan": "Plan",
+      "planName": "Plan",
+      "paid": "paid",
+      "capacity": "Capacity",
+      "on": "On",
+      "off": "Off",
+      "edit": "Edit",
+      "upgrade": "Upgrade to Premium",
+      "publishHint": "Publishing opens the guest page and gets your QR code ready. You can still change settings afterwards.",
+      "publish": "Publish event",
+      "publishing": "Publishing…",
+      "publishFailed": "Couldn't publish. Please try again."
+    },
+    "resume": {
+      "titlePlan": "Finish setting up",
+      "bodyPlan": "Choose a plan and pay, then you can publish your event.",
+      "ctaPlan": "Choose a plan",
+      "titlePublish": "Ready to publish",
+      "bodyPublish": "Payment received. Check everything once more and publish.",
+      "ctaPublish": "Review and publish"
+    }
   }
 }

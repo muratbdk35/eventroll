@@ -42,5 +42,6 @@ next-env.d.ts
 
 # local dev database (PGlite)
 .pglite/
+.dev-storage/
 !.env.example
 .neon

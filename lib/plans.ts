@@ -46,6 +46,11 @@ export function getEventLimits(plan: PlanId): PlanLimits {
   return plans[plan];
 }
 
+/** Deletion time for events with an end time: end of the (UTC) day of `endsAt + DOWNLOAD_WINDOW_DAYS`. */
+export function computeExpiresAtFromEnd(endsAt: Date): Date {
+  return computeExpiresAt(endsAt.toISOString().slice(0, 10));
+}
+
 /** When an event's media is deleted: end of day `eventDate + DOWNLOAD_WINDOW_DAYS` (UTC). */
 export function computeExpiresAt(eventDate: string): Date {
   const d = new Date(`${eventDate}T23:59:59.999Z`);
