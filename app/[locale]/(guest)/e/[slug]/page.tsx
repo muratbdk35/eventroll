@@ -56,7 +56,7 @@ export default async function GuestPage({
     : { src: eventVisuals[event.type].cover, custom: false };
 
   return (
-    <div className="relative flex flex-1 flex-col bg-[oklch(0.975_0.012_70)] md:items-center md:justify-center md:px-6 md:py-12">
+    <div className="relative flex flex-1 flex-col bg-[oklch(0.975_0.012_244)] md:items-center md:justify-center md:px-6 md:py-12">
       <div className="relative flex w-full flex-1 flex-col md:max-w-[440px] md:flex-none md:overflow-hidden md:rounded-[2rem] md:bg-white/40 md:shadow-2xl md:ring-1 md:shadow-primary/10 md:ring-black/5">
         <header className="relative h-56 shrink-0 overflow-hidden bg-foreground">
           {cover.custom ? (
@@ -96,7 +96,7 @@ export default async function GuestPage({
         </header>
 
         {/* Plain sheet sliding over the cover. */}
-        <main className="relative -mt-7 flex-1 rounded-t-[1.75rem] bg-[oklch(0.975_0.012_70)] px-5 pt-6 pb-8">
+        <main className="relative -mt-7 flex-1 rounded-t-[1.75rem] bg-[oklch(0.975_0.012_244)] px-5 pt-6 pb-8">
           {state === "open" ? (
             <>
               <Uploader

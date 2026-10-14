@@ -16,7 +16,7 @@ export async function HeroVisual() {
   return (
     <div className="relative mx-auto flex w-full max-w-[560px] justify-center py-6">
       {/* back photos, as if taken by guests */}
-      <figure className="absolute start-0 top-14 hidden w-48 -rotate-[7deg] overflow-hidden rounded-2xl bg-white p-1.5 shadow-[0_30px_60px_-25px_rgb(60_30_10/0.55)] sm:block lg:w-52">
+      <figure className="absolute start-0 top-14 hidden w-48 -rotate-[7deg] overflow-hidden rounded-2xl bg-white p-1.5 shadow-[0_30px_60px_-25px_rgb(20_35_60/0.55)] sm:block lg:w-52">
         <div className="relative aspect-[4/5] overflow-hidden rounded-xl">
           <Image
             src="/marketing/table-toast.jpg"
@@ -30,7 +30,7 @@ export async function HeroVisual() {
           {t("photoBy", { name: "Selin", time: "21:42" })}
         </figcaption>
       </figure>
-      <figure className="absolute end-0 top-28 hidden w-44 rotate-[6deg] overflow-hidden rounded-2xl bg-white p-1.5 shadow-[0_30px_60px_-25px_rgb(60_30_10/0.55)] sm:block lg:w-48">
+      <figure className="absolute end-0 top-28 hidden w-44 rotate-[6deg] overflow-hidden rounded-2xl bg-white p-1.5 shadow-[0_30px_60px_-25px_rgb(20_35_60/0.55)] sm:block lg:w-48">
         <div className="relative aspect-[4/5] overflow-hidden rounded-xl">
           <Image
             src="/marketing/dance-floor.jpg"

@@ -2,7 +2,7 @@
 
 // Adapted from cult/ui "Halo Switch" (MIT, nolly-studio/cult-ui): frosted
 // pill track with a warm underglow, spring thumb, ≥44px touch target.
-// Changes by eventroll: our palette (checked track is terracotta, not a
+// Changes by eventroll: our palette (checked track is powder blue, not a
 // pastel ramp), no backdrop-filter, and the Radix switch primitive instead
 // of Base UI's, so `id` lands on the button and <label htmlFor> names it.
 
@@ -44,7 +44,7 @@ export function HaloSwitch({
         className={cn(
           "relative rounded-full border",
           haloRim,
-          "shadow-[0_1px_0_rgba(255,255,255,0.6)_inset,0_1px_2px_rgba(0,0,0,0.03),0_6px_18px_rgba(60,30,10,0.05)]",
+          "shadow-[0_1px_0_rgba(255,255,255,0.6)_inset,0_1px_2px_rgba(0,0,0,0.03),0_6px_18px_rgba(20,35,60,0.05)]",
         )}
       >
         <SwitchPrimitive.Root
@@ -58,8 +58,8 @@ export function HaloSwitch({
             "transition-[background-color,box-shadow] duration-200 ease-out",
             "after:absolute after:-inset-x-2 after:-inset-y-[10px] after:content-['']",
             "focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-            "data-[state=unchecked]:bg-[color-mix(in_oklch,var(--muted)_60%,oklch(0.93_0.03_60))]",
-            "data-[state=checked]:bg-[linear-gradient(180deg,oklch(0.66_0.17_45)_0%,var(--primary)_100%)]",
+            "data-[state=unchecked]:bg-[color-mix(in_oklch,var(--muted)_60%,oklch(0.93_0.02_243))]",
+            "data-[state=checked]:bg-[linear-gradient(180deg,oklch(0.66_0.073_241)_0%,var(--primary)_100%)]",
             "disabled:cursor-not-allowed disabled:opacity-50",
           )}
         >

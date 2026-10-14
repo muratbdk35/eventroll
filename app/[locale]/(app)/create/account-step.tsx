@@ -39,7 +39,7 @@ export function AccountStep({
         {signedIn ? (
           // Already signed in: show who, so nobody pays from the wrong account.
           <div className="flex flex-col items-center text-center">
-            <span className="flex size-16 items-center justify-center rounded-full bg-[linear-gradient(140deg,oklch(0.7_0.15_55),var(--primary))] font-heading text-2xl font-bold text-primary-foreground uppercase shadow-[0_12px_28px_-12px_var(--primary)] ring-4 ring-white">
+            <span className="flex size-16 items-center justify-center rounded-full bg-[linear-gradient(140deg,oklch(0.7_0.065_242),var(--primary))] font-heading text-2xl font-bold text-primary-foreground uppercase shadow-[0_12px_28px_-12px_var(--primary)] ring-4 ring-white">
               {userEmail?.[0] ?? "?"}
             </span>
             <p className="mt-3 text-sm text-muted-foreground">

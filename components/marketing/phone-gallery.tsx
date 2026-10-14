@@ -53,14 +53,14 @@ export async function PhoneGallery() {
   return (
     <div
       aria-hidden
-      className="relative aspect-[71.5/147.5] w-[252px] shrink-0 rounded-[3rem] bg-[linear-gradient(145deg,#4a4340,#1c1816_45%,#3a3431)] p-[5px] shadow-[0_60px_100px_-35px_rgb(70_30_10/0.6),0_0_0_1px_rgb(0_0_0/0.25)] sm:w-[272px]"
+      className="relative aspect-[71.5/147.5] w-[252px] shrink-0 rounded-[3rem] bg-[linear-gradient(145deg,#43474d,#1c1816_45%,#33373c)] p-[5px] shadow-[0_60px_100px_-35px_rgb(20_35_60/0.6),0_0_0_1px_rgb(0_0_0/0.25)] sm:w-[272px]"
     >
       {/* side buttons */}
-      <span className="absolute -start-[2px] top-[22%] h-8 w-[3px] rounded-s bg-[#2b2522]" />
-      <span className="absolute -start-[2px] top-[31%] h-12 w-[3px] rounded-s bg-[#2b2522]" />
-      <span className="absolute -end-[2px] top-[27%] h-16 w-[3px] rounded-e bg-[#2b2522]" />
+      <span className="absolute -start-[2px] top-[22%] h-8 w-[3px] rounded-s bg-[#23262b]" />
+      <span className="absolute -start-[2px] top-[31%] h-12 w-[3px] rounded-s bg-[#23262b]" />
+      <span className="absolute -end-[2px] top-[27%] h-16 w-[3px] rounded-e bg-[#23262b]" />
 
-      <div className="relative flex h-full flex-col overflow-hidden rounded-[2.65rem] bg-[oklch(0.975_0.014_70)]">
+      <div className="relative flex h-full flex-col overflow-hidden rounded-[2.65rem] bg-[oklch(0.975_0.014_244)]">
         <div className="absolute start-1/2 top-[11px] z-20 h-[24px] w-[78px] -translate-x-1/2 rounded-full bg-black rtl:translate-x-1/2" />
         <StatusBar />
 
@@ -89,8 +89,8 @@ export async function PhoneGallery() {
         </div>
 
         {/* Sheet over the cover */}
-        <div className="relative -mt-4 flex flex-1 flex-col rounded-t-[1.5rem] bg-[oklch(0.975_0.012_70)] px-3.5 pt-3">
-          <div className="flex h-8 items-center gap-1.5 rounded-xl border border-[color-mix(in_oklch,var(--border)_70%,oklch(0.86_0.07_55))] bg-white/90 px-3 text-[10px] text-muted-foreground shadow-[0_6px_14px_-10px_rgba(194,65,12,0.4)]">
+        <div className="relative -mt-4 flex flex-1 flex-col rounded-t-[1.5rem] bg-[oklch(0.975_0.012_244)] px-3.5 pt-3">
+          <div className="flex h-8 items-center gap-1.5 rounded-xl border border-[color-mix(in_oklch,var(--border)_70%,oklch(0.86_0.039_242))] bg-white/90 px-3 text-[10px] text-muted-foreground shadow-[0_6px_14px_-10px_rgba(74,112,160,0.4)]">
             <UserRound className="size-3 text-primary" />
             {tg("yourNameOptional")}
           </div>
@@ -134,7 +134,7 @@ export async function PhoneGallery() {
             <MockThumb src="/marketing/dance-floor.jpg" done />
           </div>
 
-          <div className="mt-auto mb-6 rounded-2xl border border-[color-mix(in_oklch,var(--border)_60%,oklch(0.8_0.1_50))] bg-white p-1.5 shadow-[0_10px_24px_-12px_rgba(194,65,12,0.45)]">
+          <div className="mt-auto mb-6 rounded-2xl border border-[color-mix(in_oklch,var(--border)_60%,oklch(0.8_0.055_242))] bg-white p-1.5 shadow-[0_10px_24px_-12px_rgba(74,112,160,0.45)]">
             <p className="flex items-start gap-1.5 px-1 pt-0.5 pb-2 text-[8.5px] leading-snug text-muted-foreground">
               <span className="mt-px flex size-2.5 shrink-0 items-center justify-center rounded-[3px] bg-primary text-primary-foreground">
                 <Check className="size-2" strokeWidth={4} />
@@ -150,7 +150,7 @@ export async function PhoneGallery() {
                 })}
               </span>
             </p>
-            <div className="demo-press flex h-8 items-center justify-center gap-1.5 rounded-full bg-[linear-gradient(180deg,oklch(0.63_0.175_42),var(--primary)_55%,oklch(0.52_0.17_35))] text-[11px] font-semibold text-primary-foreground shadow-[0_6px_14px_-6px_var(--primary)]">
+            <div className="demo-press flex h-8 items-center justify-center gap-1.5 rounded-full bg-[linear-gradient(180deg,oklch(0.63_0.075_240),var(--primary)_55%,oklch(0.52_0.073_239))] text-[11px] font-semibold text-primary-foreground shadow-[0_6px_14px_-6px_var(--primary)]">
               <Send className="size-3" />
               {tg("send", { count: 3 })}
             </div>

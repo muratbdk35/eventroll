@@ -33,9 +33,9 @@ export type MagicLinkEmailProps = {
   };
 };
 
-const ink = "#2b211c";
-const muted = "#7a6b62";
-const primary = "#c4623a";
+const ink = "#1f2630";
+const muted = "#66707c";
+const primary = "#5b80ad";
 
 export function MagicLinkEmail({
   appName,
@@ -49,7 +49,7 @@ export function MagicLinkEmail({
       <Preview>{copy.preview}</Preview>
       <Body
         style={{
-          backgroundColor: "#f6eee6",
+          backgroundColor: "#edf1f7",
           margin: 0,
           padding: "32px 12px",
           fontFamily:
@@ -60,9 +60,9 @@ export function MagicLinkEmail({
           style={{
             maxWidth: 480,
             margin: "0 auto",
-            backgroundColor: "#fffdf9",
+            backgroundColor: "#fbfcfe",
             borderRadius: 24,
-            border: "1px solid #eadfd4",
+            border: "1px solid #dbe3ee",
             padding: "40px 36px 32px",
           }}
         >
@@ -87,7 +87,7 @@ export function MagicLinkEmail({
           </Heading>
           <Text
             style={{
-              color: "#4a3d36",
+              color: "#3c4552",
               fontSize: 16,
               lineHeight: "26px",
               margin: 0,
@@ -106,7 +106,7 @@ export function MagicLinkEmail({
                 fontWeight: 700,
                 padding: "15px 28px",
                 borderRadius: 999,
-                boxShadow: "0 10px 24px -10px rgba(196,98,58,0.8)",
+                boxShadow: "0 10px 24px -10px rgba(96,128,168,0.8)",
               }}
             >
               {copy.button}
@@ -138,7 +138,7 @@ export function MagicLinkEmail({
             {url}
           </Link>
 
-          <Hr style={{ borderColor: "#eadfd4", margin: "28px 0 20px" }} />
+          <Hr style={{ borderColor: "#dbe3ee", margin: "28px 0 20px" }} />
           <Text
             style={{
               color: muted,

@@ -21,7 +21,7 @@ export async function LiveShare({
     <section className="clip-round relative overflow-hidden rounded-3xl border border-border bg-card p-4 shadow-sm sm:p-5">
       <div
         aria-hidden
-        className="pointer-events-none absolute -end-24 -top-28 size-72 rounded-full bg-[radial-gradient(closest-side,oklch(0.57_0.175_38/0.16),transparent)]"
+        className="pointer-events-none absolute -end-24 -top-28 size-72 rounded-full bg-[radial-gradient(closest-side,oklch(0.57_0.075_240/0.16),transparent)]"
       />
       <div className="relative flex flex-col gap-5 sm:flex-row sm:items-center">
         <div className="shrink-0 self-center rounded-2xl border border-border bg-white p-2 shadow-xs sm:self-auto">

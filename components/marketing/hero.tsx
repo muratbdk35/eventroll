@@ -13,7 +13,7 @@ export async function Hero() {
       {/* warm glow, inspired by 21st.dev "Gradient Hero" */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(55%_50%_at_70%_55%,oklch(0.86_0.09_55/0.55),transparent_75%)] dark:bg-[radial-gradient(55%_50%_at_70%_55%,oklch(0.42_0.11_40/0.35),transparent_75%)]"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(55%_50%_at_70%_55%,oklch(0.86_0.05_242/0.55),transparent_75%)] dark:bg-[radial-gradient(55%_50%_at_70%_55%,oklch(0.42_0.048_240/0.35),transparent_75%)]"
       />
       <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 pt-14 pb-20 lg:grid-cols-[1.05fr_1fr] lg:pt-20">
         <div className="text-center lg:text-start">

@@ -17,7 +17,7 @@ import { type FlowProps, flowHref } from "./flow";
 
 /**
  * Step 2, the paywall: the very same receipts as the landing pricing section
- * (components/billing), on the same terracotta ground (DECISIONS #32).
+ * (components/billing), on the same blue ground (DECISIONS #32).
  */
 export function PlanStep({ plan, event }: FlowProps) {
   const t = useTranslations("Create");
@@ -30,14 +30,14 @@ export function PlanStep({ plan, event }: FlowProps) {
     <div>
       <StepHeading title={t("plan.title")} subtitle={t("plan.subtitle")} />
 
-      <div className="clip-round relative overflow-hidden rounded-[1.75rem] bg-[linear-gradient(160deg,oklch(0.64_0.17_42)_0%,oklch(0.56_0.18_36)_55%,oklch(0.47_0.16_30)_100%)] px-5 pt-12 pb-14 sm:px-10">
+      <div className="clip-round relative overflow-hidden rounded-[1.75rem] bg-[linear-gradient(160deg,oklch(0.64_0.073_240)_0%,oklch(0.56_0.077_239)_55%,oklch(0.47_0.069_238)_100%)] px-5 pt-12 pb-14 sm:px-10">
         <div
           aria-hidden
-          className="absolute -start-40 -top-40 size-[34rem] rounded-full bg-[radial-gradient(closest-side,oklch(0.9_0.09_70/0.4),transparent)]"
+          className="absolute -start-40 -top-40 size-[34rem] rounded-full bg-[radial-gradient(closest-side,oklch(0.9_0.05_244/0.4),transparent)]"
         />
         <div
           aria-hidden
-          className="absolute -end-32 -bottom-16 size-[30rem] rounded-full bg-[radial-gradient(closest-side,oklch(0.8_0.12_30/0.4),transparent)]"
+          className="absolute -end-32 -bottom-16 size-[30rem] rounded-full bg-[radial-gradient(closest-side,oklch(0.8_0.051_238/0.4),transparent)]"
         />
         <div
           aria-hidden

@@ -62,7 +62,7 @@ export function ReceiptCard({
   return (
     <div
       className={cn(
-        "relative bg-[#fffdf9] px-6 pt-8 pb-8 font-mono text-[12.5px] leading-relaxed text-[oklch(0.23_0.02_40)] transition-transform duration-300 hover:-translate-y-1",
+        "relative bg-[#fbfcfe] px-6 pt-8 pb-8 font-mono text-[12.5px] leading-relaxed text-[oklch(0.23_0.02_240)] transition-transform duration-300 hover:-translate-y-1",
         TORN_EDGE,
         featured
           ? "shadow-[0_40px_80px_-30px_rgb(40_10_0/0.7)] md:scale-[1.06] md:rotate-[1deg]"
@@ -74,7 +74,7 @@ export function ReceiptCard({
       <p className="text-center text-[13.5px] font-bold tracking-[0.1em]">
         {merchant}
       </p>
-      <p className="mt-1 text-center text-[10.5px] tracking-[0.06em] text-[oklch(0.52_0.02_45)]">
+      <p className="mt-1 text-center text-[10.5px] tracking-[0.06em] text-[oklch(0.52_0.02_241)]">
         {merchantLine}
       </p>
       <Rule />
@@ -86,7 +86,7 @@ export function ReceiptCard({
           </span>
         )}
       </div>
-      <p className="mt-1 text-[11px] text-[oklch(0.52_0.02_45)]">{tagline}</p>
+      <p className="mt-1 text-[11px] text-[oklch(0.52_0.02_241)]">{tagline}</p>
       <Rule />
       <ul className="space-y-1.5">
         {rows.map(([label, value]) => (
@@ -100,7 +100,7 @@ export function ReceiptCard({
               className={cn(
                 "shrink-0 font-bold",
                 value === "✓" && "text-primary",
-                value === "✗" && "font-normal text-[oklch(0.7_0.02_45)]",
+                value === "✗" && "font-normal text-[oklch(0.7_0.02_241)]",
               )}
             >
               {value}
@@ -109,7 +109,7 @@ export function ReceiptCard({
         ))}
       </ul>
       <Rule />
-      <div className="flex items-baseline justify-between text-[11.5px] text-[oklch(0.52_0.02_45)]">
+      <div className="flex items-baseline justify-between text-[11.5px] text-[oklch(0.52_0.02_241)]">
         <span>{billingLabel}</span>
         <span>{billingValue}</span>
       </div>
@@ -125,7 +125,7 @@ export function ReceiptCard({
         </span>
       </div>
       {perGuest && (
-        <p className="mt-1 text-end text-[11px] text-[oklch(0.52_0.02_45)]">
+        <p className="mt-1 text-end text-[11px] text-[oklch(0.52_0.02_241)]">
           {perGuest}
         </p>
       )}
@@ -135,7 +135,7 @@ export function ReceiptCard({
         aria-hidden
         className="mx-auto mt-5 h-9 w-4/5 [background-image:repeating-linear-gradient(90deg,currentColor_0,currentColor_2px,transparent_2px,transparent_5px,currentColor_5px,currentColor_6px,transparent_6px,transparent_9px)] opacity-70"
       />
-      <p className="mt-2 text-center text-[10px] tracking-[0.2em] text-[oklch(0.52_0.02_45)]">
+      <p className="mt-2 text-center text-[10px] tracking-[0.2em] text-[oklch(0.52_0.02_241)]">
         {thanks}
       </p>
     </div>
@@ -149,6 +149,6 @@ export function receiptCtaClass(featured: boolean) {
     "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none disabled:opacity-60",
     featured
       ? "bg-primary text-primary-foreground shadow-[0_10px_24px_-10px_var(--primary)] hover:bg-primary/90"
-      : "bg-[oklch(0.23_0.02_40)] text-white hover:bg-[oklch(0.3_0.02_40)]",
+      : "bg-[oklch(0.23_0.02_240)] text-white hover:bg-[oklch(0.3_0.02_240)]",
   );
 }

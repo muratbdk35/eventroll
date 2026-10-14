@@ -3,7 +3,7 @@
 // Adapted from cult/ui "Halo Button" (MIT, nolly-studio/cult-ui): pill with a
 // gradient rim of drifting blobs, staggered label, loading text with a
 // trailing spinner. Changes by eventroll: our palette, blobs drift only on
-// hover/focus, a solid terracotta "primary" tone for the main action next to
+// hover/focus, a solid powder-blue "primary" tone for the main action next to
 // the original frosted one ("secondary"), and `href` renders a locale Link.
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
@@ -152,12 +152,12 @@ export function HaloButton(props: HaloButtonProps) {
     size === "lg" ? "min-h-14 px-7 text-base" : "min-h-11 px-6 text-sm",
     fullWidth && "w-full",
     primary
-      ? "border-[oklch(0.5_0.16_36)] text-primary-foreground shadow-[0_1px_0_rgba(255,255,255,0.28)_inset,0_-1px_0_rgba(0,0,0,0.12)_inset,0_10px_24px_-10px_var(--primary)] fine-hover:hover:brightness-[1.06]"
-      : "border-[color-mix(in_oklch,var(--border)_70%,oklch(0.86_0.07_55))] text-foreground shadow-[0_1px_0_rgba(255,255,255,0.6)_inset,0_1px_2px_rgba(0,0,0,0.04),0_4px_14px_rgba(60,30,10,0.06)]",
+      ? "border-[oklch(0.5_0.069_239)] text-primary-foreground shadow-[0_1px_0_rgba(255,255,255,0.28)_inset,0_-1px_0_rgba(0,0,0,0.12)_inset,0_10px_24px_-10px_var(--primary)] fine-hover:hover:brightness-[1.06]"
+      : "border-[color-mix(in_oklch,var(--border)_70%,oklch(0.86_0.039_242))] text-foreground shadow-[0_1px_0_rgba(255,255,255,0.6)_inset,0_1px_2px_rgba(0,0,0,0.04),0_4px_14px_rgba(20,35,60,0.06)]",
   );
   const style = {
     background: primary
-      ? "linear-gradient(180deg, oklch(0.63 0.175 42) 0%, var(--primary) 55%, oklch(0.52 0.17 35) 100%)"
+      ? "linear-gradient(180deg, oklch(0.63 0.075 240) 0%, var(--primary) 55%, oklch(0.52 0.073 239) 100%)"
       : haloFill(true, hot),
   };
   const inner = (

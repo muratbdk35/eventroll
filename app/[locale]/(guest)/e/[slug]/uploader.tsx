@@ -160,7 +160,7 @@ export function Uploader(props: Props) {
 
   useEffect(() => {
     if (sentNow === 0) return;
-    const colors = ["#c2410c", "#ea580c", "#fb923c", "#fed7aa", "#ffffff"];
+    const colors = ["#3f6a99", "#4f7cad", "#8fb0d8", "#d8e3f2", "#ffffff"];
     const shot = (x: number, angle: number) =>
       confetti({
         particleCount: 70,
@@ -557,7 +557,7 @@ export function Uploader(props: Props) {
                 className="thumb-in relative"
                 style={{ animationDelay: `${Math.min(i, 8) * 40}ms` }}
               >
-                <div className="relative aspect-square overflow-hidden rounded-[14px] bg-muted shadow-[0_1px_0_rgba(255,255,255,0.5)_inset,0_6px_16px_-6px_rgba(60,30,10,0.3)] ring-1 ring-black/10 ring-inset">
+                <div className="relative aspect-square overflow-hidden rounded-[14px] bg-muted shadow-[0_1px_0_rgba(255,255,255,0.5)_inset,0_6px_16px_-6px_rgba(20,35,60,0.3)] ring-1 ring-black/10 ring-inset">
                   {/* eslint-disable-next-line @next/next/no-img-element -- local blob preview */}
                   <img
                     src={item.preview}

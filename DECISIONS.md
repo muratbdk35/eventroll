@@ -472,3 +472,13 @@ album ZIP and printable table cards are phase 1C/1D work (#22, #23).
   (`isolation: isolate`) so Chrome keeps their corners while animating.
 - Not yet: the "Admit One" ticket (MIT, only on 21st.dev) for the guest
   header and the publish step, to be fetched with a daily 21st retrieval.
+
+## 38. Theme: powder blue instead of terracotta (owner request, 2026-10-15)
+
+- Primary is a dusty/powder blue `oklch(0.53 0.075 245)` (#457094, 5.2:1 on
+  white, so white button text stays AA); grounds, borders, accents, glows,
+  receipts, the landing mocks and the sign-in email follow (warm hues 20–95
+  shifted to ~240 with lower chroma). Error red, success green and the amber
+  "draft" pill keep their meaning colours.
+- Print-card palettes (terracotta, midnight, sage, …) are hosts' design
+  choices and stay as they are. Marketing photos are unchanged.

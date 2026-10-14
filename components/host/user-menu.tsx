@@ -37,7 +37,7 @@ export function UserMenu({
   const avatar = (size: string) => (
     <Avatar className={size}>
       {image && <AvatarImage src={image} alt="" />}
-      <AvatarFallback className="bg-gradient-to-br from-primary/90 to-[oklch(0.68_0.15_55)] font-semibold text-primary-foreground">
+      <AvatarFallback className="bg-gradient-to-br from-primary/90 to-[oklch(0.68_0.065_242)] font-semibold text-primary-foreground">
         {initials}
       </AvatarFallback>
     </Avatar>

@@ -23,7 +23,7 @@ export async function ResumeSetup({
     <section className="clip-round relative overflow-hidden rounded-3xl border border-border bg-card p-5 shadow-sm sm:p-6">
       <div
         aria-hidden
-        className="pointer-events-none absolute -end-24 -top-28 size-72 rounded-full bg-[radial-gradient(closest-side,oklch(0.57_0.175_38/0.16),transparent)]"
+        className="pointer-events-none absolute -end-24 -top-28 size-72 rounded-full bg-[radial-gradient(closest-side,oklch(0.57_0.075_240/0.16),transparent)]"
       />
       <div className="relative flex flex-col gap-4 sm:flex-row sm:items-center">
         <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-accent text-primary">

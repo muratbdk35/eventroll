@@ -21,7 +21,7 @@ export function MockThumb({
 }) {
   return (
     <div className={cn("relative", className)}>
-      <div className="relative aspect-square overflow-hidden rounded-[9px] bg-muted shadow-[0_4px_10px_-4px_rgba(60,30,10,0.35)] ring-1 ring-black/10 ring-inset">
+      <div className="relative aspect-square overflow-hidden rounded-[9px] bg-muted shadow-[0_4px_10px_-4px_rgba(20,35,60,0.35)] ring-1 ring-black/10 ring-inset">
         <Image
           src={src}
           alt=""
@@ -52,7 +52,7 @@ export function MockAddMore({
   return (
     <div
       className={cn(
-        "flex items-center rounded-2xl border border-[color-mix(in_oklch,var(--border)_70%,oklch(0.86_0.07_55))] bg-[linear-gradient(to_bottom,white,oklch(0.985_0.01_60))] shadow-[0_6px_14px_-8px_rgba(194,65,12,0.35)]",
+        "flex items-center rounded-2xl border border-[color-mix(in_oklch,var(--border)_70%,oklch(0.86_0.039_242))] bg-[linear-gradient(to_bottom,white,oklch(0.985_0.01_243))] shadow-[0_6px_14px_-8px_rgba(74,112,160,0.35)]",
         size === "sm" ? "gap-2 p-1.5" : "gap-2.5 p-2",
       )}
     >

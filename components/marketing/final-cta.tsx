@@ -7,14 +7,14 @@ export async function FinalCta() {
   const t = await getTranslations("Landing.finalCta");
   return (
     <section className="px-4 py-16">
-      <div className="relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] bg-gradient-to-br from-[oklch(0.62_0.16_42)] via-primary to-[oklch(0.42_0.13_30)] px-6 py-16 text-center text-white sm:px-12">
+      <div className="relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] bg-gradient-to-br from-[oklch(0.62_0.069_240)] via-primary to-[oklch(0.42_0.056_238)] px-6 py-16 text-center text-white sm:px-12">
         <div
           aria-hidden
           className="absolute -start-20 -top-24 size-72 rounded-full bg-white/10 blur-2xl"
         />
         <div
           aria-hidden
-          className="absolute -end-16 -bottom-28 size-80 rounded-full bg-[oklch(0.85_0.1_70/0.35)] blur-3xl"
+          className="absolute -end-16 -bottom-28 size-80 rounded-full bg-[oklch(0.85_0.055_244/0.35)] blur-3xl"
         />
         <h2 className="relative mx-auto max-w-2xl font-heading text-3xl font-bold text-balance sm:text-5xl">
           {t("title")}
@@ -25,7 +25,7 @@ export async function FinalCta() {
         <Button
           asChild
           size="lg"
-          className="relative mt-8 h-12 rounded-xl bg-white px-6 text-base text-[oklch(0.35_0.1_35)] hover:bg-white/90"
+          className="relative mt-8 h-12 rounded-xl bg-white px-6 text-base text-[oklch(0.35_0.055_239)] hover:bg-white/90"
         >
           <Link href="/login">
             {t("cta")}

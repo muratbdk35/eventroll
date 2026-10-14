@@ -18,7 +18,7 @@ import { ReviewStep } from "./review-step";
 
 // Built from cult/ui Halo parts (DECISIONS #37): a quiet top bar, the Halo
 // progress bar with the step name, then each step on a Halo card. The plan
-// step keeps its terracotta receipt panel and sits without a card.
+// step keeps its blue receipt panel and sits without a card.
 
 const noop = () => () => {};
 

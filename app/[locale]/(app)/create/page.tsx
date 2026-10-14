@@ -54,13 +54,13 @@ export default async function CreatePage({
   if (step === "review" && !event?.plan) step = event ? "pay" : "details";
 
   return (
-    <div className="app-ui relative flex min-h-dvh flex-1 flex-col bg-[oklch(0.975_0.012_70)]">
+    <div className="app-ui relative flex min-h-dvh flex-1 flex-col bg-[oklch(0.975_0.012_244)]">
       <div
         aria-hidden
         className="pointer-events-none fixed inset-0 overflow-hidden"
       >
-        <div className="absolute -top-64 -left-56 size-[48rem] rounded-full bg-[radial-gradient(closest-side,oklch(0.57_0.175_38/0.13),transparent)]" />
-        <div className="absolute -right-64 -bottom-72 size-[52rem] rounded-full bg-[radial-gradient(closest-side,oklch(0.86_0.1_65/0.4),transparent)]" />
+        <div className="absolute -top-64 -left-56 size-[48rem] rounded-full bg-[radial-gradient(closest-side,oklch(0.57_0.075_240/0.13),transparent)]" />
+        <div className="absolute -right-64 -bottom-72 size-[52rem] rounded-full bg-[radial-gradient(closest-side,oklch(0.86_0.055_244/0.4),transparent)]" />
       </div>
       <main className="relative flex flex-1 justify-center px-4 py-8 sm:py-12">
         <CreateFlow

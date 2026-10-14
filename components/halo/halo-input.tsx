@@ -61,7 +61,7 @@ export function HaloControlShell({
         className={cn(
           "relative z-1 border outline-none",
           haloRim,
-          "shadow-[0_1px_2px_rgba(0,0,0,0.03),0_6px_18px_rgba(60,30,10,0.05)]",
+          "shadow-[0_1px_2px_rgba(0,0,0,0.03),0_6px_18px_rgba(20,35,60,0.05)]",
           "before:pointer-events-none before:absolute before:inset-0 before:z-0 before:rounded-[inherit] before:shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] before:content-['']",
           "dark:border-border/80 dark:before:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]",
           "transition-[border-color,box-shadow] duration-200 ease-out",

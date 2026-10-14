@@ -109,7 +109,7 @@ export function QuestionnaireChoice({
       className={cn(
         "group/choice relative flex min-h-14 cursor-pointer items-center gap-3 rounded-2xl border bg-card/80 px-3.5 py-3 text-start text-[15px] font-medium select-none",
         haloRim,
-        "shadow-[0_1px_0_rgba(255,255,255,0.7)_inset,0_1px_2px_rgba(0,0,0,0.03),0_6px_16px_-10px_rgba(60,30,10,0.18)]",
+        "shadow-[0_1px_0_rgba(255,255,255,0.7)_inset,0_1px_2px_rgba(0,0,0,0.03),0_6px_16px_-10px_rgba(20,35,60,0.18)]",
         "transition-[background-color,border-color,box-shadow,transform] duration-200 ease-out outline-none active:scale-[0.98]",
         "fine-hover:hover:border-ring/50 fine-hover:hover:bg-card",
         "has-[>input:focus-visible]:ring-2 has-[>input:focus-visible]:ring-ring/40",

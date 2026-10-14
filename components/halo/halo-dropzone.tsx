@@ -130,11 +130,11 @@ export function HaloDropzone({
           <div
             className={cn(
               "relative z-0 rounded-[calc(1.6rem-1px)] border border-border/90",
-              "shadow-[0_1px_0_rgba(255,255,255,0.75)_inset,0_1px_2px_rgba(0,0,0,0.04),0_18px_40px_-24px_rgba(60,30,10,0.3)]",
+              "shadow-[0_1px_0_rgba(255,255,255,0.75)_inset,0_1px_2px_rgba(0,0,0,0.04),0_18px_40px_-24px_rgba(20,35,60,0.3)]",
               "transition-[border-color,box-shadow] duration-200 ease-out",
               active && "border-ring/50",
               dragging &&
-                "shadow-[0_1px_0_rgba(255,255,255,0.75)_inset,0_24px_48px_-20px_rgba(194,65,12,0.35)]",
+                "shadow-[0_1px_0_rgba(255,255,255,0.75)_inset,0_24px_48px_-20px_rgba(74,112,160,0.35)]",
             )}
             style={{ background: haloFill(true, active) }}
           >

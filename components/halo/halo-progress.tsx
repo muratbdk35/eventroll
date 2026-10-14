@@ -84,7 +84,7 @@ export function HaloProgress({
               initial={false}
               animate={{ scaleX: pct }}
               transition={reduce ? { duration: 0 } : haloSpring}
-              className="absolute inset-0 origin-left rounded-full bg-gradient-to-b from-[oklch(0.64_0.17_44)] to-primary shadow-[0_1px_0_rgba(255,255,255,0.3)_inset] rtl:origin-right"
+              className="absolute inset-0 origin-left rounded-full bg-gradient-to-b from-[oklch(0.64_0.073_241)] to-primary shadow-[0_1px_0_rgba(255,255,255,0.3)_inset] rtl:origin-right"
             />
           )}
         </ProgressPrimitive.Track>

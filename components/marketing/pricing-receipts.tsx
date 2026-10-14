@@ -35,16 +35,16 @@ export async function PricingReceipts() {
   return (
     <section
       id="pricing"
-      className="relative scroll-mt-16 overflow-hidden bg-[linear-gradient(160deg,oklch(0.64_0.17_42)_0%,oklch(0.56_0.18_36)_55%,oklch(0.47_0.16_30)_100%)] px-4 py-24 text-white sm:py-28"
+      className="relative scroll-mt-16 overflow-hidden bg-[linear-gradient(160deg,oklch(0.64_0.073_240)_0%,oklch(0.56_0.077_239)_55%,oklch(0.47_0.069_238)_100%)] px-4 py-24 text-white sm:py-28"
     >
       {/* soft light + dot texture */}
       <div
         aria-hidden
-        className="absolute -start-40 -top-40 size-[34rem] rounded-full bg-[oklch(0.9_0.09_70/0.35)] blur-3xl"
+        className="absolute -start-40 -top-40 size-[34rem] rounded-full bg-[oklch(0.9_0.05_244/0.35)] blur-3xl"
       />
       <div
         aria-hidden
-        className="absolute -end-32 bottom-0 size-[28rem] rounded-full bg-[oklch(0.8_0.12_30/0.35)] blur-3xl"
+        className="absolute -end-32 bottom-0 size-[28rem] rounded-full bg-[oklch(0.8_0.051_238/0.35)] blur-3xl"
       />
       <div
         aria-hidden

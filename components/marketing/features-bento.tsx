@@ -59,7 +59,7 @@ async function PickerMock() {
   return (
     <div
       aria-hidden
-      className="relative mx-auto mb-8 w-56 rotate-3 rounded-[1.75rem] bg-[oklch(0.985_0.01_75)] p-3 shadow-2xl sm:absolute sm:end-10 sm:top-10 sm:mb-0 sm:w-64"
+      className="relative mx-auto mb-8 w-56 rotate-3 rounded-[1.75rem] bg-[oklch(0.985_0.01_245)] p-3 shadow-2xl sm:absolute sm:end-10 sm:top-10 sm:mb-0 sm:w-64"
     >
       <MockAddMore size="sm" label={t("chooseMore")} />
       <p className="mt-3 px-0.5 text-[10px] font-semibold text-foreground">

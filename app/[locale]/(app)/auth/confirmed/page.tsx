@@ -44,16 +44,16 @@ export default async function ConfirmedPage({
   );
 
   return (
-    <main className="app-ui relative flex min-h-dvh flex-1 items-center justify-center bg-[oklch(0.975_0.012_70)] px-4 py-12">
+    <main className="app-ui relative flex min-h-dvh flex-1 items-center justify-center bg-[oklch(0.975_0.012_244)] px-4 py-12">
       <div
         aria-hidden
         className="pointer-events-none fixed inset-0 overflow-hidden"
       >
-        <div className="absolute -top-64 -left-56 size-[48rem] rounded-full bg-[radial-gradient(closest-side,oklch(0.57_0.175_38/0.13),transparent)]" />
-        <div className="absolute -right-64 -bottom-72 size-[52rem] rounded-full bg-[radial-gradient(closest-side,oklch(0.86_0.1_65/0.4),transparent)]" />
+        <div className="absolute -top-64 -left-56 size-[48rem] rounded-full bg-[radial-gradient(closest-side,oklch(0.57_0.075_240/0.13),transparent)]" />
+        <div className="absolute -right-64 -bottom-72 size-[52rem] rounded-full bg-[radial-gradient(closest-side,oklch(0.86_0.055_244/0.4),transparent)]" />
       </div>
 
-      <section className="relative w-full max-w-md rounded-3xl border border-border bg-card p-7 text-center shadow-[0_30px_60px_-40px_rgb(60_30_10/0.35)] sm:p-9">
+      <section className="relative w-full max-w-md rounded-3xl border border-border bg-card p-7 text-center shadow-[0_30px_60px_-40px_rgb(20_35_60/0.35)] sm:p-9">
         <LogoMark className="mx-auto size-8" />
         <span
           className={cn(

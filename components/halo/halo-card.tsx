@@ -72,7 +72,7 @@ export function BorderTrail({
           className="size-full rounded-full"
           style={{
             background:
-              "linear-gradient(90deg, transparent 0%, rgba(249,115,22,0) 6%, rgba(249,115,22,0.4) 24%, rgba(225,29,72,0.45) 50%, rgba(251,191,36,0.42) 76%, rgba(251,191,36,0) 94%, transparent 100%)",
+              "linear-gradient(90deg, transparent 0%, rgba(105,145,195,0) 6%, rgba(105,145,195,0.4) 24%, rgba(150,165,220,0.45) 50%, rgba(170,198,232,0.42) 76%, rgba(170,198,232,0) 94%, transparent 100%)",
           }}
         />
       </motion.div>
@@ -84,7 +84,7 @@ export function BorderTrail({
           className="size-full rounded-full"
           style={{
             background:
-              "linear-gradient(90deg, transparent 0%, rgba(234,88,12,0.75) 20%, rgba(253,186,116,0.95) 50%, rgba(251,191,36,0.8) 80%, transparent 100%)",
+              "linear-gradient(90deg, transparent 0%, rgba(84,125,175,0.75) 20%, rgba(190,210,235,0.95) 50%, rgba(170,198,232,0.8) 80%, transparent 100%)",
           }}
         />
       </motion.div>
@@ -174,7 +174,7 @@ export function HaloCard({
           data-slot="halo-card-surface"
           className={cn(
             "relative z-0 flex flex-col gap-6 rounded-[calc(1.6rem-1px)] border border-border/90",
-            "shadow-[0_1px_0_rgba(255,255,255,0.7)_inset,0_1px_2px_rgba(0,0,0,0.04),0_18px_40px_-24px_rgba(60,30,10,0.25)]",
+            "shadow-[0_1px_0_rgba(255,255,255,0.7)_inset,0_1px_2px_rgba(0,0,0,0.04),0_18px_40px_-24px_rgba(20,35,60,0.25)]",
             "transition-[border-color,box-shadow] duration-200 ease-out",
             lit && "border-ring/40",
             padding[pad],

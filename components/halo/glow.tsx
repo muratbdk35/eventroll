@@ -2,7 +2,7 @@
 
 // Shared chrome for the Halo controls, adapted from cult/ui "Halo" (MIT,
 // https://github.com/nolly-studio/cult-ui). Changes by eventroll: the
-// magenta/violet/cyan ramp became our terracotta/apricot/rose ramp, and the
+// magenta/violet/cyan ramp became our powder-blue ramp, and the
 // drifting blobs only move while the control is active (hover/focus) instead
 // of looping forever, because a page full of looping blurs lags on phones.
 // No backdrop-filter: our grounds are flat, so it cost frames for nothing.
@@ -11,9 +11,9 @@ import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 export const haloRamp = {
-  primary: "linear-gradient(90deg, #f97316, #e11d48, #fbbf24, #ea580c)",
-  secondary: "linear-gradient(90deg, #fb7185, #fdba74, #f97316)",
-  tertiary: "linear-gradient(90deg, #f59e0b, #fda4af, #c2410c)",
+  primary: "linear-gradient(90deg, #6b95c6, #7f93c9, #a9c6e6, #4f7cad)",
+  secondary: "linear-gradient(90deg, #a4b4de, #b9cdea, #6b95c6)",
+  tertiary: "linear-gradient(90deg, #86a9d2, #c3cdea, #3f6a99)",
 };
 
 /** The original's green "success" rim (notifications). */
@@ -28,13 +28,13 @@ export type HaloRamp = typeof haloRamp;
 
 /** Soft warm light from below and above, behind a frosted surface. */
 export const haloUnderglow = [
-  "radial-gradient(90% 70% at 50% 100%, rgba(234,88,12,0.26), rgba(225,29,72,0.1) 48%, transparent 62%)",
-  "radial-gradient(70% 55% at 30% 0%, rgba(251,191,36,0.24), rgba(249,115,22,0.08) 45%, transparent 58%)",
+  "radial-gradient(90% 70% at 50% 100%, rgba(84,125,175,0.26), rgba(150,165,220,0.1) 48%, transparent 62%)",
+  "radial-gradient(70% 55% at 30% 0%, rgba(170,198,232,0.24), rgba(105,145,195,0.08) 45%, transparent 58%)",
 ];
 
-/** Rim colour: the border tinted towards apricot. */
+/** Rim colour: the border tinted towards pale blue. */
 export const haloRim =
-  "border-[color-mix(in_oklch,var(--border)_70%,oklch(0.86_0.07_55))]";
+  "border-[color-mix(in_oklch,var(--border)_70%,oklch(0.86_0.039_242))]";
 
 /** Frosted fill that lets the glow read through. */
 export function haloFill(translucent: boolean, emphasis = false) {
