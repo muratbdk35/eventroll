@@ -61,6 +61,7 @@ export async function createPendingUploads(opts: {
   deviceId: string;
   fingerprint: string;
   uploaderName: string | null;
+  consentAt: Date;
   files: PresignFile[];
 }): Promise<PresignResult> {
   const { event, files } = opts;
@@ -101,6 +102,7 @@ export async function createPendingUploads(opts: {
       mime: f.type,
       bytes: f.size,
       uploaderName: opts.uploaderName,
+      guestConsentAt: opts.consentAt,
       deviceId: opts.deviceId,
       uploaderFingerprint: opts.fingerprint,
     };

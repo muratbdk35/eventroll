@@ -530,7 +530,20 @@
     "dropHint": "ya da fotoğrafları buraya sürükle",
     "formats": "JPG, PNG, HEIC · orijinal kalite",
     "pinSubtitle": "Masandaki kartta yazıyor.",
-    "for": "Fotoğraflar"
+    "for": "Fotoğraflar",
+    "heroTitle": "Bir anı bırak",
+    "heroHint": "Galeriden seç ya da hemen çek",
+    "selected": "{count, plural, one {# fotoğraf hazır} other {# fotoğraf hazır}}",
+    "send": "{count, plural, one {# fotoğrafı gönder} other {# fotoğrafı gönder}}",
+    "sending": "{total} fotoğrafın {done} tanesi gönderiliyor…",
+    "consent": "<terms>Kullanım Koşulları</terms>'nı ve <privacy>Gizlilik Politikası</privacy>'nı kabul ediyorum; bu fotoğrafları paylaşma hakkım var.",
+    "consentNeeded": "Göndermek için kutuyu işaretle.",
+    "nameNeeded": "Önce adını yaz.",
+    "remove": "Kaldır",
+    "clear": "Temizle",
+    "thanksTitle": "Teşekkürler!",
+    "thanksBody": "{count, plural, one {Ev sahiplerine # anı bıraktın.} other {Ev sahiplerine # anı bıraktın.}}",
+    "previouslySent": "Daha önce gönderdiklerin"
   },
   "App": {
     "events": "Etkinlikler",

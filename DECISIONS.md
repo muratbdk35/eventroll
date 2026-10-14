@@ -224,3 +224,27 @@ one error broke every page until a restart. Now:
   `next dev` throws a clear error instead of corrupting silently.
 - A failed DB connection is no longer cached.
 - The demo login (`/api/dev-login`) is enabled only under `next dev`.
+
+## 26. Guest page: "leave a memory", not "upload a file" (owner brief, 2026-10-14)
+
+Design language: modern, calm but alive (Apple Photos / Partiful / Luma quality).
+
+- Main action is a fanned stack of polaroids with a shutter button (springy press),
+  never a dashed drop box. Picking photos is always allowed; the name is a soft pill
+  and only checked when sending (if the host requires it).
+- Photos are **not** sent on pick: they drop into a tray as tilted polaroids and
+  are sent with an explicit "Send N photos" button in a frosted bar.
+- **Consent:** sending requires an unticked-by-default checkbox ("I accept the
+  Terms and Privacy Policy and may share these photos"). The API rejects uploads
+  without it (`consent: true`) and stores `media.guest_consent_at`. This is a
+  click-wrap record, not a signed contract; the legal texts are still drafts (#20)
+  and need a lawyer before launch.
+- Per-photo progress ring (XHR upload progress), springy check on success, a
+  thank-you state, ambient glows, grain texture and frosted glass. All motion is
+  CSS and turned off for `prefers-reduced-motion`.
+- Cover: the host's own cover (`events.cover_key`) when set, otherwise the stock
+  photo for the event type. Host-side cover upload is still to do.
+- Dev note: Turbopack's persistent cache served a stale `app/globals.css` (hand-
+  written rules missing while Tailwind utilities updated). If CSS changes don't
+  show up, stop `next dev` and delete `.next/dev`. Restart `next dev` after
+  schema migrations too (the cached DB client keeps the old shape).

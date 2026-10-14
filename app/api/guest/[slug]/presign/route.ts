@@ -12,6 +12,8 @@ import { ALLOWED_MIME, MAX_FILE_BYTES, MAX_THUMB_BYTES } from "@/lib/uploads";
 
 const bodySchema = z.object({
   uploaderName: z.string().trim().max(60).optional(),
+  // Guest ticked "I accept the terms and may share these photos".
+  consent: z.literal(true),
   files: z
     .array(
       z.object({
@@ -58,6 +60,7 @@ export async function POST(req: Request, { params }: Ctx) {
     deviceId: guest.deviceId,
     fingerprint: fingerprint(ip, req.headers.get("user-agent") ?? ""),
     uploaderName: parsed.data.uploaderName || null,
+    consentAt: new Date(),
     files: parsed.data.files,
   });
   if (!result.ok) {

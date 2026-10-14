@@ -527,7 +527,20 @@
     "dropHint": "or drag photos here",
     "formats": "JPG, PNG, HEIC · original quality",
     "pinSubtitle": "You'll find it on the card at your table.",
-    "for": "Photos for"
+    "for": "Photos for",
+    "heroTitle": "Leave a memory",
+    "heroHint": "Pick photos from your gallery or take one now",
+    "selected": "{count, plural, one {# photo ready} other {# photos ready}}",
+    "send": "{count, plural, one {Send # photo} other {Send # photos}}",
+    "sending": "Sending {done} of {total}…",
+    "consent": "I accept the <terms>Terms</terms> and <privacy>Privacy Policy</privacy> and may share these photos.",
+    "consentNeeded": "Tick the box to send.",
+    "nameNeeded": "Add your name first.",
+    "remove": "Remove",
+    "clear": "Clear",
+    "thanksTitle": "Thank you!",
+    "thanksBody": "{count, plural, one {You left # memory for the hosts.} other {You left # memories for the hosts.}}",
+    "previouslySent": "Already sent"
   },
   "App": {
     "events": "Events",

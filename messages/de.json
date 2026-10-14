@@ -530,7 +530,20 @@
     "dropHint": "oder Fotos hierher ziehen",
     "formats": "JPG, PNG, HEIC · Originalqualität",
     "pinSubtitle": "Du findest sie auf der Karte an deinem Tisch.",
-    "for": "Fotos für"
+    "for": "Fotos für",
+    "heroTitle": "Hinterlasse eine Erinnerung",
+    "heroHint": "Wähle Fotos aus deiner Galerie oder mach gleich eins",
+    "selected": "{count, plural, one {# Foto bereit} other {# Fotos bereit}}",
+    "send": "{count, plural, one {# Foto senden} other {# Fotos senden}}",
+    "sending": "Sende {done} von {total}…",
+    "consent": "Ich akzeptiere die <terms>Nutzungsbedingungen</terms> und die <privacy>Datenschutzerklärung</privacy> und darf diese Fotos teilen.",
+    "consentNeeded": "Bitte bestätige das Kästchen.",
+    "nameNeeded": "Bitte gib zuerst deinen Namen ein.",
+    "remove": "Entfernen",
+    "clear": "Leeren",
+    "thanksTitle": "Danke!",
+    "thanksBody": "{count, plural, one {Du hast den Gastgebern # Erinnerung hinterlassen.} other {Du hast den Gastgebern # Erinnerungen hinterlassen.}}",
+    "previouslySent": "Bereits gesendet"
   },
   "App": {
     "events": "Events",
