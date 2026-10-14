@@ -3,6 +3,7 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   Ban,
+  Check,
   ChevronLeft,
   ChevronRight,
   Download,
@@ -24,6 +25,8 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { blockDevice, deletePhoto } from "@/lib/events/actions";
 import { Link, useRouter } from "@/lib/i18n/navigation";
+import { cn } from "@/lib/utils";
+import { usePhotoSelection } from "./photo-downloads";
 
 // Adapted from the 21st.dev "Masonry Lightbox" (ayushmxxn): masonry columns at
 // the photos' real proportions, fade-in entrance (no blur filter: too heavy on
@@ -34,6 +37,9 @@ export type GridPhoto = {
   id: string;
   src: string;
   full: string;
+  /** Signed link that downloads the original under a readable name. */
+  download: string;
+  bytes: number;
   uploaderName: string | null;
   canBlock: boolean;
   createdAt: string;
@@ -73,6 +79,8 @@ export function PhotoGrid({
     ? 3
     : 2;
   const [pending, start] = useTransition();
+  const selection = usePhotoSelection();
+  const selecting = selection?.selecting ?? false;
   const [open, setOpen] = useState<number | null>(null);
   const current = open === null ? null : photos[open];
 
@@ -162,7 +170,7 @@ export function PhotoGrid({
             className="flex items-center justify-end gap-1 p-3 text-white sm:p-4"
             onClick={(e) => e.stopPropagation()}
           >
-            <ViewerButton label={t("download")} href={current.full}>
+            <ViewerButton label={t("download")} href={current.download}>
               <Download className="size-5" />
             </ViewerButton>
             {current.canBlock && (
@@ -253,9 +261,27 @@ export function PhotoGrid({
                   key={p.id}
                   type="button"
                   layoutId={`photo-${p.id}`}
-                  onClick={() => setOpen(i)}
-                  aria-label={`${t("open")} · ${who(p)}`}
-                  className="group clip-round relative block w-full overflow-hidden rounded-2xl bg-muted text-start shadow-sm ring-1 ring-black/5 transition-shadow duration-300 hover:shadow-xl hover:shadow-primary/10 focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+                  onClick={() =>
+                    selecting
+                      ? selection?.toggle({ id: p.id, bytes: p.bytes })
+                      : setOpen(i)
+                  }
+                  aria-label={
+                    selecting
+                      ? `${t("select")} · ${who(p)}`
+                      : `${t("open")} · ${who(p)}`
+                  }
+                  aria-pressed={
+                    selecting
+                      ? Boolean(selection?.selected.has(p.id))
+                      : undefined
+                  }
+                  className={cn(
+                    "group clip-round relative block w-full overflow-hidden rounded-2xl bg-muted text-start shadow-sm ring-1 ring-black/5 transition-shadow duration-300 hover:shadow-xl hover:shadow-primary/10 focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none",
+                    selecting &&
+                      selection?.selected.has(p.id) &&
+                      "ring-3 ring-primary",
+                  )}
                   initial={reduce ? false : { opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-40px" }}
@@ -278,8 +304,28 @@ export function PhotoGrid({
                         ? { aspectRatio: `${p.width} / ${p.height}` }
                         : undefined
                     }
-                    className="block h-auto w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+                    className={cn(
+                      "block h-auto w-full object-cover transition-transform duration-700 ease-out",
+                      selecting
+                        ? selection?.selected.has(p.id) && "scale-[0.94]"
+                        : "group-hover:scale-[1.05]",
+                    )}
                   />
+                  {selecting && (
+                    <span
+                      aria-hidden
+                      className={cn(
+                        "absolute start-2.5 top-2.5 flex size-7 items-center justify-center rounded-full border-2 shadow-md transition-colors",
+                        selection?.selected.has(p.id)
+                          ? "border-white bg-primary text-primary-foreground"
+                          : "border-white/90 bg-black/25",
+                      )}
+                    >
+                      {selection?.selected.has(p.id) && (
+                        <Check className="size-4" strokeWidth={3} />
+                      )}
+                    </span>
+                  )}
                   <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100" />
                   <span className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-2 p-3.5 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
                     <span className="block truncate text-sm font-medium text-white">

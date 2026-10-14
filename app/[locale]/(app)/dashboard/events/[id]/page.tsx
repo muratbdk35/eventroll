@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ChevronRight, ExternalLink, Settings } from "lucide-react";
+import { ArrowRight, ChevronRight, ExternalLink, Settings } from "lucide-react";
 import {
   getFormatter,
   getTranslations,
@@ -8,6 +8,10 @@ import {
 import { EventIcon } from "@/components/host/event-icon";
 import { LiveShare } from "@/components/host/live-share";
 import { BackLink, PageBody } from "@/components/host/page-header";
+import {
+  DownloadMenu,
+  PhotoDownloads,
+} from "@/components/host/photo-downloads";
 import { PhotoGrid } from "@/components/host/photo-grid";
 import { RefreshButton } from "@/components/host/refresh-button";
 import { PrintTemplates } from "@/components/host/print-templates";
@@ -22,15 +26,22 @@ import {
   getEventStats,
   getOwnedEvent,
   listEventMedia,
+  mediaByUploader,
 } from "@/lib/events/queries";
 import { guestUrl } from "@/lib/events/urls";
 import { Link, redirect } from "@/lib/i18n/navigation";
 import type { Locale } from "@/lib/i18n/routing";
 import { presignGet } from "@/lib/storage";
+import { extFor, isAllowedMime } from "@/lib/uploads";
 
 export const metadata: Metadata = { robots: { index: false } };
 
-type View = "main" | "share" | "settings" | "print";
+type View = "main" | "photos" | "share" | "settings" | "print";
+
+/** Newest photos on the event page; the rest under "See all". */
+const PREVIEW_PHOTOS = 12;
+/** Photos per step on the all-photos view ("Show more" adds this many). */
+const PAGE_PHOTOS = 120;
 
 export default async function EventPage({
   params,
@@ -48,13 +59,21 @@ export default async function EventPage({
   const sp = await searchParams;
   const raw = sp.view ?? sp.tab;
   const view: View =
-    raw === "share" || raw === "settings" || raw === "print" ? raw : "main";
+    raw === "photos" || raw === "share" || raw === "settings" || raw === "print"
+      ? raw
+      : "main";
+  const shown =
+    view === "photos"
+      ? Math.min(5000, Math.max(PAGE_PHOTOS, Number(sp.limit) || PAGE_PHOTOS))
+      : PREVIEW_PHOTOS;
+  const withPhotos = view === "main" || view === "photos";
 
-  const [t, format, stats, rows] = await Promise.all([
+  const [t, format, stats, rows, guests] = await Promise.all([
     getTranslations("Events"),
     getFormatter(),
     getEventStats(event.id),
-    view === "main" ? listEventMedia(event.id) : Promise.resolve([]),
+    withPhotos ? listEventMedia(event.id, shown) : Promise.resolve([]),
+    withPhotos ? mediaByUploader(event.id) : Promise.resolve([]),
   ]);
   const link = guestUrl(event);
   const eventPath = `/dashboard/events/${event.id}`;
@@ -91,7 +110,7 @@ export default async function EventPage({
     </div>
   );
 
-  if (view !== "main") {
+  if (!withPhotos) {
     return (
       <PageBody>
         {view === "settings" && sp.from === "review" ? (
@@ -175,6 +194,10 @@ export default async function EventPage({
       id: m.id,
       src: await presignGet(m.thumbKey ?? m.r2Key),
       full: await presignGet(m.r2Key),
+      download: await presignGet(m.r2Key, {
+        filename: `${event.slug}-${m.id.slice(0, 8)}.${isAllowedMime(m.mime) ? extFor(m.mime) : "jpg"}`,
+      }),
+      bytes: m.bytes,
       uploaderName: m.uploaderName,
       width: m.width,
       height: m.height,
@@ -182,6 +205,83 @@ export default async function EventPage({
       createdAt: m.createdAt.toISOString(),
     })),
   );
+
+  const photosSection = (
+    <PhotoDownloads
+      eventId={event.id}
+      eventName={event.name}
+      guests={guests}
+      totalPhotos={guests.reduce((n, g) => n + g.photos, 0)}
+      totalBytes={guests.reduce((n, g) => n + g.bytes, 0)}
+      visible={photos.map((p) => ({ id: p.id, bytes: p.bytes }))}
+    >
+      <section className={view === "photos" ? "mt-8" : "mt-10"}>
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-2.5">
+            <h2 className="font-heading text-xl font-semibold">
+              {t("photosTitle")}
+              {stats.photos > 0 && (
+                <span className="ms-2 text-base font-normal text-muted-foreground tabular-nums">
+                  {stats.photos}
+                </span>
+              )}
+            </h2>
+            <RefreshButton />
+          </div>
+          <div className="flex items-center gap-1">
+            <Button
+              asChild
+              variant="ghost"
+              className="h-9 rounded-full px-3 text-muted-foreground"
+            >
+              <a href={link} target="_blank" rel="noopener noreferrer">
+                <ExternalLink aria-hidden />
+                {t("openGuest")}
+              </a>
+            </Button>
+            <DownloadMenu />
+          </div>
+        </div>
+        <PhotoGrid eventId={event.id} photos={photos} published={published} />
+        {view === "main" && stats.photos > photos.length && (
+          <Link
+            href={`${eventPath}?view=photos`}
+            className="mt-5 flex h-12 w-full items-center justify-center gap-2 rounded-2xl border border-border bg-card text-sm font-semibold shadow-xs transition-colors hover:border-primary/30 hover:bg-accent/40"
+          >
+            {t("photos.seeAll", { count: stats.photos })}
+            <ArrowRight className="size-4 rtl:rotate-180" aria-hidden />
+          </Link>
+        )}
+        {view === "photos" && stats.photos > photos.length && (
+          <div className="mt-6 flex flex-col items-center gap-2">
+            <p className="text-sm text-muted-foreground">
+              {t("photos.showing", {
+                shown: photos.length,
+                total: stats.photos,
+              })}
+            </p>
+            <Link
+              href={`${eventPath}?view=photos&limit=${shown + PAGE_PHOTOS}`}
+              scroll={false}
+              className="inline-flex h-11 items-center gap-2 rounded-full border border-border bg-card px-5 text-sm font-semibold shadow-xs transition-colors hover:bg-accent/40"
+            >
+              {t("photos.showMore")}
+            </Link>
+          </div>
+        )}
+      </section>
+    </PhotoDownloads>
+  );
+
+  if (view === "photos") {
+    return (
+      <PageBody>
+        <BackLink href={eventPath}>{t("backToEvent")}</BackLink>
+        {header}
+        {photosSection}
+      </PageBody>
+    );
+  }
 
   return (
     <PageBody>
@@ -196,32 +296,7 @@ export default async function EventPage({
         )}
       </div>
 
-      <section className="mt-10">
-        <div className="mb-4 flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2.5">
-            <h2 className="font-heading text-xl font-semibold">
-              {t("photosTitle")}
-              {stats.photos > 0 && (
-                <span className="ms-2 text-base font-normal text-muted-foreground tabular-nums">
-                  {stats.photos}
-                </span>
-              )}
-            </h2>
-            <RefreshButton />
-          </div>
-          <Button
-            asChild
-            variant="ghost"
-            className="h-9 rounded-full px-3 text-muted-foreground"
-          >
-            <a href={link} target="_blank" rel="noopener noreferrer">
-              <ExternalLink aria-hidden />
-              {t("openGuest")}
-            </a>
-          </Button>
-        </div>
-        <PhotoGrid eventId={event.id} photos={photos} published={published} />
-      </section>
+      {photosSection}
 
       <Link
         href={`${eventPath}?view=settings`}

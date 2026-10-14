@@ -93,3 +93,48 @@ export async function listEventMedia(eventId: string, limit = 120) {
     .orderBy(desc(media.createdAt))
     .limit(limit);
 }
+
+/** Photo count and bytes per uploader name (null = no name), for downloads. */
+export async function mediaByUploader(eventId: string) {
+  return db
+    .select({
+      uploaderName: media.uploaderName,
+      photos: count(),
+      bytes: sql<number>`coalesce(sum(${media.bytes}), 0)`.mapWith(Number),
+    })
+    .from(media)
+    .where(and(eq(media.eventId, eventId), eq(media.status, "ready")))
+    .groupBy(media.uploaderName)
+    .orderBy(desc(count()));
+}
+
+/**
+ * Every ready photo of an event, oldest first (the album order), optionally
+ * only some ids or one uploader (`null` = guests who left no name).
+ */
+export async function listDownloadMedia(
+  eventId: string,
+  filter: { ids?: string[]; uploader?: string | null } = {},
+) {
+  const where = [eq(media.eventId, eventId), eq(media.status, "ready")];
+  if (filter.ids) where.push(inArray(media.id, filter.ids));
+  if (filter.uploader !== undefined) {
+    where.push(
+      filter.uploader === null
+        ? sql`${media.uploaderName} is null`
+        : eq(media.uploaderName, filter.uploader),
+    );
+  }
+  return db
+    .select({
+      id: media.id,
+      r2Key: media.r2Key,
+      mime: media.mime,
+      bytes: media.bytes,
+      uploaderName: media.uploaderName,
+      createdAt: media.createdAt,
+    })
+    .from(media)
+    .where(and(...where))
+    .orderBy(media.createdAt);
+}

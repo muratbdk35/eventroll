@@ -482,3 +482,27 @@ album ZIP and printable table cards are phase 1C/1D work (#22, #23).
   "draft" pill keep their meaning colours.
 - Print-card palettes (terracotta, midnight, sage, …) are hosts' design
   choices and stay as they are. Marketing photos are unchanged.
+
+## 39. Album downloads: every way out (owner request, 2026-10-15)
+
+- Built in the host's browser as #23 planned: `POST /api/events/[id]/download`
+  (owner only) returns the originals (all, picked ids, or one uploader) with
+  6-hour signed links; `lib/download/client.ts` streams them into a ZIP with
+  client-zip (MIT). Files are stored, not recompressed: byte-identical to
+  what guests sent (checked against the source files, EXIF intact).
+- Chrome/Edge: the host picks where to save and the ZIP streams to disk (no
+  size limit). Other browsers: the album is split into parts of ≤1.5 GB
+  (≤400 MB on phones) that are built in memory, "Name (2 of 3).zip".
+- Options on the event page's "Download" menu: all photos, by guest (incl.
+  "no name"), and "choose photos" (selection mode in the grid → ZIP, or on
+  phones the share sheet to save straight to Photos, up to 40 photos /
+  300 MB). The viewer's single-photo button now uses a signed link with
+  `Content-Disposition: attachment` (the cross-origin `download` attribute
+  was ignored, so browsers opened the image instead).
+- Names inside ZIPs sort by upload time in the host's time zone:
+  "2026-06-14 21.31 - Selin - 0042.jpg". Failed files are retried twice,
+  then skipped and offered as "try again".
+- The event page shows the newest 12 photos and "See all (N)", which opens
+  `?view=photos` (120 at a time, "Show more" adds 120); the download menu
+  and selection mode work there too.
+- Not yet: the "album ready" email and the 3-day/1-day reminders (#23).

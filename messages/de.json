@@ -375,7 +375,11 @@
       "download": "Herunterladen",
       "prev": "Zurück",
       "next": "Weiter",
-      "refresh": "Nach neuen Fotos suchen"
+      "refresh": "Nach neuen Fotos suchen",
+      "select": "Auswählen",
+      "seeAll": "Alle {count} Fotos ansehen",
+      "showing": "{shown} von {total} angezeigt",
+      "showMore": "Mehr anzeigen"
     },
     "share": {
       "title": "Dein QR-Code",
@@ -515,7 +519,42 @@
       "showPinHint": "Ist es aus, sagst du den Gästen die PIN selbst.",
       "showPinResave": "Um sie zu zeigen, speichere die PIN in den Einstellungen noch einmal."
     },
-    "backToReview": "Zurück zur Übersicht"
+    "backToReview": "Zurück zur Übersicht",
+    "download": {
+      "menu": "Herunterladen",
+      "all": "Alle Fotos (ZIP)",
+      "allHint": "{count, plural, one {# Foto} other {# Fotos}} · {size}",
+      "allLabel": "Alle Fotos",
+      "pick": "Fotos auswählen",
+      "pickHint": "Fotos antippen und als ZIP herunterladen.",
+      "pickHintPhone": "Fotos auswählen und aufs Handy sichern oder als ZIP laden.",
+      "byGuest": "Nach Gast",
+      "noName": "Ohne Namen",
+      "anonymousFile": "Gast",
+      "pickedLabel": "Ausgewählte Fotos",
+      "pickedFile": "Auswahl",
+      "selected": "{count, plural, =0 {Fotos zum Auswählen antippen} other {# ausgewählt}}",
+      "selectAll": "Alle auswählen",
+      "none": "Leeren",
+      "close": "Auswahl beenden",
+      "zip": "ZIP laden",
+      "saveToPhone": "Aufs Handy sichern",
+      "tooManyToShare": "Aufs Handy gehen höchstens {count} Fotos auf einmal. Für mehr das ZIP nutzen.",
+      "listing": "{label}: wird vorbereitet…",
+      "progress": "{label}: {done} von {total}",
+      "part": "Teil {n} von {of}",
+      "keepOpen": "Lass die Seite offen, bis es fertig ist.",
+      "cancel": "Abbrechen",
+      "preparing": "Fotos werden vorbereitet",
+      "readyToShare": "{count, plural, one {# Foto ist} other {# Fotos sind}} bereit.",
+      "done": "{count, plural, one {# Foto} other {# Fotos}} heruntergeladen.",
+      "partial": "{count, plural, one {# Foto konnte} other {# Fotos konnten}} nicht geladen werden.",
+      "retry": "Erneut versuchen",
+      "failed": "Download fehlgeschlagen. Prüfe die Verbindung und versuch es erneut.",
+      "cancelled": "Download abgebrochen.",
+      "shared": "{count, plural, one {# Foto} other {# Fotos}} geteilt.",
+      "nothing": "Keine Fotos zum Herunterladen."
+    }
   },
   "Guest": {
     "welcome": "Teile deine Fotos von {event}",

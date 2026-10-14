@@ -372,7 +372,11 @@
       "download": "Download",
       "prev": "Previous",
       "next": "Next",
-      "refresh": "Check for new photos"
+      "refresh": "Check for new photos",
+      "select": "Select",
+      "seeAll": "See all {count} photos",
+      "showing": "Showing {shown} of {total}",
+      "showMore": "Show more"
     },
     "share": {
       "title": "Your QR code",
@@ -512,7 +516,42 @@
       "showPinHint": "If off, tell your guests the PIN yourself.",
       "showPinResave": "To show it, save the PIN once more in settings."
     },
-    "backToReview": "Back to review"
+    "backToReview": "Back to review",
+    "download": {
+      "menu": "Download",
+      "all": "All photos (ZIP)",
+      "allHint": "{count, plural, one {# photo} other {# photos}} · {size}",
+      "allLabel": "All photos",
+      "pick": "Choose photos",
+      "pickHint": "Tap photos to pick them, then download a ZIP.",
+      "pickHintPhone": "Pick photos, then save them to your phone or as a ZIP.",
+      "byGuest": "By guest",
+      "noName": "No name",
+      "anonymousFile": "Guest",
+      "pickedLabel": "Selected photos",
+      "pickedFile": "selection",
+      "selected": "{count, plural, =0 {Tap photos to select} one {# selected} other {# selected}}",
+      "selectAll": "Select all",
+      "none": "Clear",
+      "close": "Stop selecting",
+      "zip": "Download ZIP",
+      "saveToPhone": "Save to phone",
+      "tooManyToShare": "Saving to the phone works for up to {count} photos at once. Use the ZIP for more.",
+      "listing": "{label}: getting ready…",
+      "progress": "{label}: {done} of {total}",
+      "part": "Part {n} of {of}",
+      "keepOpen": "Keep this page open until it finishes.",
+      "cancel": "Cancel",
+      "preparing": "Preparing photos",
+      "readyToShare": "{count, plural, one {# photo is} other {# photos are}} ready.",
+      "done": "{count, plural, one {# photo} other {# photos}} downloaded.",
+      "partial": "{count, plural, one {# photo} other {# photos}} could not be downloaded.",
+      "retry": "Try again",
+      "failed": "Download failed. Check your connection and try again.",
+      "cancelled": "Download cancelled.",
+      "shared": "{count, plural, one {# photo} other {# photos}} shared.",
+      "nothing": "No photos to download."
+    }
   },
   "Guest": {
     "welcome": "Share your photos from {event}",

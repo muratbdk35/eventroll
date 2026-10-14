@@ -13,6 +13,7 @@ function repoUrl(repo, name) {
     .replace(/^git\+/, "")
     .replace(/^git:\/\//, "https://")
     .replace(/^git@github\.com:/, "https://github.com/")
+    .replace(/^ssh:\/\/git@github\.com\//, "https://github.com/")
     .replace(/\.git$/, "")
     .replace(/\/$/, "");
 }

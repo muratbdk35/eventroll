@@ -154,6 +154,8 @@ const photos = [
   id: `lp-${i}`,
   src: `/marketing/${f}`,
   full: `/marketing/${f}`,
+  download: `/marketing/${f}`,
+  bytes: 0,
   uploaderName: null,
   canBlock: false,
   createdAt: "2026-06-14T20:00:00.000Z",

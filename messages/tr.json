@@ -375,7 +375,11 @@
       "download": "İndir",
       "prev": "Önceki",
       "next": "Sonraki",
-      "refresh": "Yeni fotoğrafları kontrol et"
+      "refresh": "Yeni fotoğrafları kontrol et",
+      "select": "Seç",
+      "seeAll": "Tüm fotoğrafları gör ({count})",
+      "showing": "{total} fotoğraftan {shown} tanesi gösteriliyor",
+      "showMore": "Daha fazla göster"
     },
     "share": {
       "title": "QR kodun",
@@ -515,7 +519,42 @@
       "showPinHint": "Kapalıysa PIN'i misafirlerine ayrıca söylersin.",
       "showPinResave": "PIN'i göstermek için ayarlardan bir kez yeniden kaydet."
     },
-    "backToReview": "Son kontrole dön"
+    "backToReview": "Son kontrole dön",
+    "download": {
+      "menu": "İndir",
+      "all": "Tüm fotoğraflar (ZIP)",
+      "allHint": "{count} fotoğraf · {size}",
+      "allLabel": "Tüm fotoğraflar",
+      "pick": "Fotoğraf seç",
+      "pickHint": "Fotoğraflara dokunarak seç, sonra ZIP olarak indir.",
+      "pickHintPhone": "Fotoğrafları seç, telefonuna kaydet ya da ZIP indir.",
+      "byGuest": "Misafire göre",
+      "noName": "İsimsiz",
+      "anonymousFile": "Misafir",
+      "pickedLabel": "Seçilen fotoğraflar",
+      "pickedFile": "seçilenler",
+      "selected": "{count, plural, =0 {Seçmek için fotoğraflara dokun} other {# seçildi}}",
+      "selectAll": "Tümünü seç",
+      "none": "Temizle",
+      "close": "Seçimi bitir",
+      "zip": "ZIP indir",
+      "saveToPhone": "Telefona kaydet",
+      "tooManyToShare": "Telefona tek seferde en fazla {count} fotoğraf kaydedilebilir. Daha fazlası için ZIP indir.",
+      "listing": "{label}: hazırlanıyor…",
+      "progress": "{label}: {done} / {total}",
+      "part": "Parça {n} / {of}",
+      "keepOpen": "Bitene kadar bu sayfayı açık tut.",
+      "cancel": "İptal",
+      "preparing": "Fotoğraflar hazırlanıyor",
+      "readyToShare": "{count} fotoğraf hazır.",
+      "done": "{count} fotoğraf indirildi.",
+      "partial": "{count} fotoğraf indirilemedi.",
+      "retry": "Tekrar dene",
+      "failed": "İndirme başarısız. Bağlantını kontrol edip tekrar dene.",
+      "cancelled": "İndirme iptal edildi.",
+      "shared": "{count} fotoğraf paylaşıldı.",
+      "nothing": "İndirilecek fotoğraf yok."
+    }
   },
   "Guest": {
     "welcome": "{event} fotoğraflarını paylaş",
