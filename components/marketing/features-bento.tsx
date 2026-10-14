@@ -1,8 +1,7 @@
-import { Check, Lock } from "lucide-react";
-import Image from "next/image";
+import { Lock, Sparkles } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { cn } from "@/lib/utils";
-import { MockPanel, MockRow, MockToggle } from "./mock";
+import { MockDeck, MockPanel, MockPolaroid, MockRow, MockToggle } from "./mock";
 import { QrCard } from "./qr-card";
 import { SectionHeading } from "./section-heading";
 
@@ -44,47 +43,64 @@ function TileText({
   );
 }
 
-const picks = [
-  "/marketing/toast.jpg",
-  "/marketing/rings.jpg",
-  "/marketing/cake.jpg",
-  "/marketing/confetti.jpg",
-  "/marketing/sparklers.jpg",
-  "/marketing/arch-night.jpg",
-];
-
-// Mini "photo picker" showing a guest selecting photos to upload.
+// Mini guest page: the pile of prints with the shutter, the tray and the
+// frosted send bar, exactly as guests see it (DECISIONS #26).
 async function PickerMock() {
-  const t = await getTranslations("Landing.features.noApp");
+  const t = await getTranslations("Guest");
   return (
     <div
       aria-hidden
-      className="absolute end-6 top-6 w-56 rotate-3 rounded-2xl bg-white p-2.5 shadow-2xl sm:end-10 sm:top-10 sm:w-64"
+      className="absolute end-6 top-6 w-56 rotate-3 rounded-[1.75rem] bg-[oklch(0.985_0.01_75)] p-3 shadow-2xl sm:end-10 sm:top-10 sm:w-64"
     >
-      <div className="grid grid-cols-3 gap-1.5">
-        {picks.map((src, i) => (
-          <div
-            key={src}
-            className="relative aspect-square overflow-hidden rounded-md"
-          >
-            <Image
-              src={src}
-              alt=""
-              fill
-              sizes="90px"
-              quality={60}
-              className="object-cover"
-            />
-            {i !== 4 && (
-              <span className="absolute end-1 top-1 flex size-4 items-center justify-center rounded-full bg-primary ring-2 ring-white">
-                <Check className="size-2.5 text-white" strokeWidth={3} />
-              </span>
-            )}
-          </div>
-        ))}
+      <div className="flex justify-center pt-1">
+        <MockDeck
+          size="sm"
+          srcs={[
+            "/marketing/sparklers.jpg",
+            "/marketing/rings.jpg",
+            "/marketing/toast.jpg",
+          ]}
+        />
       </div>
-      <div className="mt-2.5 flex h-8 items-center justify-center rounded-lg bg-primary text-xs font-semibold text-primary-foreground">
-        {t("pickerCta", { count: 5 })}
+      <p className="mt-4 text-center font-heading text-[13px] font-semibold text-foreground">
+        {t("heroTitle")}
+      </p>
+      <div className="mt-2.5 grid grid-cols-3 gap-1.5 px-0.5">
+        <MockPolaroid src="/marketing/cake.jpg" tilt={-2.5} done />
+        <MockPolaroid src="/marketing/confetti.jpg" tilt={1.5} done />
+        <MockPolaroid src="/marketing/arch-night.jpg" tilt={-1}>
+          <span className="absolute inset-0 flex items-center justify-center bg-black/35">
+            <svg viewBox="0 0 36 36" className="size-6 -rotate-90">
+              <circle
+                cx="18"
+                cy="18"
+                r="15"
+                fill="none"
+                stroke="white"
+                strokeOpacity=".3"
+                strokeWidth="3.5"
+              />
+              <circle
+                className="demo-ring"
+                cx="18"
+                cy="18"
+                r="15"
+                fill="none"
+                stroke="white"
+                strokeWidth="3.5"
+                strokeLinecap="round"
+                pathLength="100"
+                strokeDasharray="100"
+              />
+            </svg>
+          </span>
+        </MockPolaroid>
+      </div>
+      <div className="mt-3 rounded-2xl border border-white/70 bg-white/80 p-1.5 shadow-lg ring-1 shadow-primary/10 ring-black/5">
+        <div className="flex h-8 items-center justify-center gap-1.5 rounded-xl bg-primary text-[11.5px] font-semibold text-primary-foreground">
+          <Sparkles className="size-3.5" />
+          {t("send", { count: 3 })}
+        </div>
       </div>
     </div>
   );

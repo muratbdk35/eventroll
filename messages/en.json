@@ -115,7 +115,11 @@
         "shareTitle": "Your QR code",
         "copy": "Copy link",
         "photosLabel": "Photos",
-        "zip": "Download ZIP"
+        "zip": "Download ZIP",
+        "startValue": "Jun 14",
+        "startTime": "19:00",
+        "endValue": "Jun 15",
+        "endTime": "02:00"
       }
     },
     "features": {

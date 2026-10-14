@@ -118,7 +118,11 @@
         "shareTitle": "QR kodun",
         "copy": "Linki kopyala",
         "photosLabel": "Fotoğraf",
-        "zip": "ZIP indir"
+        "zip": "ZIP indir",
+        "startValue": "14 Haz",
+        "startTime": "19:00",
+        "endValue": "15 Haz",
+        "endTime": "02:00"
       }
     },
     "features": {
