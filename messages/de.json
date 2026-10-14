@@ -294,7 +294,8 @@
         "terms": "AGB",
         "cookies": "Cookies",
         "imprint": "Impressum",
-        "dmca-report": "Inhalt melden"
+        "dmca-report": "Inhalt melden",
+        "third-party": "Hinweise zu Drittanbietern"
       }
     }
   },
@@ -669,5 +670,19 @@
       "bodyPublish": "Zahlung erhalten. Prüfe alles noch einmal und veröffentliche.",
       "ctaPublish": "Prüfen und veröffentlichen"
     }
+  },
+  "Notices": {
+    "title": "Hinweise zu Drittanbietern",
+    "intro": "eventroll baut auf Open-Source-Arbeit anderer Menschen auf. Hier nennen wir sie und verlinken die Lizenzen, unter denen ihre Arbeit steht.",
+    "components": "Angepasste Komponenten",
+    "componentsIntro": "Oberflächen-Code, von dem wir ausgegangen sind und den wir für eventroll angepasst haben.",
+    "libraries": "Open-Source-Bibliotheken",
+    "librariesIntro": "Bibliotheken, auf denen die App läuft, mit Version und Lizenz.",
+    "fonts": "Schriften",
+    "photos": "Fotos",
+    "photosText": "Die Fotos auf unserer Website stammen von Unsplash und werden unter der <license>Unsplash-Lizenz</license> verwendet.",
+    "photo": "Foto {n}",
+    "texts": "Lizenztexte",
+    "textsIntro": "Die vollständigen Texte der Lizenzen oben."
   }
 }

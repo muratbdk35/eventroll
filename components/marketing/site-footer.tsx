@@ -42,7 +42,14 @@ export async function SiteFooter() {
           <p className="font-heading font-semibold">{t("legal")}</p>
           <ul className="mt-4 space-y-3 text-sm">
             {(
-              ["privacy", "terms", "cookies", "imprint", "dmca-report"] as const
+              [
+                "privacy",
+                "terms",
+                "cookies",
+                "imprint",
+                "dmca-report",
+                "third-party",
+              ] as const
             ).map((page) => (
               <li key={page}>
                 <Link href={`/legal/${page}`} className={linkCls}>

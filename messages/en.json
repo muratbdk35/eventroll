@@ -291,7 +291,8 @@
         "terms": "Terms",
         "cookies": "Cookies",
         "imprint": "Imprint",
-        "dmca-report": "Report content"
+        "dmca-report": "Report content",
+        "third-party": "Third-party notices"
       }
     }
   },
@@ -666,5 +667,19 @@
       "bodyPublish": "Payment received. Check everything once more and publish.",
       "ctaPublish": "Review and publish"
     }
+  },
+  "Notices": {
+    "title": "Third-party notices",
+    "intro": "eventroll is built on open-source work by other people. This page credits them and links to the licences their work is shared under.",
+    "components": "Adapted components",
+    "componentsIntro": "Interface code we started from and changed to fit eventroll.",
+    "libraries": "Open-source libraries",
+    "librariesIntro": "Libraries the app runs on, with their version and licence.",
+    "fonts": "Fonts",
+    "photos": "Photos",
+    "photosText": "The photos on our website come from Unsplash and are used under the <license>Unsplash License</license>.",
+    "photo": "Photo {n}",
+    "texts": "Licence texts",
+    "textsIntro": "Full texts of the licences above."
   }
 }

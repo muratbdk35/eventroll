@@ -423,3 +423,18 @@ album ZIP and printable table cards are phase 1C/1D work (#22, #23).
   what the product does (originals stored unchanged incl. EXIF/location, no
   shared album, device cookie, salted IP/UA hash, 7-day deletion, providers).
   Still English-only DRAFTs with `[brackets]` and lawyer notes (#20).
+
+## 36. Third-party notices page (owner request, 2026-10-14)
+
+- `/[locale]/legal/third-party`, linked in the footer's legal column, credits
+  every piece of outside work we ship: adapted UI components (author, licence,
+  source link), runtime libraries (`lib/legal/third-party-libs.json`,
+  regenerated with `npm run notices`), fonts and the Unsplash photos.
+- Licences checked on 2026-10-14: Receipt Tiers comes from the author's
+  Spectrum UI repo on GitHub (Apache-2.0), not a 21st.dev fetch; Masonry
+  Lightbox, Veil Sign Up 2, Checkout Summary and Auth Verify Email are MIT,
+  the setup wizard MIT-0. Full texts are served from `public/licenses/`.
+  Apache-2.0 §4(b): `receipt-card.tsx` states that we modified it.
+- Any newly copied or adapted outside code gets an entry in
+  `lib/legal/notices.ts` in the same change.
+- Removed the unused `components/ui/stack.tsx` and `border-beam.tsx`.

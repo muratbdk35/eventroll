@@ -1,7 +1,9 @@
 import { cn } from "@/lib/utils";
 
 // Receipt layout adapted from 21st.dev "Receipt Tiers" (arihantcodes, Spectrum
-// UI). Shared by the landing pricing section and the paywall in the create
+// UI, Apache-2.0, https://github.com/arihantcodes/spectrum-ui). Modified by
+// eventroll: rewritten in our styles, plans and translations; licence and
+// credit on the third-party notices page (lib/legal/notices.ts). Shared by the landing pricing section and the paywall in the create
 // flow, so both look exactly the same (DECISIONS #32). Pure markup: callers
 // pass translated, upper-cased strings and their own CTA.
 

@@ -294,7 +294,8 @@
         "terms": "Kullanım şartları",
         "cookies": "Çerezler",
         "imprint": "Künye",
-        "dmca-report": "İçerik bildir"
+        "dmca-report": "İçerik bildir",
+        "third-party": "Üçüncü taraf bildirimleri"
       }
     }
   },
@@ -669,5 +670,19 @@
       "bodyPublish": "Ödemen alındı. Son kez kontrol et ve yayınla.",
       "ctaPublish": "Kontrol et ve yayınla"
     }
+  },
+  "Notices": {
+    "title": "Üçüncü taraf bildirimleri",
+    "intro": "eventroll, başka insanların açık kaynak emeği üzerine kurulu. Bu sayfada onları anıyor ve eserlerinin paylaşıldığı lisanslara bağlantı veriyoruz.",
+    "components": "Uyarlanan bileşenler",
+    "componentsIntro": "Başlangıç noktası olarak aldığımız ve eventroll'a göre değiştirdiğimiz arayüz kodları.",
+    "libraries": "Açık kaynak kütüphaneler",
+    "librariesIntro": "Uygulamanın üzerinde çalıştığı kütüphaneler, sürümleri ve lisanslarıyla.",
+    "fonts": "Yazı tipleri",
+    "photos": "Fotoğraflar",
+    "photosText": "Web sitemizdeki fotoğraflar Unsplash kaynaklıdır ve <license>Unsplash Lisansı</license> kapsamında kullanılır.",
+    "photo": "Fotoğraf {n}",
+    "texts": "Lisans metinleri",
+    "textsIntro": "Yukarıdaki lisansların tam metinleri."
   }
 }
