@@ -6,6 +6,7 @@ import {
   ChevronRight,
   Download,
   ExternalLink,
+  Lock,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
@@ -72,6 +73,13 @@ export function NextSteps({
   const t = useTranslations("Events.steps");
   const planName = plan === "premium" ? "Premium" : "Standard";
 
+  const lockedShare = (
+    <p className="inline-flex items-center gap-2 rounded-full bg-muted px-3.5 py-2 text-sm text-muted-foreground">
+      <Lock className="size-3.5" aria-hidden />
+      {t("shareLocked")}
+    </p>
+  );
+
   const shareActions = (
     <div className="flex flex-wrap items-center gap-2">
       <Button asChild className="h-9 rounded-full px-4">
@@ -107,7 +115,7 @@ export function NextSteps({
       title: t("share"),
       body: t("shareBody"),
       done: photoCount > 0,
-      action: shareActions,
+      action: plan ? shareActions : lockedShare,
     },
     {
       id: "collect",

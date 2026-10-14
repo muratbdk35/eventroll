@@ -115,12 +115,22 @@ export function SettingsForm({
     () => JSON.stringify(s) !== JSON.stringify(base),
     [s, base],
   );
-  const pinInvalid = s.pinOn && !initial.hasPin && !/^\d{4,8}$/.test(s.pin);
+  // Empty keeps an existing PIN; anything typed must be 4-8 digits.
+  const pinInvalid =
+    s.pinOn &&
+    (s.pin.length > 0 || !initial.hasPin) &&
+    !/^\d{4,8}$/.test(s.pin);
   const rangeOk = new Date(s.ends) > new Date(s.starts);
+  // Upload hours: both set and the close after the open (e.g. 20:00 -> 02:00 next day).
+  const hoursOk =
+    !s.hoursOn ||
+    (Boolean(s.opens) &&
+      Boolean(s.closes) &&
+      new Date(s.closes) > new Date(s.opens));
 
   function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (pinInvalid || !rangeOk) return;
+    if (pinInvalid || !rangeOk || !hoursOk) return;
     start(async () => {
       const res = await updateSettings(eventId, {
         name: s.name,
@@ -261,13 +271,24 @@ export function SettingsForm({
                       set("pin", e.target.value.replace(/\D/g, ""))
                     }
                     aria-invalid={pinInvalid && s.pin.length > 0}
+                    aria-describedby="s-pin-hint"
                     className="h-9 max-w-40 text-center font-mono tracking-[0.35em]"
                   />
-                  {initial.hasPin && (
-                    <p className="text-xs text-muted-foreground">
-                      {t("pinSet")}
-                    </p>
-                  )}
+                  <p
+                    id="s-pin-hint"
+                    className={cn(
+                      "text-xs",
+                      pinInvalid && s.pin.length > 0
+                        ? "text-destructive"
+                        : "text-muted-foreground",
+                    )}
+                  >
+                    {pinInvalid && s.pin.length > 0
+                      ? t("pinFormat")
+                      : initial.hasPin
+                        ? t("pinSet")
+                        : null}
+                  </p>
                 </div>
               )}
             </Row>
@@ -281,7 +302,14 @@ export function SettingsForm({
                 <Switch
                   id="s-hours-on"
                   checked={s.hoursOn}
-                  onCheckedChange={(v) => set("hoursOn", v)}
+                  onCheckedChange={(v) =>
+                    setS((prev) => ({
+                      ...prev,
+                      hoursOn: v,
+                      opens: prev.opens || prev.starts,
+                      closes: prev.closes || prev.ends,
+                    }))
+                  }
                 />
               }
             >
@@ -294,12 +322,10 @@ export function SettingsForm({
                     >
                       {t("opens")}
                     </Label>
-                    <Input
+                    <DateTimeField
                       id="s-opens"
-                      type="datetime-local"
                       value={s.opens}
-                      onChange={(e) => set("opens", e.target.value)}
-                      className="h-9"
+                      onChange={(v) => set("opens", v)}
                     />
                   </div>
                   <div className="space-y-1.5">
@@ -309,14 +335,22 @@ export function SettingsForm({
                     >
                       {t("closes")}
                     </Label>
-                    <Input
+                    <DateTimeField
                       id="s-closes"
-                      type="datetime-local"
                       value={s.closes}
-                      onChange={(e) => set("closes", e.target.value)}
-                      className="h-9"
+                      min={s.opens}
+                      onChange={(v) => set("closes", v)}
+                      invalid={!hoursOk}
                     />
                   </div>
+                  {!hoursOk && (
+                    <p
+                      className="text-sm text-destructive sm:col-span-2"
+                      role="alert"
+                    >
+                      {t("hoursError")}
+                    </p>
+                  )}
                 </div>
               )}
             </Row>
@@ -376,7 +410,7 @@ export function SettingsForm({
       {/* Sticky save bar, only while there are unsaved changes. */}
       <div
         className={cn(
-          "fixed inset-x-0 bottom-4 z-40 flex justify-center px-4 transition-all duration-200",
+          "fixed inset-x-0 bottom-[calc(1rem+env(safe-area-inset-bottom))] z-40 flex justify-center px-4 transition-all duration-200",
           dirty
             ? "translate-y-0 opacity-100"
             : "pointer-events-none translate-y-4 opacity-0",
@@ -400,7 +434,9 @@ export function SettingsForm({
               type="submit"
               form="settings"
               className="h-8 rounded-full px-4"
-              disabled={pending || pinInvalid || !rangeOk || !s.name.trim()}
+              disabled={
+                pending || pinInvalid || !rangeOk || !hoursOk || !s.name.trim()
+              }
               tabIndex={dirty ? 0 : -1}
             >
               {pending && <Loader2 className="animate-spin" aria-hidden />}

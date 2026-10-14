@@ -42,6 +42,13 @@ export type GridPhoto = {
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const noop = () => () => {};
+const WIDE = "(min-width: 640px)";
+const subscribeWide = (cb: () => void) => {
+  const mq = window.matchMedia(WIDE);
+  mq.addEventListener("change", cb);
+  return () => mq.removeEventListener("change", cb);
+};
+const isWide = () => window.matchMedia(WIDE).matches;
 
 export function PhotoGrid({
   eventId,
@@ -59,6 +66,9 @@ export function PhotoGrid({
     () => true,
     () => false,
   );
+  const columns = useSyncExternalStore(subscribeWide, isWide, () => false)
+    ? 3
+    : 2;
   const [pending, start] = useTransition();
   const [open, setOpen] = useState<number | null>(null);
   const current = open === null ? null : photos[open];
@@ -227,49 +237,59 @@ export function PhotoGrid({
 
   return (
     <>
-      <div
-        className="columns-2 gap-3 [column-fill:balance] sm:columns-3"
-        aria-busy={pending}
-      >
-        {photos.map((p, i) => (
-          <motion.button
-            key={p.id}
-            type="button"
-            layoutId={`photo-${p.id}`}
-            onClick={() => setOpen(i)}
-            aria-label={`${t("open")} · ${who(p)}`}
-            className="group relative mb-3 block w-full overflow-hidden rounded-2xl bg-muted text-start shadow-sm ring-1 ring-black/5 transition-shadow duration-300 hover:shadow-xl hover:shadow-primary/10 focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
-            style={{ breakInside: "avoid" }}
-            initial={
-              reduce ? false : { opacity: 0, y: 16, filter: "blur(6px)" }
-            }
-            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.6, delay: (i % 12) * 0.05, ease: EASE }}
-            whileHover={reduce ? undefined : { y: -3 }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element -- signed storage URL */}
-            <img
-              src={p.src}
-              alt=""
-              loading="lazy"
-              width={p.width ?? undefined}
-              height={p.height ?? undefined}
-              style={
-                p.width && p.height
-                  ? { aspectRatio: `${p.width} / ${p.height}` }
-                  : undefined
-              }
-              className="block h-auto w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
-            />
-            <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100" />
-            <span className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-2 p-3.5 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
-              <span className="block truncate text-sm font-medium text-white">
-                {who(p)}
-              </span>
-              <span className="block text-xs text-white/70">{when(p)}</span>
-            </span>
-          </motion.button>
+      {/* Round-robin into columns so the newest photos fill the top row
+          left to right (CSS columns would fill top to bottom). */}
+      <div className="flex items-start gap-3" aria-busy={pending}>
+        {Array.from({ length: columns }, (_, c) => (
+          <div key={c} className="flex min-w-0 flex-1 flex-col gap-3">
+            {photos.map((p, i) =>
+              i % columns !== c ? null : (
+                <motion.button
+                  key={p.id}
+                  type="button"
+                  layoutId={`photo-${p.id}`}
+                  onClick={() => setOpen(i)}
+                  aria-label={`${t("open")} · ${who(p)}`}
+                  className="group relative block w-full overflow-hidden rounded-2xl bg-muted text-start shadow-sm ring-1 ring-black/5 transition-shadow duration-300 hover:shadow-xl hover:shadow-primary/10 focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+                  initial={
+                    reduce ? false : { opacity: 0, y: 16, filter: "blur(6px)" }
+                  }
+                  whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{
+                    duration: 0.6,
+                    delay: (i % 12) * 0.05,
+                    ease: EASE,
+                  }}
+                  whileHover={reduce ? undefined : { y: -3 }}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element -- signed storage URL */}
+                  <img
+                    src={p.src}
+                    alt=""
+                    loading="lazy"
+                    width={p.width ?? undefined}
+                    height={p.height ?? undefined}
+                    style={
+                      p.width && p.height
+                        ? { aspectRatio: `${p.width} / ${p.height}` }
+                        : undefined
+                    }
+                    className="block h-auto w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+                  />
+                  <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100" />
+                  <span className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-2 p-3.5 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
+                    <span className="block truncate text-sm font-medium text-white">
+                      {who(p)}
+                    </span>
+                    <span className="block text-xs text-white/70">
+                      {when(p)}
+                    </span>
+                  </span>
+                </motion.button>
+              ),
+            )}
+          </div>
         ))}
       </div>
       {mounted ? createPortal(viewer, document.body) : null}

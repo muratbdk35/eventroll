@@ -1,9 +1,10 @@
 "use client";
 
-import { Check, Copy, Download, ExternalLink, Info } from "lucide-react";
+import { Check, Copy, Download, ExternalLink, Info, Lock } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Link } from "@/lib/i18n/navigation";
 
 export function SharePanel({
   eventId,
@@ -21,6 +22,7 @@ export function SharePanel({
   premium: boolean;
 }) {
   const t = useTranslations("Events.share");
+  const tSteps = useTranslations("Events.steps");
   const [copied, setCopied] = useState(false);
   const qr = `/api/events/${eventId}/qr`;
 
@@ -34,11 +36,29 @@ export function SharePanel({
     }
   }
 
-  const notes = [
-    !hasPlan && t("needsPlan"),
-    hasPin && t("pinOn"),
-    !premium && t("printPremium"),
-  ].filter(Boolean) as string[];
+  // No QR or link before a plan is active (the API refuses it too).
+  if (!hasPlan) {
+    return (
+      <section className="flex flex-col items-center rounded-3xl border border-border bg-card px-6 py-12 text-center shadow-sm">
+        <span className="flex size-14 items-center justify-center rounded-full bg-accent text-primary">
+          <Lock className="size-6" aria-hidden />
+        </span>
+        <h2 className="mt-4 font-heading text-lg font-semibold">
+          {t("title")}
+        </h2>
+        <p className="mt-1 max-w-sm text-sm text-pretty text-muted-foreground">
+          {t("locked")}. {t("needsPlan")}
+        </p>
+        <Button asChild className="mt-5 h-10 rounded-full px-5">
+          <Link href={`/dashboard/events/${eventId}`}>{tSteps("plan")}</Link>
+        </Button>
+      </section>
+    );
+  }
+
+  const notes = [hasPin && t("pinOn"), !premium && t("printPremium")].filter(
+    Boolean,
+  ) as string[];
 
   return (
     <div className="space-y-4">

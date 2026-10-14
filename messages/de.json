@@ -11,7 +11,8 @@
     "dashboard": "Dashboard",
     "signOut": "Abmelden",
     "language": "Sprache",
-    "account": "Konto"
+    "account": "Konto",
+    "leaveWarning": "Beim Sprachwechsel gehen die ausgewählten Fotos verloren. Fortfahren?"
   },
   "Login": {
     "title": "Willkommen bei {appName}",
@@ -405,7 +406,8 @@
       "step2": "Fotos aus der Galerie auswählen",
       "step3": "Sie landen in voller Qualität in deinem Album",
       "printPremium": "Druckbare Tischkarten und Poster sind in Premium enthalten.",
-      "open": "Gästeseite öffnen"
+      "open": "Gästeseite öffnen",
+      "locked": "Wird nach der Tarifwahl freigeschaltet"
     },
     "settings": {
       "general": "Allgemein",
@@ -435,7 +437,9 @@
       "perPhoneToggle": "Fotos pro Handy begrenzen",
       "unsaved": "Ungespeicherte Änderungen",
       "discard": "Verwerfen",
-      "when": "Datum & Uhrzeit"
+      "when": "Datum & Uhrzeit",
+      "pinFormat": "Gib 4 bis 8 Ziffern ein.",
+      "hoursError": "Das Upload-Fenster muss nach dem Öffnen schließen (auch nach Mitternacht)."
     },
     "openGuest": "Gästeseite",
     "copyLink": "Link kopieren",
@@ -476,7 +480,8 @@
       "collectDone": "{count, plural, one {Bisher # Foto} other {Bisher # Fotos}}",
       "cardTitle": "Mach dein Event bereit",
       "progress": "{done} / {total} erledigt",
-      "openGuestPage": "Gästeseite öffnen"
+      "openGuestPage": "Gästeseite öffnen",
+      "shareLocked": "Wird nach der Tarifwahl freigeschaltet"
     },
     "startLabel": "Beginn",
     "endLabel": "Ende",

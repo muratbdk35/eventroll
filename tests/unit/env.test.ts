@@ -44,6 +44,13 @@ describe("parseEnv", () => {
     );
   });
 
+  it("refuses a localhost app URL in production (QR codes use it)", async () => {
+    const parseEnv = await loadParse();
+    expect(() => parseEnv({ ...base, VERCEL_ENV: "production" })).toThrow(
+      /NEXT_PUBLIC_APP_URL: must be the public https URL in production/,
+    );
+  });
+
   it("refuses the PGlite dev database in production", async () => {
     const parseEnv = await loadParse();
     expect(() =>

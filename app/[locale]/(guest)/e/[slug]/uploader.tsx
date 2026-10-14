@@ -149,6 +149,7 @@ export function Uploader(props: Props) {
   const router = useRouter();
   const fileInput = useRef<HTMLInputElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
+  const tapStart = useRef<[number, number] | null>(null);
   const [verified, setVerified] = useState(props.verified);
   const [token, setToken] = useState<string | null>(null);
   const [captchaKey, setCaptchaKey] = useState(0);
@@ -159,6 +160,7 @@ export function Uploader(props: Props) {
   const [nameShake, setNameShake] = useState(0);
   const [consent, setConsent] = useState(false);
   const [notice, setNotice] = useState<"consent" | "name" | null>(null);
+  const [consentShake, setConsentShake] = useState(0);
   const [items, setItems] = useState<Item[]>([]);
   const [busy, setBusy] = useState(false);
   const [sentNow, setSentNow] = useState(0);
@@ -182,6 +184,25 @@ export function Uploader(props: Props) {
     void shot(0.1, 60);
     void shot(0.9, 120);
   }, [sentNow]);
+
+  const pendingCount = items.filter(
+    (i) => i.status === "selected" || i.status === "uploading",
+  ).length;
+  useEffect(() => {
+    const root = document.documentElement;
+    if (pendingCount === 0) {
+      delete root.dataset.pendingPhotos;
+      return;
+    }
+    // Read by the language switcher, which would otherwise drop the picks.
+    root.dataset.pendingPhotos = String(pendingCount);
+    const onLeave = (e: BeforeUnloadEvent) => e.preventDefault();
+    window.addEventListener("beforeunload", onLeave);
+    return () => {
+      window.removeEventListener("beforeunload", onLeave);
+      delete root.dataset.pendingPhotos;
+    };
+  }, [pendingCount]);
 
   const patch = (key: string, p: Partial<Item>) =>
     setItems((all) => all.map((i) => (i.key === key ? { ...i, ...p } : i)));
@@ -367,6 +388,7 @@ export function Uploader(props: Props) {
     }
     if (!consent) {
       setNotice("consent");
+      setConsentShake((n) => n + 1);
       return;
     }
     setNotice(null);
@@ -543,7 +565,16 @@ export function Uploader(props: Props) {
           dragging && "scale-[1.02]",
         )}
       >
-        <div className="relative h-56 w-44">
+        <div
+          className="relative h-56 w-44 cursor-pointer"
+          onPointerDown={(e) => {
+            tapStart.current = [e.clientX, e.clientY];
+          }}
+          onClick={(e) => {
+            const [x, y] = tapStart.current ?? [e.clientX, e.clientY];
+            if (Math.hypot(e.clientX - x, e.clientY - y) < 8) pick();
+          }}
+        >
           <Stack
             key={deck.length}
             cards={deck.map((src) => (
@@ -558,7 +589,6 @@ export function Uploader(props: Props) {
             radius={8}
             tilt={22}
             threshold={70}
-            sendToBackOnClick
           />
         </div>
         <button
@@ -654,9 +684,11 @@ export function Uploader(props: Props) {
                     type="button"
                     onClick={() => remove(item.key)}
                     aria-label={t("remove")}
-                    className="absolute -end-2 -top-2 flex size-7 items-center justify-center rounded-full bg-white text-foreground shadow-md ring-1 ring-black/10 transition-transform duration-200 ease-out hover:scale-110 active:scale-90"
+                    className="group/x absolute -end-4 -top-4 flex size-11 items-center justify-center rounded-full outline-none"
                   >
-                    <X className="size-3.5" strokeWidth={2.5} aria-hidden />
+                    <span className="flex size-7 items-center justify-center rounded-full bg-white text-foreground shadow-md ring-1 ring-black/10 transition-transform duration-200 ease-out group-hover/x:scale-110 group-focus-visible/x:ring-2 group-focus-visible/x:ring-primary group-active/x:scale-90">
+                      <X className="size-3.5" strokeWidth={2.5} aria-hidden />
+                    </span>
                   </button>
                 )}
                 {item.status === "done" && (
@@ -672,7 +704,7 @@ export function Uploader(props: Props) {
 
       {/* Floating glass bar: consent + send, progress, then thanks. */}
       {(selected.length > 0 || busy || sentNow > 0) && (
-        <div className="sticky bottom-4 z-20 rounded-[1.75rem] border border-white/70 bg-white/75 p-3 shadow-2xl ring-1 shadow-primary/15 ring-black/5 backdrop-blur-xl">
+        <div className="sticky bottom-[calc(1rem+env(safe-area-inset-bottom))] z-20 rounded-[1.75rem] border border-white/70 bg-white/75 p-3 shadow-2xl ring-1 shadow-primary/15 ring-black/5 backdrop-blur-xl">
           {busy ? (
             <div className="px-2 py-2.5" aria-live="polite">
               <div className="flex items-center gap-2.5 text-[15px] font-semibold">
@@ -702,6 +734,7 @@ export function Uploader(props: Props) {
               <label className="flex cursor-pointer items-start gap-3 px-1.5 pt-1 pb-3">
                 <button
                   type="button"
+                  key={consentShake}
                   role="checkbox"
                   aria-checked={consent}
                   onClick={() => {
@@ -710,6 +743,7 @@ export function Uploader(props: Props) {
                   }}
                   className={cn(
                     "mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-[6px] border-2 transition-all duration-200 ease-out",
+                    consentShake > 0 && !consent && "shake-x",
                     consent
                       ? "scale-105 border-primary bg-primary text-primary-foreground"
                       : notice === "consent"

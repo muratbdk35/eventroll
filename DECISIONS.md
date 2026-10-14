@@ -286,3 +286,27 @@ Vendored files keep a source line at the top.
 - Plan choice is two pricing cards with their own buttons: Premium is the dark,
   featured card (glow + Magic UI Border Beam, `components/ui/border-beam.tsx`),
   Standard the light one.
+
+## 30. Review fixes (external review via Gemini, 2026-10-14)
+
+Fixed:
+
+- Settings: a typed PIN must be 4–8 digits even when one is already set (inline
+  hint, save disabled); upload hours use the date-time field, start from the
+  event's times, and show an error unless they close after they open (a window
+  can run past midnight because both values carry a date).
+- QR and guest link are locked until a plan is active: checklist and Share view
+  show "unlocks after you choose a plan", and `/api/events/[id]/qr` answers 402.
+- Guest page: tapping the deck opens the picker (a swipe still flips cards); the
+  remove button has a 44 px hit area; sending without consent shakes the box
+  (the API already rejected it); switching language with unsent photos asks
+  first, and leaving the page warns; floating bars respect the iPhone safe area.
+- Photos are distributed into columns round-robin, so the newest fill the top
+  row left to right.
+- Production refuses a localhost or non-https `NEXT_PUBLIC_APP_URL` (guest links
+  and QR codes are built from it).
+
+Not bugs / already planned: the send button stays enabled on purpose (pressing it
+explains what is missing; consent is enforced server-side); `localhost:3100` in
+the exported HTML is the dev value of `NEXT_PUBLIC_APP_URL`, not hard-coded; the
+album ZIP and printable table cards are phase 1C/1D work (#22, #23).

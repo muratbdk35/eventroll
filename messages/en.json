@@ -8,7 +8,8 @@
     "dashboard": "Dashboard",
     "signOut": "Sign out",
     "language": "Language",
-    "account": "Account"
+    "account": "Account",
+    "leaveWarning": "Changing the language clears the photos you picked. Continue?"
   },
   "Login": {
     "title": "Welcome to {appName}",
@@ -402,7 +403,8 @@
       "step2": "Pick photos from the gallery",
       "step3": "They land in your album, in full quality",
       "printPremium": "Printable table cards and posters are included with Premium.",
-      "open": "Open guest page"
+      "open": "Open guest page",
+      "locked": "Unlocks after you choose a plan"
     },
     "settings": {
       "general": "General",
@@ -432,7 +434,9 @@
       "perPhoneToggle": "Limit photos per phone",
       "unsaved": "You have unsaved changes",
       "discard": "Discard",
-      "when": "Date & time"
+      "when": "Date & time",
+      "pinFormat": "Enter 4 to 8 digits.",
+      "hoursError": "The upload window must close after it opens (it can run past midnight)."
     },
     "openGuest": "Guest page",
     "copyLink": "Copy link",
@@ -473,7 +477,8 @@
       "collectDone": "{count, plural, one {# photo so far} other {# photos so far}}",
       "cardTitle": "Get your event ready",
       "progress": "{done} / {total} done",
-      "openGuestPage": "Open guest page"
+      "openGuestPage": "Open guest page",
+      "shareLocked": "Unlocks after you choose a plan"
     },
     "startLabel": "Starts",
     "endLabel": "Ends",

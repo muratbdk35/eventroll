@@ -11,6 +11,8 @@ export async function GET(req: Request, { params }: Ctx) {
   if (!session) return new NextResponse(null, { status: 401 });
   const event = await getOwnedEvent((await params).id, session.user.id);
   if (!event) return new NextResponse(null, { status: 404 });
+  // Locked until a plan is active, so nobody prints a code for a closed album.
+  if (!event.plan) return new NextResponse(null, { status: 402 });
 
   const url = new URL(req.url);
   const format = url.searchParams.get("format") === "svg" ? "svg" : "png";

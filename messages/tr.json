@@ -11,7 +11,8 @@
     "dashboard": "Panel",
     "signOut": "Çıkış yap",
     "language": "Dil",
-    "account": "Hesap"
+    "account": "Hesap",
+    "leaveWarning": "Dili değiştirirsen seçtiğin fotoğraflar silinir. Devam edilsin mi?"
   },
   "Login": {
     "title": "{appName}'a hoş geldin",
@@ -405,7 +406,8 @@
       "step2": "Galeriden fotoğrafları seçer",
       "step3": "Fotoğraflar tam kalitede albümüne düşer",
       "printPremium": "Yazdırılabilir masa kartları ve posterler Premium'a dahil.",
-      "open": "Misafir sayfasını aç"
+      "open": "Misafir sayfasını aç",
+      "locked": "Plan seçildikten sonra açılır"
     },
     "settings": {
       "general": "Genel",
@@ -435,7 +437,9 @@
       "perPhoneToggle": "Telefon başına fotoğrafı sınırla",
       "unsaved": "Kaydedilmemiş değişiklikler var",
       "discard": "Vazgeç",
-      "when": "Tarih ve saat"
+      "when": "Tarih ve saat",
+      "pinFormat": "4 ile 8 arası rakam gir.",
+      "hoursError": "Kapanış açılıştan sonra olmalı (gece yarısını geçebilir)."
     },
     "openGuest": "Misafir sayfası",
     "copyLink": "Bağlantıyı kopyala",
@@ -476,7 +480,8 @@
       "collectDone": "{count, plural, one {Şu ana kadar # fotoğraf} other {Şu ana kadar # fotoğraf}}",
       "cardTitle": "Etkinliğini hazırla",
       "progress": "{done} / {total} tamamlandı",
-      "openGuestPage": "Misafir sayfasını aç"
+      "openGuestPage": "Misafir sayfasını aç",
+      "shareLocked": "Plan seçildikten sonra açılır"
     },
     "startLabel": "Başlangıç",
     "endLabel": "Bitiş",
