@@ -26,7 +26,7 @@ function Tile({
   return (
     <div
       className={cn(
-        "relative flex flex-col overflow-hidden rounded-3xl border border-border bg-card p-5 sm:p-7",
+        "relative flex flex-col overflow-hidden rounded-[1.25rem] bg-secondary p-5 sm:p-7",
         className,
       )}
     >
@@ -121,12 +121,8 @@ export async function FeaturesBento() {
 
   return (
     <section id="features" className="scroll-mt-20 px-4 py-24">
-      <SectionHeading
-        eyebrow={t("eyebrow")}
-        title={t("title")}
-        subtitle={t("subtitle")}
-      />
-      <div className="mx-auto mt-14 grid max-w-6xl gap-4 md:grid-cols-6">
+      <SectionHeading title={t("title")} subtitle={t("subtitle")} />
+      <div className="mx-auto mt-12 grid max-w-6xl gap-3 md:grid-cols-6">
         {/* No app */}
         <Tile className="min-h-[26rem] border-0 bg-primary text-primary-foreground md:col-span-4 md:row-span-2">
           <div
@@ -135,10 +131,6 @@ export async function FeaturesBento() {
           />
           <PickerMock />
           <div className="mt-auto">
-            <span className="mb-4 inline-flex w-fit items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-sm">
-              <span className="size-2 rounded-full bg-white" />
-              {t("noApp.badge")}
-            </span>
             <h3 className="max-w-md font-heading text-3xl leading-tight font-bold sm:text-4xl">
               {t("noApp.title")}
             </h3>
@@ -198,7 +190,7 @@ export async function FeaturesBento() {
               type="wedding"
               status="active"
               statusLabel={te("status.active")}
-              meta={`${te("photoCount", { count: 1248 })} · ${te("guestsCount", { count: 142 })}`}
+              meta={`${te("photoCount", { count: 1248 })}, ${te("guestsCount", { count: 142 })}`}
               srcs={[
                 "/marketing/dance-floor.jpg",
                 "/marketing/confetti.jpg",
@@ -210,7 +202,7 @@ export async function FeaturesBento() {
         </Tile>
 
         {/* Languages */}
-        <Tile className="md:col-span-6 md:flex-row md:items-center md:justify-between md:gap-8">
+        <Tile className="bg-transparent px-0 sm:px-0 md:col-span-6 md:flex-row md:items-center md:justify-between md:gap-8">
           <div>
             <h3 className="font-heading text-lg font-semibold">
               {t("languages.title")}

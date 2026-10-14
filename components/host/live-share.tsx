@@ -44,8 +44,8 @@ export async function LiveShare({
         <div className="min-w-0 flex-1">
           <p className="flex items-center gap-2 font-heading text-lg font-semibold">
             <span className="relative flex size-2.5">
-              <span className="absolute inline-flex size-full animate-ping rounded-full bg-success/60 motion-reduce:animate-none" />
-              <span className="relative inline-flex size-2.5 rounded-full bg-success" />
+              <span className="absolute inline-flex size-full animate-ping rounded-full bg-live/60 motion-reduce:animate-none" />
+              <span className="relative inline-flex size-2.5 rounded-full bg-live" />
             </span>
             {t("title")}
           </p>

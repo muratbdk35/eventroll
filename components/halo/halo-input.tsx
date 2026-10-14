@@ -55,7 +55,8 @@ export function HaloControlShell({
         )}
         style={clip}
       >
-        {translucent && <HaloUnderglow dim={!focused} />}
+        {/* Light only while the field is in use. */}
+        {translucent && focused && <HaloUnderglow />}
       </div>
       <div
         className={cn(

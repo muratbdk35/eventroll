@@ -1,26 +1,31 @@
 import { cn } from "@/lib/utils";
 
+/**
+ * Section opener (DECISIONS #40): a hairline, the title on the left and the
+ * explanation beside it on wide screens. No eyebrow labels: the title says
+ * what the section is.
+ */
 export function SectionHeading({
-  eyebrow,
   title,
   subtitle,
   className,
 }: {
-  eyebrow: string;
   title: string;
   subtitle?: string;
   className?: string;
 }) {
   return (
-    <div className={cn("mx-auto max-w-2xl text-center", className)}>
-      <p className="text-xs font-semibold tracking-[0.25em] text-primary uppercase">
-        {eyebrow}
-      </p>
-      <h2 className="mt-3 font-heading text-3xl font-bold tracking-tight text-balance sm:text-5xl">
+    <div
+      className={cn(
+        "mx-auto grid max-w-6xl gap-x-12 gap-y-4 border-t border-foreground/15 pt-8 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:items-end",
+        className,
+      )}
+    >
+      <h2 className="font-heading text-[2.4rem] leading-[1.05] font-semibold tracking-[-0.02em] text-balance sm:text-6xl">
         {title}
       </h2>
       {subtitle && (
-        <p className="mt-4 text-lg text-pretty text-muted-foreground">
+        <p className="max-w-md text-lg leading-relaxed text-pretty text-muted-foreground md:pb-2">
           {subtitle}
         </p>
       )}

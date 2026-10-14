@@ -49,6 +49,7 @@ export function HaloNotification({
         surfaceClassName="gap-3"
         translucent={translucent}
         rim={variant === "success" ? "success" : "default"}
+        glow={variant === "success"}
       >
         <div className="flex items-start gap-3">
           {icon && (

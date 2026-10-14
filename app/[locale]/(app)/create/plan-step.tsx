@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft, ArrowRight, Check } from "lucide-react";
+import { ArrowLeft, Check } from "lucide-react";
 import { useFormatter, useLocale, useTranslations } from "next-intl";
 import {
   ReceiptCard,
@@ -30,15 +30,8 @@ export function PlanStep({ plan, event }: FlowProps) {
     <div>
       <StepHeading title={t("plan.title")} subtitle={t("plan.subtitle")} />
 
-      <div className="clip-round relative overflow-hidden rounded-[1.75rem] bg-[linear-gradient(160deg,oklch(0.64_0.073_240)_0%,oklch(0.56_0.077_239)_55%,oklch(0.47_0.069_238)_100%)] px-5 pt-12 pb-14 sm:px-10">
-        <div
-          aria-hidden
-          className="absolute -start-40 -top-40 size-[34rem] rounded-full bg-[radial-gradient(closest-side,oklch(0.9_0.05_244/0.4),transparent)]"
-        />
-        <div
-          aria-hidden
-          className="absolute -end-32 -bottom-16 size-[30rem] rounded-full bg-[radial-gradient(closest-side,oklch(0.8_0.051_238/0.4),transparent)]"
-        />
+      {/* Same plain blue table as the landing pricing (DECISIONS #40). */}
+      <div className="clip-round relative overflow-hidden rounded-[1.25rem] bg-primary px-5 pt-12 pb-14 sm:px-10">
         <div
           aria-hidden
           className="absolute inset-0 [background-image:radial-gradient(white_1px,transparent_1px)] [background-size:22px_22px] opacity-[0.12]"
@@ -85,10 +78,6 @@ export function PlanStep({ plan, event }: FlowProps) {
                       {upper(
                         t("plan.choose", { plan: tp(`plans.${id}.name`) }),
                       )}
-                      <ArrowRight
-                        className="size-4 rtl:rotate-180"
-                        aria-hidden
-                      />
                     </Link>
                   }
                 />

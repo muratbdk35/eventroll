@@ -96,7 +96,7 @@
       "point3": "Einmalzahlung"
     },
     "demo": {
-      "date": "Sa · 14. Juni",
+      "date": "Sa, 14. Juni",
       "eventName": "Elif & Can",
       "button": "Fotos hinzufügen",
       "mine": "Deine Uploads",
@@ -104,7 +104,7 @@
       "notifyTitle": "{count} Fotos hochgeladen",
       "notifyBody": "Direkt an das Brautpaar",
       "privacy": "Nur Elif & Can sehen deine Fotos.",
-      "photoBy": "von {name} · {time}",
+      "photoBy": "von {name}, {time}",
       "qrTitle": "Teile deine Fotos mit uns",
       "qrBody": "Scannen · Hochladen · Fertig",
       "pin": "PIN 2468"
@@ -282,7 +282,7 @@
       "title": "Verpasse keinen einzigen Moment deines Tages",
       "body": "Erstelle dein Event in einer Minute. Den Rest erledigen deine Gäste.",
       "cta": "Event erstellen",
-      "note": "Einrichten ist kostenlos · Du zahlst erst, wenn Gäste hochladen sollen"
+      "note": "Einrichten ist kostenlos. Du zahlst erst, wenn Gäste hochladen sollen"
     },
     "footer": {
       "tagline": "Die Fotos aller Gäste in einem privaten Album, mit einem QR-Code.",
@@ -345,8 +345,8 @@
     "activate": {
       "title": "Tarif wählen, um Uploads zu öffnen",
       "body": "Dein QR-Code funktioniert, sobald ein Tarif aktiv ist. Einmalzahlung, kein Abo.",
-      "standard": "Standard · ${price}",
-      "premium": "Premium · ${price}",
+      "standard": "Standard (${price})",
+      "premium": "Premium (${price})",
       "devNote": "Lokale Entwicklung: Die Bezahlung ist noch nicht angebunden, daher aktiviert dies den Tarif kostenlos.",
       "choose": "{plan} wählen",
       "best": "Bestes Angebot",
@@ -447,7 +447,7 @@
     "previewName": "Dein Event",
     "newSubtitleShort": "Dein QR-Code ist bereit, sobald du einen Plan wählst und veröffentlichst.",
     "cancel": "Abbrechen",
-    "meta": "{type} · {date}",
+    "meta": "{type}, {date}",
     "shareQr": "QR teilen",
     "closedTitle": "Uploads sind geschlossen",
     "closedBody": "Wähle einen Tarif, um Uploads zu öffnen. Einmalzahlung, kein Abo.",
@@ -464,9 +464,9 @@
       "planDone": "{plan} gewählt",
       "cardTitle": "Bereite dein Event vor",
       "progress": "{done} von {total} erledigt",
-      "createBody": "{date} · {start}–{end}",
+      "createBody": "{date}, {start}–{end}",
       "editDetails": "Details bearbeiten",
-      "planSummary": "Bis zu {photos} Fotos · {gb} GB, Originalqualität",
+      "planSummary": "Bis zu {photos} Fotos, {gb} GB, Originalqualität",
       "upgrade": "Auf Premium upgraden",
       "publish": "Event veröffentlichen",
       "publishBody": "Beim Veröffentlichen öffnet sich die Gästeseite und dein QR-Code ist bereit.",
@@ -499,6 +499,7 @@
       },
       "colorLabel": "Farbe",
       "colors": {
+        "powder": "Puderblau",
         "terracotta": "Terrakotta",
         "midnight": "Nachtblau",
         "sage": "Salbei",
@@ -523,7 +524,7 @@
     "download": {
       "menu": "Herunterladen",
       "all": "Alle Fotos (ZIP)",
-      "allHint": "{count, plural, one {# Foto} other {# Fotos}} · {size}",
+      "allHint": "{count, plural, one {# Foto} other {# Fotos}}, {size}",
       "allLabel": "Alle Fotos",
       "pick": "Fotos auswählen",
       "pickHint": "Fotos antippen und als ZIP herunterladen.",
@@ -607,7 +608,7 @@
     "notFoundTitle": "Event nicht gefunden",
     "notFoundBody": "Prüfe den Link oder QR-Code und versuche es erneut.",
     "dropHint": "oder Fotos hierher ziehen",
-    "formats": "JPG, PNG, HEIC · Originalqualität",
+    "formats": "JPG, PNG, HEIC, Originalqualität",
     "pinSubtitle": "Du findest sie auf der Karte an deinem Tisch.",
     "for": "Fotos für",
     "heroTitle": "Hinterlasse eine Erinnerung",
@@ -686,7 +687,7 @@
       "backToDetails": "Zurück zu den Event-Angaben",
       "event": "Event",
       "plan": "{plan}-Plan",
-      "includes": "{photos} Fotos · {gb} GB · {days} Tage ZIP",
+      "includes": "{photos} Fotos, {gb} GB, {days} Tage ZIP",
       "tax": "MwSt.",
       "taxValue": "wird an der Kasse berechnet",
       "total": "Gesamt",

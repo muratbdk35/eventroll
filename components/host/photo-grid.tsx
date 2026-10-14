@@ -224,7 +224,10 @@ export function PhotoGrid({
               >
                 <p className="font-medium">{t("by", { name: who(current) })}</p>
                 <p className="text-sm text-white/70">
-                  {when(current)} · {(open ?? 0) + 1} / {photos.length}
+                  {when(current)}
+                  <span className="ms-3 text-white/50 tabular-nums">
+                    {(open ?? 0) + 1}/{photos.length}
+                  </span>
                 </p>
               </motion.div>
             </motion.div>

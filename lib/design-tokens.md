@@ -11,7 +11,7 @@ Defined as CSS variables in `app/globals.css` and exposed to Tailwind via `@them
 | `destructive` | errors, delete    | `oklch(0.55 0.21 25)`               | `oklch(0.68 0.19 25)`                    |
 | `radius`      | base radius       | `0.875rem`                          | —                                        |
 
-Fonts: **Geist** (UI, `--font-sans`), **Bricolage Grotesque** (headings, `--font-display`
+Fonts: **Schibsted Grotesk** (UI, `--font-sans`), **Fraunces** (headings, `--font-display`, soft serif), **Geist Mono** (receipts and PIN fields only). See DECISIONS #40.
 → `font-heading`). Both include `latin-ext` for Turkish/German.
 
 Rules: white text on `primary` meets WCAG AA; touch targets ≥ 44px on guest pages;

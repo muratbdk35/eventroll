@@ -1,10 +1,5 @@
 import type { Metadata } from "next";
-import {
-  ArrowRight,
-  CircleAlert,
-  CircleCheck,
-  MonitorSmartphone,
-} from "lucide-react";
+import { CircleAlert, CircleCheck, MonitorSmartphone } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { LogoMark } from "@/components/brand/logo";
 import { Button } from "@/components/ui/button";
@@ -94,7 +89,6 @@ export default async function ConfirmedPage({
         >
           <Link href={ok ? continuePath : "/login"}>
             {ok ? t("continue") : t("tryAgain")}
-            <ArrowRight className="rtl:rotate-180" aria-hidden />
           </Link>
         </Button>
       </section>

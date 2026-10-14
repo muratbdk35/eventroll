@@ -79,10 +79,7 @@ export async function PhoneGallery() {
             <LogoMark className="size-4" />
           </span>
           <div className="absolute inset-x-4 bottom-6 text-white">
-            <p className="text-[8.5px] font-medium tracking-[0.18em] uppercase opacity-85">
-              {tg("for")}
-            </p>
-            <p className="font-heading text-[19px] leading-tight font-bold">
+            <p className="font-heading text-[21px] leading-tight font-semibold">
               {t("eventName")}
             </p>
           </div>

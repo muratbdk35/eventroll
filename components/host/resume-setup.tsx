@@ -1,4 +1,4 @@
-import { ArrowRight, CircleDashed } from "lucide-react";
+import { CircleDashed } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/lib/i18n/navigation";
@@ -38,10 +38,7 @@ export async function ResumeSetup({
           </p>
         </div>
         <Button asChild className="h-10 shrink-0 rounded-full px-5">
-          <Link href={href}>
-            {plan ? t("ctaPublish") : t("ctaPlan")}
-            <ArrowRight className="rtl:rotate-180" aria-hidden />
-          </Link>
+          <Link href={href}>{plan ? t("ctaPublish") : t("ctaPlan")}</Link>
         </Button>
       </div>
     </section>

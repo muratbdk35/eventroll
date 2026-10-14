@@ -126,7 +126,7 @@ export function PrintPreview({ qr }: { qr: string }) {
     <div className="h-[296px] w-[210px] overflow-hidden rounded-[6px] shadow-xl ring-1 ring-black/10">
       <Face
         qr={qr}
-        color="terracotta"
+        color="powder"
         layout="column"
         text={{
           eventName: "Elif & Can",

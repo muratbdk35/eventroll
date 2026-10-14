@@ -146,11 +146,11 @@ export function ReviewStep({ event, devPay }: FlowProps) {
           rows={[
             [
               t("review.planName"),
-              `${tp(`plans.${planId}.name`)} · ${t("review.paid")}`,
+              `${tp(`plans.${planId}.name`)} (${t("review.paid")})`,
             ],
             [
               t("review.capacity"),
-              `${format.number(plan.maxItems)} · ${plan.maxBytes / 1024 ** 3} GB`,
+              `${format.number(plan.maxItems)}, ${plan.maxBytes / 1024 ** 3} GB`,
             ],
           ]}
         >

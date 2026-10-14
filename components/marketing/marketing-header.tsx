@@ -14,7 +14,7 @@ export async function MarketingHeader() {
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4">
         <Link href="/" aria-label="Home" className="shrink-0">
           {/* Mark only on the narrowest phones, so language + CTA still fit. */}
-          <Logo className="max-[369px]:[&>span]:hidden" />
+          <Logo className="max-[399px]:[&>span]:hidden" />
         </Link>
         <nav
           className="hidden items-center gap-1 text-sm md:flex"

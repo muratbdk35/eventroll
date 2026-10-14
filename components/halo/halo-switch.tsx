@@ -9,7 +9,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Switch as SwitchPrimitive } from "radix-ui";
 import { cn } from "@/lib/utils";
-import { HaloUnderglow, haloRim, haloSpring, roundClip } from "./glow";
+import { haloRim, haloSpring } from "./glow";
 
 export type HaloSwitchProps = {
   id?: string;
@@ -34,12 +34,6 @@ export function HaloSwitch({
   const reduce = useReducedMotion() ?? false;
   return (
     <div className={cn("relative inline-flex rounded-full", className)}>
-      <div
-        className="pointer-events-none absolute inset-0 overflow-hidden rounded-full"
-        style={roundClip("9999px")}
-      >
-        <HaloUnderglow dim={!checked} />
-      </div>
       <div
         className={cn(
           "relative rounded-full border",

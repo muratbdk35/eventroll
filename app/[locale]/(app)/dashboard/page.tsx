@@ -86,7 +86,7 @@ export default async function DashboardPage({
                 type={e.type}
                 status={e.status}
                 statusLabel={te(`status.${e.status}`)}
-                meta={`${date(e.eventDate)} · ${te("photoCount", { count: e.mediaCount })}`}
+                meta={`${date(e.eventDate)}, ${te("photoCount", { count: e.mediaCount })}`}
                 srcs={stacks[i]}
               />
             </li>

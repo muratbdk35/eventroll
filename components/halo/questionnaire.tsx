@@ -8,7 +8,7 @@
 // for single-question screens, and a slide/fade between questions.
 
 import { Questionnaire as Q } from "@shadcn/react/questionnaire";
-import { ArrowLeft, ArrowRight, Check } from "lucide-react";
+import { ArrowLeft, Check } from "lucide-react";
 import type { ComponentProps, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { HaloButton } from "./halo-button";
@@ -212,7 +212,6 @@ export function QuestionnaireNext({
           <HaloButton
             {...(p as ComponentProps<"button">)}
             className={className}
-            trailing={<ArrowRight />}
           >
             {children}
           </HaloButton>
@@ -225,7 +224,7 @@ export function QuestionnaireNext({
 export function QuestionnaireSubmit({
   children,
   className,
-  trailing = <ArrowRight />,
+  trailing,
   ...props
 }: NavProps & { trailing?: ReactNode } & Omit<
     ComponentProps<typeof Q.Submit>,

@@ -108,7 +108,7 @@ export function PayStep({ plan, event, devPay }: FlowProps) {
           </span>
           <div className="min-w-0">
             <p className="font-semibold">
-              {tp(`plans.${plan}.name`)} · {tp("oneTime").toLowerCase()}
+              {tp(`plans.${plan}.name`)}, {tp("oneTime").toLowerCase()}
             </p>
             <p className="text-[13px] text-muted-foreground">
               {t("pay.includes", {

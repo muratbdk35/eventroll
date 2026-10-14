@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Geist, Geist_Mono } from "next/font/google";
+import { Fraunces, Geist_Mono, Schibsted_Grotesk } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -8,14 +8,18 @@ import { routing } from "@/lib/i18n/routing";
 import { publicEnv } from "@/lib/public-env";
 import "../globals.css";
 
-const sans = Geist({
+// Type (DECISIONS #40): Fraunces, a soft serif with the feel of printed
+// invitations, for headings; Schibsted Grotesk, a sturdy newsroom grotesque,
+// for the interface; a mono only where a receipt or a PIN calls for it.
+const sans = Schibsted_Grotesk({
   variable: "--font-sans",
   subsets: ["latin", "latin-ext"],
 });
 const mono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
-const display = Bricolage_Grotesque({
+const display = Fraunces({
   variable: "--font-display",
   subsets: ["latin", "latin-ext"],
+  axes: ["opsz", "SOFT"],
 });
 
 export function generateStaticParams() {

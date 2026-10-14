@@ -1,81 +1,42 @@
-import { ArrowRight, Check } from "lucide-react";
 import { getTranslations } from "next-intl/server";
-import { Button } from "@/components/ui/button";
-import { Link } from "@/lib/i18n/navigation";
+import { HaloButton } from "@/components/halo/halo-button";
+import { FilmStrip } from "./film-strip";
 import { HeroVisual } from "./hero-visual";
 
+/**
+ * Opening (DECISIONS #40): the promise in large type, one action, the real
+ * guest screen on the right, and a strip of film across the page whose frames
+ * develop as it loads: the page's single orchestrated moment.
+ */
 export async function Hero() {
   const t = await getTranslations("Landing.hero");
-  const points = [t("point1"), t("point2"), t("point3")];
 
   return (
     <section className="relative overflow-hidden">
-      {/* warm glow, inspired by 21st.dev "Gradient Hero" */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(55%_50%_at_70%_55%,oklch(0.86_0.05_242/0.55),transparent_75%)] dark:bg-[radial-gradient(55%_50%_at_70%_55%,oklch(0.42_0.048_240/0.35),transparent_75%)]"
-      />
-      <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 pt-14 pb-20 lg:grid-cols-[1.05fr_1fr] lg:pt-20">
-        <div className="text-center lg:text-start">
-          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card/70 px-3 py-1 text-sm text-muted-foreground shadow-sm">
-            <span className="size-2 rounded-full bg-primary" />
-            {t("eyebrow")}
-          </span>
-          <h1 className="mt-6 font-heading text-5xl leading-[1.02] font-extrabold tracking-tight text-balance sm:text-6xl lg:text-7xl">
-            {t("line1")}{" "}
-            <span className="relative whitespace-nowrap text-primary">
-              {t("line2")}
-              <svg
-                aria-hidden
-                viewBox="0 0 220 18"
-                className="absolute start-0 -bottom-2 h-3 w-full text-primary/45"
-                preserveAspectRatio="none"
-              >
-                <path
-                  d="M2 13C50 4 120 2 218 9"
-                  stroke="currentColor"
-                  strokeWidth="5"
-                  fill="none"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </span>
+      <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 pt-12 pb-14 lg:grid-cols-[1.1fr_1fr] lg:pt-16">
+        <div>
+          <h1 className="font-heading text-[3.4rem] leading-[0.95] font-semibold tracking-[-0.02em] sm:text-7xl lg:text-[5.4rem]">
+            {t("line1")} {t("line2")}
           </h1>
-          <p className="mx-auto mt-6 max-w-xl text-lg text-pretty text-muted-foreground lg:mx-0">
+          <p className="mt-7 max-w-lg text-lg leading-relaxed text-pretty text-muted-foreground">
             {t("subhead")}
           </p>
-          <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start">
-            <Button
-              asChild
-              size="lg"
-              className="h-12 w-full rounded-xl px-6 text-base shadow-[0_10px_24px_-10px_var(--primary)] sm:w-auto"
+          <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <HaloButton href="/login" size="lg">
+              {t("cta")}
+            </HaloButton>
+            <a
+              href="#how-it-works"
+              className="text-base font-medium underline decoration-foreground/25 underline-offset-[6px] transition-colors hover:decoration-foreground"
             >
-              <Link href="/login">
-                {t("cta")}
-                <ArrowRight className="rtl:rotate-180" aria-hidden />
-              </Link>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="ghost"
-              className="h-12 w-full rounded-xl px-5 text-base sm:w-auto"
-            >
-              <a href="#how-it-works">{t("secondary")}</a>
-            </Button>
+              {t("secondary")}
+            </a>
           </div>
-          <ul className="mt-8 flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm text-muted-foreground lg:justify-start">
-            {points.map((p) => (
-              <li key={p} className="inline-flex items-center gap-1.5">
-                <Check className="size-4 text-success" aria-hidden />
-                {p}
-              </li>
-            ))}
-          </ul>
         </div>
 
         <HeroVisual />
       </div>
+      <FilmStrip />
     </section>
   );
 }

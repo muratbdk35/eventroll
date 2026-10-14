@@ -85,10 +85,7 @@ export default async function GuestPage({
               <LocaleSwitcher variant="glass" />
             </div>
             <div className="mt-auto text-white">
-              <p className="text-[11px] font-medium tracking-[0.18em] uppercase opacity-85">
-                {t("for")}
-              </p>
-              <h1 className="mt-1 font-heading text-[1.75rem] leading-tight font-bold tracking-tight text-balance drop-shadow-sm">
+              <h1 className="font-heading text-[2rem] leading-[1.05] font-semibold tracking-[-0.01em] text-balance drop-shadow-sm">
                 {event.name}
               </h1>
             </div>

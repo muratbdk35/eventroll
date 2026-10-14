@@ -9,7 +9,7 @@ import { Progress as ProgressPrimitive } from "@base-ui/react/progress";
 import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
-import { HaloBlobs, haloSpring, roundClip } from "./glow";
+import { haloSpring } from "./glow";
 
 export type HaloProgressProps = {
   /** 0–100, or null for indeterminate. */
@@ -54,12 +54,6 @@ export function HaloProgress({
         </div>
       )}
       <div className="relative w-full rounded-full p-px">
-        <div
-          className="pointer-events-none absolute inset-0 overflow-hidden rounded-full"
-          style={roundClip("9999px")}
-        >
-          <HaloBlobs active={false} opacity={0.45} />
-        </div>
         <ProgressPrimitive.Track
           className={cn(
             "relative w-full overflow-hidden rounded-full border border-border/80 bg-[color-mix(in_oklch,var(--muted)_70%,white)]",

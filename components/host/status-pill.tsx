@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
 const tone = {
-  active: "bg-success/10 text-success",
+  active: "bg-live/10 text-live",
   draft: "bg-amber-500/12 text-amber-800",
   expired: "bg-muted text-muted-foreground",
   suspended: "bg-destructive/10 text-destructive",
@@ -9,14 +9,17 @@ const tone = {
 } as const;
 
 const dot = {
-  active: "bg-success",
+  active: "bg-live",
   draft: "bg-amber-500",
   expired: "bg-muted-foreground/60",
   suspended: "bg-destructive",
   deleted: "bg-muted-foreground/60",
 } as const;
 
-/** Soft, tinted status chip with a dot. */
+/**
+ * Soft, tinted status chip with a dot. A live event shows the darkroom
+ * safelight red, "on air", rather than a generic green (DECISIONS #40).
+ */
 export function StatusPill({
   status,
   label,

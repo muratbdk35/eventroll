@@ -123,12 +123,25 @@ export function DetailsQuestions({
         if (draftOk(d)) onDone();
       }}
     >
-      <p className="mb-5 text-xs font-semibold tracking-[0.14em] text-primary uppercase tabular-nums">
-        {t("details.question", {
-          n: QUESTIONS.indexOf(item) + 1,
-          total: QUESTIONS.length,
-        })}
-      </p>
+      <div className="mb-6 flex items-center gap-3">
+        <ol aria-hidden className="flex gap-1.5">
+          {QUESTIONS.map((q, i) => (
+            <li
+              key={q}
+              className={cn(
+                "h-1 w-6 rounded-full transition-colors duration-300",
+                i <= QUESTIONS.indexOf(item) ? "bg-primary" : "bg-border",
+              )}
+            />
+          ))}
+        </ol>
+        <p className="text-sm text-muted-foreground tabular-nums">
+          {t("details.question", {
+            n: QUESTIONS.indexOf(item) + 1,
+            total: QUESTIONS.length,
+          })}
+        </p>
+      </div>
 
       <QuestionnaireItem name="name" invalid={show("name", blocked.name)}>
         <QuestionnaireTitle>{t("details.q.name")}</QuestionnaireTitle>

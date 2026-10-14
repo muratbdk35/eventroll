@@ -96,7 +96,7 @@
       "point3": "Tek seferlik ödeme"
     },
     "demo": {
-      "date": "Cmt · 14 Haziran",
+      "date": "Cmt, 14 Haziran",
       "eventName": "Elif & Can",
       "button": "Fotoğraf ekle",
       "mine": "Yüklediklerin",
@@ -104,7 +104,7 @@
       "notifyTitle": "{count} fotoğraf yüklendi",
       "notifyBody": "Doğrudan çifte ulaştı",
       "privacy": "Fotoğraflarını sadece Elif & Can görebilir.",
-      "photoBy": "{name} · {time}",
+      "photoBy": "{name}, {time}",
       "qrTitle": "Fotoğraflarını bizimle paylaş",
       "qrBody": "Okut · Yükle · Bitti",
       "pin": "PIN 2468"
@@ -282,7 +282,7 @@
       "title": "Gününün tek bir anını bile kaçırma",
       "body": "Etkinliğini bir dakikada oluştur. Gerisini misafirlerin halleder.",
       "cta": "Etkinliğini oluştur",
-      "note": "Kurulum ücretsiz · Misafirler yüklemeye başlayacağı zaman ödersin"
+      "note": "Kurulum ücretsiz. Misafirler yüklemeye başlayacağı zaman ödersin"
     },
     "footer": {
       "tagline": "Tüm misafirlerin fotoğrafları, tek bir özel albümde, tek bir QR kodla.",
@@ -345,8 +345,8 @@
     "activate": {
       "title": "Yüklemeyi açmak için plan seç",
       "body": "Plan seçtikten sonra etkinliği yayınlarsın ve QR kodun hazır olur. Tek ödeme, abonelik yok.",
-      "standard": "Standard · ${price}",
-      "premium": "Premium · ${price}",
+      "standard": "Standard (${price})",
+      "premium": "Premium (${price})",
       "devNote": "Yerel geliştirme: ödeme henüz bağlı değil, bu buton planı ücretsiz aktifleştirir.",
       "choose": "{plan} seç",
       "best": "En avantajlı",
@@ -447,7 +447,7 @@
     "previewName": "Etkinliğin",
     "newSubtitleShort": "Plan seçip yayınladığında QR kodun hazır olur.",
     "cancel": "Vazgeç",
-    "meta": "{type} · {date}",
+    "meta": "{type}, {date}",
     "shareQr": "QR paylaş",
     "closedTitle": "Yüklemeler kapalı",
     "closedBody": "Yüklemeyi açmak için plan seç. Tek ödeme, abonelik yok.",
@@ -464,9 +464,9 @@
       "planDone": "{plan} seçildi",
       "cardTitle": "Etkinliğini hazırla",
       "progress": "{done} / {total} tamamlandı",
-      "createBody": "{date} · {start}–{end}",
+      "createBody": "{date}, {start}–{end}",
       "editDetails": "Bilgileri düzenle",
-      "planSummary": "{photos} fotoğrafa kadar · {gb} GB, orijinal kalite",
+      "planSummary": "{photos} fotoğrafa kadar, {gb} GB, orijinal kalite",
       "upgrade": "Premium'a yükselt",
       "publish": "Etkinliği yayınla",
       "publishBody": "Yayınladığında misafir sayfası açılır ve QR kodun hazır olur.",
@@ -499,6 +499,7 @@
       },
       "colorLabel": "Renk",
       "colors": {
+        "powder": "Toz mavi",
         "terracotta": "Kiremit",
         "midnight": "Gece",
         "sage": "Adaçayı",
@@ -523,7 +524,7 @@
     "download": {
       "menu": "İndir",
       "all": "Tüm fotoğraflar (ZIP)",
-      "allHint": "{count} fotoğraf · {size}",
+      "allHint": "{count} fotoğraf, {size}",
       "allLabel": "Tüm fotoğraflar",
       "pick": "Fotoğraf seç",
       "pickHint": "Fotoğraflara dokunarak seç, sonra ZIP olarak indir.",
@@ -607,7 +608,7 @@
     "notFoundTitle": "Etkinlik bulunamadı",
     "notFoundBody": "Bağlantıyı ya da QR kodu kontrol edip tekrar dene.",
     "dropHint": "ya da fotoğrafları buraya sürükle",
-    "formats": "JPG, PNG, HEIC · orijinal kalite",
+    "formats": "JPG, PNG, HEIC, orijinal kalite",
     "pinSubtitle": "Masandaki kartta yazıyor.",
     "for": "Fotoğraflar",
     "heroTitle": "Bir anı bırak",
@@ -686,7 +687,7 @@
       "backToDetails": "Etkinlik bilgilerine dön",
       "event": "Etkinlik",
       "plan": "{plan} planı",
-      "includes": "{photos} fotoğraf · {gb} GB · {days} gün ZIP",
+      "includes": "{photos} fotoğraf, {gb} GB, {days} gün ZIP",
       "tax": "KDV",
       "taxValue": "ödemede hesaplanır",
       "total": "Toplam",

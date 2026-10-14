@@ -40,6 +40,7 @@
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary: var(--primary);
+  --color-live: var(--live);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
@@ -75,6 +76,8 @@
   --accent-foreground: oklch(0.3 0.028 240);
   --destructive: oklch(0.55 0.21 25);
   --success: oklch(0.55 0.13 155);
+  /* Darkroom safelight: only for "live" (DECISIONS #40). */
+  --live: oklch(0.55 0.17 33);
   --border: oklch(0.915 0.01 244);
   --input: oklch(0.88 0.014 244);
   --ring: oklch(0.62 0.065 240);
@@ -113,6 +116,7 @@
     --accent-foreground: oklch(0.95 0.008 244);
     --destructive: oklch(0.68 0.19 25);
     --success: oklch(0.7 0.13 155);
+    --live: oklch(0.7 0.15 33);
     --border: oklch(1 0 0 / 11%);
     --input: oklch(1 0 0 / 16%);
     --ring: oklch(0.7 0.056 241);
@@ -345,6 +349,24 @@
   isolation: isolate;
 }
 
+/* Film frames develop like prints in a darkroom tray (landing hero). */
+@keyframes develop {
+  from {
+    opacity: 0.35;
+    filter: grayscale(1) brightness(1.9) contrast(0.45);
+  }
+  60% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+    filter: none;
+  }
+}
+.develop {
+  animation: develop 1.6s cubic-bezier(0.3, 0.6, 0.2, 1) both;
+}
+
 /* The next question of the create flow slides in. */
 @keyframes question-in {
   from {
@@ -378,6 +400,7 @@
   .float-y,
   .demo-press,
   .receipt-in,
+  .develop,
   .question-in,
   .thumb-in {
     animation: none;

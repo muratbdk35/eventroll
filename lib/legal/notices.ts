@@ -78,18 +78,25 @@ export const adaptedComponents: Notice[] = [
 
 export const fonts: Notice[] = [
   {
-    name: "Bricolage Grotesque",
-    author: "Mathieu Triay",
+    name: "Fraunces",
+    author: "Undercase Type (Phaedra Charles, Flavia Zimbardi)",
     license: "OFL-1.1",
-    url: "https://fonts.google.com/specimen/Bricolage+Grotesque",
+    url: "https://fonts.google.com/specimen/Fraunces",
     usedFor: "Headings.",
   },
   {
-    name: "Geist, Geist Mono",
+    name: "Schibsted Grotesk",
+    author: "Schibsted, Bakken & Bæck",
+    license: "OFL-1.1",
+    url: "https://fonts.google.com/specimen/Schibsted+Grotesk",
+    usedFor: "Interface and body text.",
+  },
+  {
+    name: "Geist Mono",
     author: "Vercel",
     license: "OFL-1.1",
     url: "https://github.com/vercel/geist-font",
-    usedFor: "Body text and numbers.",
+    usedFor: "Receipts and PIN fields.",
   },
 ];
 

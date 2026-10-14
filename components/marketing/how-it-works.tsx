@@ -44,7 +44,7 @@ async function CollectVisual() {
         type="wedding"
         status="active"
         statusLabel={te("status.active")}
-        meta={`${date} · ${te("photoCount", { count: 1248 })}`}
+        meta={`${date}, ${te("photoCount", { count: 1248 })}`}
         srcs={[
           "/marketing/toast.jpg",
           "/marketing/rings.jpg",
@@ -73,30 +73,26 @@ export async function HowItWorks() {
   const t = await getTranslations("Landing.steps");
   return (
     <section id="how-it-works" className="scroll-mt-20 px-4 py-24">
-      <SectionHeading
-        eyebrow={t("eyebrow")}
-        title={t("title")}
-        subtitle={t("subtitle")}
-      />
-      <ol className="mx-auto mt-14 grid max-w-6xl gap-5 md:grid-cols-3">
+      <SectionHeading title={t("title")} subtitle={t("subtitle")} />
+      {/* A real sequence, so it is numbered: big numerals, no card chrome. */}
+      <ol className="mx-auto mt-12 grid max-w-6xl gap-x-6 gap-y-12 md:grid-cols-3">
         {steps.map(({ key, Visual }, i) => (
-          <li
-            key={key}
-            className="overflow-hidden rounded-3xl border border-border bg-card"
-          >
-            <div className="flex aspect-[4/3] items-center justify-center overflow-hidden bg-secondary px-4">
+          <li key={key} className="min-w-0">
+            <div className="flex aspect-[4/3] items-center justify-center overflow-hidden rounded-[1.25rem] bg-secondary px-4">
               <Visual />
             </div>
-            <div className="p-6">
-              <p className="font-heading text-sm font-bold text-primary">
-                {String(i + 1).padStart(2, "0")}
-              </p>
-              <h3 className="mt-1 font-heading text-xl font-semibold">
-                {t(`${key}.title`)}
-              </h3>
-              <p className="mt-2 text-pretty text-muted-foreground">
-                {t(`${key}.body`)}
-              </p>
+            <div className="mt-5 flex gap-4">
+              <span className="font-heading text-5xl leading-none font-semibold text-primary/80 tabular-nums">
+                {i + 1}
+              </span>
+              <div>
+                <h3 className="font-heading text-xl leading-tight font-semibold">
+                  {t(`${key}.title`)}
+                </h3>
+                <p className="mt-1.5 text-pretty text-muted-foreground">
+                  {t(`${key}.body`)}
+                </p>
+              </div>
             </div>
           </li>
         ))}

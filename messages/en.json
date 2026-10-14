@@ -93,7 +93,7 @@
       "point3": "One-time payment"
     },
     "demo": {
-      "date": "Sat · 14 June",
+      "date": "Sat, 14 June",
       "eventName": "Elif & Can",
       "button": "Add photos",
       "mine": "Your uploads",
@@ -101,7 +101,7 @@
       "notifyTitle": "{count} photos uploaded",
       "notifyBody": "Sent straight to the couple",
       "privacy": "Only Elif & Can can see your photos.",
-      "photoBy": "by {name} · {time}",
+      "photoBy": "by {name}, {time}",
       "qrTitle": "Share your photos with us",
       "qrBody": "Scan · Upload · Done",
       "pin": "PIN 2468"
@@ -279,7 +279,7 @@
       "title": "Don't miss a single moment of your day",
       "body": "Create your event in a minute. Your guests will take care of the rest.",
       "cta": "Create your event",
-      "note": "Setup is free · You only pay when you're ready for guests to upload"
+      "note": "Setup is free. You only pay when you're ready for guests to upload"
     },
     "footer": {
       "tagline": "Every guest's photos in one private album, with one QR code.",
@@ -342,8 +342,8 @@
     "activate": {
       "title": "Choose a plan to open uploads",
       "body": "After choosing a plan you publish the event and your QR code is ready. One payment, no subscription.",
-      "standard": "Standard · ${price}",
-      "premium": "Premium · ${price}",
+      "standard": "Standard (${price})",
+      "premium": "Premium (${price})",
       "devNote": "Local development: checkout isn't connected yet, so this activates the plan for free.",
       "choose": "Choose {plan}",
       "best": "Best value",
@@ -444,7 +444,7 @@
     "previewName": "Your event",
     "newSubtitleShort": "Your QR code is ready once you pick a plan and publish.",
     "cancel": "Cancel",
-    "meta": "{type} · {date}",
+    "meta": "{type}, {date}",
     "shareQr": "Share QR",
     "closedTitle": "Uploads are closed",
     "closedBody": "Pick a plan to open uploads. One payment, no subscription.",
@@ -461,9 +461,9 @@
       "planDone": "{plan} selected",
       "cardTitle": "Get your event ready",
       "progress": "{done} of {total} done",
-      "createBody": "{date} · {start}–{end}",
+      "createBody": "{date}, {start}–{end}",
       "editDetails": "Edit details",
-      "planSummary": "Up to {photos} photos · {gb} GB, original quality",
+      "planSummary": "Up to {photos} photos, {gb} GB, original quality",
       "upgrade": "Upgrade to Premium",
       "publish": "Publish your event",
       "publishBody": "Publishing opens the guest page and gets your QR code ready.",
@@ -496,6 +496,7 @@
       },
       "colorLabel": "Colour",
       "colors": {
+        "powder": "Powder blue",
         "terracotta": "Terracotta",
         "midnight": "Midnight",
         "sage": "Sage",
@@ -520,7 +521,7 @@
     "download": {
       "menu": "Download",
       "all": "All photos (ZIP)",
-      "allHint": "{count, plural, one {# photo} other {# photos}} · {size}",
+      "allHint": "{count, plural, one {# photo} other {# photos}}, {size}",
       "allLabel": "All photos",
       "pick": "Choose photos",
       "pickHint": "Tap photos to pick them, then download a ZIP.",
@@ -604,7 +605,7 @@
     "notFoundTitle": "Event not found",
     "notFoundBody": "Check the link or QR code and try again.",
     "dropHint": "or drag photos here",
-    "formats": "JPG, PNG, HEIC · original quality",
+    "formats": "JPG, PNG, HEIC, original quality",
     "pinSubtitle": "You'll find it on the card at your table.",
     "for": "Photos for",
     "heroTitle": "Leave a memory",
@@ -683,7 +684,7 @@
       "backToDetails": "Back to event details",
       "event": "Event",
       "plan": "{plan} plan",
-      "includes": "{photos} photos · {gb} GB · {days}-day ZIP",
+      "includes": "{photos} photos, {gb} GB, {days}-day ZIP",
       "tax": "VAT",
       "taxValue": "calculated at checkout",
       "total": "Total",

@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft, ArrowRight, Loader2, ShieldCheck } from "lucide-react";
+import { ArrowLeft, Loader2, ShieldCheck } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useTransition } from "react";
 import { HaloButton } from "@/components/halo/halo-button";
@@ -46,13 +46,7 @@ export function AccountStep({
               {t("account.signedInAs")}
             </p>
             <p className="max-w-full truncate font-semibold">{userEmail}</p>
-            <HaloButton
-              href={after}
-              fullWidth
-              size="lg"
-              className="mt-6"
-              trailing={<ArrowRight aria-hidden />}
-            >
+            <HaloButton href={after} fullWidth size="lg" className="mt-6">
               {t("account.continue")}
             </HaloButton>
             <button

@@ -12,7 +12,7 @@ export async function SiteHeader({ children }: { children?: React.ReactNode }) {
         <Link
           href="/"
           aria-label="Home"
-          className="shrink-0 max-[369px]:[&>span]:hidden"
+          className="shrink-0 max-[399px]:[&>span]:hidden"
         >
           <Logo />
         </Link>

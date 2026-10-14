@@ -110,6 +110,12 @@ export type HaloCardProps = ComponentProps<"div"> & {
   rim?: "default" | "success";
   /** Frosted fill (glow reads through) or solid, for cards over content. */
   translucent?: boolean;
+  /**
+   * The coloured rim and edge trail. Off by default (DECISIONS #40): the glow
+   * is kept for moments that deserve it (e.g. a success message), not every
+   * container.
+   */
+  glow?: boolean;
 };
 
 export function HaloCard({
@@ -121,6 +127,7 @@ export function HaloCard({
   padding: pad = "md",
   rim = "default",
   translucent = true,
+  glow = false,
   onMouseEnter,
   onMouseLeave,
   onFocus,
@@ -162,13 +169,15 @@ export function HaloCard({
           className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-[1.6rem]"
           style={roundClip("1.6rem")}
         >
-          <HaloBlobs
-            active={active}
-            size="lg"
-            height="h-[58%]"
-            opacity={lit ? 0.9 : 0.6}
-            ramp={rim === "success" ? haloSuccessRamp : haloRamp}
-          />
+          {glow && (
+            <HaloBlobs
+              active={active}
+              size="lg"
+              height="h-[58%]"
+              opacity={lit ? 0.9 : 0.6}
+              ramp={rim === "success" ? haloSuccessRamp : haloRamp}
+            />
+          )}
         </div>
         <div
           data-slot="halo-card-surface"
@@ -184,7 +193,7 @@ export function HaloCard({
         >
           {children}
         </div>
-        {interactive && !reduce && (
+        {glow && interactive && !reduce && (
           <div
             className="pointer-events-none absolute inset-0 z-10 rounded-[1.6rem]"
             style={roundClip("1.6rem")}

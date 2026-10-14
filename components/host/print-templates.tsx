@@ -31,12 +31,18 @@ import { cn } from "@/lib/utils";
 const noop = () => () => {};
 
 type TemplateId = "cards" | "tent" | "poster";
-export type ColorId = "terracotta" | "midnight" | "sage" | "blush";
+export type ColorId = "powder" | "terracotta" | "midnight" | "sage" | "blush";
 
 const palettes: Record<
   ColorId,
   { bg: string; ink: string; accent: string; soft: string }
 > = {
+  powder: {
+    bg: "#eef3f8",
+    ink: "#1d2836",
+    accent: "#457094",
+    soft: "#d6e2ef",
+  },
   terracotta: {
     bg: "#f7efe5",
     ink: "#2b211c",
@@ -336,7 +342,7 @@ export function PrintTemplates({
   const t = useTranslations("Events.print");
   const router = useRouter();
   const [template, setTemplate] = useState<TemplateId>("cards");
-  const [color, setColor] = useState<ColorId>("terracotta");
+  const [color, setColor] = useState<ColorId>("powder");
   const [headline, setHeadline] = useState(() => t("headlineDefault"));
   const [showPin, setShowPin] = useState(Boolean(pin));
   const [upgrading, startUpgrade] = useTransition();

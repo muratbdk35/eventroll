@@ -411,8 +411,9 @@ export function PhotoDownloads({
                       </span>
                       {selected.size > 0 && (
                         <span className="text-muted-foreground">
-                          {" · "}
+                          {" ("}
                           {size(pickedBytes)}
+                          {")"}
                         </span>
                       )}
                     </p>

@@ -506,3 +506,29 @@ album ZIP and printable table cards are phase 1C/1D work (#22, #23).
   `?view=photos` (120 at a time, "Show more" adds 120); the download menu
   and selection mode work there too.
 - Not yet: the "album ready" email and the 3-day/1-day reminders (#23).
+
+## 40. Design pass against generic "AI" tells (owner request, 2026-10-15)
+
+Audit with Anthropic's frontend-design skill; the owner approved every change.
+The subject (EventRoll = a roll of film; prints, receipts, invitations) now
+drives the visual choices instead of SaaS defaults.
+
+- Type: Fraunces (soft serif, invitation feel) for headings, Schibsted
+  Grotesk for the interface; Geist Mono only on receipts and PIN fields.
+  Replaces Geist + Bricolage Grotesque.
+- Landing: no eyebrow labels; section titles left-aligned on a hairline
+  with the explanation beside them; hero without the single-word accent,
+  the pill, the tick row or the photo collage, plus a full-width film strip
+  whose frames "develop" on load (the page's one orchestrated motion,
+  `.develop`, off with reduced motion); event types as photo prints with
+  captions; how-it-works keeps its numbers (a real sequence) as big
+  numerals without card chrome; feature tiles without borders; pricing on
+  a flat blue table without trust pills; FAQ without a card; the closing
+  section is a large print instead of a gradient box.
+- App: no "→" on buttons; middle-dot meta strings became commas or separate
+  items; "QUESTION 1 / 4" became a quiet four-bar progress; the guest
+  header lost its "PHOTOS" label; Halo glow only on primary buttons, a
+  focused field, the guest dropzone and success messages (`HaloCard glow`).
+- Live status uses a darkroom safelight red (`--live`) instead of green.
+- Print cards get a "Powder blue" palette, now the default.
+- Receipts keep their caps and dots: that is how receipts are printed.

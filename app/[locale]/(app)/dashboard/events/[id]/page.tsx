@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ArrowRight, ChevronRight, ExternalLink, Settings } from "lucide-react";
+import { ChevronRight, ExternalLink, Settings } from "lucide-react";
 import {
   getFormatter,
   getTranslations,
@@ -98,14 +98,16 @@ export default async function EventPage({
             label={t(`status.${event.status}`)}
           />
         </div>
-        <p className="mt-1.5 text-sm text-muted-foreground">
-          {[
-            date(event.eventDate),
-            t("photoCount", { count: stats.photos }),
-            t("guestsCount", { count: stats.guests }),
-            t("deletesOnShort", { date: date(event.expiresAt) }),
-          ].join(" · ")}
-        </p>
+        <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-sm text-muted-foreground">
+          <li>{date(event.eventDate)}</li>
+          <li className="text-foreground">
+            {t("photoCount", { count: stats.photos })}
+          </li>
+          <li className="text-foreground">
+            {t("guestsCount", { count: stats.guests })}
+          </li>
+          <li>{t("deletesOnShort", { date: date(event.expiresAt) })}</li>
+        </ul>
       </div>
     </div>
   );
@@ -249,7 +251,6 @@ export default async function EventPage({
             className="mt-5 flex h-12 w-full items-center justify-center gap-2 rounded-2xl border border-border bg-card text-sm font-semibold shadow-xs transition-colors hover:border-primary/30 hover:bg-accent/40"
           >
             {t("photos.seeAll", { count: stats.photos })}
-            <ArrowRight className="size-4 rtl:rotate-180" aria-hidden />
           </Link>
         )}
         {view === "photos" && stats.photos > photos.length && (
@@ -308,8 +309,11 @@ export default async function EventPage({
         <span className="min-w-0 flex-1">
           <span className="block font-semibold">{t("tabs.settings")}</span>
           <span className="block truncate text-sm text-muted-foreground">
-            {t("settings.pinToggle")} · {t("settings.hoursToggle")} ·{" "}
-            {t("settings.perPhoneToggle")}
+            {[
+              t("settings.pinToggle"),
+              t("settings.hoursToggle"),
+              t("settings.perPhoneToggle"),
+            ].join(", ")}
           </span>
         </span>
         <ChevronRight

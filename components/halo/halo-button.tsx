@@ -215,10 +215,10 @@ export function HaloButton(props: HaloButtonProps) {
           className="pointer-events-none absolute inset-0 overflow-hidden rounded-full"
           style={roundClip("9999px")}
         >
-          <HaloBlobs
-            active={hot && !disabled}
-            opacity={hot ? 0.9 : primary ? 0.6 : 0.4}
-          />
+          {/* Only the main action glows (DECISIONS #40). */}
+          {primary && (
+            <HaloBlobs active={hot && !disabled} opacity={hot ? 0.9 : 0.6} />
+          )}
         </div>
         {rest.href !== undefined ? (
           <Link
