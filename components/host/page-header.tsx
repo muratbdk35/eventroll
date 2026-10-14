@@ -14,7 +14,7 @@ export async function TopBar({
 }) {
   const t = await getTranslations("App");
   return (
-    <header className="sticky top-0 z-30 border-b border-border/70 bg-background/85 backdrop-blur">
+    <header className="sticky top-0 z-30 border-b border-white/60 bg-white/55 shadow-[0_1px_0_rgb(0_0_0/0.03)] backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-3xl items-center justify-between gap-4 px-4 sm:px-6">
         <Link href="/dashboard" aria-label="EventRoll">
           <Logo className="[&_span]:text-lg [&_svg]:size-8" />

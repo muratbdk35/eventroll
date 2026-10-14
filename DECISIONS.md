@@ -248,3 +248,16 @@ Design language: modern, calm but alive (Apple Photos / Partiful / Luma quality)
   written rules missing while Tailwind utilities updated). If CSS changes don't
   show up, stop `next dev` and delete `.next/dev`. Restart `next dev` after
   schema migrations too (the cached DB client keeps the old shape).
+- The guest page no longer lists photos sent in earlier visits (owner decision).
+
+## 27. Host dashboard in the guest page's language (2026-10-14)
+
+- Same ambient glows, grain and frosted surfaces as the guest page; glassy top bar.
+- Event list: each card shows a fanned polaroid stack of the newest photos
+  (`latestPhotoKeys`); empty events show blank prints with the type icon.
+- "Get your event ready" checklist adapted from the 21st.dev Onboarding Checklist
+  (ephraimduncan): circular progress, the open step on a tinted surface with its
+  action, the rest as rows; it collapses to a share bar once photos arrive.
+- Photos adapted from the 21st.dev Masonry Lightbox (ayushmxxn): masonry at the
+  photos' real proportions, blur-in entrance, hover caption, shared-element spring
+  into the viewer. Adds `framer-motion` (host pages only).

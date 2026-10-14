@@ -15,7 +15,6 @@ import { eventVisuals } from "@/components/host/event-visuals";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { getEventBySlug } from "@/lib/events/queries";
 import { getUploadState } from "@/lib/events/upload-state";
-import { listMyUploads } from "@/lib/guest/mine";
 import { getGuestSession } from "@/lib/guest/session";
 import type { Locale } from "@/lib/i18n/routing";
 import { publicEnv } from "@/lib/public-env";
@@ -51,10 +50,6 @@ export default async function GuestPage({
     guest && event.blockedDeviceIds.includes(guest.deviceId),
   );
   const state = blocked ? "blocked" : getUploadState(event);
-  const mine =
-    guest && state === "open"
-      ? await listMyUploads(event.id, guest.deviceId)
-      : [];
   // Host-uploaded cover if set, otherwise the stock photo for the event type.
   const cover = event.coverKey
     ? { src: await presignGet(event.coverKey), custom: true }
@@ -121,7 +116,6 @@ export default async function GuestPage({
                 hasPin={Boolean(event.accessPinHash)}
                 maxPerDevice={event.maxUploadsPerDevice}
                 verified={guest?.verified ?? false}
-                initialMine={mine}
                 turnstileSiteKey={publicEnv.turnstileSiteKey}
                 coverSrc={cover.src}
               />

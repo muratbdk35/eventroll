@@ -48,6 +48,17 @@ export async function getEventStats(eventId: string) {
   return { photos: row?.photos ?? 0, guests: row?.guests ?? 0 };
 }
 
+/** Storage keys of the newest photos (thumbnail when there is one), for previews. */
+export async function latestPhotoKeys(eventId: string, limit = 3) {
+  const rows = await db
+    .select({ r2Key: media.r2Key, thumbKey: media.thumbKey })
+    .from(media)
+    .where(and(eq(media.eventId, eventId), eq(media.status, "ready")))
+    .orderBy(desc(media.createdAt))
+    .limit(limit);
+  return rows.map((r) => r.thumbKey ?? r.r2Key);
+}
+
 export async function listEventMedia(eventId: string, limit = 120) {
   return db
     .select()

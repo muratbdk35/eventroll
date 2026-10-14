@@ -470,7 +470,10 @@
       "allOptions": "Alle Teilen-Optionen",
       "collect": "Fotos sammeln",
       "collectBody": "Fotos erscheinen unten, sobald Gäste sie hochladen.",
-      "collectDone": "{count, plural, one {Bisher # Foto} other {Bisher # Fotos}}"
+      "collectDone": "{count, plural, one {Bisher # Foto} other {Bisher # Fotos}}",
+      "cardTitle": "Mach dein Event bereit",
+      "progress": "{done} / {total} erledigt",
+      "openGuestPage": "Gästeseite öffnen"
     },
     "startLabel": "Beginn",
     "endLabel": "Ende",
@@ -542,8 +545,7 @@
     "remove": "Entfernen",
     "clear": "Leeren",
     "thanksTitle": "Danke!",
-    "thanksBody": "{count, plural, one {Du hast den Gastgebern # Erinnerung hinterlassen.} other {Du hast den Gastgebern # Erinnerungen hinterlassen.}}",
-    "previouslySent": "Bereits gesendet"
+    "thanksBody": "{count, plural, one {Du hast den Gastgebern # Erinnerung hinterlassen.} other {Du hast den Gastgebern # Erinnerungen hinterlassen.}}"
   },
   "App": {
     "events": "Events",

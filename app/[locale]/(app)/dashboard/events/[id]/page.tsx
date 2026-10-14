@@ -131,6 +131,8 @@ export default async function EventPage({
       src: await presignGet(m.thumbKey ?? m.r2Key),
       full: await presignGet(m.r2Key),
       uploaderName: m.uploaderName,
+      width: m.width,
+      height: m.height,
       canBlock: Boolean(m.deviceId),
       createdAt: m.createdAt.toISOString(),
     })),

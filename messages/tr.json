@@ -470,7 +470,10 @@
       "allOptions": "Tüm paylaşım seçenekleri",
       "collect": "Fotoğrafları topla",
       "collectBody": "Misafirler yükledikçe fotoğraflar aşağıda görünür.",
-      "collectDone": "{count, plural, one {Şu ana kadar # fotoğraf} other {Şu ana kadar # fotoğraf}}"
+      "collectDone": "{count, plural, one {Şu ana kadar # fotoğraf} other {Şu ana kadar # fotoğraf}}",
+      "cardTitle": "Etkinliğini hazırla",
+      "progress": "{done} / {total} tamamlandı",
+      "openGuestPage": "Misafir sayfasını aç"
     },
     "startLabel": "Başlangıç",
     "endLabel": "Bitiş",
@@ -542,8 +545,7 @@
     "remove": "Kaldır",
     "clear": "Temizle",
     "thanksTitle": "Teşekkürler!",
-    "thanksBody": "{count, plural, one {Ev sahiplerine # anı bıraktın.} other {Ev sahiplerine # anı bıraktın.}}",
-    "previouslySent": "Daha önce gönderdiklerin"
+    "thanksBody": "{count, plural, one {Ev sahiplerine # anı bıraktın.} other {Ev sahiplerine # anı bıraktın.}}"
   },
   "App": {
     "events": "Etkinlikler",

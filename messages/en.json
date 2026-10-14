@@ -467,7 +467,10 @@
       "allOptions": "All sharing options",
       "collect": "Collect the photos",
       "collectBody": "Photos appear below as guests upload them.",
-      "collectDone": "{count, plural, one {# photo so far} other {# photos so far}}"
+      "collectDone": "{count, plural, one {# photo so far} other {# photos so far}}",
+      "cardTitle": "Get your event ready",
+      "progress": "{done} / {total} done",
+      "openGuestPage": "Open guest page"
     },
     "startLabel": "Starts",
     "endLabel": "Ends",
@@ -539,8 +542,7 @@
     "remove": "Remove",
     "clear": "Clear",
     "thanksTitle": "Thank you!",
-    "thanksBody": "{count, plural, one {You left # memory for the hosts.} other {You left # memories for the hosts.}}",
-    "previouslySent": "Already sent"
+    "thanksBody": "{count, plural, one {You left # memory for the hosts.} other {You left # memories for the hosts.}}"
   },
   "App": {
     "events": "Events",

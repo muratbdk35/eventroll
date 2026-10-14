@@ -3,7 +3,6 @@
 import {
   Camera,
   Check,
-  ImageIcon,
   KeyRound,
   Loader2,
   RotateCw,
@@ -24,7 +23,6 @@ type Props = {
   hasPin: boolean;
   maxPerDevice: number | null;
   verified: boolean;
-  initialMine: { id: string; src: string | null }[];
   turnstileSiteKey: string | undefined;
   /** Shown on the stacked cards before anything is picked. */
   coverSrc: string;
@@ -642,44 +640,6 @@ export function Uploader(props: Props) {
                     <Check className="size-3" strokeWidth={3.5} aria-hidden />
                   </span>
                 )}
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {props.initialMine.length > 0 && (
-        <section aria-labelledby="before">
-          <h2
-            id="before"
-            className="mb-3 text-sm font-semibold text-muted-foreground"
-          >
-            {t("previouslySent")}
-          </h2>
-          <ul className="grid grid-cols-4 gap-2">
-            {props.initialMine.map((m, i) => (
-              <li
-                key={m.id}
-                className="rounded-[4px] bg-white p-1 pb-3 shadow-md ring-1 shadow-black/5 ring-black/5"
-                style={{
-                  transform: `rotate(${TILTS[i % TILTS.length] / 2}deg)`,
-                }}
-              >
-                <div className="flex aspect-square items-center justify-center overflow-hidden rounded-[2px] bg-muted">
-                  {m.src ? (
-                    // eslint-disable-next-line @next/next/no-img-element -- signed storage URL
-                    <img
-                      src={m.src}
-                      alt=""
-                      className="size-full object-cover"
-                    />
-                  ) : (
-                    <ImageIcon
-                      className="size-4 text-muted-foreground"
-                      aria-hidden
-                    />
-                  )}
-                </div>
               </li>
             ))}
           </ul>
