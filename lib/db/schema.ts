@@ -97,6 +97,9 @@ export const events = pgTable(
     // Guest access controls (DECISIONS #21): optional PIN, upload window above,
     // and a per-device photo cap (null = unlimited).
     accessPinHash: text(),
+    /** The PIN itself, so it can be printed on the QR cards (DECISIONS #34).
+     *  Guests are told it anyway; checks still use the hash. */
+    accessPin: text(),
     maxUploadsPerDevice: integer(),
     // Devices the host blocked from uploading (media.device_id values).
     blockedDeviceIds: text()

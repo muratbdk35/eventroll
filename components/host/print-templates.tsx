@@ -2,6 +2,7 @@
 
 import {
   Download,
+  KeyRound,
   LayoutGrid,
   Loader2,
   Lock,
@@ -14,6 +15,7 @@ import { useTranslations } from "next-intl";
 import { useState, useSyncExternalStore, useTransition } from "react";
 import { createPortal } from "react-dom";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import { devActivate } from "@/lib/events/actions";
 import { useRouter } from "@/lib/i18n/navigation";
 import { cn } from "@/lib/utils";
@@ -64,7 +66,9 @@ export type FaceText = {
   subline: string;
   steps: string;
   noApp: string;
-  pinNote?: string;
+  /** Printed under the QR code when the host chooses to show it. */
+  pin?: string;
+  pinLabel?: string;
 };
 
 /** One printed face. Sizes are in cqw so it scales with its box. */
@@ -81,6 +85,23 @@ export function Face({
 }) {
   const p = palettes[color];
   const row = layout === "row";
+  const pinChip = text.pin ? (
+    <p
+      className="inline-flex items-center font-mono font-bold"
+      style={{
+        fontSize: row ? "2.3cqw" : "3.4cqw",
+        letterSpacing: "0.18em",
+        background: p.ink,
+        color: p.bg,
+        borderRadius: "99px",
+        padding: row ? "0.6cqw 2cqw" : "1cqw 3cqw",
+        gap: row ? "1.2cqw" : "1.8cqw",
+      }}
+    >
+      <span style={{ opacity: 0.7 }}>{text.pinLabel}</span>
+      {text.pin}
+    </p>
+  ) : null;
   return (
     <div
       className="relative size-full overflow-hidden"
@@ -179,6 +200,9 @@ export function Face({
               {text.steps}
             </p>
           )}
+          {row && pinChip && (
+            <div style={{ marginTop: "1.4cqw" }}>{pinChip}</div>
+          )}
         </div>
 
         <div
@@ -198,6 +222,7 @@ export function Face({
 
         {!row && (
           <div className="flex flex-col items-center" style={{ gap: "1.2cqh" }}>
+            {pinChip}
             <p style={{ fontSize: "3.8cqw", opacity: 0.8 }}>{text.subline}</p>
             <p
               className="font-semibold"
@@ -209,23 +234,8 @@ export function Face({
             >
               {text.steps}
             </p>
-            <p style={{ fontSize: "2.6cqw", opacity: 0.6 }}>
-              {text.pinNote ?? text.noApp}
-            </p>
+            <p style={{ fontSize: "2.6cqw", opacity: 0.6 }}>{text.noApp}</p>
           </div>
-        )}
-        {row && text.pinNote && (
-          <p
-            className="absolute"
-            style={{
-              bottom: "6cqw",
-              insetInlineEnd: "9cqw",
-              fontSize: "1.9cqw",
-              opacity: 0.6,
-            }}
-          >
-            {text.pinNote}
-          </p>
         )}
       </div>
     </div>
@@ -310,6 +320,7 @@ export function PrintTemplates({
   eventName,
   date,
   hasPin,
+  pin,
   premium,
   devMode,
 }: {
@@ -317,6 +328,8 @@ export function PrintTemplates({
   eventName: string;
   date: string;
   hasPin: boolean;
+  /** Readable PIN, null for PINs set before it was stored. */
+  pin: string | null;
   premium: boolean;
   devMode: boolean;
 }) {
@@ -325,6 +338,7 @@ export function PrintTemplates({
   const [template, setTemplate] = useState<TemplateId>("cards");
   const [color, setColor] = useState<ColorId>("terracotta");
   const [headline, setHeadline] = useState(() => t("headlineDefault"));
+  const [showPin, setShowPin] = useState(Boolean(pin));
   const [upgrading, startUpgrade] = useTransition();
   const qr = `/api/events/${eventId}/qr?format=svg`;
 
@@ -343,7 +357,8 @@ export function PrintTemplates({
     subline: t("subline"),
     steps: t("steps"),
     noApp: t("noApp"),
-    pinNote: hasPin ? t("pinNote") : undefined,
+    pin: showPin && pin ? pin : undefined,
+    pinLabel: "PIN",
   };
   const hints = { cut: t("cutHint"), fold: t("foldHint") };
   const sheet = (
@@ -455,6 +470,32 @@ export function PrintTemplates({
             className="h-10 w-full rounded-xl border border-input bg-card px-3.5 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40"
           />
         </div>
+
+        {hasPin && (
+          <div className="flex items-start gap-3 rounded-2xl border border-border bg-card p-3.5">
+            <KeyRound
+              className="mt-0.5 size-4 shrink-0 text-muted-foreground"
+              aria-hidden
+            />
+            <div className="min-w-0 flex-1">
+              <label
+                htmlFor="print-show-pin"
+                className="block text-sm font-medium"
+              >
+                {t("showPin")}
+              </label>
+              <p className="mt-0.5 text-[13px] text-pretty text-muted-foreground">
+                {pin ? t("showPinHint") : t("showPinResave")}
+              </p>
+            </div>
+            <Switch
+              id="print-show-pin"
+              checked={showPin && Boolean(pin)}
+              disabled={!pin}
+              onCheckedChange={setShowPin}
+            />
+          </div>
+        )}
 
         <div className="space-y-2">
           <Button

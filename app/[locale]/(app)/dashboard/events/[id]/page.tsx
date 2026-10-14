@@ -120,6 +120,7 @@ export default async function EventPage({
                   eventName={event.name}
                   date={date(event.eventDate)}
                   hasPin={Boolean(event.accessPinHash)}
+                  pin={event.accessPin}
                   premium={event.plan === "premium"}
                   devMode={devMode}
                 />

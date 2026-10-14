@@ -113,7 +113,9 @@ export async function updateSettings(
       maxUploadsPerDevice: d.maxUploadsPerDevice,
       ...(d.pin === undefined
         ? {}
-        : { accessPinHash: d.pin === null ? null : await hashPin(d.pin) }),
+        : d.pin === null
+          ? { accessPinHash: null, accessPin: null }
+          : { accessPinHash: await hashPin(d.pin), accessPin: d.pin }),
     })
     .where(eq(events.id, event.id));
   revalidatePath("/[locale]/dashboard", "layout");

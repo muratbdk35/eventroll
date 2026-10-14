@@ -1,8 +1,8 @@
 "use client";
 
-import { Loader2, MailCheck } from "lucide-react";
+import { Clock, Loader2, Mail, RotateCw } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -45,19 +45,36 @@ export function LoginForm({
   const t = useTranslations("Login");
   const locale = useLocale();
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
-    "idle",
-  );
+  const [status, setStatus] = useState<
+    "idle" | "sending" | "sent" | "expired" | "error"
+  >("idle");
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [captchaKey, setCaptchaKey] = useState(0);
-  const callbackURL = `/${locale}${callbackPath}`;
+  const [requestId, setRequestId] = useState<string | null>(null);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("sending");
+    // A login request lets this tab continue on its own once the link in the
+    // email is opened, on this device or another one (DECISIONS #34).
+    const res = await fetch("/api/login-request", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        email,
+        next: `/${locale}${callbackPath}`,
+        locale,
+      }),
+    }).catch(() => null);
+    const id: string | null = res?.ok ? (await res.json()).id : null;
+    if (!id) {
+      setStatus("error");
+      return;
+    }
     const { error } = await authClient.signIn.magicLink({
       email,
-      callbackURL,
+      callbackURL: `/${locale}/auth/confirmed?req=${id}`,
+      errorCallbackURL: `/${locale}/auth/confirmed?error=1`,
       metadata: { locale },
       fetchOptions: {
         headers: { "x-captcha-response": captchaToken ?? "" },
@@ -67,23 +84,95 @@ export function LoginForm({
       // Tokens are single-use: get a fresh challenge for the retry.
       setCaptchaToken(null);
       setCaptchaKey((k) => k + 1);
+      setStatus("error");
+      return;
     }
-    setStatus(error ? "error" : "sent");
+    setRequestId(id);
+    setStatus("sent");
   }
 
-  if (status === "sent") {
+  // Wait for the link to be opened anywhere, then sign this tab in too.
+  useEffect(() => {
+    if (status !== "sent" || !requestId) return;
+    let stop = false;
+    const tick = async () => {
+      const res = await fetch(`/api/login-request/${requestId}`, {
+        cache: "no-store",
+      }).catch(() => null);
+      if (stop || !res?.ok) return;
+      const data = (await res.json()) as { status: string; url?: string };
+      if (data.status === "approved" && data.url) {
+        stop = true;
+        window.location.assign(data.url);
+      } else if (data.status === "expired") {
+        stop = true;
+        setStatus("expired");
+      }
+    };
+    const timer = setInterval(tick, 2500);
+    return () => {
+      stop = true;
+      clearInterval(timer);
+    };
+  }, [status, requestId]);
+
+  if (status === "sent" || status === "expired") {
+    const expired = status === "expired";
+    // Layout from the 21st.dev "Auth Verify Email" (preetsuthar17) with the
+    // live "waiting for approval" pill of "Push Approval" (felipemenezes098).
     return (
-      <div
-        className="flex flex-col items-center gap-3 text-center"
-        role="status"
-      >
-        <MailCheck className="size-10 text-primary" aria-hidden />
-        <h2 className="font-heading text-xl font-semibold">{t("sentTitle")}</h2>
-        <p className="text-sm text-muted-foreground">
-          {t("sentBody", { email })}
+      <div className="w-full text-center" role="status" aria-live="polite">
+        <span className="relative mx-auto flex size-16 items-center justify-center rounded-full bg-accent text-primary">
+          <Mail className="size-7" aria-hidden />
+          {!expired && (
+            <span className="absolute -end-0.5 -bottom-0.5 flex size-6 items-center justify-center rounded-full bg-card shadow ring-1 ring-black/5">
+              <Loader2 className="size-3.5 animate-spin" aria-hidden />
+            </span>
+          )}
+        </span>
+        <h2 className="mt-4 font-heading text-xl font-semibold">
+          {expired ? t("expiredTitle") : t("sentTitle")}
+        </h2>
+        <p className="mt-1.5 text-sm text-pretty text-muted-foreground">
+          {expired
+            ? t("expiredBody")
+            : t.rich("sentBody", {
+                email,
+                b: (chunks) => (
+                  <span className="font-medium text-foreground">{chunks}</span>
+                ),
+              })}
         </p>
-        <Button variant="link" onClick={() => setStatus("idle")}>
-          {t("useDifferentEmail")}
+        {!expired && (
+          <p className="mx-auto mt-4 flex w-fit items-center gap-2 rounded-full bg-muted px-3.5 py-1.5 text-xs font-medium text-muted-foreground">
+            <span className="relative flex size-2">
+              <span className="absolute inline-flex size-full animate-ping rounded-full bg-primary/60 motion-reduce:animate-none" />
+              <span className="relative inline-flex size-2 rounded-full bg-primary" />
+            </span>
+            {t("waiting")}
+          </p>
+        )}
+        {!expired && (
+          <div className="mt-5 flex items-start gap-3 rounded-2xl border border-border bg-muted/40 p-3.5 text-start">
+            <Clock
+              className="mt-0.5 size-4 shrink-0 text-muted-foreground"
+              aria-hidden
+            />
+            <div>
+              <p className="text-sm font-medium">{t("notReceived")}</p>
+              <p className="mt-0.5 text-xs text-pretty text-muted-foreground">
+                {t("notReceivedHint")}
+              </p>
+            </div>
+          </div>
+        )}
+        <Button
+          variant="outline"
+          className="mt-4 h-10 w-full rounded-xl bg-card"
+          onClick={() => setStatus("idle")}
+        >
+          <RotateCw aria-hidden />
+          {t("resend")}
         </Button>
       </div>
     );
@@ -153,7 +242,10 @@ export function LoginForm({
         disabled={!googleEnabled}
         title={googleEnabled ? undefined : "GOOGLE_CLIENT_ID missing"}
         onClick={() =>
-          authClient.signIn.social({ provider: "google", callbackURL })
+          authClient.signIn.social({
+            provider: "google",
+            callbackURL: `/${locale}${callbackPath}`,
+          })
         }
       >
         <GoogleIcon />

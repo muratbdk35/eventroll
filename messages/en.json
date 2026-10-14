@@ -21,10 +21,24 @@
     "or": "or",
     "google": "Continue with Google",
     "sentTitle": "Check your inbox",
-    "sentBody": "We sent a sign-in link to {email}. It expires in 15 minutes.",
-    "useDifferentEmail": "Use a different email",
+    "sentBody": "We sent a confirmation link to <b>{email}</b>. Once you tap it, this page carries on by itself, even if you open the email on your phone.",
     "error": "Something went wrong. Please try again.",
-    "legal": "By continuing you agree to our <terms>Terms</terms> and <privacy>Privacy Policy</privacy>."
+    "legal": "By continuing you agree to our <terms>Terms</terms> and <privacy>Privacy Policy</privacy>.",
+    "waiting": "Waiting for confirmation…",
+    "notReceived": "No email?",
+    "notReceivedHint": "Check your spam and promotions folders. If nothing arrives within a minute, send it again.",
+    "resend": "Send again",
+    "expiredTitle": "The link expired",
+    "expiredBody": "For your security links are valid for 15 minutes. Let's send a new one.",
+    "confirmed": {
+      "title": "Email confirmed",
+      "body": "You're signed in as {email}.",
+      "otherTab": "The tab or computer that asked for the link is carrying on by itself. You can close this page.",
+      "continue": "Continue here",
+      "errorTitle": "Invalid link",
+      "errorBody": "This link may have been used already or expired. Ask for a new one.",
+      "tryAgain": "Get a new link"
+    }
   },
   "Dashboard": {
     "title": "Your events",
@@ -48,12 +62,15 @@
   },
   "Email": {
     "magicLink": {
-      "subject": "Your {appName} sign-in link",
-      "preview": "Sign in to {appName}",
-      "heading": "Sign in to {appName}",
-      "body": "Tap the button below to sign in. The link works once and expires in 15 minutes.",
-      "button": "Sign in",
-      "ignore": "If you didn't request this email, you can safely ignore it."
+      "subject": "Your {appName} confirmation link",
+      "preview": "Confirm your email and pick up where you left off",
+      "heading": "✨ Confirm your email",
+      "body": "Hi! Tap the button below to confirm your email and continue where you left off.",
+      "button": "Confirm my email",
+      "validity": "The link is valid for 15 minutes and works once.",
+      "fallback": "If the button doesn't work, paste this link into your browser:",
+      "ignore": "If you didn't ask for this, you can ignore this email; nothing changes on your account.",
+      "footer": "Every photo from your event, in one place."
     }
   },
   "Landing": {
@@ -482,13 +499,15 @@
       "subline": "Scan with your phone camera and upload your photos",
       "steps": "SCAN · PICK · SEND",
       "noApp": "No app or account needed",
-      "pinNote": "Tell your guests the PIN separately",
       "printButton": "Print / save as PDF",
       "printHint": "In the print dialog set margins to \"None\" and scale to 100%.",
       "premiumTitle": "Templates are part of Premium",
       "premiumBody": "On Standard you can download the QR code as PNG or SVG and use it yourself.",
       "cutHint": "Cut along the dashed lines",
-      "foldHint": "Fold here"
+      "foldHint": "Fold here",
+      "showPin": "Show the PIN on the card",
+      "showPinHint": "If off, tell your guests the PIN yourself.",
+      "showPinResave": "To show it, save the PIN once more in settings."
     },
     "backToReview": "Back to review"
   },

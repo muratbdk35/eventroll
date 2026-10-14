@@ -30,10 +30,20 @@ export async function sendMagicLinkEmail(input: {
     heading: t("heading", { appName }),
     body: t("body"),
     button: t("button"),
+    validity: t("validity"),
+    fallback: t("fallback"),
     ignore: t("ignore"),
+    footer: t("footer"),
   };
 
-  const html = await render(MagicLinkEmail({ appName, url: input.url, copy }));
+  const html = await render(
+    MagicLinkEmail({
+      appName,
+      appUrl: env.NEXT_PUBLIC_APP_URL,
+      url: input.url,
+      copy,
+    }),
+  );
   await sendEmail({
     to: input.email,
     subject: t("subject", { appName }),

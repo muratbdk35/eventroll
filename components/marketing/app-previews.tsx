@@ -155,6 +155,8 @@ export function PrintPreview({ qr }: { qr: string }) {
           subline: t("subline"),
           steps: t("steps"),
           noApp: t("noApp"),
+          pin: "2468",
+          pinLabel: "PIN",
         }}
       />
     </div>

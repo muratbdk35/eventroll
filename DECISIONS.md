@@ -376,3 +376,22 @@ album ZIP and printable table cards are phase 1C/1D work (#22, #23).
 - The create flow always shows the account step; a signed-in host sees who they
   are with "continue" or "use another account", so nobody pays from the wrong
   account.
+
+## 34. Cross-device email confirmation, PIN on QR cards, branded email (owner request, 2026-10-14)
+
+- The email link no longer drops people into payment. It opens
+  `/[locale]/auth/confirmed` ("Email confirmed"), and the tab that asked for the
+  link continues by itself, even when the email is opened on another device:
+  the asking tab opens a login request (`/api/login-request`, stored in Better
+  Auth's `verification` table, 15 minutes), the confirmed page approves it for
+  the signed-in email, and the waiting tab polls and receives a one-time
+  magic-link URL of its own (`lib/login-requests.ts`). The waiting screen
+  follows the 21st.dev "Auth Verify Email" card plus the "Push Approval"
+  waiting pill. Local dev now uses Cloudflare's always-pass Turnstile site key.
+- The PIN is also stored readable (`events.access_pin`, migration 0003; the
+  hash still does the checking) so the print templates can show it. Hosts
+  choose with "Show the PIN on the card"; PINs set before 0003 need one
+  re-save. The host-facing "tell guests the PIN" note is gone from the card.
+- The sign-in email is restyled from the React Email "Raycast magic link"
+  template (MIT): logo PNG (`public/brand/email-logo.png`), one headline, one
+  pill button, the plain link as fallback, a quiet footer.

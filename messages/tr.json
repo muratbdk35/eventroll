@@ -24,10 +24,24 @@
     "or": "veya",
     "google": "Google ile devam et",
     "sentTitle": "Gelen kutunu kontrol et",
-    "sentBody": "{email} adresine bir giriş linki gönderdik. Link 15 dakika geçerli.",
-    "useDifferentEmail": "Başka bir e-posta kullan",
+    "sentBody": "<b>{email}</b> adresine bir onay linki gönderdik. Linke dokunduğunda bu sayfa kendiliğinden devam eder; maili telefonda açsan bile.",
     "error": "Bir şeyler ters gitti. Lütfen tekrar dene.",
-    "legal": "Devam ederek <terms>Kullanım Şartları</terms>'nı ve <privacy>Gizlilik Politikası</privacy>'nı kabul etmiş olursun."
+    "legal": "Devam ederek <terms>Kullanım Şartları</terms>'nı ve <privacy>Gizlilik Politikası</privacy>'nı kabul etmiş olursun.",
+    "waiting": "Onay bekleniyor…",
+    "notReceived": "Mail gelmedi mi?",
+    "notReceivedHint": "Spam ve Promosyonlar klasörüne bak. Bir dakika içinde gelmezse tekrar gönder.",
+    "resend": "Tekrar gönder",
+    "expiredTitle": "Linkin süresi doldu",
+    "expiredBody": "Güvenliğin için linkler 15 dakika geçerli. Yeni bir link gönderelim.",
+    "confirmed": {
+      "title": "E-postan onaylandı",
+      "body": "{email} ile giriş yaptın.",
+      "otherTab": "Linki istediğin sekme ya da bilgisayar kendiliğinden devam ediyor. Bu sayfayı kapatabilirsin.",
+      "continue": "Buradan devam et",
+      "errorTitle": "Link geçersiz",
+      "errorBody": "Bu link kullanılmış ya da süresi dolmuş olabilir. Yeni bir link iste.",
+      "tryAgain": "Yeni link iste"
+    }
   },
   "Dashboard": {
     "title": "Etkinliklerin",
@@ -51,12 +65,15 @@
   },
   "Email": {
     "magicLink": {
-      "subject": "{appName} giriş linkin",
-      "preview": "{appName}'a giriş yap",
-      "heading": "{appName}'a giriş yap",
-      "body": "Giriş yapmak için aşağıdaki butona dokun. Link tek kullanımlık ve 15 dakika geçerli.",
-      "button": "Giriş yap",
-      "ignore": "Bu e-postayı sen istemediysen görmezden gelebilirsin."
+      "subject": "{appName} onay linkin",
+      "preview": "E-postanı onayla ve kaldığın yerden devam et",
+      "heading": "✨ E-postanı onayla",
+      "body": "Merhaba! Aşağıdaki butona dokununca e-postan onaylanır ve kaldığın yerden devam edersin.",
+      "button": "E-postamı onayla",
+      "validity": "Link 15 dakika geçerli ve tek kullanımlık.",
+      "fallback": "Buton çalışmazsa bu linki tarayıcına yapıştır:",
+      "ignore": "Bu maili sen istemediysen görmezden gelebilirsin; hesabında hiçbir şey değişmez.",
+      "footer": "Etkinliğinin tüm fotoğrafları, tek bir yerde."
     }
   },
   "Landing": {
@@ -485,13 +502,15 @@
       "subline": "Telefon kameranla okut, fotoğraflarını yükle",
       "steps": "OKUT · SEÇ · GÖNDER",
       "noApp": "Uygulama ya da üyelik gerekmez",
-      "pinNote": "PIN'i ayrıca misafirlerine söyle",
       "printButton": "Yazdır / PDF kaydet",
       "printHint": "Yazdırma penceresinde kenar boşluğu \"Yok\", ölçek %100 olsun.",
       "premiumTitle": "Şablonlar Premium'a dahil",
       "premiumBody": "Standard planda QR kodu PNG ya da SVG olarak indirip kendin kullanabilirsin.",
       "cutHint": "Kesik çizgilerden kes",
-      "foldHint": "Ortadan katla"
+      "foldHint": "Ortadan katla",
+      "showPin": "PIN'i kartta göster",
+      "showPinHint": "Kapalıysa PIN'i misafirlerine ayrıca söylersin.",
+      "showPinResave": "PIN'i göstermek için ayarlardan bir kez yeniden kaydet."
     },
     "backToReview": "Son kontrole dön"
   },

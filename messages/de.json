@@ -24,10 +24,24 @@
     "or": "oder",
     "google": "Weiter mit Google",
     "sentTitle": "Schau in dein Postfach",
-    "sentBody": "Wir haben einen Anmeldelink an {email} gesendet. Er ist 15 Minuten gültig.",
-    "useDifferentEmail": "Andere E-Mail verwenden",
+    "sentBody": "Wir haben einen Bestätigungslink an <b>{email}</b> geschickt. Sobald du ihn antippst, geht es hier von selbst weiter, auch wenn du die E-Mail auf dem Handy öffnest.",
     "error": "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
-    "legal": "Mit dem Fortfahren akzeptierst du unsere <terms>AGB</terms> und unsere <privacy>Datenschutzerklärung</privacy>."
+    "legal": "Mit dem Fortfahren akzeptierst du unsere <terms>AGB</terms> und unsere <privacy>Datenschutzerklärung</privacy>.",
+    "waiting": "Warte auf Bestätigung…",
+    "notReceived": "Keine E-Mail?",
+    "notReceivedHint": "Sieh im Spam- und Werbeordner nach. Kommt in einer Minute nichts, schick sie erneut.",
+    "resend": "Erneut senden",
+    "expiredTitle": "Der Link ist abgelaufen",
+    "expiredBody": "Zu deiner Sicherheit gelten Links 15 Minuten. Wir schicken dir einen neuen.",
+    "confirmed": {
+      "title": "E-Mail bestätigt",
+      "body": "Du bist als {email} angemeldet.",
+      "otherTab": "Der Tab oder Computer, der den Link angefordert hat, macht von selbst weiter. Du kannst diese Seite schließen.",
+      "continue": "Hier weitermachen",
+      "errorTitle": "Ungültiger Link",
+      "errorBody": "Dieser Link wurde vielleicht schon benutzt oder ist abgelaufen. Fordere einen neuen an.",
+      "tryAgain": "Neuen Link anfordern"
+    }
   },
   "Dashboard": {
     "title": "Deine Events",
@@ -51,12 +65,15 @@
   },
   "Email": {
     "magicLink": {
-      "subject": "Dein Anmeldelink für {appName}",
-      "preview": "Bei {appName} anmelden",
-      "heading": "Bei {appName} anmelden",
-      "body": "Tippe auf den Button, um dich anzumelden. Der Link funktioniert einmal und ist 15 Minuten gültig.",
-      "button": "Anmelden",
-      "ignore": "Wenn du diese E-Mail nicht angefordert hast, kannst du sie ignorieren."
+      "subject": "Dein {appName}-Bestätigungslink",
+      "preview": "Bestätige deine E-Mail und mach dort weiter, wo du warst",
+      "heading": "✨ Bestätige deine E-Mail",
+      "body": "Hallo! Tipp auf den Button, um deine E-Mail zu bestätigen und dort weiterzumachen, wo du warst.",
+      "button": "E-Mail bestätigen",
+      "validity": "Der Link gilt 15 Minuten und nur einmal.",
+      "fallback": "Funktioniert der Button nicht, kopiere diesen Link in deinen Browser:",
+      "ignore": "Wenn du das nicht angefordert hast, ignoriere diese E-Mail einfach; an deinem Konto ändert sich nichts.",
+      "footer": "Alle Fotos deines Events an einem Ort."
     }
   },
   "Landing": {
@@ -485,13 +502,15 @@
       "subline": "Mit der Handykamera scannen und Fotos hochladen",
       "steps": "SCANNEN · AUSWÄHLEN · SENDEN",
       "noApp": "Keine App, kein Konto nötig",
-      "pinNote": "Sag deinen Gästen die PIN separat",
       "printButton": "Drucken / als PDF sichern",
       "printHint": "Im Druckdialog Ränder auf \"Keine\" und Skalierung auf 100 % stellen.",
       "premiumTitle": "Vorlagen sind in Premium enthalten",
       "premiumBody": "Mit Standard kannst du den QR-Code als PNG oder SVG laden und selbst verwenden.",
       "cutHint": "Entlang der gestrichelten Linien schneiden",
-      "foldHint": "Hier falten"
+      "foldHint": "Hier falten",
+      "showPin": "PIN auf der Karte zeigen",
+      "showPinHint": "Ist es aus, sagst du den Gästen die PIN selbst.",
+      "showPinResave": "Um sie zu zeigen, speichere die PIN in den Einstellungen noch einmal."
     },
     "backToReview": "Zurück zur Übersicht"
   },
