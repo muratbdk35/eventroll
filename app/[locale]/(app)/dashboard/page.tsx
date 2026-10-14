@@ -5,10 +5,9 @@ import {
   getTranslations,
   setRequestLocale,
 } from "next-intl/server";
-import { EventIcon } from "@/components/host/event-icon";
+import { EventCard } from "@/components/host/event-card";
 import { PageBody } from "@/components/host/page-header";
 import { PhotoStack } from "@/components/host/photo-stack";
-import { StatusPill } from "@/components/host/status-pill";
 import { Button } from "@/components/ui/button";
 import { getSession } from "@/lib/auth";
 import { latestPhotoKeys, listOwnedEvents } from "@/lib/events/queries";
@@ -80,31 +79,15 @@ export default async function DashboardPage({
         <ul className="mt-8 grid gap-5 sm:grid-cols-2">
           {events.map((e, i) => (
             <li key={e.id}>
-              <Link
+              <EventCard
                 href={`/dashboard/events/${e.id}`}
-                className="group flex h-full flex-col rounded-[1.75rem] border border-white/70 bg-card/85 p-3 shadow-sm ring-1 ring-black/5 backdrop-blur-xl transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/10 focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none active:scale-[0.99]"
-              >
-                <div className="relative overflow-hidden rounded-[1.25rem] bg-gradient-to-br from-accent/70 via-accent/30 to-transparent pt-4">
-                  <PhotoStack srcs={stacks[i]} type={e.type} />
-                  <StatusPill
-                    status={e.status}
-                    label={te(`status.${e.status}`)}
-                    className="absolute end-3 top-3 bg-card/90 shadow-sm backdrop-blur"
-                  />
-                </div>
-                <div className="flex items-center gap-3 px-2 pt-4 pb-1.5">
-                  <EventIcon type={e.type} className="size-9" />
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate font-heading text-lg leading-tight font-semibold">
-                      {e.name}
-                    </p>
-                    <p className="mt-0.5 truncate text-sm text-muted-foreground">
-                      {date(e.eventDate)} ·{" "}
-                      {te("photoCount", { count: e.mediaCount })}
-                    </p>
-                  </div>
-                </div>
-              </Link>
+                name={e.name}
+                type={e.type}
+                status={e.status}
+                statusLabel={te(`status.${e.status}`)}
+                meta={`${date(e.eventDate)} · ${te("photoCount", { count: e.mediaCount })}`}
+                srcs={stacks[i]}
+              />
             </li>
           ))}
           <li>

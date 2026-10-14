@@ -98,7 +98,7 @@
       "subtitle": "Bir kahve yapacak kadar sürede hazır.",
       "create": {
         "title": "Etkinliğini oluştur",
-        "body": "Bir isim ve tarih ver. QR kodun ve linkin anında hazır."
+        "body": "Etkinliğini ayarla, planını seç ve yayınla. Hepsi tek akışta, birkaç dakikada."
       },
       "share": {
         "title": "QR kodu paylaş",
@@ -107,22 +107,6 @@
       "collect": {
         "title": "Anıların gelişini izle",
         "body": "Misafirler okutur ve yükler. Her fotoğrafı geldiği anda görür, tek tıkla hepsini indirirsin."
-      },
-      "mock": {
-        "name": "Etkinlik adı",
-        "date": "Tarih",
-        "dateValue": "14 Haziran 2026",
-        "type": "Tür",
-        "typeValue": "Düğün",
-        "create": "Etkinliği oluştur",
-        "shareTitle": "QR kodun",
-        "copy": "Linki kopyala",
-        "photosLabel": "Fotoğraf",
-        "zip": "ZIP indir",
-        "startValue": "14 Haz",
-        "startTime": "19:00",
-        "endValue": "15 Haz",
-        "endTime": "02:00"
       }
     },
     "features": {
@@ -137,20 +121,11 @@
       },
       "private": {
         "title": "Varsayılan olarak gizli",
-        "body": "Fotoğrafları sadece sen görürsün. Misafirler yalnızca kendi yüklediklerini görür; hiçbir şey herkese açık değildir, arama motorlarında görünmez.",
-        "mock": {
-          "link": "Misafir linki",
-          "visibility": "Fotoğrafları kim görür",
-          "onlyYou": "Sadece sen"
-        }
+        "body": "Fotoğrafları sadece sen görürsün. Misafirler yalnızca kendi yüklediklerini görür; hiçbir şey herkese açık değildir, arama motorlarında görünmez."
       },
       "originals": {
         "title": "Orijinal kalite",
-        "body": "Hepsini ZIP olarak indir: orijinal çözünürlük, sıkıştırma yok, filigran yok.",
-        "mock": {
-          "resolution": "Çözünürlük",
-          "file": "Dosya"
-        }
+        "body": "Hepsini ZIP olarak indir: orijinal çözünürlük, sıkıştırma yok, filigran yok."
       },
       "print": {
         "title": "Baskıya hazır QR kartları",
@@ -162,21 +137,11 @@
       },
       "guests": {
         "title": "Her misafir katılabilir",
-        "body": "Misafir sınırı yok. Etkinliğindeki herkes fotoğraf ekleyebilir; planın sadece albümün toplam boyutunu belirler.",
-        "mock": {
-          "guests": "Misafir",
-          "limit": "Misafir sınırı",
-          "none": "Yok"
-        }
+        "body": "Misafir sınırı yok. Etkinliğindeki herkes fotoğraf ekleyebilir; planın sadece albümün toplam boyutunu belirler."
       },
       "control": {
         "title": "Kontrol sende",
-        "body": "Yüklemeleri PIN ile koru, yüklemenin ne zaman açılıp kapanacağını belirle ve her telefonun ekleyebileceği fotoğraf sayısını sınırla.",
-        "mock": {
-          "pin": "PIN koruması",
-          "hours": "Yükleme saatleri",
-          "limit": "Telefon başına fotoğraf"
-        }
+        "body": "Yüklemeleri PIN ile koru, yüklemenin ne zaman açılıp kapanacağını belirle ve her telefonun ekleyebileceği fotoğraf sayısını sınırla."
       }
     },
     "eventTypes": {
@@ -636,7 +601,10 @@
     "account": {
       "title": "Hesabını oluştur",
       "subtitle": "Etkinliğini kaydedelim. Google ile tek tıkla ya da e-postana gelen linkle devam et.",
-      "saved": "Doldurduğun bilgiler bu tarayıcıda duruyor; giriş yapınca hesabına kaydedilir."
+      "saved": "Doldurduğun bilgiler bu tarayıcıda duruyor; giriş yapınca hesabına kaydedilir.",
+      "signedInAs": "Giriş yaptın",
+      "continue": "Bu hesapla devam et",
+      "switch": "Başka hesap kullan"
     },
     "pay": {
       "title": "Ödeme",

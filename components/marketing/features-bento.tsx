@@ -1,8 +1,17 @@
-import { Lock, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import QRCode from "qrcode";
+import { EventCard } from "@/components/host/event-card";
+import { publicEnv } from "@/lib/public-env";
 import { cn } from "@/lib/utils";
-import { MockDeck, MockPanel, MockPolaroid, MockRow, MockToggle } from "./mock";
-import { QrCard } from "./qr-card";
+import {
+  AppPreview,
+  ControlPreview,
+  PhotosPreview,
+  PrintPreview,
+  PrivatePreview,
+} from "./app-previews";
+import { MockDeck, MockPolaroid } from "./mock";
 import { SectionHeading } from "./section-heading";
 
 // Bento grid inspired by 21st.dev "Feature Bento" (uilayout). Every tile carries
@@ -50,7 +59,7 @@ async function PickerMock() {
   return (
     <div
       aria-hidden
-      className="absolute end-6 top-6 w-56 rotate-3 rounded-[1.75rem] bg-[oklch(0.985_0.01_75)] p-3 shadow-2xl sm:end-10 sm:top-10 sm:w-64"
+      className="relative mx-auto mb-8 w-56 rotate-3 rounded-[1.75rem] bg-[oklch(0.985_0.01_75)] p-3 shadow-2xl sm:absolute sm:end-10 sm:top-10 sm:mb-0 sm:w-64"
     >
       <div className="flex justify-center pt-1">
         <MockDeck
@@ -107,7 +116,17 @@ async function PickerMock() {
 }
 
 export async function FeaturesBento() {
-  const t = await getTranslations("Landing.features");
+  const [t, te] = await Promise.all([
+    getTranslations("Landing.features"),
+    getTranslations("Events"),
+  ]);
+  const guestLink = `${publicEnv.appUrl}/e/k7Qm9xZ2pA`;
+  const qrSvg = await QRCode.toString(guestLink, {
+    type: "svg",
+    errorCorrectionLevel: "M",
+    margin: 0,
+  });
+  const qrDataUri = `data:image/svg+xml;utf8,${encodeURIComponent(qrSvg)}`;
 
   return (
     <section id="features" className="scroll-mt-20 px-4 py-24">
@@ -140,40 +159,27 @@ export async function FeaturesBento() {
 
         {/* Private */}
         <Tile className="md:col-span-2">
-          <MockPanel>
-            <MockRow label={t("private.mock.link")}>
-              <span className="flex items-center gap-1.5 font-mono text-[12px]">
-                <Lock className="size-3 text-success" />
-                /e/k7Qm9xZ2pA
-              </span>
-            </MockRow>
-            <MockRow label={t("private.mock.visibility")}>
-              {t("private.mock.onlyYou")}
-            </MockRow>
-          </MockPanel>
+          <AppPreview width={440} scale={0.68} className="-mx-1">
+            <PrivatePreview link={guestLink} />
+          </AppPreview>
           <TileText title={t("private.title")} body={t("private.body")} />
         </Tile>
 
         {/* Originals */}
         <Tile className="border-0 bg-foreground text-background md:col-span-2">
-          <MockPanel>
-            <MockRow label={t("originals.mock.resolution")}>
-              4032 × 3024
-            </MockRow>
-            <MockRow label={t("originals.mock.file")}>HEIC · 3,8 MB</MockRow>
-          </MockPanel>
+          <div className="-mx-2 h-40 overflow-hidden rounded-2xl">
+            <AppPreview width={520} scale={0.58}>
+              <PhotosPreview />
+            </AppPreview>
+          </div>
           <TileText title={t("originals.title")} body={t("originals.body")} />
         </Tile>
 
         {/* Control */}
         <Tile className="md:col-span-2">
-          <MockPanel>
-            <MockRow label={t("control.mock.pin")}>
-              <MockToggle />
-            </MockRow>
-            <MockRow label={t("control.mock.hours")}>18:00 – 02:00</MockRow>
-            <MockRow label={t("control.mock.limit")}>50</MockRow>
-          </MockPanel>
+          <AppPreview width={460} scale={0.66} className="-mx-1">
+            <ControlPreview />
+          </AppPreview>
           <TileText title={t("control.title")} body={t("control.body")} />
         </Tile>
 
@@ -182,39 +188,32 @@ export async function FeaturesBento() {
           <span className="absolute end-5 top-5 z-10 rounded-full bg-foreground px-2.5 py-1 text-[11px] font-semibold text-background">
             Premium
           </span>
-          <div aria-hidden className="-mt-2 flex justify-center">
-            <QrCard className="origin-top scale-[0.72] -rotate-3" />
+          <div aria-hidden className="flex justify-center">
+            <AppPreview width={210} scale={0.8} className="-rotate-3">
+              <PrintPreview qr={qrDataUri} />
+            </AppPreview>
           </div>
-          <TileText
-            title={t("print.title")}
-            body={t("print.body")}
-            className="-mt-14"
-          />
+          <TileText title={t("print.title")} body={t("print.body")} />
         </Tile>
 
         {/* Guests */}
         <Tile className="md:col-span-2">
-          <MockPanel>
-            <MockRow label={t("guests.mock.guests")}>
-              <span className="flex items-center -space-x-1.5 rtl:space-x-reverse">
-                {["S", "M", "A", "E"].map((l, i) => (
-                  <span
-                    key={l}
-                    className="flex size-6 items-center justify-center rounded-full text-[10px] text-white ring-2 ring-card"
-                    style={{
-                      background: `oklch(${0.6 + i * 0.04} 0.13 ${30 + i * 30})`,
-                    }}
-                  >
-                    {l}
-                  </span>
-                ))}
-                <span className="ps-3">142</span>
-              </span>
-            </MockRow>
-            <MockRow label={t("guests.mock.limit")}>
-              {t("guests.mock.none")}
-            </MockRow>
-          </MockPanel>
+          {/* The dashboard's event card, guests and photos counted. */}
+          <AppPreview width={340} scale={0.88} className="mx-auto">
+            <EventCard
+              href="/dashboard"
+              name="Elif & Can"
+              type="wedding"
+              status="active"
+              statusLabel={te("status.active")}
+              meta={`${te("photoCount", { count: 1248 })} · ${te("guestsCount", { count: 142 })}`}
+              srcs={[
+                "/marketing/dance-floor.jpg",
+                "/marketing/confetti.jpg",
+                "/marketing/table-toast.jpg",
+              ]}
+            />
+          </AppPreview>
           <TileText title={t("guests.title")} body={t("guests.body")} />
         </Tile>
 

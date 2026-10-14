@@ -359,3 +359,20 @@ album ZIP and printable table cards are phase 1C/1D work (#22, #23).
   "Multi-Step Setup Wizard"; the account step "Sign Up 2" (Tailark Veil); the
   payment summary "Checkout Summary". The Google button is always shown and
   stays disabled until `GOOGLE_CLIENT_ID/SECRET` exist.
+
+## 33. Landing visuals are the real app components (owner request, 2026-10-14)
+
+- "How it works", the features bento and the hero no longer draw mock copies.
+  They render the real components, inert and scaled down with CSS `zoom`
+  (`components/marketing/app-previews.tsx`, `AppPreview`): the create-flow card
+  (`FlowCard`, `TypeChips`, `DateTimeField`), the "your event is live" card
+  (`LiveShare` with an inline QR), the dashboard `EventCard`, the share view's
+  `GuestLinkField`, the real `PhotoGrid`, the settings `Row` + `Switch`, and a
+  printed table card from the templates (`Face`). Changing the app changes the
+  landing; the old mock helpers and `qr-card.tsx` are gone.
+- To make that possible these were extracted and shared with the app:
+  `EventCard` (dashboard), `GuestLinkField` (share view), `FlowCard` and
+  `TypeChips` (create flow); `LiveShare` accepts `qrSvg`; `Face` is exported.
+- The create flow always shows the account step; a signed-in host sees who they
+  are with "continue" or "use another account", so nobody pays from the wrong
+  account.

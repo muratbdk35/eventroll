@@ -47,9 +47,8 @@ export default async function CreatePage({
     return redirect({ href: `/dashboard/events/${event.id}`, locale });
   }
 
-  // Keep the URL honest: no account steps once signed in, no payment before
-  // there is an account, nothing to pay twice.
-  if (step === "account" && session) step = "pay";
+  // Keep the URL honest: no payment before there is an account, nothing to
+  // pay twice. Signed-in hosts still see the account step (who they are).
   if ((step === "pay" || step === "review") && !session) step = "account";
   if (event?.plan && step !== "review") step = "review";
   if (step === "review" && !event?.plan) step = event ? "pay" : "details";
@@ -68,6 +67,7 @@ export default async function CreatePage({
           step={step}
           plan={plan ?? event?.plan ?? null}
           signedIn={Boolean(session)}
+          userEmail={session?.user.email ?? null}
           googleEnabled={googleAuthEnabled}
           devLogin={devLoginEnabled}
           devPay={!isProduction && !env.STRIPE_SECRET_KEY}

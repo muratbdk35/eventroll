@@ -82,47 +82,7 @@ export function DetailsStep({ plan }: FlowProps) {
           )}
         </div>
 
-        <fieldset>
-          <legend className="mb-2.5 text-sm leading-none font-medium">
-            {tEvents("typeLabel")}
-          </legend>
-          <div className="flex flex-wrap gap-2">
-            {EVENT_TYPES.map((value) => {
-              const { Icon } = eventVisuals[value];
-              const selected = d.type === value;
-              return (
-                <label
-                  key={value}
-                  className={cn(
-                    "flex h-10 cursor-pointer items-center gap-2 rounded-full border px-3.5 text-sm font-medium transition-colors has-focus-visible:ring-2 has-focus-visible:ring-ring/50",
-                    selected
-                      ? "border-primary bg-accent text-accent-foreground shadow-[inset_0_0_0_1px_var(--primary)]"
-                      : "border-border text-foreground/80 hover:bg-muted/50",
-                  )}
-                >
-                  <input
-                    type="radio"
-                    name="type"
-                    value={value}
-                    checked={selected}
-                    onChange={() => set("type", value)}
-                    className="sr-only"
-                  />
-                  <Icon
-                    className={cn(
-                      "size-4 shrink-0",
-                      selected ? "text-primary" : "text-muted-foreground",
-                    )}
-                    aria-hidden
-                  />
-                  <span className="whitespace-nowrap">
-                    {tEvents(`types.${value}`)}
-                  </span>
-                </label>
-              );
-            })}
-          </div>
-        </fieldset>
+        <TypeChips value={d.type} onChange={(v) => set("type", v)} />
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-2">
@@ -313,5 +273,57 @@ export function DetailsStep({ plan }: FlowProps) {
         </Button>
       </StepFooter>
     </form>
+  );
+}
+
+/** Event type as radio chips (also shown on the landing page). */
+export function TypeChips({
+  value: current,
+  onChange,
+}: {
+  value: Draft["type"];
+  onChange: (v: Draft["type"]) => void;
+}) {
+  const t = useTranslations("Events");
+  return (
+    <fieldset>
+      <legend className="mb-2.5 text-sm leading-none font-medium">
+        {t("typeLabel")}
+      </legend>
+      <div className="flex flex-wrap gap-2">
+        {EVENT_TYPES.map((value) => {
+          const { Icon } = eventVisuals[value];
+          const selected = value === current;
+          return (
+            <label
+              key={value}
+              className={cn(
+                "flex h-10 cursor-pointer items-center gap-2 rounded-full border px-3.5 text-sm font-medium transition-colors has-focus-visible:ring-2 has-focus-visible:ring-ring/50",
+                selected
+                  ? "border-primary bg-accent text-accent-foreground shadow-[inset_0_0_0_1px_var(--primary)]"
+                  : "border-border text-foreground/80 hover:bg-muted/50",
+              )}
+            >
+              <input
+                type="radio"
+                name="type"
+                value={value}
+                checked={selected}
+                onChange={() => onChange(value)}
+                className="sr-only"
+              />
+              <Icon
+                className={cn(
+                  "size-4 shrink-0",
+                  selected ? "text-primary" : "text-muted-foreground",
+                )}
+                aria-hidden
+              />
+              <span className="whitespace-nowrap">{t(`types.${value}`)}</span>
+            </label>
+          );
+        })}
+      </div>
+    </fieldset>
   );
 }

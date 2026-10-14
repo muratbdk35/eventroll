@@ -98,7 +98,7 @@
       "subtitle": "Eingerichtet in der Zeit, die ein Kaffee braucht.",
       "create": {
         "title": "Event erstellen",
-        "body": "Gib einen Namen und ein Datum ein. Nach Planwahl und Veröffentlichung ist dein QR-Code da."
+        "body": "Richte dein Event ein, wähle einen Plan und veröffentliche. Ein kurzer Ablauf, ein paar Minuten."
       },
       "share": {
         "title": "QR-Code teilen",
@@ -107,22 +107,6 @@
       "collect": {
         "title": "Erinnerungen sammeln",
         "body": "Gäste scannen und laden hoch. Du siehst jedes Foto sofort und lädst alles mit einem Klick herunter."
-      },
-      "mock": {
-        "name": "Eventname",
-        "date": "Datum",
-        "dateValue": "14. Juni 2026",
-        "type": "Art",
-        "typeValue": "Hochzeit",
-        "create": "Event erstellen",
-        "shareTitle": "Dein QR-Code",
-        "copy": "Link kopieren",
-        "photosLabel": "Fotos",
-        "zip": "ZIP herunterladen",
-        "startValue": "14. Juni",
-        "startTime": "19:00",
-        "endValue": "15. Juni",
-        "endTime": "02:00"
       }
     },
     "features": {
@@ -137,20 +121,11 @@
       },
       "private": {
         "title": "Standardmäßig privat",
-        "body": "Nur du siehst die Fotos. Gäste sehen nur ihre eigenen Uploads, nichts ist öffentlich oder wird indexiert.",
-        "mock": {
-          "link": "Gäste-Link",
-          "visibility": "Wer sieht die Fotos",
-          "onlyYou": "Nur du"
-        }
+        "body": "Nur du siehst die Fotos. Gäste sehen nur ihre eigenen Uploads, nichts ist öffentlich oder wird indexiert."
       },
       "originals": {
         "title": "Originale in voller Qualität",
-        "body": "Lade alles als ZIP herunter: Originalauflösung, keine Komprimierung, keine Wasserzeichen.",
-        "mock": {
-          "resolution": "Auflösung",
-          "file": "Datei"
-        }
+        "body": "Lade alles als ZIP herunter: Originalauflösung, keine Komprimierung, keine Wasserzeichen."
       },
       "print": {
         "title": "Druckfertige QR-Karten",
@@ -162,21 +137,11 @@
       },
       "guests": {
         "title": "Jeder Gast kann mitmachen",
-        "body": "Keine Begrenzung bei Gästen. Alle auf deinem Event können Fotos hinzufügen; dein Plan bestimmt nur die Gesamtgröße des Albums.",
-        "mock": {
-          "guests": "Gäste",
-          "limit": "Gästelimit",
-          "none": "Keins"
-        }
+        "body": "Keine Begrenzung bei Gästen. Alle auf deinem Event können Fotos hinzufügen; dein Plan bestimmt nur die Gesamtgröße des Albums."
       },
       "control": {
         "title": "Du behältst die Kontrolle",
-        "body": "Schütze Uploads mit einer PIN, lege fest, wann Uploads möglich sind, und begrenze, wie viele Fotos jedes Handy hinzufügen kann.",
-        "mock": {
-          "pin": "PIN-Schutz",
-          "hours": "Upload-Zeiten",
-          "limit": "Fotos pro Handy"
-        }
+        "body": "Schütze Uploads mit einer PIN, lege fest, wann Uploads möglich sind, und begrenze, wie viele Fotos jedes Handy hinzufügen kann."
       }
     },
     "eventTypes": {
@@ -636,7 +601,10 @@
     "account": {
       "title": "Erstelle dein Konto",
       "subtitle": "Lass uns dein Event speichern. Mit Google per Klick oder mit einem Link an deine E-Mail.",
-      "saved": "Deine Angaben bleiben in diesem Browser und werden nach der Anmeldung in deinem Konto gespeichert."
+      "saved": "Deine Angaben bleiben in diesem Browser und werden nach der Anmeldung in deinem Konto gespeichert.",
+      "signedInAs": "Angemeldet als",
+      "continue": "Mit diesem Konto weiter",
+      "switch": "Anderes Konto verwenden"
     },
     "pay": {
       "title": "Zahlung",

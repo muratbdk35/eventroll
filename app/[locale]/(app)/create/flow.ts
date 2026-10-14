@@ -24,6 +24,7 @@ export type FlowProps = {
   step: FlowStep;
   plan: PlanId | null;
   signedIn: boolean;
+  userEmail: string | null;
   googleEnabled: boolean;
   devLogin: boolean;
   devPay: boolean;

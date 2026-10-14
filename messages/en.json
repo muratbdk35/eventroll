@@ -95,7 +95,7 @@
       "subtitle": "Set it up in the time it takes to make a coffee.",
       "create": {
         "title": "Create your event",
-        "body": "Give it a name and a date. You get a QR code and a link instantly."
+        "body": "Set up your event, pick a plan and publish. One short flow, a few minutes."
       },
       "share": {
         "title": "Share the QR code",
@@ -104,22 +104,6 @@
       "collect": {
         "title": "Watch the memories arrive",
         "body": "Guests scan and upload. You see every photo as it arrives and download them all in one click."
-      },
-      "mock": {
-        "name": "Event name",
-        "date": "Date",
-        "dateValue": "14 June 2026",
-        "type": "Type",
-        "typeValue": "Wedding",
-        "create": "Create event",
-        "shareTitle": "Your QR code",
-        "copy": "Copy link",
-        "photosLabel": "Photos",
-        "zip": "Download ZIP",
-        "startValue": "Jun 14",
-        "startTime": "19:00",
-        "endValue": "Jun 15",
-        "endTime": "02:00"
       }
     },
     "features": {
@@ -134,20 +118,11 @@
       },
       "private": {
         "title": "Private by default",
-        "body": "Only you can see the photos. Guests see just their own uploads, and nothing is ever public or indexed.",
-        "mock": {
-          "link": "Guest link",
-          "visibility": "Who can see photos",
-          "onlyYou": "Only you"
-        }
+        "body": "Only you can see the photos. Guests see just their own uploads, and nothing is ever public or indexed."
       },
       "originals": {
         "title": "Full-quality originals",
-        "body": "Download everything as a ZIP: original resolution, no compression, no watermarks.",
-        "mock": {
-          "resolution": "Resolution",
-          "file": "File"
-        }
+        "body": "Download everything as a ZIP: original resolution, no compression, no watermarks."
       },
       "print": {
         "title": "Print-ready QR cards",
@@ -159,21 +134,11 @@
       },
       "guests": {
         "title": "Every guest can join",
-        "body": "No limit on guests. Everyone at your event can add their photos; your plan only sets the total album size.",
-        "mock": {
-          "guests": "Guests",
-          "limit": "Guest limit",
-          "none": "None"
-        }
+        "body": "No limit on guests. Everyone at your event can add their photos; your plan only sets the total album size."
       },
       "control": {
         "title": "You stay in control",
-        "body": "Protect uploads with a PIN, set when uploads open and close, and cap how many photos each phone can add.",
-        "mock": {
-          "pin": "PIN protection",
-          "hours": "Upload hours",
-          "limit": "Photos per phone"
-        }
+        "body": "Protect uploads with a PIN, set when uploads open and close, and cap how many photos each phone can add."
       }
     },
     "eventTypes": {
@@ -633,7 +598,10 @@
     "account": {
       "title": "Create your account",
       "subtitle": "Let's save your event. Continue with Google in one click, or with a link sent to your email.",
-      "saved": "What you filled in stays in this browser and is saved to your account once you sign in."
+      "saved": "What you filled in stays in this browser and is saved to your account once you sign in.",
+      "signedInAs": "Signed in as",
+      "continue": "Continue with this account",
+      "switch": "Use another account"
     },
     "pay": {
       "title": "Payment",

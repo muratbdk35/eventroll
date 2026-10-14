@@ -8,9 +8,12 @@ import { CopyLinkButton } from "./copy-link-button";
 export async function LiveShare({
   eventId,
   link,
+  qrSvg,
 }: {
   eventId: string;
   link: string;
+  /** Inline QR markup instead of the owner-only API (landing preview). */
+  qrSvg?: string;
 }) {
   const t = await getTranslations("Events.live");
   const eventPath = `/dashboard/events/${eventId}`;
@@ -22,14 +25,21 @@ export async function LiveShare({
       />
       <div className="relative flex flex-col gap-5 sm:flex-row sm:items-center">
         <div className="shrink-0 self-center rounded-2xl border border-border bg-white p-2 shadow-xs sm:self-auto">
-          {/* eslint-disable-next-line @next/next/no-img-element -- generated per event, authenticated */}
-          <img
-            src={`/api/events/${eventId}/qr?format=svg`}
-            alt=""
-            width={112}
-            height={112}
-            className="size-28"
-          />
+          {qrSvg ? (
+            <div
+              className="size-28 [&>svg]:size-full"
+              dangerouslySetInnerHTML={{ __html: qrSvg }}
+            />
+          ) : (
+            // eslint-disable-next-line @next/next/no-img-element -- generated per event, authenticated
+            <img
+              src={`/api/events/${eventId}/qr?format=svg`}
+              alt=""
+              width={112}
+              height={112}
+              className="size-28"
+            />
+          )}
         </div>
         <div className="min-w-0 flex-1">
           <p className="flex items-center gap-2 font-heading text-lg font-semibold">

@@ -29,7 +29,7 @@ import { cn } from "@/lib/utils";
 const noop = () => () => {};
 
 type TemplateId = "cards" | "tent" | "poster";
-type ColorId = "terracotta" | "midnight" | "sage" | "blush";
+export type ColorId = "terracotta" | "midnight" | "sage" | "blush";
 
 const palettes: Record<
   ColorId,
@@ -57,7 +57,7 @@ const templateIcons = {
   poster: RectangleVertical,
 } as const;
 
-type FaceText = {
+export type FaceText = {
   eventName: string;
   date: string;
   headline: string;
@@ -68,7 +68,7 @@ type FaceText = {
 };
 
 /** One printed face. Sizes are in cqw so it scales with its box. */
-function Face({
+export function Face({
   qr,
   color,
   text,

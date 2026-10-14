@@ -1,9 +1,7 @@
 "use client";
 
 import {
-  Check,
   ChevronRight,
-  Copy,
   Download,
   ExternalLink,
   Info,
@@ -11,9 +9,9 @@ import {
   Printer,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/lib/i18n/navigation";
+import { GuestLinkField } from "./guest-link-field";
 
 export function SharePanel({
   eventId,
@@ -34,18 +32,7 @@ export function SharePanel({
   const tSteps = useTranslations("Events.steps");
   const tLive = useTranslations("Events.live");
   const tPrint = useTranslations("Events.print");
-  const [copied, setCopied] = useState(false);
   const qr = `/api/events/${eventId}/qr`;
-
-  async function copy() {
-    try {
-      await navigator.clipboard.writeText(link);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // Clipboard can be blocked; the link stays visible and selectable.
-    }
-  }
 
   // No QR or link before the event is published (the API refuses it too).
   if (!published) {
@@ -112,31 +99,8 @@ export function SharePanel({
             <h2 className="font-heading text-lg font-semibold">{t("title")}</h2>
             <p className="mt-0.5 text-sm text-muted-foreground">{t("hint")}</p>
 
-            <label
-              htmlFor="guest-link"
-              className="mt-5 block text-sm font-medium"
-            >
-              {t("linkLabel")}
-            </label>
-            <div className="mt-2 flex gap-2">
-              <input
-                id="guest-link"
-                readOnly
-                value={link}
-                onFocus={(e) => e.currentTarget.select()}
-                className="h-9 min-w-0 flex-1 rounded-lg border border-input bg-muted/30 px-3 font-mono text-[13px] outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
-              />
-              <Button
-                type="button"
-                variant="default"
-                className="h-9 rounded-full px-4"
-                onClick={copy}
-              >
-                {copied ? <Check aria-hidden /> : <Copy aria-hidden />}
-                <span className="hidden sm:inline">
-                  {copied ? t("copied") : t("copy")}
-                </span>
-              </Button>
+            <div className="mt-5">
+              <GuestLinkField link={link} />
             </div>
             <a
               href={link}

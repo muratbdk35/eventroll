@@ -19,13 +19,12 @@ import { type FlowProps, flowHref } from "./flow";
  * Step 2, the paywall: the very same receipts as the landing pricing section
  * (components/billing), on the same terracotta ground (DECISIONS #32).
  */
-export function PlanStep({ plan, signedIn, event }: FlowProps) {
+export function PlanStep({ plan, event }: FlowProps) {
   const t = useTranslations("Create");
   const tp = useTranslations("Landing.pricing");
   const format = useFormatter();
   const locale = useLocale();
   const upper = (s: string) => s.toLocaleUpperCase(locale);
-  const nextStep = signedIn ? "pay" : "account";
 
   return (
     <div>
@@ -77,7 +76,7 @@ export function PlanStep({ plan, signedIn, event }: FlowProps) {
                   selected={chosen}
                   cta={
                     <Link
-                      href={flowHref(nextStep, {
+                      href={flowHref("account", {
                         plan: id,
                         event: event?.id,
                       })}

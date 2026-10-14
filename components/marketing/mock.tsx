@@ -1,4 +1,4 @@
-import { CalendarDays, Camera, Check } from "lucide-react";
+import { Camera, Check } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
@@ -7,85 +7,6 @@ import { cn } from "@/lib/utils";
  * mirror real app screens (DECISIONS #22): the same cards, pills, polaroids and
  * shutter button as the dashboard and the guest page (DECISIONS #26, #27).
  */
-export function MockPanel({
-  className,
-  children,
-}: {
-  className?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div
-      aria-hidden
-      className={cn(
-        "w-full max-w-[19rem] rounded-3xl border border-white/70 bg-card p-2 text-[13px] text-card-foreground shadow-[0_22px_45px_-24px_rgb(60_30_10/0.45)] ring-1 ring-black/5",
-        className,
-      )}
-    >
-      {children}
-    </div>
-  );
-}
-
-export function MockRow({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="flex items-center justify-between gap-3 border-b border-border/60 px-3 py-2.5 last:border-0">
-      <span className="text-muted-foreground">{label}</span>
-      <span className="font-semibold">{children}</span>
-    </div>
-  );
-}
-
-/** The settings switch (components/ui/switch.tsx), on. */
-export function MockToggle() {
-  return (
-    <span className="relative block h-5 w-9 rounded-full bg-primary">
-      <span className="absolute end-0.5 top-0.5 size-4 rounded-full bg-white shadow-sm" />
-    </span>
-  );
-}
-
-/** Primary pill button, as in the app. */
-export function MockButton({
-  className,
-  children,
-}: {
-  className?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div
-      className={cn(
-        "flex h-9 items-center justify-center gap-1.5 rounded-full bg-primary px-3.5 text-[12px] font-semibold text-primary-foreground shadow-[0_8px_18px_-8px_var(--primary)]",
-        className,
-      )}
-    >
-      {children}
-    </div>
-  );
-}
-
-/** The date-time field (components/ui/date-time-field.tsx). */
-export function MockDateField({ date, time }: { date: string; time: string }) {
-  return (
-    <div className="flex h-9 items-center gap-2 rounded-2xl border border-input bg-card ps-1.5 pe-2 text-[11.5px] shadow-xs">
-      <span className="flex size-6 shrink-0 items-center justify-center rounded-lg bg-accent text-primary">
-        <CalendarDays className="size-3" />
-      </span>
-      <span className="min-w-0 flex-1 truncate font-medium">{date}</span>
-      <span className="rounded-full bg-accent px-1.5 py-0.5 text-[10.5px] font-semibold tabular-nums">
-        {time}
-      </span>
-    </div>
-  );
-}
-
 /** A small print with a white border, like the guest tray and event cards. */
 export function MockPolaroid({
   src,
