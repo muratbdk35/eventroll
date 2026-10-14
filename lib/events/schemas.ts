@@ -10,8 +10,8 @@ export const EVENT_TYPES = [
   "other",
 ] as const;
 
-/** Longest event we accept (a festival weekend fits, a misplaced year doesn't). */
-export const MAX_EVENT_DAYS = 14;
+/** Longest event we accept (owner decision: one day). */
+export const MAX_EVENT_HOURS = 24;
 
 const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
 const isoDateTime = z.iso.datetime();
@@ -26,7 +26,7 @@ const timesShape = {
 function validTimes(v: { startsAt: string; endsAt: string }): boolean {
   const start = new Date(v.startsAt).getTime();
   const end = new Date(v.endsAt).getTime();
-  return end > start && end - start <= MAX_EVENT_DAYS * 86_400_000;
+  return end > start && end - start <= MAX_EVENT_HOURS * 3_600_000;
 }
 
 const timesError = { path: ["endsAt"], message: "invalid range" };

@@ -10,6 +10,7 @@ vi.mock("@/lib/env", () => ({
 vi.mock("next/headers", () => ({ cookies: vi.fn() }));
 import { generateSlug } from "@/lib/events/slug";
 import { createEventSchema, settingsSchema } from "@/lib/events/schemas";
+import { adjustEnd, clampEnd, maxEnd } from "@/lib/events/times";
 import { getUploadState } from "@/lib/events/upload-state";
 import { isAllowedMime, originalKey } from "@/lib/uploads";
 import { parseGuestCookie } from "@/lib/guest/session";
@@ -49,7 +50,7 @@ describe("schemas", () => {
     ).toBe(false);
   });
 
-  it("requires the end after the start and caps the length", () => {
+  it("requires the end after the start and caps it at 24 hours", () => {
     const base = { name: "x", type: "party" as const, eventDate: "2026-06-14" };
     expect(
       createEventSchema.safeParse({
@@ -62,9 +63,16 @@ describe("schemas", () => {
       createEventSchema.safeParse({
         ...base,
         startsAt: "2026-06-14T20:00:00.000Z",
-        endsAt: "2026-07-14T20:00:00.000Z",
+        endsAt: "2026-06-15T21:00:00.000Z",
       }).success,
     ).toBe(false);
+    expect(
+      createEventSchema.safeParse({
+        ...base,
+        startsAt: "2026-06-14T20:00:00.000Z",
+        endsAt: "2026-06-15T20:00:00.000Z",
+      }).success,
+    ).toBe(true);
   });
 
   it("rejects bad pins and inverted windows", () => {
@@ -151,5 +159,25 @@ describe("guest cookie", () => {
     expect(parseGuestCookie("e1", undefined)).toBeNull();
     expect(parseGuestCookie("e1", "a.1.b")).toBeNull();
     expect(parseGuestCookie("e1", "dev.123.sig")).toBeNull();
+  });
+});
+
+describe("event times", () => {
+  it("keeps a valid end and fixes an invalid one", () => {
+    expect(adjustEnd("2026-06-14T19:00", "2026-06-14T23:30")).toBe(
+      "2026-06-14T23:30",
+    );
+    expect(adjustEnd("2026-06-14T19:00", "2026-06-14T18:00")).toBe(
+      "2026-06-15T00:00",
+    );
+    expect(adjustEnd("2026-06-14T19:00", "2026-06-16T19:00")).toBe(
+      "2026-06-15T00:00",
+    );
+  });
+  it("allows at most 24 hours", () => {
+    expect(maxEnd("2026-06-14T19:00")).toBe("2026-06-15T19:00");
+    expect(clampEnd("2026-06-14T19:00", "2026-06-15T23:00")).toBe(
+      "2026-06-15T19:00",
+    );
   });
 });

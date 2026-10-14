@@ -362,7 +362,9 @@
       "photos": "Up to {count} photos",
       "storage": "{gb} GB, original quality",
       "qr": "QR code and guest link",
-      "print": "Printable table cards and posters"
+      "print": "Printable table cards and posters",
+      "taglinePremium": "For big celebrations",
+      "taglineStandard": "For smaller gatherings"
     },
     "photos": {
       "empty": "No photos yet. They show up here as guests upload.",
@@ -475,7 +477,7 @@
     },
     "startLabel": "Starts",
     "endLabel": "Ends",
-    "dateRangeError": "The end must be after the start (max. 14 days).",
+    "dateRangeError": "The end must be after the start, at most 24 hours later.",
     "timeLabel": "Time",
     "done": "Done"
   },

@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createEvent } from "@/lib/events/actions";
 import { EVENT_TYPES } from "@/lib/events/schemas";
+import { adjustEnd, clampEnd, maxEnd } from "@/lib/events/times";
 import { Link, useRouter } from "@/lib/i18n/navigation";
 import { cn } from "@/lib/utils";
 
@@ -83,12 +84,7 @@ export function CreateEventForm() {
               value={startLocal}
               onChange={(v) => {
                 setStartLocal(v);
-                // Keep a sensible end when the start moves past it.
-                if (new Date(endLocal) <= new Date(v)) {
-                  setEndLocal(
-                    localInput(new Date(new Date(v).getTime() + 5 * 3_600_000)),
-                  );
-                }
+                setEndLocal((end) => adjustEnd(v, end));
               }}
             />
           </div>
@@ -98,7 +94,8 @@ export function CreateEventForm() {
               id="ends"
               value={endLocal}
               min={startLocal}
-              onChange={setEndLocal}
+              max={maxEnd(startLocal)}
+              onChange={(v) => setEndLocal(clampEnd(startLocal, v))}
               invalid={!rangeOk}
             />
           </div>

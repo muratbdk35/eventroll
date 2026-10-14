@@ -277,3 +277,12 @@ Vendored files keep a source line at the top.
 - Date & time: shadcn/ui Calendar + Popover (`react-day-picker`, `date-fns`
   locales) in `components/ui/date-time-field.tsx`; used for start/end in the
   create form and in settings (which can now change the event times).
+
+## 29. Events last at most 24 hours; plan cards (owner decision, 2026-10-14)
+
+- `MAX_EVENT_HOURS = 24` (was 14 days), enforced by the schema. The pickers only
+  offer days up to start + 24 h, a later end snaps to that limit, and moving the
+  start keeps the end valid (`lib/events/times.ts`).
+- Plan choice is two pricing cards with their own buttons: Premium is the dark,
+  featured card (glow + Magic UI Border Beam, `components/ui/border-beam.tsx`),
+  Standard the light one.

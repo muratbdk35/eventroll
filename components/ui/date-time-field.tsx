@@ -27,6 +27,7 @@ export function DateTimeField({
   value,
   onChange,
   min,
+  max,
   invalid,
 }: {
   id?: string;
@@ -34,6 +35,8 @@ export function DateTimeField({
   onChange: (value: string) => void;
   /** Earliest selectable day (same format as `value`). */
   min?: string;
+  /** Latest selectable day (same format as `value`). */
+  max?: string;
   invalid?: boolean;
 }) {
   const locale = useLocale() as keyof typeof dayPickerLocales;
@@ -81,9 +84,10 @@ export function DateTimeField({
           defaultMonth={date}
           locale={dayPickerLocales[locale] ?? enGB}
           weekStartsOn={1}
-          disabled={
-            min ? { before: new Date(`${min.slice(0, 10)}T00:00`) } : undefined
-          }
+          disabled={[
+            ...(min ? [{ before: new Date(`${min.slice(0, 10)}T00:00`) }] : []),
+            ...(max ? [{ after: new Date(`${max.slice(0, 10)}T00:00`) }] : []),
+          ]}
           onSelect={(d) => d && onChange(`${dateKey(d)}T${time}`)}
           className="rounded-2xl"
         />

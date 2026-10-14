@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { deleteEvent, updateSettings } from "@/lib/events/actions";
+import { adjustEnd, clampEnd, maxEnd } from "@/lib/events/times";
 import { useRouter } from "@/lib/i18n/navigation";
 import { cn } from "@/lib/utils";
 
@@ -182,7 +183,13 @@ export function SettingsForm({
               <DateTimeField
                 id="s-starts"
                 value={s.starts}
-                onChange={(v) => set("starts", v)}
+                onChange={(v) =>
+                  setS((prev) => ({
+                    ...prev,
+                    starts: v,
+                    ends: adjustEnd(v, prev.ends),
+                  }))
+                }
               />
             </div>
             <div className="space-y-2">
@@ -191,7 +198,8 @@ export function SettingsForm({
                 id="s-ends"
                 value={s.ends}
                 min={s.starts}
-                onChange={(v) => set("ends", v)}
+                max={maxEnd(s.starts)}
+                onChange={(v) => set("ends", clampEnd(s.starts, v))}
                 invalid={!rangeOk}
               />
             </div>

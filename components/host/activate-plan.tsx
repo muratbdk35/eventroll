@@ -1,12 +1,19 @@
 "use client";
 
-import { Check, Loader2 } from "lucide-react";
+import {
+  HardDrive,
+  Images,
+  Loader2,
+  Printer,
+  QrCode,
+  Sparkles,
+} from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
-import { Button } from "@/components/ui/button";
+import { BorderBeam } from "@/components/ui/border-beam";
 import { devActivate } from "@/lib/events/actions";
 import { useRouter } from "@/lib/i18n/navigation";
-import { planOrder, plans, type PlanId } from "@/lib/plans";
+import { plans, type PlanId } from "@/lib/plans";
 import { cn } from "@/lib/utils";
 
 const GB = 1024 ** 3;
@@ -16,8 +23,9 @@ const names: Record<PlanId, string> = {
 };
 
 /**
- * Plan picker shown inside the "next steps" card. Until Stripe checkout lands
- * (1C) only the dev activation works.
+ * Plan cards shown inside the checklist. Premium is the featured card (dark,
+ * glow, Magic UI border beam). Until Stripe checkout lands (1C) only the dev
+ * activation works.
  */
 export function ActivatePlan({
   eventId,
@@ -30,95 +38,142 @@ export function ActivatePlan({
   const format = useFormatter();
   const router = useRouter();
   const [pending, start] = useTransition();
-  const [selected, setSelected] = useState<PlanId>("premium");
+  const [chosen, setChosen] = useState<PlanId | null>(null);
+
+  function choose(plan: PlanId) {
+    setChosen(plan);
+    start(async () => {
+      await devActivate(eventId, plan);
+      router.refresh();
+    });
+  }
 
   // Premium first, as on the pricing section (DECISIONS #15).
-  const order = [...planOrder].reverse();
+  const order: PlanId[] = ["premium", "standard"];
 
   return (
     <div>
-      <div role="radiogroup" className="grid gap-3 sm:grid-cols-2">
+      <div className="grid gap-3 sm:grid-cols-2">
         {order.map((plan) => {
           const p = plans[plan];
-          const isSel = selected === plan;
+          const featured = plan === "premium";
           const features = [
-            ta("photos", { count: format.number(p.maxItems) }),
-            ta("storage", { gb: p.maxBytes / GB }),
-            ...(p.printTemplates ? [ta("print")] : [ta("qr")]),
+            {
+              Icon: Images,
+              text: ta("photos", { count: format.number(p.maxItems) }),
+            },
+            { Icon: HardDrive, text: ta("storage", { gb: p.maxBytes / GB }) },
+            p.printTemplates
+              ? { Icon: Printer, text: ta("print") }
+              : { Icon: QrCode, text: ta("qr") },
           ];
           return (
-            <button
+            <div
               key={plan}
-              type="button"
-              role="radio"
-              aria-checked={isSel}
-              onClick={() => setSelected(plan)}
               className={cn(
-                "rounded-xl border p-4 text-start transition-colors focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none",
-                isSel
-                  ? "border-primary bg-accent/50 shadow-[inset_0_0_0_1px_var(--primary)]"
-                  : "border-border bg-background hover:border-primary/40",
+                "group relative flex flex-col overflow-hidden rounded-3xl p-5 transition-all duration-300 ease-out hover:-translate-y-0.5",
+                featured
+                  ? "bg-foreground text-background shadow-2xl shadow-primary/25"
+                  : "border border-border bg-card shadow-sm hover:shadow-lg",
               )}
             >
-              <div className="flex items-center justify-between gap-2">
-                <span className="flex items-center gap-2 font-semibold">
-                  <span
-                    className={cn(
-                      "flex size-4 items-center justify-center rounded-full border-2",
-                      isSel ? "border-primary" : "border-input",
-                    )}
+              {featured && (
+                <>
+                  <div
                     aria-hidden
-                  >
-                    {isSel && (
-                      <span className="size-1.5 rounded-full bg-primary" />
+                    className="pointer-events-none absolute -top-16 -right-12 size-48 rounded-full bg-primary/45 blur-3xl"
+                  />
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute -bottom-20 -left-16 size-40 rounded-full bg-[oklch(0.8_0.12_60)]/20 blur-3xl"
+                  />
+                  <BorderBeam
+                    size={90}
+                    duration={7}
+                    borderWidth={1.5}
+                    colorFrom="#fb923c"
+                    colorTo="#fde68a"
+                  />
+                </>
+              )}
+
+              <div className="relative flex items-start justify-between gap-2">
+                <div>
+                  <p className="font-heading text-xl font-semibold">
+                    {names[plan]}
+                  </p>
+                  <p
+                    className={cn(
+                      "mt-0.5 text-[13px]",
+                      featured ? "text-background/65" : "text-muted-foreground",
                     )}
+                  >
+                    {featured ? ta("taglinePremium") : ta("taglineStandard")}
+                  </p>
+                </div>
+                {featured && (
+                  <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-primary px-2.5 py-1 text-[11px] font-semibold text-primary-foreground shadow-lg shadow-primary/30">
+                    <Sparkles className="size-3" aria-hidden />
+                    {ta("best")}
                   </span>
-                  {names[plan]}
-                  {plan === "premium" && (
-                    <span className="rounded-full bg-primary px-2 py-0.5 text-[10.5px] font-semibold text-primary-foreground">
-                      {ta("best")}
-                    </span>
-                  )}
-                </span>
-                <span className="font-heading text-lg font-bold">
+                )}
+              </div>
+
+              <p className="relative mt-5 flex items-baseline gap-1.5">
+                <span className="font-heading text-[2.6rem] leading-none font-bold tracking-tight">
                   ${p.priceUsd}
                 </span>
-              </div>
-              <ul className="mt-3 space-y-1.5 text-[13px] text-muted-foreground">
-                {features.map((f) => (
-                  <li key={f} className="flex items-center gap-2">
-                    <Check
-                      className="size-3.5 shrink-0 text-primary"
-                      aria-hidden
-                    />
-                    {f}
+                <span
+                  className={cn(
+                    "text-sm",
+                    featured ? "text-background/60" : "text-muted-foreground",
+                  )}
+                >
+                  {ta("oneTime")}
+                </span>
+              </p>
+
+              <ul className="relative mt-5 mb-6 space-y-2.5 text-sm">
+                {features.map(({ Icon, text }) => (
+                  <li key={text} className="flex items-center gap-2.5">
+                    <span
+                      className={cn(
+                        "flex size-7 shrink-0 items-center justify-center rounded-full",
+                        featured
+                          ? "bg-white/10 text-[oklch(0.82_0.12_55)]"
+                          : "bg-accent text-primary",
+                      )}
+                    >
+                      <Icon className="size-3.5" aria-hidden />
+                    </span>
+                    {text}
                   </li>
                 ))}
               </ul>
-            </button>
+
+              <button
+                type="button"
+                disabled={!devMode || pending}
+                onClick={() => choose(plan)}
+                className={cn(
+                  "relative mt-auto flex h-11 w-full items-center justify-center gap-2 rounded-full text-[15px] font-semibold transition-all duration-300 ease-out active:scale-[0.97] disabled:opacity-60",
+                  featured
+                    ? "bg-primary text-primary-foreground shadow-xl shadow-primary/40 hover:shadow-2xl hover:shadow-primary/50"
+                    : "border border-input bg-background hover:border-primary/40 hover:bg-accent/40",
+                )}
+              >
+                {pending && chosen === plan && (
+                  <Loader2 className="size-4 animate-spin" aria-hidden />
+                )}
+                {ta("choose", { plan: names[plan] })}
+              </button>
+            </div>
           );
         })}
       </div>
-
-      <div className="mt-4 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-xs text-muted-foreground">
-          {devMode ? ta("devNote") : null}
-        </p>
-        <Button
-          className="h-10 shrink-0 rounded-full px-5"
-          disabled={!devMode || pending}
-          onClick={() =>
-            start(async () => {
-              await devActivate(eventId, selected);
-              router.refresh();
-            })
-          }
-        >
-          {pending && <Loader2 className="animate-spin" aria-hidden />}
-          {ta("choose", { plan: names[selected] })} · $
-          {plans[selected].priceUsd}
-        </Button>
-      </div>
+      {devMode && (
+        <p className="mt-3 text-xs text-muted-foreground">{ta("devNote")}</p>
+      )}
     </div>
   );
 }

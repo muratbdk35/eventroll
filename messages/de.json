@@ -365,7 +365,9 @@
       "photos": "Bis zu {count} Fotos",
       "storage": "{gb} GB, Originalqualität",
       "qr": "QR-Code und Gäste-Link",
-      "print": "Druckbare Tischkarten und Poster"
+      "print": "Druckbare Tischkarten und Poster",
+      "taglinePremium": "Für große Feiern",
+      "taglineStandard": "Für kleinere Treffen"
     },
     "photos": {
       "empty": "Noch keine Fotos. Sie erscheinen hier, sobald Gäste hochladen.",
@@ -478,7 +480,7 @@
     },
     "startLabel": "Beginn",
     "endLabel": "Ende",
-    "dateRangeError": "Das Ende muss nach dem Beginn liegen (max. 14 Tage).",
+    "dateRangeError": "Das Ende muss nach dem Beginn liegen, höchstens 24 Stunden später.",
     "timeLabel": "Uhrzeit",
     "done": "Fertig"
   },

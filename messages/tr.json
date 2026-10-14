@@ -365,7 +365,9 @@
       "photos": "{count} fotoğrafa kadar",
       "storage": "{gb} GB, orijinal kalite",
       "qr": "QR kod ve misafir bağlantısı",
-      "print": "Yazdırılabilir masa kartları ve posterler"
+      "print": "Yazdırılabilir masa kartları ve posterler",
+      "taglinePremium": "Büyük kutlamalar için",
+      "taglineStandard": "Daha küçük buluşmalar için"
     },
     "photos": {
       "empty": "Henüz fotoğraf yok. Misafirler yükledikçe burada görünür.",
@@ -478,7 +480,7 @@
     },
     "startLabel": "Başlangıç",
     "endLabel": "Bitiş",
-    "dateRangeError": "Bitiş başlangıçtan sonra olmalı (en fazla 14 gün).",
+    "dateRangeError": "Bitiş, başlangıçtan sonra ve en fazla 24 saat içinde olmalı.",
     "timeLabel": "Saat",
     "done": "Tamam"
   },
