@@ -14,8 +14,8 @@ export async function SiteFooter() {
 
   return (
     <footer className="mt-12 border-t border-border bg-secondary/40">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 md:grid-cols-[1.4fr_1fr_1fr]">
-        <div>
+      <div className="mx-auto grid max-w-6xl grid-cols-2 gap-x-6 gap-y-10 px-4 py-12 md:grid-cols-[1.4fr_1fr_1fr] md:py-14">
+        <div className="col-span-2 md:col-span-1">
           <Logo />
           <p className="mt-4 max-w-xs text-sm text-muted-foreground">
             {t("tagline")}

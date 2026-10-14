@@ -300,7 +300,8 @@
   },
   "Legal": {
     "draft": "TASLAK: Bu metin yayından önce bir avukat tarafından incelenecek.",
-    "englishOnly": "Şimdilik yalnızca İngilizce mevcut."
+    "englishOnly": "Şimdilik yalnızca İngilizce mevcut.",
+    "updated": "Son güncelleme: {date}"
   },
   "Events": {
     "newTitle": "Etkinliğini oluştur",
@@ -372,7 +373,8 @@
       "open": "Fotoğrafı aç",
       "download": "İndir",
       "prev": "Önceki",
-      "next": "Sonraki"
+      "next": "Sonraki",
+      "refresh": "Yeni fotoğrafları kontrol et"
     },
     "share": {
       "title": "QR kodun",
@@ -516,7 +518,6 @@
   },
   "Guest": {
     "welcome": "{event} fotoğraflarını paylaş",
-    "welcomeSub": "Fotoğrafların doğrudan ev sahibine gider. Sadece o görebilir.",
     "privacy": "Yüklediklerini sadece ev sahibi görür. Fotoğrafların diğer misafirlere gösterilmez.",
     "pinTitle": "Etkinlik PIN'ini gir",
     "pinLabel": "PIN",

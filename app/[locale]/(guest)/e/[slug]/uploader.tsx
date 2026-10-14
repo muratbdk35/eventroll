@@ -14,7 +14,6 @@ import { useLocale, useTranslations } from "next-intl";
 import confetti from "canvas-confetti";
 import { useEffect, useRef, useState } from "react";
 import { Turnstile } from "@/components/turnstile";
-import Stack from "@/components/ui/stack";
 import { Link, useRouter } from "@/lib/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { isAllowedMime, MAX_FILE_BYTES, type AllowedMime } from "@/lib/uploads";
@@ -26,8 +25,6 @@ type Props = {
   maxPerDevice: number | null;
   verified: boolean;
   turnstileSiteKey: string | undefined;
-  /** Shown on the stacked cards before anything is picked. */
-  coverSrc: string;
 };
 
 type Item = {
@@ -50,13 +47,6 @@ const EXT_MIME: Record<string, AllowedMime> = {
   heif: "image/heif",
   gif: "image/gif",
 };
-
-/** Prints shown in the deck before the guest picks anything. */
-const SAMPLE_PRINTS = [
-  "/marketing/toast.jpg",
-  "/marketing/sparklers.jpg",
-  "/marketing/rings.jpg",
-];
 
 /** Polaroid tilt pattern, in degrees. */
 const TILTS = [-2.5, 1.5, -1, 2.5, -1.5, 1];
@@ -149,7 +139,6 @@ export function Uploader(props: Props) {
   const router = useRouter();
   const fileInput = useRef<HTMLInputElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
-  const tapStart = useRef<[number, number] | null>(null);
   const [verified, setVerified] = useState(props.verified);
   const [token, setToken] = useState<string | null>(null);
   const [captchaKey, setCaptchaKey] = useState(0);
@@ -494,18 +483,10 @@ export function Uploader(props: Props) {
           (inFlight.length + doneCount)) *
         100
       : 0;
-  // The deck shows the guest's own picks; before that, the cover and a few prints.
-  const picked = items
-    .filter((i) => i.status !== "error")
-    .map((i) => i.preview);
-  const deck =
-    picked.length > 0
-      ? picked.slice(0, 8)
-      : [props.coverSrc, ...SAMPLE_PRINTS.filter((p) => p !== props.coverSrc)];
   const pick = () => fileInput.current?.click();
 
   return (
-    <div className="space-y-7">
+    <div className="space-y-5">
       {/* Name as a soft pill; never blocks picking photos. */}
       <label
         key={nameShake}
@@ -548,8 +529,10 @@ export function Uploader(props: Props) {
         aria-hidden
       />
 
-      {/* Hero: a swipeable pile of prints (React Bits Stack) and a shutter button. */}
-      <div
+      {/* One clear action: a big tappable card, then a slim "add more" row. */}
+      <button
+        type="button"
+        onClick={pick}
         onDragOver={(e) => {
           e.preventDefault();
           setDragging(true);
@@ -561,58 +544,38 @@ export function Uploader(props: Props) {
           addFiles(Array.from(e.dataTransfer.files));
         }}
         className={cn(
-          "flex flex-col items-center pt-2 transition-transform duration-300 ease-out",
-          dragging && "scale-[1.02]",
+          "group flex w-full items-center rounded-[1.75rem] bg-white text-center shadow-sm ring-1 ring-black/5 transition-all duration-300 ease-out outline-none hover:shadow-md focus-visible:ring-4 focus-visible:ring-primary/25 active:scale-[0.98]",
+          items.length > 0
+            ? "gap-3 px-4 py-3 text-start"
+            : "flex-col px-6 pt-9 pb-8",
+          dragging && "scale-[1.02] ring-2 ring-primary/40",
         )}
       >
-        <div
-          className="relative h-56 w-44 cursor-pointer"
-          onPointerDown={(e) => {
-            tapStart.current = [e.clientX, e.clientY];
-          }}
-          onClick={(e) => {
-            const [x, y] = tapStart.current ?? [e.clientX, e.clientY];
-            if (Math.hypot(e.clientX - x, e.clientY - y) < 8) pick();
-          }}
+        <span
+          className={cn(
+            "flex shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/30 transition-transform duration-300 ease-out group-active:scale-90",
+            items.length > 0 ? "size-11" : "size-[4.5rem]",
+          )}
         >
-          <Stack
-            key={deck.length}
-            cards={deck.map((src) => (
-              // eslint-disable-next-line @next/next/no-img-element -- local blob or static print
-              <img key={src} src={src} alt="" draggable={false} />
-            ))}
-            layout="pile"
-            spread={0.9}
-            visible={4}
-            frame={8}
-            frameColor="#ffffff"
-            radius={8}
-            tilt={22}
-            threshold={70}
+          <Camera
+            className={items.length > 0 ? "size-5" : "size-8"}
+            strokeWidth={1.75}
+            aria-hidden
           />
-        </div>
-        <button
-          type="button"
-          onClick={pick}
-          className="group relative z-10 -mt-7 flex flex-col items-center rounded-[2rem] px-6 pb-1 outline-none focus-visible:ring-4 focus-visible:ring-primary/25"
-        >
-          <span className="relative flex items-center justify-center">
-            <span
-              aria-hidden
-              className="breathe absolute size-[5.5rem] rounded-full border-2 border-primary/60"
-            />
-            <span className="relative flex size-[4.75rem] items-center justify-center rounded-full bg-primary text-primary-foreground shadow-2xl ring-[6px] shadow-primary/40 ring-white transition-transform duration-300 ease-out group-hover:scale-105 group-active:scale-90">
-              <Camera className="size-8" strokeWidth={1.75} aria-hidden />
+        </span>
+        {items.length > 0 ? (
+          <span className="text-[15px] font-semibold">{t("chooseMore")}</span>
+        ) : (
+          <>
+            <span className="mt-5 font-heading text-2xl font-semibold tracking-tight">
+              {t("heroTitle")}
             </span>
-          </span>
-          <span className="mt-5 font-heading text-2xl font-semibold tracking-tight">
-            {items.length > 0 ? t("chooseMore") : t("heroTitle")}
-          </span>
-          <span className="mt-1 text-sm text-muted-foreground">
-            {t("heroHint")}
-          </span>
-        </button>
-      </div>
+            <span className="mt-1 text-sm text-muted-foreground">
+              {t("heroHint")}
+            </span>
+          </>
+        )}
+      </button>
 
       {/* Tray: picked prints drop in, then fill up while sending. */}
       {items.length > 0 && (

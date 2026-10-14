@@ -26,8 +26,9 @@ import { blockDevice, deletePhoto } from "@/lib/events/actions";
 import { Link, useRouter } from "@/lib/i18n/navigation";
 
 // Adapted from the 21st.dev "Masonry Lightbox" (ayushmxxn): masonry columns at
-// the photos' real proportions, blur-in entrance, hover lift with caption, and
-// a shared-element (layoutId) spring into the viewer.
+// the photos' real proportions, fade-in entrance (no blur filter: too heavy on
+// phones), hover lift with caption, and a shared-element (layoutId) spring
+// into the viewer.
 
 export type GridPhoto = {
   id: string;
@@ -255,14 +256,12 @@ export function PhotoGrid({
                   onClick={() => setOpen(i)}
                   aria-label={`${t("open")} · ${who(p)}`}
                   className="group relative block w-full overflow-hidden rounded-2xl bg-muted text-start shadow-sm ring-1 ring-black/5 transition-shadow duration-300 hover:shadow-xl hover:shadow-primary/10 focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
-                  initial={
-                    reduce ? false : { opacity: 0, y: 16, filter: "blur(6px)" }
-                  }
-                  whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  initial={reduce ? false : { opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-40px" }}
                   transition={{
-                    duration: 0.6,
-                    delay: (i % 12) * 0.05,
+                    duration: 0.45,
+                    delay: (i % 6) * 0.04,
                     ease: EASE,
                   }}
                   whileHover={reduce ? undefined : { y: -3 }}

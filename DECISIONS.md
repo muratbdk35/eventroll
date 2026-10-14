@@ -395,3 +395,31 @@ album ZIP and printable table cards are phase 1C/1D work (#22, #23).
 - The sign-in email is restyled from the React Email "Raycast magic link"
   template (MIT): logo PNG (`public/brand/email-logo.png`), one headline, one
   pill button, the plain link as fallback, a quiet footer.
+
+## 35. Mobile polish, calmer guest page, legal drafts filled in (owner request, 2026-10-14)
+
+- **Language on phones:** `LocaleSwitcher` is now a compact globe + code menu
+  (`glass` variant over the guest cover) and is shown in the marketing header at
+  every width; below 370 px the header shows only the logo mark so nothing
+  scrolls sideways. The avatar menu has an account card, links (events, new
+  event, website), an EN/TR/DE segmented control and a red sign-out.
+- **Dashboard performance:** the drifting 120 px glows sat behind
+  `backdrop-blur` cards, so phones re-blurred every frame. Glows are now static
+  on the dashboard, create flow and confirmation page, the page-wide
+  `mix-blend` grain is gone there, event cards are solid, and photos fade in
+  without `filter: blur`. The event list loads all preview keys in one query
+  (`latestPhotoKeys(eventIds)`, window function) instead of one per event.
+- **Photos refresh:** a refresh button next to "Photos" re-renders the page
+  (`router.refresh()`), so hosts can check for new uploads without reloading.
+- **Event cards:** a compact row on phones (tilted thumbnail, name, meta,
+  status); the polaroid card from `sm` up. Landing previews pass `layout="tall"`.
+- **Guest page, simpler** (supersedes the deck of #26/#28): no swipe deck,
+  sample prints, ambient glows, grain or frosted sheet. One big "leave a memory"
+  card opens the picker; after picking it becomes a slim "add more" row above
+  the tray. The duplicate welcome line is removed; the privacy line stays.
+  Landing mocks follow (`MockAddMore` replaces `MockDeck`). `components/ui/stack.tsx`
+  is no longer used.
+- **Legal texts:** privacy, terms, cookies and report pages rewritten to match
+  what the product does (originals stored unchanged incl. EXIF/location, no
+  shared album, device cookie, salted IP/UA hash, 7-day deletion, providers).
+  Still English-only DRAFTs with `[brackets]` and lawyer notes (#20).

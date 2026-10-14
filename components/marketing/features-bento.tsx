@@ -11,7 +11,7 @@ import {
   PrintPreview,
   PrivatePreview,
 } from "./app-previews";
-import { MockDeck, MockPolaroid } from "./mock";
+import { MockAddMore, MockPolaroid } from "./mock";
 import { SectionHeading } from "./section-heading";
 
 // Bento grid inspired by 21st.dev "Feature Bento" (uilayout). Every tile carries
@@ -26,7 +26,7 @@ function Tile({
   return (
     <div
       className={cn(
-        "relative flex flex-col overflow-hidden rounded-3xl border border-border bg-card p-7",
+        "relative flex flex-col overflow-hidden rounded-3xl border border-border bg-card p-5 sm:p-7",
         className,
       )}
     >
@@ -52,8 +52,8 @@ function TileText({
   );
 }
 
-// Mini guest page: the pile of prints with the shutter, the tray and the
-// frosted send bar, exactly as guests see it (DECISIONS #26).
+// Mini guest page after picking: the "add more" row, the tray and the send
+// bar, exactly as guests see it.
 async function PickerMock() {
   const t = await getTranslations("Guest");
   return (
@@ -61,20 +61,11 @@ async function PickerMock() {
       aria-hidden
       className="relative mx-auto mb-8 w-56 rotate-3 rounded-[1.75rem] bg-[oklch(0.985_0.01_75)] p-3 shadow-2xl sm:absolute sm:end-10 sm:top-10 sm:mb-0 sm:w-64"
     >
-      <div className="flex justify-center pt-1">
-        <MockDeck
-          size="sm"
-          srcs={[
-            "/marketing/sparklers.jpg",
-            "/marketing/rings.jpg",
-            "/marketing/toast.jpg",
-          ]}
-        />
-      </div>
-      <p className="mt-4 text-center font-heading text-[13px] font-semibold text-foreground">
-        {t("heroTitle")}
+      <MockAddMore size="sm" label={t("chooseMore")} />
+      <p className="mt-3 px-0.5 text-[10px] font-semibold text-foreground">
+        {t("selected", { count: 3 })}
       </p>
-      <div className="mt-2.5 grid grid-cols-3 gap-1.5 px-0.5">
+      <div className="mt-1.5 grid grid-cols-3 gap-1.5 px-0.5">
         <MockPolaroid src="/marketing/cake.jpg" tilt={-2.5} done />
         <MockPolaroid src="/marketing/confetti.jpg" tilt={1.5} done />
         <MockPolaroid src="/marketing/arch-night.jpg" tilt={-1}>
@@ -201,6 +192,7 @@ export async function FeaturesBento() {
           {/* The dashboard's event card, guests and photos counted. */}
           <AppPreview width={340} scale={0.88} className="mx-auto">
             <EventCard
+              layout="tall"
               href="/dashboard"
               name="Elif & Can"
               type="wedding"

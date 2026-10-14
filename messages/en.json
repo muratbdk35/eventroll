@@ -297,7 +297,8 @@
   },
   "Legal": {
     "draft": "DRAFT: this text will be reviewed by a lawyer before launch.",
-    "englishOnly": ""
+    "englishOnly": "",
+    "updated": "Last updated: {date}"
   },
   "Events": {
     "newTitle": "Create your event",
@@ -369,7 +370,8 @@
       "open": "Open photo",
       "download": "Download",
       "prev": "Previous",
-      "next": "Next"
+      "next": "Next",
+      "refresh": "Check for new photos"
     },
     "share": {
       "title": "Your QR code",
@@ -513,7 +515,6 @@
   },
   "Guest": {
     "welcome": "Share your photos from {event}",
-    "welcomeSub": "Your photos go straight to the host. Only the host can see them.",
     "privacy": "Only the host sees what you upload. We never show your photos to other guests.",
     "pinTitle": "Enter the event PIN",
     "pinLabel": "PIN",

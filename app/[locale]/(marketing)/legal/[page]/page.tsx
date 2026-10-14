@@ -40,24 +40,40 @@ export default async function LegalPage({
   return (
     <>
       <MarketingHeader />
-      <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-16">
+      <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-10 sm:py-16">
         <p className="rounded-xl border border-dashed border-primary/40 bg-accent/60 px-4 py-3 text-sm text-accent-foreground">
           {t("draft")}
           {locale !== "en" && <> {t("englishOnly")}</>}
         </p>
-        <h1 className="mt-10 font-heading text-4xl font-bold tracking-tight">
+        <h1 className="mt-10 font-heading text-3xl font-bold tracking-tight sm:text-4xl">
           {content.title}
         </h1>
-        <div className="mt-8 space-y-10">
+        <p className="mt-2 text-sm text-muted-foreground">
+          {t("updated", { date: content.updated })}
+        </p>
+        {content.intro && (
+          <p className="mt-6 text-lg leading-relaxed text-pretty">
+            {content.intro}
+          </p>
+        )}
+        <div className="mt-10 space-y-10">
           {content.sections.map((s) => (
             <section key={s.heading}>
               <h2 className="font-heading text-xl font-semibold">
                 {s.heading}
               </h2>
-              <div className="mt-3 space-y-3 leading-relaxed text-muted-foreground">
-                {s.body.map((p) => (
-                  <p key={p}>{p}</p>
-                ))}
+              <div className="mt-3 space-y-3 leading-relaxed text-pretty text-muted-foreground">
+                {s.body.map((block, i) =>
+                  typeof block === "string" ? (
+                    <p key={i}>{block}</p>
+                  ) : (
+                    <ul key={i} className="list-disc space-y-2 ps-5">
+                      {block.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  ),
+                )}
               </div>
             </section>
           ))}

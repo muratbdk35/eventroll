@@ -1,8 +1,8 @@
-import { Sparkles, UserRound } from "lucide-react";
+import { Check, Sparkles, UserRound } from "lucide-react";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { LogoMark } from "@/components/brand/logo";
-import { MockDeck, MockPolaroid } from "./mock";
+import { MockAddMore, MockPolaroid } from "./mock";
 
 // The guest page (DECISIONS #26) at real iPhone proportions: cover, name pill,
 // pile of prints with the shutter, the tray and the frosted send bar.
@@ -88,27 +88,21 @@ export async function PhoneGallery() {
           </div>
         </div>
 
-        {/* Frosted sheet */}
-        <div className="relative -mt-4 flex flex-1 flex-col rounded-t-[1.5rem] border-t border-white/80 bg-[oklch(0.985_0.01_75)]/95 px-3.5 pt-3">
+        {/* Sheet over the cover */}
+        <div className="relative -mt-4 flex flex-1 flex-col rounded-t-[1.5rem] bg-[oklch(0.975_0.012_70)] px-3.5 pt-3">
           <div className="flex h-8 items-center gap-1.5 rounded-full border border-white/70 bg-white/80 px-3 text-[10px] text-muted-foreground shadow-sm ring-1 ring-black/5">
             <UserRound className="size-3 text-primary" />
             {tg("yourNameOptional")}
           </div>
 
-          <div className="mt-3 flex justify-center">
-            <MockDeck
-              srcs={[
-                "/marketing/sparklers.jpg",
-                "/marketing/cake.jpg",
-                "/marketing/table-toast.jpg",
-              ]}
-            />
+          <div className="mt-3">
+            <MockAddMore label={tg("chooseMore")} />
           </div>
-          <p className="mt-4 text-center font-heading text-[14px] font-semibold">
-            {tg("heroTitle")}
+          <p className="mt-4 mb-2 px-1 text-[11px] font-semibold">
+            {tg("selected", { count: 3 })}
           </p>
 
-          <div className="mt-2.5 grid grid-cols-3 gap-2 px-1">
+          <div className="grid grid-cols-3 gap-2 px-1">
             <MockPolaroid src="/marketing/toast.jpg" tilt={-2.5}>
               <span className="demo-upload absolute inset-0 flex items-center justify-center bg-black/40">
                 <svg viewBox="0 0 36 36" className="size-6 -rotate-90">
@@ -141,6 +135,21 @@ export async function PhoneGallery() {
           </div>
 
           <div className="mt-auto mb-6 rounded-2xl border border-white/70 bg-white/85 p-1.5 shadow-lg ring-1 shadow-primary/15 ring-black/5">
+            <p className="flex items-start gap-1.5 px-1 pt-0.5 pb-2 text-[8.5px] leading-snug text-muted-foreground">
+              <span className="mt-px flex size-2.5 shrink-0 items-center justify-center rounded-[3px] bg-primary text-primary-foreground">
+                <Check className="size-2" strokeWidth={4} />
+              </span>
+              <span>
+                {tg.rich("consent", {
+                  terms: (c) => (
+                    <span className="font-medium text-foreground">{c}</span>
+                  ),
+                  privacy: (c) => (
+                    <span className="font-medium text-foreground">{c}</span>
+                  ),
+                })}
+              </span>
+            </p>
             <div className="demo-press flex h-8 items-center justify-center gap-1.5 rounded-xl bg-primary text-[11px] font-semibold text-primary-foreground">
               <Sparkles className="size-3.5" />
               {tg("send", { count: 3 })}

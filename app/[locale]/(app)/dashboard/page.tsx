@@ -34,9 +34,10 @@ export default async function DashboardPage({
     getFormatter(),
     listOwnedEvents(session.user.id),
   ]);
+  const latest = await latestPhotoKeys(events.map((e) => e.id));
   const stacks = await Promise.all(
-    events.map(async (e) =>
-      Promise.all((await latestPhotoKeys(e.id)).map((k) => presignGet(k))),
+    events.map((e) =>
+      Promise.all((latest.get(e.id) ?? []).map((k) => presignGet(k))),
     ),
   );
   const firstName = (session.user.name || session.user.email).split(/[\s@]/)[0];
@@ -76,7 +77,7 @@ export default async function DashboardPage({
           </Button>
         </div>
       ) : (
-        <ul className="mt-8 grid gap-5 sm:grid-cols-2">
+        <ul className="mt-6 grid gap-3 sm:mt-8 sm:grid-cols-2 sm:gap-5">
           {events.map((e, i) => (
             <li key={e.id}>
               <EventCard
@@ -93,16 +94,18 @@ export default async function DashboardPage({
           <li>
             <Link
               href="/create"
-              className="group flex h-full min-h-56 flex-col items-center justify-center gap-3 rounded-[1.75rem] border-2 border-dashed border-primary/20 p-6 text-center transition-all duration-300 ease-out hover:border-primary/40 hover:bg-card/60 active:scale-[0.99]"
+              className="group flex h-full items-center gap-4 rounded-[1.75rem] border-2 border-dashed border-primary/20 p-4 transition-all duration-300 ease-out hover:border-primary/40 hover:bg-card/60 active:scale-[0.99] sm:min-h-56 sm:flex-col sm:justify-center sm:gap-3 sm:p-6 sm:text-center"
             >
-              <span className="flex size-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-xl shadow-primary/25 transition-transform duration-300 ease-out group-hover:scale-110 group-active:scale-95">
+              <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/25 transition-transform duration-300 ease-out group-hover:scale-110 group-active:scale-95 sm:size-14">
                 <Plus className="size-6" aria-hidden />
               </span>
-              <span className="font-heading text-lg font-semibold">
-                {t("newEventCard")}
-              </span>
-              <span className="text-sm text-muted-foreground">
-                {t("newEventCardBody")}
+              <span className="min-w-0">
+                <span className="block font-heading text-lg font-semibold">
+                  {t("newEventCard")}
+                </span>
+                <span className="block text-sm text-muted-foreground sm:mt-1">
+                  {t("newEventCardBody")}
+                </span>
               </span>
             </Link>
           </li>

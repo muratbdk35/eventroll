@@ -11,9 +11,10 @@ export async function MarketingHeader() {
   const nav = await getTranslations("Nav");
   return (
     <header className="sticky top-0 z-50 border-b border-border/50 bg-background/75 backdrop-blur-lg">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4">
-        <Link href="/" aria-label="Home">
-          <Logo />
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4">
+        <Link href="/" aria-label="Home" className="shrink-0">
+          {/* Mark only on the narrowest phones, so language + CTA still fit. */}
+          <Logo className="max-[369px]:[&>span]:hidden" />
         </Link>
         <nav
           className="hidden items-center gap-1 text-sm md:flex"
@@ -31,10 +32,8 @@ export async function MarketingHeader() {
             ),
           )}
         </nav>
-        <div className="flex items-center gap-2">
-          <div className="hidden sm:block">
-            <LocaleSwitcher />
-          </div>
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <LocaleSwitcher />
           <Button asChild variant="ghost" className="hidden sm:inline-flex">
             <Link href="/login">{nav("login")}</Link>
           </Button>

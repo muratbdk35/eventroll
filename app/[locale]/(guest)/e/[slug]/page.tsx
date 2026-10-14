@@ -56,15 +56,9 @@ export default async function GuestPage({
     : { src: eventVisuals[event.type].cover, custom: false };
 
   return (
-    <div className="grain relative flex flex-1 flex-col overflow-hidden bg-[oklch(0.975_0.014_70)] md:items-center md:justify-center md:px-6 md:py-12">
-      {/* Ambient light: soft terracotta and peach glows drifting behind everything. */}
-      <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="glow-drift absolute -top-40 -left-32 size-[34rem] rounded-full bg-primary/25 blur-[110px]" />
-        <div className="glow-drift absolute -right-40 -bottom-48 size-[38rem] rounded-full bg-[oklch(0.86_0.1_65)]/55 blur-[120px] [animation-delay:-7s]" />
-      </div>
-
-      <div className="relative flex w-full flex-1 flex-col md:max-w-[460px] md:flex-none md:overflow-hidden md:rounded-[2.25rem] md:border md:border-white/70 md:bg-white/35 md:shadow-2xl md:ring-1 md:shadow-primary/15 md:ring-black/5 md:backdrop-blur-xl">
-        <header className="relative h-64 shrink-0 overflow-hidden bg-foreground">
+    <div className="relative flex flex-1 flex-col bg-[oklch(0.975_0.012_70)] md:items-center md:justify-center md:px-6 md:py-12">
+      <div className="relative flex w-full flex-1 flex-col md:max-w-[440px] md:flex-none md:overflow-hidden md:rounded-[2rem] md:bg-white/40 md:shadow-2xl md:ring-1 md:shadow-primary/10 md:ring-black/5">
+        <header className="relative h-56 shrink-0 overflow-hidden bg-foreground">
           {cover.custom ? (
             // eslint-disable-next-line @next/next/no-img-element -- signed storage URL
             <img
@@ -78,7 +72,7 @@ export default async function GuestPage({
               alt=""
               fill
               priority
-              sizes="(min-width: 768px) 460px, 100vw"
+              sizes="(min-width: 768px) 440px, 100vw"
               className="object-cover object-[center_30%]"
             />
           )}
@@ -88,9 +82,7 @@ export default async function GuestPage({
               <span className="flex size-10 items-center justify-center rounded-full border border-white/25 bg-white/15 text-white backdrop-blur-md">
                 <LogoMark className="size-6" />
               </span>
-              <div className="[&_option]:text-foreground [&_select]:h-9 [&_select]:rounded-full [&_select]:border-white/25! [&_select]:bg-white/15! [&_select]:px-3 [&_select]:text-[13px] [&_select]:text-white! [&_select]:backdrop-blur-md">
-                <LocaleSwitcher />
-              </div>
+              <LocaleSwitcher variant="glass" />
             </div>
             <div className="mt-auto text-white">
               <p className="text-[11px] font-medium tracking-[0.18em] uppercase opacity-85">
@@ -103,13 +95,10 @@ export default async function GuestPage({
           </div>
         </header>
 
-        {/* Frosted sheet sliding over the cover, with a thin light edge. */}
-        <main className="relative -mt-8 flex-1 rounded-t-[2rem] border-t border-white/80 bg-[oklch(0.985_0.01_75)]/95 px-5 pt-6 pb-8 shadow-[0_-16px_40px_-24px_rgb(60_30_10/0.35)] backdrop-blur-xl">
+        {/* Plain sheet sliding over the cover. */}
+        <main className="relative -mt-7 flex-1 rounded-t-[1.75rem] bg-[oklch(0.975_0.012_70)] px-5 pt-6 pb-8">
           {state === "open" ? (
             <>
-              <p className="mb-6 text-center text-sm text-pretty text-muted-foreground">
-                {t("welcomeSub")}
-              </p>
               <Uploader
                 slug={event.slug}
                 requireName={event.requireName}
@@ -117,7 +106,6 @@ export default async function GuestPage({
                 maxPerDevice={event.maxUploadsPerDevice}
                 verified={guest?.verified ?? false}
                 turnstileSiteKey={publicEnv.turnstileSiteKey}
-                coverSrc={cover.src}
               />
               <p className="mx-auto mt-8 flex max-w-xs items-start justify-center gap-2 text-center text-xs text-pretty text-muted-foreground">
                 <ShieldCheck

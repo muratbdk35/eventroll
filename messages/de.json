@@ -300,7 +300,8 @@
   },
   "Legal": {
     "draft": "ENTWURF: Dieser Text wird vor dem Start anwaltlich geprüft.",
-    "englishOnly": "Derzeit nur auf Englisch verfügbar."
+    "englishOnly": "Derzeit nur auf Englisch verfügbar.",
+    "updated": "Zuletzt aktualisiert: {date}"
   },
   "Events": {
     "newTitle": "Event erstellen",
@@ -372,7 +373,8 @@
       "open": "Foto öffnen",
       "download": "Herunterladen",
       "prev": "Zurück",
-      "next": "Weiter"
+      "next": "Weiter",
+      "refresh": "Nach neuen Fotos suchen"
     },
     "share": {
       "title": "Dein QR-Code",
@@ -516,7 +518,6 @@
   },
   "Guest": {
     "welcome": "Teile deine Fotos von {event}",
-    "welcomeSub": "Deine Fotos gehen direkt an die Gastgeber. Nur sie können sie sehen.",
     "privacy": "Nur die Gastgeber sehen, was du hochlädst. Wir zeigen deine Fotos nie anderen Gästen.",
     "pinTitle": "Event-PIN eingeben",
     "pinLabel": "PIN",

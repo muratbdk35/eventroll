@@ -49,52 +49,39 @@ export function MockPolaroid({
   );
 }
 
-/** The guest page's hero: a fanned pile of prints and the shutter button. */
-export function MockDeck({
-  srcs,
+/** The guest page's "add more" row shown once photos are picked. */
+export function MockAddMore({
+  label,
   size = "md",
 }: {
-  srcs: [string, string, string];
+  label: string;
   size?: "sm" | "md";
 }) {
-  const card = size === "sm" ? "w-16" : "w-[5.5rem]";
   return (
-    <div className={cn("relative", size === "sm" ? "h-24 w-28" : "h-32 w-36")}>
-      {[
-        "-translate-x-[75%] -rotate-[9deg]",
-        "-translate-x-[25%] rotate-[8deg]",
-        "-translate-x-1/2 -rotate-[2deg]",
-      ].map((pose, n) => (
-        <div
-          key={n}
-          className={cn(
-            "absolute top-0 left-1/2 rounded-[5px] bg-white p-1 pb-3 shadow-xl ring-1 shadow-black/15 ring-black/5",
-            card,
-            pose,
-          )}
-        >
-          <div className="relative aspect-[4/5] overflow-hidden rounded-[3px]">
-            <Image
-              src={srcs[n]}
-              alt=""
-              fill
-              sizes="90px"
-              quality={60}
-              className="object-cover"
-            />
-          </div>
-        </div>
-      ))}
+    <div
+      className={cn(
+        "flex items-center rounded-2xl bg-white shadow-sm ring-1 ring-black/5",
+        size === "sm" ? "gap-2 p-1.5" : "gap-2.5 p-2",
+      )}
+    >
       <span
         className={cn(
-          "absolute -bottom-2 left-1/2 flex -translate-x-1/2 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-xl ring-4 shadow-primary/40 ring-white",
-          size === "sm" ? "size-9" : "size-11",
+          "flex shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-md shadow-primary/30",
+          size === "sm" ? "size-6" : "size-8",
         )}
       >
         <Camera
-          className={size === "sm" ? "size-4" : "size-5"}
+          className={size === "sm" ? "size-3" : "size-4"}
           strokeWidth={1.75}
         />
+      </span>
+      <span
+        className={cn(
+          "font-semibold text-foreground",
+          size === "sm" ? "text-[10px]" : "text-[11.5px]",
+        )}
+      >
+        {label}
       </span>
     </div>
   );

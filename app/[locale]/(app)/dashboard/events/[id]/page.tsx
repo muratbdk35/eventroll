@@ -9,6 +9,7 @@ import { EventIcon } from "@/components/host/event-icon";
 import { LiveShare } from "@/components/host/live-share";
 import { BackLink, PageBody } from "@/components/host/page-header";
 import { PhotoGrid } from "@/components/host/photo-grid";
+import { RefreshButton } from "@/components/host/refresh-button";
 import { PrintTemplates } from "@/components/host/print-templates";
 import { ResumeSetup } from "@/components/host/resume-setup";
 import { SettingsForm } from "@/components/host/settings-form";
@@ -197,14 +198,17 @@ export default async function EventPage({
 
       <section className="mt-10">
         <div className="mb-4 flex items-center justify-between gap-3">
-          <h2 className="font-heading text-xl font-semibold">
-            {t("photosTitle")}
-            {stats.photos > 0 && (
-              <span className="ms-2 text-base font-normal text-muted-foreground tabular-nums">
-                {stats.photos}
-              </span>
-            )}
-          </h2>
+          <div className="flex items-center gap-2.5">
+            <h2 className="font-heading text-xl font-semibold">
+              {t("photosTitle")}
+              {stats.photos > 0 && (
+                <span className="ms-2 text-base font-normal text-muted-foreground tabular-nums">
+                  {stats.photos}
+                </span>
+              )}
+            </h2>
+            <RefreshButton />
+          </div>
           <Button
             asChild
             variant="ghost"

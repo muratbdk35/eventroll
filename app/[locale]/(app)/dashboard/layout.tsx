@@ -15,14 +15,15 @@ export default async function DashboardLayout({
   const { user } = session;
 
   return (
-    <div className="app-ui grain relative flex min-h-dvh flex-1 flex-col bg-[oklch(0.975_0.012_70)]">
-      {/* Same ambient light as the guest page, a little quieter. */}
+    <div className="app-ui relative flex min-h-dvh flex-1 flex-col bg-[oklch(0.975_0.012_70)]">
+      {/* Ambient light like the guest page, but static: drifting 120px blurs
+          behind frosted surfaces made phones repaint every frame. */}
       <div
         aria-hidden
         className="pointer-events-none fixed inset-0 overflow-hidden"
       >
-        <div className="glow-drift absolute -top-48 -left-40 size-[36rem] rounded-full bg-primary/15 blur-[120px]" />
-        <div className="glow-drift absolute -right-48 -bottom-56 size-[40rem] rounded-full bg-[oklch(0.86_0.1_65)]/40 blur-[130px] [animation-delay:-7s]" />
+        <div className="absolute -top-48 -left-40 size-[36rem] rounded-full bg-primary/15 blur-[100px]" />
+        <div className="absolute -right-48 -bottom-56 size-[40rem] rounded-full bg-[oklch(0.86_0.1_65)]/40 blur-[100px]" />
       </div>
       <div className="relative flex flex-1 flex-col">
         <TopBar

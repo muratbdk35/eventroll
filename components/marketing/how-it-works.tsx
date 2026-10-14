@@ -38,6 +38,7 @@ async function CollectVisual() {
   return (
     <AppPreview width={340} scale={0.82}>
       <EventCard
+        layout="tall"
         href="/dashboard"
         name="Elif & Can"
         type="wedding"
