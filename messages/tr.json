@@ -633,7 +633,10 @@
     "clear": "Temizle",
     "thanksTitle": "Teşekkürler!",
     "thanksBody": "{count, plural, one {Ev sahiplerine # anı bıraktın.} other {Ev sahiplerine # anı bıraktın.}}",
-    "ticketStub": "Misafir"
+    "ticketStub": "Misafir",
+    "nameRequired": "Zorunlu",
+    "nameRequiredHint": "Ev sahibi fotoğrafları kimin gönderdiğini görmek istiyor.",
+    "namePlaceholder": "Adını yaz"
   },
   "App": {
     "events": "Etkinlikler",

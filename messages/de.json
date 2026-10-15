@@ -633,7 +633,10 @@
     "clear": "Leeren",
     "thanksTitle": "Danke!",
     "thanksBody": "{count, plural, one {Du hast den Gastgebern # Erinnerung hinterlassen.} other {Du hast den Gastgebern # Erinnerungen hinterlassen.}}",
-    "ticketStub": "Gast"
+    "ticketStub": "Gast",
+    "nameRequired": "Pflicht",
+    "nameRequiredHint": "Der Gastgeber möchte sehen, wer welches Foto geschickt hat.",
+    "namePlaceholder": "Gib deinen Namen ein"
   },
   "App": {
     "events": "Events",

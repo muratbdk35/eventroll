@@ -496,6 +496,26 @@ export function Uploader(props: Props) {
     <div className="space-y-5">
       {/* Name first; never blocks picking photos. */}
       <div key={nameShake} className={cn(nameShake > 0 && "shake-x")}>
+        {/* When the host asks for names, say so before the guest starts. */}
+        {props.requireName && (
+          <div className="mb-2 px-1">
+            <label
+              htmlFor="uploader-name"
+              className="flex items-center gap-2 text-sm font-semibold"
+            >
+              {t("yourName")}
+              <span className="rounded-full bg-accent px-2 py-0.5 text-[11px] font-semibold text-accent-foreground">
+                {t("nameRequired")}
+              </span>
+            </label>
+            <p
+              id="uploader-name-hint"
+              className="mt-0.5 text-[13px] text-pretty text-muted-foreground"
+            >
+              {t("nameRequiredHint")}
+            </p>
+          </div>
+        )}
         <HaloInput
           ref={nameRef}
           id="uploader-name"
@@ -504,9 +524,13 @@ export function Uploader(props: Props) {
           autoComplete="name"
           leadingSlot={<UserRound className="text-primary" aria-hidden />}
           placeholder={
-            props.requireName ? t("yourName") : t("yourNameOptional")
+            props.requireName ? t("namePlaceholder") : t("yourNameOptional")
           }
-          aria-label={props.requireName ? t("yourName") : t("yourNameOptional")}
+          aria-label={props.requireName ? undefined : t("yourNameOptional")}
+          aria-required={props.requireName || undefined}
+          aria-describedby={
+            props.requireName ? "uploader-name-hint" : undefined
+          }
           invalid={notice === "name"}
           value={name}
           onChange={(e) => {

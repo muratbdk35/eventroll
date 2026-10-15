@@ -630,7 +630,10 @@
     "clear": "Clear",
     "thanksTitle": "Thank you!",
     "thanksBody": "{count, plural, one {You left # memory for the hosts.} other {You left # memories for the hosts.}}",
-    "ticketStub": "Guest"
+    "ticketStub": "Guest",
+    "nameRequired": "Required",
+    "nameRequiredHint": "The host would like to know who sent each photo.",
+    "namePlaceholder": "Type your name"
   },
   "App": {
     "events": "Events",
