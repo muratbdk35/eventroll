@@ -22,7 +22,7 @@ export async function Hero() {
             {t("subhead")}
           </p>
           <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-3">
-            <HaloButton href="/login" size="lg">
+            <HaloButton href="/create" size="lg">
               {t("cta")}
             </HaloButton>
             <a

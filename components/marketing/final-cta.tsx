@@ -28,7 +28,7 @@ export async function FinalCta() {
             {t("body")}
           </p>
           <div className="mt-7">
-            <HaloButton href="/login" size="lg">
+            <HaloButton href="/create" size="lg">
               {t("cta")}
             </HaloButton>
           </div>

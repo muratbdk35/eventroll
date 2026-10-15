@@ -1,3 +1,4 @@
+import { LogIn } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Logo } from "@/components/brand/logo";
 import { LocaleSwitcher } from "@/components/locale-switcher";
@@ -37,8 +38,19 @@ export async function MarketingHeader() {
           <Button asChild variant="ghost" className="hidden sm:inline-flex">
             <Link href="/login">{nav("login")}</Link>
           </Button>
+          {/* Phones: no room for the word, but returning hosts still need a way in. */}
+          <Button
+            asChild
+            variant="ghost"
+            size="icon"
+            className="rounded-full sm:hidden"
+          >
+            <Link href="/login" aria-label={nav("login")} title={nav("login")}>
+              <LogIn aria-hidden />
+            </Link>
+          </Button>
           <Button asChild className="rounded-xl">
-            <Link href="/login">{t("cta")}</Link>
+            <Link href="/create">{t("cta")}</Link>
           </Button>
         </div>
       </div>
