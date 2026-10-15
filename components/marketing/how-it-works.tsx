@@ -72,16 +72,22 @@ const steps = [
 export async function HowItWorks() {
   const t = await getTranslations("Landing.steps");
   return (
-    <section id="how-it-works" className="scroll-mt-20 px-4 py-24">
+    <section id="how-it-works" className="scroll-mt-20 px-4 py-16 md:py-24">
       <SectionHeading title={t("title")} subtitle={t("subtitle")} />
       {/* A real sequence, so it is numbered: big numerals, no card chrome. */}
       <ol className="mx-auto mt-12 grid max-w-6xl gap-x-6 gap-y-12 md:grid-cols-3">
         {steps.map(({ key, Visual }, i) => (
           <li key={key} className="min-w-0">
-            <div className="flex aspect-[4/3] items-center justify-center overflow-hidden rounded-[1.25rem] bg-secondary px-4">
+            {/* A tinted tray that reads against the page; screens taller than
+                the tray fade out at its bottom edge instead of being cut. */}
+            <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-[1.25rem] bg-[oklch(0.93_0.03_244)] px-4 ring-1 ring-primary/10 ring-inset">
               <Visual />
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-[oklch(0.93_0.03_244)] to-transparent"
+              />
             </div>
-            <div className="mt-5 flex gap-4">
+            <div className="mt-6 flex gap-4">
               <span className="font-heading text-5xl leading-none font-semibold text-primary/80 tabular-nums">
                 {i + 1}
               </span>

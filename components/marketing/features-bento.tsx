@@ -27,7 +27,7 @@ function Tile({
   return (
     <div
       className={cn(
-        "relative flex flex-col overflow-hidden rounded-[1.25rem] bg-secondary p-5 sm:p-7",
+        "relative flex flex-col overflow-hidden rounded-[1.25rem] bg-[oklch(0.93_0.03_244)] p-5 ring-1 ring-primary/10 ring-inset sm:p-7",
         className,
       )}
     >
@@ -181,7 +181,7 @@ export async function FeaturesBento() {
   const qrDataUri = `data:image/svg+xml;utf8,${encodeURIComponent(qrSvg)}`;
 
   return (
-    <section id="features" className="scroll-mt-20 px-4 py-24">
+    <section id="features" className="scroll-mt-20 px-4 pt-16 pb-10 md:py-24">
       <SectionHeading title={t("title")} subtitle={t("subtitle")} />
       <div className="mx-auto mt-12 grid max-w-6xl gap-3 md:grid-cols-6">
         {/* No app */}
@@ -264,7 +264,7 @@ export async function FeaturesBento() {
         </Tile>
 
         {/* Languages */}
-        <Tile className="bg-transparent px-0 sm:px-0 md:col-span-6 md:flex-row md:items-center md:justify-between md:gap-8">
+        <Tile className="bg-transparent px-0 pb-0 ring-0 sm:px-0 sm:pb-0 md:col-span-6 md:flex-row md:items-center md:justify-between md:gap-8">
           <div>
             <h3 className="font-heading text-lg font-semibold">
               {t("languages.title")}
