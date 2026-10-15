@@ -17,8 +17,8 @@ const dot = {
 } as const;
 
 /**
- * Soft, tinted status chip with a dot. A live event shows the darkroom
- * safelight red, "on air", rather than a generic green (DECISIONS #40).
+ * Soft, tinted status chip with a dot. A live event is green (DECISIONS
+ * #40, revised: the owner found red read as an error).
  */
 export function StatusPill({
   status,

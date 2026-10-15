@@ -594,3 +594,9 @@ Hosts on Standard never saw what Premium adds. QR templates: the Standard
 preview is no longer blurred. The real template shows under a faint diagonal
 "PREMIUM" watermark, with the offer over its lower half; printing stays
 Premium-only.
+
+## 45. Live is green (owner request, 2026-10-15)
+
+Revises #40: the "live" status was safelight red, which hosts read as an
+error. `--live` is now green (oklch 0.5 0.13 155; 0.72 in dark mode), so the
+status pill and the live dot on the event page say "on" plainly.
