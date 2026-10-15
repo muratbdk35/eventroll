@@ -553,7 +553,7 @@
     },
     "ticket": {
       "title": "Gäste-Ticket",
-      "hint": "Die Seite deiner Gäste öffnet sich mit diesem Ticket. Wähl seine Farbe.",
+      "hint": "Die Seite deiner Gäste öffnet sich mit diesem Ticket und nimmt seine Farbe an. Wähl eine aus.",
       "color": "Farbe",
       "saved": "Ticket gespeichert.",
       "failed": "Speichern fehlgeschlagen. Versuch es erneut.",

@@ -52,8 +52,8 @@ export function HaloSwitch({
             "transition-[background-color,box-shadow] duration-200 ease-out",
             "after:absolute after:-inset-x-2 after:-inset-y-[10px] after:content-['']",
             "focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-            "data-[state=unchecked]:bg-[color-mix(in_oklch,var(--muted)_60%,oklch(0.93_0.02_243))]",
-            "data-[state=checked]:bg-[linear-gradient(180deg,oklch(0.66_0.073_241)_0%,var(--primary)_100%)]",
+            "data-[state=unchecked]:bg-[color-mix(in_oklch,var(--muted)_60%,color-mix(in_oklch,var(--primary),white_86%))]",
+            "data-[state=checked]:bg-[linear-gradient(180deg,color-mix(in_oklch,var(--primary),white_27%)_0%,var(--primary)_100%)]",
             "disabled:cursor-not-allowed disabled:opacity-50",
           )}
         >

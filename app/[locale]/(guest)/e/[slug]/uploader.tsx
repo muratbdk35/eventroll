@@ -32,6 +32,8 @@ type Props = {
   maxPerDevice: number | null;
   verified: boolean;
   turnstileSiteKey: string | undefined;
+  /** In the ticket's colours (lib/events/ticket.ts). */
+  confettiColors: string[];
 };
 
 type Item = {
@@ -157,10 +159,12 @@ export function Uploader(props: Props) {
   const [items, setItems] = useState<Item[]>([]);
   const [busy, setBusy] = useState(false);
   const [sentNow, setSentNow] = useState(0);
+  // A ref, so a refresh of the page (new array) doesn't fire confetti again.
+  const confettiColors = useRef(props.confettiColors);
 
   useEffect(() => {
     if (sentNow === 0) return;
-    const colors = ["#3f6a99", "#4f7cad", "#8fb0d8", "#d8e3f2", "#ffffff"];
+    const colors = confettiColors.current;
     const shot = (x: number, angle: number) =>
       confetti({
         particleCount: 70,

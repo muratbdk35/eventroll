@@ -157,12 +157,12 @@ export function HaloButton(props: HaloButtonProps) {
     size === "lg" ? "min-h-14 px-7 text-base" : "min-h-11 px-6 text-sm",
     fullWidth && "w-full",
     primary
-      ? "border-[oklch(0.5_0.069_239)] text-primary-foreground shadow-[0_1px_0_rgba(255,255,255,0.28)_inset,0_-1px_0_rgba(0,0,0,0.12)_inset,0_10px_24px_-10px_var(--primary)] fine-hover:hover:brightness-[1.06]"
-      : "border-[color-mix(in_oklch,var(--border)_70%,oklch(0.86_0.039_242))] text-foreground shadow-[0_1px_0_rgba(255,255,255,0.6)_inset,0_1px_2px_rgba(0,0,0,0.04),0_4px_14px_rgba(20,35,60,0.06)]",
+      ? "border-[color-mix(in_oklch,var(--primary),black_6%)] text-primary-foreground shadow-[0_1px_0_rgba(255,255,255,0.28)_inset,0_-1px_0_rgba(0,0,0,0.12)_inset,0_10px_24px_-10px_var(--primary)] fine-hover:hover:brightness-[1.06]"
+      : "border-[color-mix(in_oklch,var(--border)_70%,color-mix(in_oklch,var(--primary),white_65%))] text-foreground shadow-[0_1px_0_rgba(255,255,255,0.6)_inset,0_1px_2px_rgba(0,0,0,0.04),0_4px_14px_rgba(20,35,60,0.06)]",
   );
   const style = {
     background: primary
-      ? "linear-gradient(180deg, oklch(0.63 0.075 240) 0%, var(--primary) 55%, oklch(0.52 0.073 239) 100%)"
+      ? "linear-gradient(180deg, color-mix(in oklch, var(--primary), white 20%) 0%, var(--primary) 55%, color-mix(in oklch, var(--primary), black 3%) 100%)"
       : haloFill(true, hot),
   };
   const inner = (

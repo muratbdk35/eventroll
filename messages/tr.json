@@ -553,7 +553,7 @@
     },
     "ticket": {
       "title": "Misafir bileti",
-      "hint": "Misafirlerinin sayfası bu biletle açılır. Rengini seç.",
+      "hint": "Misafirlerinin sayfası bu biletle açılır ve sayfa da bu renge bürünür. Bir renk seç.",
       "color": "Renk",
       "saved": "Bilet kaydedildi.",
       "failed": "Kaydedilemedi. Tekrar dene.",

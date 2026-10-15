@@ -71,8 +71,7 @@ export function BorderTrail({
         <div
           className="size-full rounded-full"
           style={{
-            background:
-              "linear-gradient(90deg, transparent 0%, rgba(105,145,195,0) 6%, rgba(105,145,195,0.4) 24%, rgba(150,165,220,0.45) 50%, rgba(170,198,232,0.42) 76%, rgba(170,198,232,0) 94%, transparent 100%)",
+            background: `linear-gradient(90deg, transparent 0%, transparent 6%, color-mix(in oklch, color-mix(in oklch, var(--primary), white 25%) 40%, transparent) 24%, color-mix(in oklch, color-mix(in oklch, var(--primary), white 45%) 45%, transparent) 50%, color-mix(in oklch, color-mix(in oklch, var(--primary), white 58%) 42%, transparent) 76%, transparent 94%, transparent 100%)`,
           }}
         />
       </motion.div>
@@ -83,8 +82,7 @@ export function BorderTrail({
         <div
           className="size-full rounded-full"
           style={{
-            background:
-              "linear-gradient(90deg, transparent 0%, rgba(84,125,175,0.75) 20%, rgba(190,210,235,0.95) 50%, rgba(170,198,232,0.8) 80%, transparent 100%)",
+            background: `linear-gradient(90deg, transparent 0%, color-mix(in oklch, color-mix(in oklch, var(--primary), white 10%) 75%, transparent) 20%, color-mix(in oklch, color-mix(in oklch, var(--primary), white 70%) 95%, transparent) 50%, color-mix(in oklch, color-mix(in oklch, var(--primary), white 58%) 80%, transparent) 80%, transparent 100%)`,
           }}
         />
       </motion.div>

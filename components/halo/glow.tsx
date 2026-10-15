@@ -2,7 +2,8 @@
 
 // Shared chrome for the Halo controls, adapted from cult/ui "Halo" (MIT,
 // https://github.com/nolly-studio/cult-ui). Changes by eventroll: the
-// magenta/violet/cyan ramp became our powder-blue ramp, and the
+// magenta/violet/cyan ramp became shades of the page's --primary (powder
+// blue in the app, the ticket colour on a guest page, DECISIONS #48), and the
 // drifting blobs only move while the control is active (hover/focus) instead
 // of looping forever, because a page full of looping blurs lags on phones.
 // No backdrop-filter: our grounds are flat, so it cost frames for nothing.
@@ -10,10 +11,16 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
+/** Shades of --primary, mixed with white (color-mix works on older iPhones). */
+const tint = (pct: number) =>
+  `color-mix(in oklch, var(--primary), white ${pct}%)`;
+const shade = (pct: number) =>
+  `color-mix(in oklch, var(--primary), black ${pct}%)`;
+
 export const haloRamp = {
-  primary: "linear-gradient(90deg, #6b95c6, #7f93c9, #a9c6e6, #4f7cad)",
-  secondary: "linear-gradient(90deg, #a4b4de, #b9cdea, #6b95c6)",
-  tertiary: "linear-gradient(90deg, #86a9d2, #c3cdea, #3f6a99)",
+  primary: `linear-gradient(90deg, ${tint(25)}, ${tint(32)}, ${tint(62)}, ${tint(8)})`,
+  secondary: `linear-gradient(90deg, ${tint(50)}, ${tint(62)}, ${tint(25)})`,
+  tertiary: `linear-gradient(90deg, ${tint(40)}, ${tint(68)}, ${shade(8)})`,
 };
 
 /** The original's green "success" rim (notifications). */
@@ -28,13 +35,13 @@ export type HaloRamp = typeof haloRamp;
 
 /** Soft warm light from below and above, behind a frosted surface. */
 export const haloUnderglow = [
-  "radial-gradient(90% 70% at 50% 100%, rgba(84,125,175,0.26), rgba(150,165,220,0.1) 48%, transparent 62%)",
-  "radial-gradient(70% 55% at 30% 0%, rgba(170,198,232,0.24), rgba(105,145,195,0.08) 45%, transparent 58%)",
+  `radial-gradient(90% 70% at 50% 100%, color-mix(in oklch, ${tint(10)} 26%, transparent), color-mix(in oklch, ${tint(45)} 10%, transparent) 48%, transparent 62%)`,
+  `radial-gradient(70% 55% at 30% 0%, color-mix(in oklch, ${tint(58)} 24%, transparent), color-mix(in oklch, ${tint(25)} 8%, transparent) 45%, transparent 58%)`,
 ];
 
 /** Rim colour: the border tinted towards pale blue. */
 export const haloRim =
-  "border-[color-mix(in_oklch,var(--border)_70%,oklch(0.86_0.039_242))]";
+  "border-[color-mix(in_oklch,var(--border)_70%,color-mix(in_oklch,var(--primary),white_65%))]";
 
 /** Frosted fill that lets the glow read through. */
 export function haloFill(translucent: boolean, emphasis = false) {

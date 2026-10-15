@@ -633,3 +633,16 @@ Replaces the magic link and the cross-device login requests of #34.
 - The magic-link plugin stays only for `/api/dev-login`; its sender throws,
   so no link email can go out. In local development the code is also printed
   to the server console (the local Resend key can only send).
+
+## 48. The guest page takes the ticket's colour (owner request, 2026-10-15)
+
+- Each ticket colour has a page theme (`TICKET_THEMES` in
+  `lib/events/ticket.ts`): a `primary` that white text reads on at 4.5:1 or
+  better, and a pale `ground`. The guest page root sets `--primary`,
+  `--ring`, `--accent`, `--secondary` and the background from it, so every
+  button, icon, progress bar and focus ring below follows.
+- The Halo controls no longer hard-code powder blue: their borders,
+  gradients, rims and glows are mixed from `var(--primary)` with
+  `color-mix` (supported on older iPhones, unlike relative colours). In the
+  app `--primary` is still powder blue, so nothing there changes.
+- Upload confetti uses the ticket's colours.

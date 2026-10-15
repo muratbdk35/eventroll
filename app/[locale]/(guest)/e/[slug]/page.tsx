@@ -20,7 +20,11 @@ import { getEventBySlug } from "@/lib/events/queries";
 import { getUploadState } from "@/lib/events/upload-state";
 import { getGuestSession } from "@/lib/guest/session";
 import type { Locale } from "@/lib/i18n/routing";
-import { ticketColor } from "@/lib/events/ticket";
+import {
+  ticketColor,
+  ticketConfetti,
+  ticketThemeStyle,
+} from "@/lib/events/ticket";
 import { publicEnv } from "@/lib/public-env";
 import { Uploader } from "./uploader";
 
@@ -57,9 +61,14 @@ export default async function GuestPage({
     guest && event.blockedDeviceIds.includes(guest.deviceId),
   );
   const state = blocked ? "blocked" : getUploadState(event);
+  const color = ticketColor(event.ticketColor);
 
   return (
-    <div className="relative flex flex-1 flex-col bg-[oklch(0.975_0.012_244)] md:items-center md:justify-center md:px-6 md:py-12">
+    // The whole page takes the ticket's colour as its theme (#48).
+    <div
+      className="relative flex flex-1 flex-col md:items-center md:justify-center md:px-6 md:py-12"
+      style={ticketThemeStyle(color)}
+    >
       <div className="relative flex w-full flex-1 flex-col md:max-w-[440px] md:flex-none md:overflow-hidden md:rounded-[2rem] md:bg-white/40 md:shadow-2xl md:ring-1 md:shadow-primary/10 md:ring-black/5">
         {/* The page opens with the event ticket on a plain ground (#41, #42). */}
         <header className="px-5 pt-4">
@@ -81,7 +90,7 @@ export default async function GuestPage({
             })}
             stub={t("ticketStub")}
             watermark={event.eventDate.slice(0, 4)}
-            color={ticketColor(event.ticketColor)}
+            color={color}
           />
         </header>
 
@@ -97,6 +106,7 @@ export default async function GuestPage({
                 maxPerDevice={event.maxUploadsPerDevice}
                 verified={guest?.verified ?? false}
                 turnstileSiteKey={publicEnv.turnstileSiteKey}
+                confettiColors={ticketConfetti(color)}
               />
               <p className="mx-auto mt-8 flex max-w-xs items-start justify-center gap-2 text-center text-xs text-pretty text-muted-foreground">
                 <ShieldCheck

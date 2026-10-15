@@ -550,7 +550,7 @@
     },
     "ticket": {
       "title": "Guest ticket",
-      "hint": "Your guests' page opens with this ticket. Pick its colour.",
+      "hint": "Your guests' page opens with this ticket and takes on its colour. Pick one.",
       "color": "Colour",
       "saved": "Ticket saved.",
       "failed": "Could not save. Try again.",
