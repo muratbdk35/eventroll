@@ -41,7 +41,8 @@
       "errorTitle": "Ungültiger Link",
       "errorBody": "Dieser Link wurde vielleicht schon benutzt oder ist abgelaufen. Fordere einen neuen an.",
       "tryAgain": "Neuen Link anfordern"
-    }
+    },
+    "toGoogle": "Google wird geöffnet…"
   },
   "Dashboard": {
     "title": "Deine Events",
@@ -107,7 +108,8 @@
       "photoBy": "von {name}, {time}",
       "qrTitle": "Teile deine Fotos mit uns",
       "qrBody": "Scannen · Hochladen · Fertig",
-      "pin": "PIN 2468"
+      "pin": "PIN 2468",
+      "ticketDate": "14. Juni 2026"
     },
     "steps": {
       "eyebrow": "So funktioniert's",
@@ -233,7 +235,8 @@
       },
       "values": {
         "original": "Original",
-        "days": "{days} Tage"
+        "days": "{days} Tage",
+        "notIncluded": "Nicht dabei"
       }
     },
     "faq": {
@@ -622,7 +625,8 @@
     "remove": "Entfernen",
     "clear": "Leeren",
     "thanksTitle": "Danke!",
-    "thanksBody": "{count, plural, one {Du hast den Gastgebern # Erinnerung hinterlassen.} other {Du hast den Gastgebern # Erinnerungen hinterlassen.}}"
+    "thanksBody": "{count, plural, one {Du hast den Gastgebern # Erinnerung hinterlassen.} other {Du hast den Gastgebern # Erinnerungen hinterlassen.}}",
+    "ticketStub": "Gast"
   },
   "App": {
     "events": "Events",
@@ -711,7 +715,8 @@
       "publishHint": "Beim Veröffentlichen öffnet sich die Gästeseite und dein QR-Code ist bereit. Einstellungen kannst du auch danach ändern.",
       "publish": "Event veröffentlichen",
       "publishing": "Wird veröffentlicht…",
-      "publishFailed": "Veröffentlichen fehlgeschlagen. Bitte erneut versuchen."
+      "publishFailed": "Veröffentlichen fehlgeschlagen. Bitte erneut versuchen.",
+      "ticketCaption": "Dieses Ticket sehen deine Gäste oben auf ihrer Seite."
     },
     "resume": {
       "titlePlan": "Einrichtung abschließen",

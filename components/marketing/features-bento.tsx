@@ -1,4 +1,5 @@
-import { Sparkles } from "lucide-react";
+import { Check, Send } from "lucide-react";
+import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import QRCode from "qrcode";
 import { EventCard } from "@/components/host/event-card";
@@ -54,12 +55,72 @@ function TileText({
 
 // Mini guest page after picking: the "add more" row, the tray and the send
 // bar, exactly as guests see it.
+/**
+ * The phone camera pointed at a table card: viewfinder corners, the QR, and
+ * the link the camera offers to open. Step one of "no app".
+ */
+function ScanMock({ qr, host }: { qr: string; host: string }) {
+  return (
+    <div
+      aria-hidden
+      className="relative h-56 w-32 shrink-0 -rotate-2 overflow-hidden rounded-[1.5rem] bg-[oklch(0.22_0.025_245)] shadow-2xl sm:h-80 sm:w-48"
+    >
+      <Image
+        src="/marketing/table-toast.jpg"
+        alt=""
+        fill
+        sizes="200px"
+        className="object-cover opacity-45"
+      />
+      {/* viewfinder corners around the card */}
+      <div className="absolute inset-x-5 top-1/2 aspect-square -translate-y-[60%] sm:inset-x-8">
+        {[
+          "start-0 top-0 border-s-2 border-t-2 rounded-ss-lg",
+          "end-0 top-0 border-e-2 border-t-2 rounded-se-lg",
+          "start-0 bottom-0 border-s-2 border-b-2 rounded-es-lg",
+          "end-0 bottom-0 border-e-2 border-b-2 rounded-ee-lg",
+        ].map((c) => (
+          <span key={c} className={`absolute size-5 border-white ${c}`} />
+        ))}
+        <div className="absolute inset-3 rounded-md bg-white p-1.5 shadow-lg">
+          {/* eslint-disable-next-line @next/next/no-img-element -- inline QR svg */}
+          <img src={qr} alt="" className="size-full" />
+        </div>
+      </div>
+      <span className="absolute inset-x-2.5 bottom-3 truncate rounded-full bg-white/90 px-2.5 py-1.5 text-center text-[10px] font-semibold text-foreground shadow sm:inset-x-4 sm:text-[11px]">
+        {host}
+      </span>
+    </div>
+  );
+}
+
+/** Step three: the photos arrived (wide screens only). */
+async function DoneMock() {
+  const t = await getTranslations("Landing.demo");
+  return (
+    <div
+      aria-hidden
+      className="hidden w-44 shrink-0 -rotate-1 rounded-[1.25rem] bg-white p-3.5 text-foreground shadow-2xl lg:block"
+    >
+      <span className="flex size-9 items-center justify-center rounded-full bg-success text-white">
+        <Check className="size-5" strokeWidth={3} />
+      </span>
+      <p className="mt-3 text-[13px] leading-snug font-semibold">
+        {t("notifyTitle", { count: 12 })}
+      </p>
+      <p className="mt-1 text-[11px] leading-snug text-muted-foreground">
+        {t("notifyBody")}
+      </p>
+    </div>
+  );
+}
+
 async function PickerMock() {
   const t = await getTranslations("Guest");
   return (
     <div
       aria-hidden
-      className="relative mx-auto mb-8 w-56 rotate-3 rounded-[1.75rem] bg-[oklch(0.985_0.01_245)] p-3 shadow-2xl sm:absolute sm:end-10 sm:top-10 sm:mb-0 sm:w-64"
+      className="relative w-44 shrink-0 rotate-2 rounded-[1.5rem] bg-[oklch(0.985_0.01_245)] p-2.5 shadow-2xl sm:w-64 sm:p-3"
     >
       <MockAddMore size="sm" label={t("chooseMore")} />
       <p className="mt-3 px-0.5 text-[10px] font-semibold text-foreground">
@@ -97,8 +158,8 @@ async function PickerMock() {
         </MockThumb>
       </div>
       <div className="mt-3 rounded-2xl border border-white/70 bg-white/80 p-1.5 shadow-lg ring-1 shadow-primary/10 ring-black/5">
-        <div className="flex h-8 items-center justify-center gap-1.5 rounded-xl bg-primary text-[11.5px] font-semibold text-primary-foreground">
-          <Sparkles className="size-3.5" />
+        <div className="flex h-8 items-center justify-center gap-1.5 rounded-full bg-primary text-[11.5px] font-semibold text-primary-foreground">
+          <Send className="size-3.5" />
           {t("send", { count: 3 })}
         </div>
       </div>
@@ -125,11 +186,12 @@ export async function FeaturesBento() {
       <div className="mx-auto mt-12 grid max-w-6xl gap-3 md:grid-cols-6">
         {/* No app */}
         <Tile className="min-h-[26rem] border-0 bg-primary text-primary-foreground md:col-span-4 md:row-span-2">
-          <div
-            aria-hidden
-            className="absolute -end-10 -top-10 size-72 rounded-full bg-white/10"
-          />
-          <PickerMock />
+          {/* Scan the card, pick photos: the whole guest flow, no app. */}
+          <div className="flex items-center justify-center gap-4 sm:gap-6">
+            <ScanMock qr={qrDataUri} host={new URL(guestLink).host} />
+            <PickerMock />
+            <DoneMock />
+          </div>
           <div className="mt-auto">
             <h3 className="max-w-md font-heading text-3xl leading-tight font-bold sm:text-4xl">
               {t("noApp.title")}

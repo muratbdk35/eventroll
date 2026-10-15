@@ -23,7 +23,7 @@ import { Row } from "@/components/host/settings-form";
 import { DateTimeField } from "@/components/ui/date-time-field";
 import { Label } from "@/components/ui/label";
 import { EVENT_TYPES } from "@/lib/events/schemas";
-import { adjustEnd, clampEnd, maxEnd } from "@/lib/events/times";
+import { adjustEnd, clampEnd, endAfter, maxEnd } from "@/lib/events/times";
 import { useRouter } from "@/lib/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { type FlowProps, flowHref } from "./flow";
@@ -370,7 +370,7 @@ export function DetailsQuestions({
                     id="d-closes"
                     value={d.closes}
                     min={d.opens}
-                    onChange={(v) => set("closes", v)}
+                    onChange={(v) => set("closes", endAfter(d.opens, v))}
                     invalid={problems.hours}
                   />
                 </div>

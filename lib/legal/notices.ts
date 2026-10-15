@@ -24,6 +24,14 @@ export const adaptedComponents: Notice[] = [
       "Create flow and guest page controls. Modified: our colours, glow only moves on interaction, photo-only dropzone.",
   },
   {
+    name: "Admit One Ticket",
+    author: "larsen66",
+    license: "MIT",
+    url: "https://21st.dev/@larsen66/components/admit-one-ticket",
+    usedFor:
+      "Event ticket on the guest page and the review step. Modified: powder-blue palette, still texture, fluid width, our fonts.",
+  },
+  {
     name: "Questionnaire (uiable)",
     author: "CodedThemes",
     license: "MIT",

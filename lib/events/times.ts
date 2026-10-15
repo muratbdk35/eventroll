@@ -23,8 +23,24 @@ export function adjustEnd(start: string, end: string): string {
   return toLocalValue(new Date(s + 5 * HOUR));
 }
 
-/** Picking a later end than allowed snaps it to start + 24 hours. */
+/**
+ * An end at or before the start means the next day: 19:00 → 00:00 ends at
+ * midnight after the party, not the morning before it.
+ */
+export function endAfter(start: string, end: string): string {
+  if (!start || !end) return end;
+  const s = new Date(start).getTime();
+  const e = new Date(end);
+  while (e.getTime() <= s) e.setDate(e.getDate() + 1);
+  return toLocalValue(e);
+}
+
+/**
+ * The end the host picked, rolled past the start if needed (`endAfter`) and
+ * capped at start + 24 hours.
+ */
 export function clampEnd(start: string, end: string): string {
   const latest = maxEnd(start);
-  return end > latest ? latest : end;
+  const next = endAfter(start, end);
+  return next > latest ? latest : next;
 }

@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { deleteEvent, updateSettings } from "@/lib/events/actions";
-import { adjustEnd, clampEnd, maxEnd } from "@/lib/events/times";
+import { adjustEnd, clampEnd, endAfter, maxEnd } from "@/lib/events/times";
 import { useRouter } from "@/lib/i18n/navigation";
 import { cn } from "@/lib/utils";
 
@@ -339,7 +339,7 @@ export function SettingsForm({
                       id="s-closes"
                       value={s.closes}
                       min={s.opens}
-                      onChange={(v) => set("closes", v)}
+                      onChange={(v) => set("closes", endAfter(s.opens, v))}
                       invalid={!hoursOk}
                     />
                   </div>

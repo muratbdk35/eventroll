@@ -10,7 +10,7 @@ vi.mock("@/lib/env", () => ({
 vi.mock("next/headers", () => ({ cookies: vi.fn() }));
 import { generateSlug } from "@/lib/events/slug";
 import { createEventSchema, settingsSchema } from "@/lib/events/schemas";
-import { adjustEnd, clampEnd, maxEnd } from "@/lib/events/times";
+import { adjustEnd, clampEnd, endAfter, maxEnd } from "@/lib/events/times";
 import { getUploadState } from "@/lib/events/upload-state";
 import { isAllowedMime, originalKey } from "@/lib/uploads";
 import { parseGuestCookie } from "@/lib/guest/session";
@@ -178,6 +178,25 @@ describe("event times", () => {
     expect(maxEnd("2026-06-14T19:00")).toBe("2026-06-15T19:00");
     expect(clampEnd("2026-06-14T19:00", "2026-06-15T23:00")).toBe(
       "2026-06-15T19:00",
+    );
+  });
+  it("reads an end at or before the start as the next day", () => {
+    // 19:00 → 00:00 is midnight after the party, not the morning before.
+    expect(endAfter("2026-06-14T19:00", "2026-06-14T00:00")).toBe(
+      "2026-06-15T00:00",
+    );
+    expect(endAfter("2026-06-14T19:00", "2026-06-14T19:00")).toBe(
+      "2026-06-15T19:00",
+    );
+    expect(endAfter("2026-06-14T19:00", "2026-06-14T23:00")).toBe(
+      "2026-06-14T23:00",
+    );
+    expect(clampEnd("2026-06-14T19:00", "2026-06-14T02:30")).toBe(
+      "2026-06-15T02:30",
+    );
+    // Month end rolls over too.
+    expect(clampEnd("2026-06-30T21:00", "2026-06-30T01:00")).toBe(
+      "2026-07-01T01:00",
     );
   });
 });

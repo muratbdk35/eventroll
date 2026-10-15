@@ -42,7 +42,11 @@ function Spinner({ className }: { className?: string }) {
   );
 }
 
-/** Fades a label in glyph by glyph whenever its text changes. */
+/**
+ * Fades a label in glyph by glyph when its text changes (e.g. to a loading
+ * text). The first text renders fully visible, also in the server HTML, so a
+ * slow script never leaves a blank button.
+ */
 export function StaggeredText({
   text,
   stagger = 0.018,
@@ -53,6 +57,7 @@ export function StaggeredText({
   duration?: number;
 }) {
   const reduce = useReducedMotion() ?? false;
+  const [firstText] = useState(text);
   const chars = useMemo(() => {
     const seen = new Map<string, number>();
     return Array.from(text, (char) => {
@@ -66,7 +71,7 @@ export function StaggeredText({
       <span className="sr-only">{text}</span>
       <motion.span
         key={text}
-        initial="hidden"
+        initial={text === firstText ? false : "hidden"}
         animate="visible"
         aria-hidden
         className="inline-flex items-center"

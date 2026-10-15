@@ -9,10 +9,15 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import {
+  getFormatter,
+  getTranslations,
+  setRequestLocale,
+} from "next-intl/server";
 import { LogoMark } from "@/components/brand/logo";
 import { eventVisuals } from "@/components/host/event-visuals";
 import { LocaleSwitcher } from "@/components/locale-switcher";
+import { EventTicket } from "@/components/ui/event-ticket";
 import { getEventBySlug } from "@/lib/events/queries";
 import { getUploadState } from "@/lib/events/upload-state";
 import { getGuestSession } from "@/lib/guest/session";
@@ -44,7 +49,11 @@ export default async function GuestPage({
   const event = await getEventBySlug(slug);
   if (!event || event.status === "deleted") notFound();
 
-  const t = await getTranslations("Guest");
+  const [t, te, format] = await Promise.all([
+    getTranslations("Guest"),
+    getTranslations("Events"),
+    getFormatter(),
+  ]);
   const guest = await getGuestSession(event.id);
   const blocked = Boolean(
     guest && event.blockedDeviceIds.includes(guest.deviceId),
@@ -58,7 +67,7 @@ export default async function GuestPage({
   return (
     <div className="relative flex flex-1 flex-col bg-[oklch(0.975_0.012_244)] md:items-center md:justify-center md:px-6 md:py-12">
       <div className="relative flex w-full flex-1 flex-col md:max-w-[440px] md:flex-none md:overflow-hidden md:rounded-[2rem] md:bg-white/40 md:shadow-2xl md:ring-1 md:shadow-primary/10 md:ring-black/5">
-        <header className="relative h-56 shrink-0 overflow-hidden bg-foreground">
+        <header className="relative h-64 shrink-0 overflow-hidden bg-foreground">
           {cover.custom ? (
             // eslint-disable-next-line @next/next/no-img-element -- signed storage URL
             <img
@@ -76,7 +85,7 @@ export default async function GuestPage({
               className="object-cover object-[center_30%]"
             />
           )}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/0 to-black/70" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/0 to-black/25" />
           <div className="relative flex h-full flex-col px-5 pt-4 pb-12">
             <div className="flex items-center justify-between">
               <span className="flex size-10 items-center justify-center rounded-full border border-white/25 bg-white/15 text-white backdrop-blur-md">
@@ -84,16 +93,26 @@ export default async function GuestPage({
               </span>
               <LocaleSwitcher variant="glass" />
             </div>
-            <div className="mt-auto text-white">
-              <h1 className="font-heading text-[2rem] leading-[1.05] font-semibold tracking-[-0.01em] text-balance drop-shadow-sm">
-                {event.name}
-              </h1>
-            </div>
+            <h1 className="sr-only">{event.name}</h1>
           </div>
         </header>
 
         {/* Plain sheet sliding over the cover. */}
         <main className="relative -mt-7 flex-1 rounded-t-[1.75rem] bg-[oklch(0.975_0.012_244)] px-5 pt-6 pb-8">
+          {/* The event as a ticket, half over the cover (DECISIONS #41). */}
+          <div className="relative z-10 -mt-28 mb-7">
+            <EventTicket
+              presenter={publicEnv.appName}
+              event={te(`types.${event.type}`)}
+              name={event.name}
+              footer={format.dateTime(
+                new Date(`${event.eventDate}T12:00:00Z`),
+                { dateStyle: "long", timeZone: "UTC" },
+              )}
+              stub={t("ticketStub")}
+              watermark={event.eventDate.slice(0, 4)}
+            />
+          </div>
           {state === "open" ? (
             <>
               <Uploader

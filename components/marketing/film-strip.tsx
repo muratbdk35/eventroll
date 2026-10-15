@@ -1,9 +1,9 @@
 import Image from "next/image";
 
 /**
- * A strip of 35 mm film across the page: sprocket holes, frame numbers on the
- * edge, guests' photos in the frames. On load the frames develop one after
- * another (pale, then full colour), like prints in a darkroom tray.
+ * A strip of 35 mm film across the page: rounded sprocket holes, guests'
+ * photos in the frames. On load the frames develop one after another (pale,
+ * then full colour), like prints in a darkroom tray. Straight, edge to edge.
  */
 const frames = [
   "arch-night.jpg",
@@ -17,43 +17,46 @@ const frames = [
   "rings.jpg",
 ];
 
+/** One sprocket hole per 24 px, drawn as SVG so the edges stay crisp. */
+const holes = `url("data:image/svg+xml,${encodeURIComponent(
+  '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="12"><rect x="7" y="2" width="10" height="8" rx="2" fill="#f4f7fb"/></svg>',
+)}")`;
+
 function Sprockets() {
   return (
     <div
       aria-hidden
-      className="h-3.5 bg-[repeating-linear-gradient(90deg,transparent_0_9px,oklch(0.96_0.006_245)_9px_19px,transparent_19px_28px)] [mask-image:linear-gradient(transparent_3px,black_3px,black_11px,transparent_11px)]"
+      className="h-3 bg-repeat-x"
+      style={{ backgroundImage: holes, backgroundSize: "24px 12px" }}
     />
   );
 }
 
 export function FilmStrip() {
   return (
-    <div aria-hidden className="relative -mx-2 -rotate-[1.2deg] select-none">
-      <div className="bg-[oklch(0.2_0.02_245)] py-1.5 shadow-[0_30px_60px_-30px_rgb(20_35_60/0.6)]">
-        <Sprockets />
-        <div className="flex gap-2.5 overflow-hidden px-2.5 py-1.5">
-          {frames.map((f, i) => (
-            <div key={f} className="relative shrink-0">
-              <div
-                className="develop relative h-36 w-52 overflow-hidden rounded-[3px] bg-[oklch(0.3_0.02_245)] sm:h-44 sm:w-64"
-                style={{ animationDelay: `${300 + i * 140}ms` }}
-              >
-                <Image
-                  src={`/marketing/${f}`}
-                  alt=""
-                  fill
-                  sizes="260px"
-                  className="object-cover"
-                />
-              </div>
-              <span className="absolute start-1 -bottom-[1.05rem] text-[10px] font-semibold tracking-wide text-[oklch(0.78_0.09_70)] tabular-nums">
-                {14 + i}
-              </span>
-            </div>
-          ))}
-        </div>
-        <Sprockets />
+    <div
+      aria-hidden
+      className="relative bg-[oklch(0.19_0.02_245)] py-2 select-none"
+    >
+      <Sprockets />
+      <div className="flex gap-3 overflow-hidden px-3 py-2">
+        {frames.map((f, i) => (
+          <div
+            key={f}
+            className="develop relative h-36 w-52 shrink-0 overflow-hidden rounded-[2px] bg-[oklch(0.28_0.02_245)] sm:h-44 sm:w-64"
+            style={{ animationDelay: `${300 + i * 140}ms` }}
+          >
+            <Image
+              src={`/marketing/${f}`}
+              alt=""
+              fill
+              sizes="260px"
+              className="object-cover"
+            />
+          </div>
+        ))}
       </div>
+      <Sprockets />
     </div>
   );
 }

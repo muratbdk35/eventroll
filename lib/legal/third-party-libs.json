@@ -36,6 +36,12 @@
     "url": "https://github.com/neondatabase/serverless"
   },
   {
+    "name": "@paper-design/shaders-react",
+    "version": "0.0.81",
+    "license": "Apache-2.0",
+    "url": "https://www.npmjs.com/package/@paper-design/shaders-react"
+  },
+  {
     "name": "@react-email/components",
     "version": "1.0.12",
     "license": "MIT",

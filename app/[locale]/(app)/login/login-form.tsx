@@ -51,6 +51,14 @@ export function LoginForm({
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [captchaKey, setCaptchaKey] = useState(0);
   const [requestId, setRequestId] = useState<string | null>(null);
+  // Google's page can take a few seconds to open: show it is on its way.
+  const [toGoogle, setToGoogle] = useState(false);
+  useEffect(() => {
+    // Back from Google's page: the browser may restore this page as it was.
+    const reset = (e: PageTransitionEvent) => e.persisted && setToGoogle(false);
+    window.addEventListener("pageshow", reset);
+    return () => window.removeEventListener("pageshow", reset);
+  }, []);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -235,12 +243,22 @@ export function LoginForm({
         disabled={!googleEnabled}
         title={googleEnabled ? undefined : "GOOGLE_CLIENT_ID missing"}
         leading={<GoogleIcon />}
-        onClick={() =>
-          authClient.signIn.social({
-            provider: "google",
-            callbackURL: `/${locale}${callbackPath}`,
-          })
-        }
+        isLoading={toGoogle}
+        loadingText={t("toGoogle")}
+        onClick={async () => {
+          setToGoogle(true);
+          const res = await authClient.signIn
+            .social({
+              provider: "google",
+              callbackURL: `/${locale}${callbackPath}`,
+            })
+            .catch(() => null);
+          // On success the browser leaves this page; only failures land here.
+          if (!res || res.error) {
+            setToGoogle(false);
+            setStatus("error");
+          }
+        }}
       >
         {t("google")}
       </HaloButton>

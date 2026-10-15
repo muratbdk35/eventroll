@@ -41,7 +41,8 @@
       "errorTitle": "Link geçersiz",
       "errorBody": "Bu link kullanılmış ya da süresi dolmuş olabilir. Yeni bir link iste.",
       "tryAgain": "Yeni link iste"
-    }
+    },
+    "toGoogle": "Google'a yönlendiriliyor…"
   },
   "Dashboard": {
     "title": "Etkinliklerin",
@@ -107,7 +108,8 @@
       "photoBy": "{name}, {time}",
       "qrTitle": "Fotoğraflarını bizimle paylaş",
       "qrBody": "Okut · Yükle · Bitti",
-      "pin": "PIN 2468"
+      "pin": "PIN 2468",
+      "ticketDate": "14 Haziran 2026"
     },
     "steps": {
       "eyebrow": "Nasıl çalışır",
@@ -233,7 +235,8 @@
       },
       "values": {
         "original": "Orijinal",
-        "days": "{days} gün"
+        "days": "{days} gün",
+        "notIncluded": "Dahil değil"
       }
     },
     "faq": {
@@ -622,7 +625,8 @@
     "remove": "Kaldır",
     "clear": "Temizle",
     "thanksTitle": "Teşekkürler!",
-    "thanksBody": "{count, plural, one {Ev sahiplerine # anı bıraktın.} other {Ev sahiplerine # anı bıraktın.}}"
+    "thanksBody": "{count, plural, one {Ev sahiplerine # anı bıraktın.} other {Ev sahiplerine # anı bıraktın.}}",
+    "ticketStub": "Misafir"
   },
   "App": {
     "events": "Etkinlikler",
@@ -711,7 +715,8 @@
       "publishHint": "Yayınladığında misafir sayfası açılır ve QR kodun hazır olur. Sonrasında da ayarları değiştirebilirsin.",
       "publish": "Etkinliği yayınla",
       "publishing": "Yayınlanıyor…",
-      "publishFailed": "Yayınlanamadı. Tekrar dene."
+      "publishFailed": "Yayınlanamadı. Tekrar dene.",
+      "ticketCaption": "Misafirlerin sayfanın en üstünde bu bileti görür."
     },
     "resume": {
       "titlePlan": "Kurulumu tamamla",

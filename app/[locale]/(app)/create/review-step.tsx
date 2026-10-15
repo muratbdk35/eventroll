@@ -12,10 +12,12 @@ import { useFormatter, useLocale, useTranslations } from "next-intl";
 import { useTransition } from "react";
 import { toast } from "sonner";
 import { HaloButton } from "@/components/halo/halo-button";
+import { EventTicket } from "@/components/ui/event-ticket";
 import { devActivate, publishEvent } from "@/lib/events/actions";
 import { Link, useRouter } from "@/lib/i18n/navigation";
 import type { EVENT_TYPES } from "@/lib/events/schemas";
 import { plans } from "@/lib/plans";
+import { publicEnv } from "@/lib/public-env";
 import { StepFooter, StepHeading } from "./create-flow";
 import { type FlowProps } from "./flow";
 
@@ -60,6 +62,7 @@ export function ReviewStep({ event, devPay }: FlowProps) {
   const te = useTranslations("Events");
   const ts = useTranslations("Events.settings");
   const tp = useTranslations("Landing.pricing");
+  const tg = useTranslations("Guest");
   const format = useFormatter();
   const locale = useLocale();
   const router = useRouter();
@@ -108,6 +111,29 @@ export function ReviewStep({ event, devPay }: FlowProps) {
   return (
     <div>
       <StepHeading title={t("review.title")} subtitle={t("review.subtitle")} />
+
+      {/* The ticket guests see at the top of their page (DECISIONS #41). */}
+      <figure className="mb-7">
+        <EventTicket
+          presenter={publicEnv.appName}
+          event={te(`types.${type}`)}
+          name={ev.name}
+          footer={
+            ev.startsAt
+              ? format.dateTime(new Date(ev.startsAt), { dateStyle: "long" })
+              : ""
+          }
+          stub={tg("ticketStub")}
+          watermark={
+            ev.startsAt
+              ? String(new Date(ev.startsAt).getFullYear())
+              : undefined
+          }
+        />
+        <figcaption className="mt-3 text-center text-sm text-muted-foreground">
+          {t("review.ticketCaption")}
+        </figcaption>
+      </figure>
 
       <div className="space-y-3">
         <Section

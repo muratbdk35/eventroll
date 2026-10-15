@@ -532,3 +532,18 @@ drives the visual choices instead of SaaS defaults.
 - Live status uses a darkroom safelight red (`--live`) instead of green.
 - Print cards get a "Powder blue" palette, now the default.
 - Receipts keep their caps and dots: that is how receipts are printed.
+
+## 41. Event ticket, fuller "no app" tile, straight film strip (owner request, 2026-10-15)
+
+- 21st.dev "Admit One Ticket" (larsen66, MIT; fetched with a daily
+  retrieval, which reset at 00:00 UTC) adapted as `components/ui/event-ticket`:
+  powder-blue dithered texture rendered once (no endless drift), the
+  official `@paper-design/shaders-react` (Apache-2.0) instead of the bundled
+  copy, fluid width, Fraunces name wrapped by length, tilt and glare only
+  with a fine pointer and no reduced motion, no shutter sound.
+- Shown on the guest page (over the cover, replacing the title; the h1 stays
+  for screen readers), on the create flow's review step ("your guests see
+  this ticket") and in the landing phone mock.
+- The landing "no app" tile now shows the flow: camera viewfinder on a table
+  card, the photo picker, and "12 photos uploaded" on wide screens.
+- The hero film strip is straight, with SVG sprocket holes.

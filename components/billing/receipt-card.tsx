@@ -24,8 +24,11 @@ export type ReceiptCardProps = {
   merchantLine: string;
   name: string;
   tagline: string;
-  /** label ........ value; "✓" and "✗" get their own colours. */
-  rows: [string, string][];
+  /**
+   * label ........ value; "✓" gets the accent. A third `true` marks a feature
+   * the plan lacks: the whole line is struck through, as if by pen.
+   */
+  rows: [string, string, boolean?][];
   billingLabel: string;
   billingValue: string;
   totalLabel: string;
@@ -89,8 +92,14 @@ export function ReceiptCard({
       <p className="mt-1 text-[11px] text-[oklch(0.52_0.02_241)]">{tagline}</p>
       <Rule />
       <ul className="space-y-1.5">
-        {rows.map(([label, value]) => (
-          <li key={label} className="flex items-baseline gap-2">
+        {rows.map(([label, value, out]) => (
+          <li
+            key={label}
+            className={cn(
+              "relative flex items-baseline gap-2",
+              out && "text-[oklch(0.55_0.02_241)]",
+            )}
+          >
             <span className="min-w-0 shrink">{label}</span>
             <span
               aria-hidden
@@ -100,11 +109,17 @@ export function ReceiptCard({
               className={cn(
                 "shrink-0 font-bold",
                 value === "✓" && "text-primary",
-                value === "✗" && "font-normal text-[oklch(0.7_0.02_241)]",
+                out && "font-semibold",
               )}
             >
               {value}
             </span>
+            {out && (
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-x-[-3px] top-1/2 h-[1.5px] -translate-y-1/2 -rotate-[0.6deg] rounded-full bg-[oklch(0.3_0.03_245)]"
+              />
+            )}
           </li>
         ))}
       </ul>

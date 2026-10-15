@@ -2,10 +2,11 @@ import { Check, Send, UserRound } from "lucide-react";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { LogoMark } from "@/components/brand/logo";
+import { EventTicket } from "@/components/ui/event-ticket";
 import { MockAddMore, MockThumb } from "./mock";
 
-// The guest page (DECISIONS #26) at real iPhone proportions: cover, name pill,
-// pile of prints with the shutter, the tray and the frosted send bar.
+// The guest page at real iPhone proportions (DECISIONS #22, #41): cover with
+// the event ticket over it, name field, "add more", the tray and the send bar.
 
 function StatusBar() {
   return (
@@ -46,9 +47,10 @@ function StatusBar() {
 }
 
 export async function PhoneGallery() {
-  const [t, tg] = await Promise.all([
+  const [t, tg, te] = await Promise.all([
     getTranslations("Landing.demo"),
     getTranslations("Guest"),
+    getTranslations("Events"),
   ]);
   return (
     <div
@@ -65,7 +67,7 @@ export async function PhoneGallery() {
         <StatusBar />
 
         {/* Cover, as on the real guest page */}
-        <div className="relative h-[29%] shrink-0">
+        <div className="relative h-[24%] shrink-0">
           <Image
             src="/marketing/couple-ribbons.jpg"
             alt=""
@@ -74,19 +76,25 @@ export async function PhoneGallery() {
             sizes="272px"
             className="object-cover object-[center_30%]"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/0 to-black/70" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/0 to-black/25" />
           <span className="absolute start-4 top-11 flex size-7 items-center justify-center rounded-full border border-white/25 bg-white/15 text-white backdrop-blur-md">
             <LogoMark className="size-4" />
           </span>
-          <div className="absolute inset-x-4 bottom-6 text-white">
-            <p className="font-heading text-[21px] leading-tight font-semibold">
-              {t("eventName")}
-            </p>
-          </div>
         </div>
 
         {/* Sheet over the cover */}
         <div className="relative -mt-4 flex flex-1 flex-col rounded-t-[1.5rem] bg-[oklch(0.975_0.012_244)] px-3.5 pt-3">
+          <div className="relative z-10 -mt-[3.4rem] mb-3">
+            <EventTicket
+              presenter="EventRoll"
+              event={te("types.wedding")}
+              name={t("eventName")}
+              footer={t("ticketDate")}
+              stub={tg("ticketStub")}
+              watermark="2026"
+              maxWidth={240}
+            />
+          </div>
           <div className="flex h-8 items-center gap-1.5 rounded-xl border border-[color-mix(in_oklch,var(--border)_70%,oklch(0.86_0.039_242))] bg-white/90 px-3 text-[10px] text-muted-foreground shadow-[0_6px_14px_-10px_rgba(74,112,160,0.4)]">
             <UserRound className="size-3 text-primary" />
             {tg("yourNameOptional")}

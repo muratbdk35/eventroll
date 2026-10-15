@@ -39,7 +39,7 @@ export function receiptContent(
       maximumFractionDigits: digits,
     });
   const featured = id === FEATURED_PLAN;
-  const rows: [string, string][] = [
+  const rows: [string, string, boolean?][] = [
     [t("rows.photos"), number(p.maxItems)],
     [t("rows.storage"), `${p.maxBytes / 1024 ** 3} GB`],
     [t("rows.quality"), t("values.original")],
@@ -47,14 +47,16 @@ export function receiptContent(
     [t("rows.qr"), "✓"],
     [t("rows.pin"), "✓"],
     [t("rows.uploadRules"), "✓"],
-    [t("rows.templates"), p.printTemplates ? "✓" : "✗"],
+    p.printTemplates
+      ? [t("rows.templates"), "✓"]
+      : [t("rows.templates"), t("values.notIncluded"), true],
   ];
   return {
     merchant: upper(appName),
     merchantLine: t("merchantLine"),
     name: upper(t(`plans.${id}.name`)),
     tagline: t(`plans.${id}.tagline`),
-    rows: rows.map(([l, v]) => [upper(l), upper(v)]),
+    rows: rows.map(([l, v, out]) => [upper(l), upper(v), out]),
     billingLabel: t("billing"),
     billingValue: t("oneTime"),
     totalLabel: t("total"),

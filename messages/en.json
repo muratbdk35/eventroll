@@ -38,7 +38,8 @@
       "errorTitle": "Invalid link",
       "errorBody": "This link may have been used already or expired. Ask for a new one.",
       "tryAgain": "Get a new link"
-    }
+    },
+    "toGoogle": "Opening Google…"
   },
   "Dashboard": {
     "title": "Your events",
@@ -104,7 +105,8 @@
       "photoBy": "by {name}, {time}",
       "qrTitle": "Share your photos with us",
       "qrBody": "Scan · Upload · Done",
-      "pin": "PIN 2468"
+      "pin": "PIN 2468",
+      "ticketDate": "14 June 2026"
     },
     "steps": {
       "eyebrow": "How it works",
@@ -230,7 +232,8 @@
       },
       "values": {
         "original": "Original",
-        "days": "{days} days"
+        "days": "{days} days",
+        "notIncluded": "Not included"
       }
     },
     "faq": {
@@ -619,7 +622,8 @@
     "remove": "Remove",
     "clear": "Clear",
     "thanksTitle": "Thank you!",
-    "thanksBody": "{count, plural, one {You left # memory for the hosts.} other {You left # memories for the hosts.}}"
+    "thanksBody": "{count, plural, one {You left # memory for the hosts.} other {You left # memories for the hosts.}}",
+    "ticketStub": "Guest"
   },
   "App": {
     "events": "Events",
@@ -708,7 +712,8 @@
       "publishHint": "Publishing opens the guest page and gets your QR code ready. You can still change settings afterwards.",
       "publish": "Publish event",
       "publishing": "Publishing…",
-      "publishFailed": "Couldn't publish. Please try again."
+      "publishFailed": "Couldn't publish. Please try again.",
+      "ticketCaption": "Your guests see this ticket at the top of their page."
     },
     "resume": {
       "titlePlan": "Finish setting up",
