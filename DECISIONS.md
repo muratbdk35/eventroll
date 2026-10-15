@@ -547,3 +547,55 @@ drives the visual choices instead of SaaS defaults.
 - The landing "no app" tile now shows the flow: camera viewfinder on a table
   card, the photo picker, and "12 photos uploaded" on wide screens.
 - The hero film strip is straight, with SVG sprocket holes.
+
+## 42. The guest ticket for everyone, its styles for Premium (owner request, 2026-10-15)
+
+- Every guest page opens with the event ticket on a plain ground; the cover
+  photo behind it looked muddy and is gone. Default style: powder blue,
+  plain pattern (`lib/events/ticket.ts`).
+- Premium lets the host choose the ticket's colour (powder, midnight, sage,
+  blush, terracotta, sand) and pattern (plain, dots, waves, swirl) in the
+  event settings, with a live preview (`components/host/ticket-settings`).
+  Standard can try them in the preview (see #44). `updateTicket` checks the plan on the
+  server; the guest page ignores stored styles when the plan lacks
+  `ticketStyles`. New nullable columns `events.ticket_color/pattern`
+  (migration 0004, additive).
+- The review step shows the same ticket picker (see #44).
+  Receipts list "Ticket colours and patterns" (✓ / struck out).
+- Premium receipt stands out: faint blue paper, the plan name in reverse
+  print, and a small "Ticket styles" ticket stapled to its corner
+  (`components/billing/mini-ticket.tsx`, CSS only).
+- Ticket texture calmer: close halftone, light ink, no year watermark.
+- Date fields: the visible day is formatted from the value's own date. With
+  no app time zone, next-intl formatted in UTC and showed 00:00 on the 17th
+  as the 16th in Istanbul. Upload times in the photo grid and the review
+  ticket now use the browser's time zone.
+
+## 43. Dashboard events as folders (2026-10-15)
+
+- Each event on the dashboard is a folder (`components/host/event-folder`),
+  adapted from Glassmorphism Folder Cards (Kedhareswer Naidu, MIT, via
+  21st.dev): powder-blue back, the three newest photos as prints in the
+  pocket, a paper front with status, name, date and photo count. Empty
+  events hold blank sheets.
+- Paper instead of frosted glass, no generated canvas art, no menu or
+  open state (the whole folder links to the event). Pure CSS in
+  `globals.css` (`.ef-*`), sized with container query units, so it renders
+  on the server. Hover/focus leans the front and lifts the prints; on touch
+  the prints already peek out. Reduced motion turns the transitions off.
+- CSS modules don't work here: the Turbopack rule in `next.config.ts` runs
+  every `*.css` through the Tailwind loader as plain CSS.
+- The landing page keeps `EventCard`.
+
+## 44. Show Premium before the payment (owner request, 2026-10-15)
+
+Hosts on Standard never saw what Premium adds. Now they can touch it:
+
+- Ticket styles: every swatch and pattern works in the preview for
+  Standard too; nothing is saved, and the note reads "Preview only". In dev
+  (no Stripe) a "Switch to Premium" button upgrades and saves the chosen
+  style. The picker is also in the create flow's review step, so every host
+  meets it before publishing.
+- QR templates: the Standard preview is no longer blurred. The real
+  template shows under a faint diagonal "PREMIUM" watermark, with the offer
+  over its lower half; printing stays Premium-only.

@@ -231,12 +231,17 @@
         "qr": "QR kod ve link",
         "pin": "PIN koruması",
         "uploadRules": "Yükleme saati ve limit",
-        "templates": "Baskı şablonları"
+        "templates": "Baskı şablonları",
+        "ticket": "Bilet renk ve desenleri"
       },
       "values": {
         "original": "Orijinal",
         "days": "{days} gün",
         "notIncluded": "Dahil değil"
+      },
+      "ticketTag": {
+        "title": "Bilet stilleri",
+        "sub": "Misafir biletine renk ve desen"
       }
     },
     "faq": {
@@ -558,6 +563,32 @@
       "cancelled": "İndirme iptal edildi.",
       "shared": "{count} fotoğraf paylaşıldı.",
       "nothing": "İndirilecek fotoğraf yok."
+    },
+    "ticket": {
+      "title": "Misafir bileti",
+      "hint": "Misafirlerinin sayfası bu biletle açılır.",
+      "color": "Renk",
+      "pattern": "Desen",
+      "saved": "Bilet kaydedildi.",
+      "failed": "Kaydedilemedi. Tekrar dene.",
+      "colors": {
+        "powder": "Toz mavi",
+        "midnight": "Gece mavisi",
+        "sage": "Adaçayı",
+        "blush": "Gül kurusu",
+        "terracotta": "Kiremit",
+        "sand": "Kum"
+      },
+      "patterns": {
+        "plain": "Sade",
+        "dots": "Nokta",
+        "wave": "Dalga",
+        "swirl": "Girdap"
+      },
+      "tryHint": "Dene: bir renge ya da desene dokun, bilet değişsin. Kalıcı yapmak Premium'da.",
+      "preview": "Sadece önizleme. Misafirlerin hâlâ toz maviyi görüyor.",
+      "upgrade": "Premium'a geç",
+      "upgraded": "Premium açıldı. Biletin kaydedildi."
     }
   },
   "Guest": {
@@ -715,8 +746,7 @@
       "publishHint": "Yayınladığında misafir sayfası açılır ve QR kodun hazır olur. Sonrasında da ayarları değiştirebilirsin.",
       "publish": "Etkinliği yayınla",
       "publishing": "Yayınlanıyor…",
-      "publishFailed": "Yayınlanamadı. Tekrar dene.",
-      "ticketCaption": "Misafirlerin sayfanın en üstünde bu bileti görür."
+      "publishFailed": "Yayınlanamadı. Tekrar dene."
     },
     "resume": {
       "titlePlan": "Kurulumu tamamla",

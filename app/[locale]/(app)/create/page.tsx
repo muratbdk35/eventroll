@@ -9,6 +9,7 @@ import type { Locale } from "@/lib/i18n/routing";
 import { planOrder, type PlanId } from "@/lib/plans";
 import { CreateFlow } from "./create-flow";
 import { type FlowStep, STEPS } from "./flow";
+import { ticketStyle } from "@/lib/events/ticket";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("Create");
@@ -85,6 +86,11 @@ export default async function CreatePage({
                   uploadClosesAt: event.uploadClosesAt?.toISOString() ?? null,
                   maxUploadsPerDevice: event.maxUploadsPerDevice,
                   plan: event.plan,
+                  ticket: ticketStyle({
+                    ticketColor: event.ticketColor,
+                    ticketPattern: event.ticketPattern,
+                    allowed: true,
+                  }),
                 }
               : null
           }

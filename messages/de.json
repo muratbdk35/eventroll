@@ -231,12 +231,17 @@
         "qr": "QR-Code & Link",
         "pin": "PIN-Schutz",
         "uploadRules": "Upload-Zeiten & Limits",
-        "templates": "Druckvorlagen"
+        "templates": "Druckvorlagen",
+        "ticket": "Ticket-Farben und -Muster"
       },
       "values": {
         "original": "Original",
         "days": "{days} Tage",
         "notIncluded": "Nicht dabei"
+      },
+      "ticketTag": {
+        "title": "Ticket-Stile",
+        "sub": "Farben und Muster fürs Gäste-Ticket"
       }
     },
     "faq": {
@@ -558,6 +563,32 @@
       "cancelled": "Download abgebrochen.",
       "shared": "{count, plural, one {# Foto} other {# Fotos}} geteilt.",
       "nothing": "Keine Fotos zum Herunterladen."
+    },
+    "ticket": {
+      "title": "Gäste-Ticket",
+      "hint": "Die Seite deiner Gäste öffnet sich mit diesem Ticket.",
+      "color": "Farbe",
+      "pattern": "Muster",
+      "saved": "Ticket gespeichert.",
+      "failed": "Speichern fehlgeschlagen. Versuch es erneut.",
+      "colors": {
+        "powder": "Puderblau",
+        "midnight": "Mitternacht",
+        "sage": "Salbei",
+        "blush": "Altrosa",
+        "terracotta": "Terrakotta",
+        "sand": "Sand"
+      },
+      "patterns": {
+        "plain": "Schlicht",
+        "dots": "Punkte",
+        "wave": "Wellen",
+        "swirl": "Wirbel"
+      },
+      "tryHint": "Probier es aus: Tipp auf eine Farbe oder ein Muster, und das Ticket ändert sich. Behalten kannst du es mit Premium.",
+      "preview": "Nur Vorschau. Deine Gäste sehen weiter Puderblau.",
+      "upgrade": "Zu Premium wechseln",
+      "upgraded": "Premium ist aktiv. Dein Ticket ist gespeichert."
     }
   },
   "Guest": {
@@ -715,8 +746,7 @@
       "publishHint": "Beim Veröffentlichen öffnet sich die Gästeseite und dein QR-Code ist bereit. Einstellungen kannst du auch danach ändern.",
       "publish": "Event veröffentlichen",
       "publishing": "Wird veröffentlicht…",
-      "publishFailed": "Veröffentlichen fehlgeschlagen. Bitte erneut versuchen.",
-      "ticketCaption": "Dieses Ticket sehen deine Gäste oben auf ihrer Seite."
+      "publishFailed": "Veröffentlichen fehlgeschlagen. Bitte erneut versuchen."
     },
     "resume": {
       "titlePlan": "Einrichtung abschließen",

@@ -61,11 +61,15 @@ export function DateTimeField({
             <CalendarDays className="size-4" aria-hidden />
           </span>
           <span className="min-w-0 flex-1 truncate text-[15px] font-medium">
-            {date
-              ? format.dateTime(date, {
+            {value
+              ? // Format the calendar day of the value itself. Formatting the
+                // local Date would apply the app's time zone (UTC) and show
+                // 00:00 on the 17th as the 16th in Istanbul.
+                format.dateTime(new Date(`${value.slice(0, 10)}T12:00:00Z`), {
                   weekday: "short",
                   day: "numeric",
                   month: "short",
+                  timeZone: "UTC",
                 })
               : "—"}
           </span>

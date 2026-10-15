@@ -321,6 +321,11 @@ function Sheet({
   );
 }
 
+/** Diagonal "PREMIUM" over the unpaid preview, so a screenshot isn't a print. */
+const WATERMARK = `url("data:image/svg+xml,${encodeURIComponent(
+  '<svg xmlns="http://www.w3.org/2000/svg" width="180" height="120"><text x="90" y="64" text-anchor="middle" transform="rotate(-28 90 60)" font-family="system-ui,sans-serif" font-size="15" font-weight="700" letter-spacing="3" fill="rgb(69 112 148 / 0.22)">PREMIUM</text></svg>',
+)}")`;
+
 export function PrintTemplates({
   eventId,
   eventName,
@@ -523,14 +528,23 @@ export function PrintTemplates({
         <div
           className={cn(
             "[zoom:0.4] overflow-hidden rounded-md shadow-[0_30px_60px_-30px_rgb(60_30_10/0.5)] ring-1 ring-black/10 sm:[zoom:0.5]",
-            !premium && "pointer-events-none blur-[3px] select-none",
+            !premium && "pointer-events-none select-none",
           )}
           aria-hidden
         >
           {sheet}
         </div>
         {!premium && (
-          <div className="absolute inset-0 flex items-center justify-center p-4">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0"
+            style={{ backgroundImage: WATERMARK }}
+          />
+        )}
+        {/* Standard sees the real template, unblurred, with the offer over
+            its lower half: the design sells itself (#44). */}
+        {!premium && (
+          <div className="absolute inset-x-0 bottom-0 flex justify-center p-4">
             <div className="max-w-xs rounded-3xl border border-white/70 bg-card/90 p-5 text-center shadow-2xl backdrop-blur-md">
               <span className="mx-auto flex size-11 items-center justify-center rounded-full bg-accent text-primary">
                 <Lock className="size-5" aria-hidden />

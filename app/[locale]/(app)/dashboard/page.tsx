@@ -5,7 +5,7 @@ import {
   getTranslations,
   setRequestLocale,
 } from "next-intl/server";
-import { EventCard } from "@/components/host/event-card";
+import { EventFolder } from "@/components/host/event-folder";
 import { PageBody } from "@/components/host/page-header";
 import { PhotoStack } from "@/components/host/photo-stack";
 import { Button } from "@/components/ui/button";
@@ -77,13 +77,12 @@ export default async function DashboardPage({
           </Button>
         </div>
       ) : (
-        <ul className="mt-6 grid gap-3 sm:mt-8 sm:grid-cols-2 sm:gap-5">
+        <ul className="mt-6 grid gap-5 sm:mt-8 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-8 lg:grid-cols-3">
           {events.map((e, i) => (
             <li key={e.id}>
-              <EventCard
+              <EventFolder
                 href={`/dashboard/events/${e.id}`}
                 name={e.name}
-                type={e.type}
                 status={e.status}
                 statusLabel={te(`status.${e.status}`)}
                 meta={`${date(e.eventDate)}, ${te("photoCount", { count: e.mediaCount })}`}
@@ -94,7 +93,7 @@ export default async function DashboardPage({
           <li>
             <Link
               href="/create"
-              className="group flex h-full items-center gap-4 rounded-[1.75rem] border-2 border-dashed border-primary/20 p-4 transition-all duration-300 ease-out hover:border-primary/40 hover:bg-card/60 active:scale-[0.99] sm:min-h-56 sm:flex-col sm:justify-center sm:gap-3 sm:p-6 sm:text-center"
+              className="group flex h-full items-center gap-4 rounded-[1.75rem] border-2 border-dashed border-primary/20 p-4 transition-all duration-300 ease-out hover:border-primary/40 hover:bg-card/60 active:scale-[0.99] sm:aspect-[340/312] sm:h-auto sm:flex-col sm:justify-center sm:gap-3 sm:p-6 sm:text-center"
             >
               <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/25 transition-transform duration-300 ease-out group-hover:scale-110 group-active:scale-95 sm:size-14">
                 <Plus className="size-6" aria-hidden />

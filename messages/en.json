@@ -228,12 +228,17 @@
         "qr": "QR code & link",
         "pin": "PIN protection",
         "uploadRules": "Upload hours & limits",
-        "templates": "Print templates"
+        "templates": "Print templates",
+        "ticket": "Ticket colours and patterns"
       },
       "values": {
         "original": "Original",
         "days": "{days} days",
         "notIncluded": "Not included"
+      },
+      "ticketTag": {
+        "title": "Ticket styles",
+        "sub": "Colours and patterns for the guest ticket"
       }
     },
     "faq": {
@@ -555,6 +560,32 @@
       "cancelled": "Download cancelled.",
       "shared": "{count, plural, one {# photo} other {# photos}} shared.",
       "nothing": "No photos to download."
+    },
+    "ticket": {
+      "title": "Guest ticket",
+      "hint": "Your guests' page opens with this ticket.",
+      "color": "Colour",
+      "pattern": "Pattern",
+      "saved": "Ticket saved.",
+      "failed": "Could not save. Try again.",
+      "colors": {
+        "powder": "Powder blue",
+        "midnight": "Midnight",
+        "sage": "Sage",
+        "blush": "Blush",
+        "terracotta": "Terracotta",
+        "sand": "Sand"
+      },
+      "patterns": {
+        "plain": "Plain",
+        "dots": "Dots",
+        "wave": "Waves",
+        "swirl": "Swirl"
+      },
+      "tryHint": "Try them: tap a colour or pattern and the ticket changes. Keeping it is part of Premium.",
+      "preview": "Preview only. Your guests still see powder blue.",
+      "upgrade": "Switch to Premium",
+      "upgraded": "Premium is on. Your ticket is saved."
     }
   },
   "Guest": {
@@ -712,8 +743,7 @@
       "publishHint": "Publishing opens the guest page and gets your QR code ready. You can still change settings afterwards.",
       "publish": "Publish event",
       "publishing": "Publishing…",
-      "publishFailed": "Couldn't publish. Please try again.",
-      "ticketCaption": "Your guests see this ticket at the top of their page."
+      "publishFailed": "Couldn't publish. Please try again."
     },
     "resume": {
       "titlePlan": "Finish setting up",

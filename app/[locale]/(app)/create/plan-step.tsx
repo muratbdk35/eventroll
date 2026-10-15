@@ -6,10 +6,11 @@ import {
   ReceiptCard,
   receiptCtaClass,
 } from "@/components/billing/receipt-card";
+import { MiniTicket } from "@/components/billing/mini-ticket";
 import { receiptContent } from "@/components/billing/receipt-content";
 import { HaloButton } from "@/components/halo/halo-button";
 import { Link } from "@/lib/i18n/navigation";
-import { planOrder } from "@/lib/plans";
+import { planOrder, plans } from "@/lib/plans";
 import { publicEnv } from "@/lib/public-env";
 import { cn } from "@/lib/utils";
 import { StepFooter, StepHeading } from "./create-flow";
@@ -67,6 +68,14 @@ export function PlanStep({ plan, event }: FlowProps) {
                 <ReceiptCard
                   {...content}
                   selected={chosen}
+                  attachment={
+                    plans[id].ticketStyles ? (
+                      <MiniTicket
+                        title={tp("ticketTag.title")}
+                        sub={tp("ticketTag.sub")}
+                      />
+                    ) : undefined
+                  }
                   cta={
                     <Link
                       href={flowHref("account", {

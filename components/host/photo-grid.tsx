@@ -145,10 +145,15 @@ export function PhotoGrid({
   }
 
   const who = (p: GridPhoto) => p.uploaderName || t("anonymous");
+  // The app has no fixed time zone (the server runs on UTC), so upload
+  // times switch to the host's own zone once the page is live in the browser.
   const when = (p: GridPhoto) =>
     format.dateTime(new Date(p.createdAt), {
       dateStyle: "medium",
       timeStyle: "short",
+      timeZone: mounted
+        ? Intl.DateTimeFormat().resolvedOptions().timeZone
+        : undefined,
     });
 
   const viewer = (

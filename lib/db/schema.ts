@@ -107,6 +107,10 @@ export const events = pgTable(
       .notNull()
       .default(sql`'{}'::text[]`),
     coverKey: text(),
+    // Ticket on the guest page: colour and pattern ids (lib/events/ticket.ts).
+    // Null = the default; choosing is a Premium option (DECISIONS #42).
+    ticketColor: text(),
+    ticketPattern: text(),
     storageBytes: bigint({ mode: "number" }).notNull().default(0),
     mediaCount: integer().notNull().default(0),
     createdAt: createdAt(),

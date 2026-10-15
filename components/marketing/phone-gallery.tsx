@@ -91,7 +91,6 @@ export async function PhoneGallery() {
               name={t("eventName")}
               footer={t("ticketDate")}
               stub={tg("ticketStub")}
-              watermark="2026"
               maxWidth={240}
             />
           </div>

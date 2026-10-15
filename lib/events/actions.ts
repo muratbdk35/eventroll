@@ -7,7 +7,7 @@ import { getSession } from "@/lib/auth";
 import { db, schema } from "@/lib/db";
 import { env, isProduction } from "@/lib/env";
 import { hashPin } from "@/lib/guest/session";
-import { computeExpiresAtFromEnd, type PlanId } from "@/lib/plans";
+import { computeExpiresAtFromEnd, plans, type PlanId } from "@/lib/plans";
 import { deleteObjects } from "@/lib/storage";
 import { getOwnedEvent } from "./queries";
 import {
@@ -17,6 +17,7 @@ import {
   type SettingsInput,
 } from "./schemas";
 import { generateSlug } from "./slug";
+import { isTicketColor, isTicketPattern } from "./ticket";
 
 const { events, media } = schema;
 
@@ -119,6 +120,30 @@ export async function updateSettings(
     })
     .where(eq(events.id, event.id));
   revalidatePath("/[locale]/dashboard", "layout");
+  return { ok: true };
+}
+
+/** The guest ticket's colour and pattern: a Premium option (DECISIONS #42). */
+export async function updateTicket(
+  eventId: string,
+  input: { color: string; pattern: string },
+): Promise<ActionResult> {
+  const user = await requireUser();
+  if (!user) return { ok: false, error: "unauthorized" };
+  if (!isTicketColor(input.color) || !isTicketPattern(input.pattern)) {
+    return { ok: false, error: "invalid" };
+  }
+  const event = await getOwnedEvent(eventId, user.id);
+  if (!event) return { ok: false, error: "not_found" };
+  if (!event.plan || !plans[event.plan].ticketStyles) {
+    return { ok: false, error: "needs_plan" };
+  }
+  await db
+    .update(events)
+    .set({ ticketColor: input.color, ticketPattern: input.pattern })
+    .where(eq(events.id, event.id));
+  revalidatePath("/[locale]/dashboard", "layout");
+  revalidatePath(`/[locale]/e/${event.slug}`, "page");
   return { ok: true };
 }
 

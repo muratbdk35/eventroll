@@ -32,6 +32,14 @@ export const adaptedComponents: Notice[] = [
       "Event ticket on the guest page and the review step. Modified: powder-blue palette, still texture, fluid width, our fonts.",
   },
   {
+    name: "Glassmorphism Folder Cards",
+    author: "Kedhareswer Naidu",
+    license: "MIT",
+    url: "https://21st.dev/community/components/kedhareswer/glassmorphism-folder-cards",
+    usedFor:
+      "Event folders on the dashboard. Modified: paper and powder blue instead of glass, the event's photos as the files, no generated art or menu, CSS only.",
+  },
+  {
     name: "Questionnaire (uiable)",
     author: "CodedThemes",
     license: "MIT",

@@ -41,6 +41,8 @@ export type ReceiptCardProps = {
   /** Extra emphasis when used as a selectable option. */
   selected?: boolean;
   cta: React.ReactNode;
+  /** Something stapled to the top of the receipt (Premium's ticket). */
+  attachment?: React.ReactNode;
   className?: string;
 };
 
@@ -60,99 +62,119 @@ export function ReceiptCard({
   featured = false,
   selected = false,
   cta,
+  attachment,
   className,
 }: ReceiptCardProps) {
   return (
-    <div
-      className={cn(
-        "relative bg-[#fbfcfe] px-6 pt-8 pb-8 font-mono text-[12.5px] leading-relaxed text-[oklch(0.23_0.02_240)] transition-transform duration-300 hover:-translate-y-1",
-        TORN_EDGE,
-        featured
-          ? "shadow-[0_40px_80px_-30px_rgb(40_10_0/0.7)] md:scale-[1.06] md:rotate-[1deg]"
-          : "shadow-[0_30px_60px_-30px_rgb(40_10_0/0.6)] md:-rotate-1",
-        selected && "-translate-y-1",
-        className,
+    <div className="relative">
+      {attachment && (
+        <div className="absolute -end-3 -top-16 z-10 sm:-end-12">
+          {attachment}
+        </div>
       )}
-    >
-      <p className="text-center text-[13.5px] font-bold tracking-[0.1em]">
-        {merchant}
-      </p>
-      <p className="mt-1 text-center text-[10.5px] tracking-[0.06em] text-[oklch(0.52_0.02_241)]">
-        {merchantLine}
-      </p>
-      <Rule />
-      <div className="flex items-center justify-between gap-3">
-        <h3 className="font-bold tracking-[0.08em]">{name}</h3>
-        {stamp && (
-          <span className="-rotate-6 rounded border-2 border-primary px-2 py-0.5 text-[10.5px] font-bold tracking-[0.14em] whitespace-nowrap text-primary">
-            {stamp}
-          </span>
+      <div
+        className={cn(
+          "relative px-6 pt-8 pb-8 font-mono text-[12.5px] leading-relaxed text-[oklch(0.23_0.02_240)] transition-transform duration-300 hover:-translate-y-1",
+          TORN_EDGE,
+          // Premium is printed on a faintly blue paper.
+          featured ? "bg-[#f1f6fc]" : "bg-[#fbfcfe]",
+          featured
+            ? "shadow-[0_40px_80px_-30px_rgb(40_10_0/0.7)] md:scale-[1.06] md:rotate-[1deg]"
+            : "shadow-[0_30px_60px_-30px_rgb(40_10_0/0.6)] md:-rotate-1",
+          selected && "-translate-y-1",
+          className,
         )}
-      </div>
-      <p className="mt-1 text-[11px] text-[oklch(0.52_0.02_241)]">{tagline}</p>
-      <Rule />
-      <ul className="space-y-1.5">
-        {rows.map(([label, value, out]) => (
-          <li
-            key={label}
+      >
+        <p className="text-center text-[13.5px] font-bold tracking-[0.1em]">
+          {merchant}
+        </p>
+        <p className="mt-1 text-center text-[10.5px] tracking-[0.06em] text-[oklch(0.52_0.02_241)]">
+          {merchantLine}
+        </p>
+        <Rule />
+        <div className="flex items-center justify-between gap-3">
+          <h3
             className={cn(
-              "relative flex items-baseline gap-2",
-              out && "text-[oklch(0.55_0.02_241)]",
+              "font-bold tracking-[0.08em]",
+              // Receipts emphasise with reverse print.
+              featured && "-ms-1 bg-primary px-1.5 py-0.5 text-white",
             )}
           >
-            <span className="min-w-0 shrink">{label}</span>
-            <span
-              aria-hidden
-              className="mb-1 min-w-3 flex-1 border-b border-dotted border-border"
-            />
-            <span
+            {name}
+          </h3>
+          {stamp && (
+            <span className="-rotate-6 rounded border-2 border-primary px-2 py-0.5 text-[10.5px] font-bold tracking-[0.14em] whitespace-nowrap text-primary">
+              {stamp}
+            </span>
+          )}
+        </div>
+        <p className="mt-1 text-[11px] text-[oklch(0.52_0.02_241)]">
+          {tagline}
+        </p>
+        <Rule />
+        <ul className="space-y-1.5">
+          {rows.map(([label, value, out]) => (
+            <li
+              key={label}
               className={cn(
-                "shrink-0 font-bold",
-                value === "✓" && "text-primary",
-                out && "font-semibold",
+                "relative flex items-baseline gap-2",
+                out && "text-[oklch(0.55_0.02_241)]",
               )}
             >
-              {value}
-            </span>
-            {out && (
+              <span className="min-w-0 shrink">{label}</span>
               <span
                 aria-hidden
-                className="pointer-events-none absolute inset-x-[-3px] top-1/2 h-[1.5px] -translate-y-1/2 -rotate-[0.6deg] rounded-full bg-[oklch(0.3_0.03_245)]"
+                className="mb-1 min-w-3 flex-1 border-b border-dotted border-border"
               />
+              <span
+                className={cn(
+                  "shrink-0 font-bold",
+                  value === "✓" && "text-primary",
+                  out && "font-semibold",
+                )}
+              >
+                {value}
+              </span>
+              {out && (
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute inset-x-[-3px] top-1/2 h-[1.5px] -translate-y-1/2 -rotate-[0.6deg] rounded-full bg-[oklch(0.3_0.03_245)]"
+                />
+              )}
+            </li>
+          ))}
+        </ul>
+        <Rule />
+        <div className="flex items-baseline justify-between text-[11.5px] text-[oklch(0.52_0.02_241)]">
+          <span>{billingLabel}</span>
+          <span>{billingValue}</span>
+        </div>
+        <div className="mt-1 flex items-baseline justify-between">
+          <span className="text-lg font-bold">{totalLabel}</span>
+          <span
+            className={cn(
+              "font-heading text-5xl font-extrabold tracking-tight",
+              featured && "text-primary",
             )}
-          </li>
-        ))}
-      </ul>
-      <Rule />
-      <div className="flex items-baseline justify-between text-[11.5px] text-[oklch(0.52_0.02_241)]">
-        <span>{billingLabel}</span>
-        <span>{billingValue}</span>
-      </div>
-      <div className="mt-1 flex items-baseline justify-between">
-        <span className="text-lg font-bold">{totalLabel}</span>
-        <span
-          className={cn(
-            "font-heading text-5xl font-extrabold tracking-tight",
-            featured && "text-primary",
-          )}
-        >
-          {total}
-        </span>
-      </div>
-      {perGuest && (
-        <p className="mt-1 text-end text-[11px] text-[oklch(0.52_0.02_241)]">
-          {perGuest}
+          >
+            {total}
+          </span>
+        </div>
+        {perGuest && (
+          <p className="mt-1 text-end text-[11px] text-[oklch(0.52_0.02_241)]">
+            {perGuest}
+          </p>
+        )}
+        <Rule />
+        {cta}
+        <div
+          aria-hidden
+          className="mx-auto mt-5 h-9 w-4/5 [background-image:repeating-linear-gradient(90deg,currentColor_0,currentColor_2px,transparent_2px,transparent_5px,currentColor_5px,currentColor_6px,transparent_6px,transparent_9px)] opacity-70"
+        />
+        <p className="mt-2 text-center text-[10px] tracking-[0.2em] text-[oklch(0.52_0.02_241)]">
+          {thanks}
         </p>
-      )}
-      <Rule />
-      {cta}
-      <div
-        aria-hidden
-        className="mx-auto mt-5 h-9 w-4/5 [background-image:repeating-linear-gradient(90deg,currentColor_0,currentColor_2px,transparent_2px,transparent_5px,currentColor_5px,currentColor_6px,transparent_6px,transparent_9px)] opacity-70"
-      />
-      <p className="mt-2 text-center text-[10px] tracking-[0.2em] text-[oklch(0.52_0.02_241)]">
-        {thanks}
-      </p>
+      </div>
     </div>
   );
 }

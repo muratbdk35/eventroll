@@ -3,7 +3,8 @@ MIT License
 Applies to the MIT-licensed components and libraries listed on our
 third-party notices page. Copyright (c) their respective authors:
 Jordan Gilliam (cult/ui, Halo components, 2023), CodedThemes (uiable,
-Questionnaire, 2026), larsen66 (Admit One Ticket),
+Questionnaire, 2026), larsen66 (Admit One Ticket), Kedhareswer Naidu
+(Glassmorphism Folder Cards),
 Ayushmaan Singh (Masonry Lightbox), Méschac Irung (Tailark, Veil Sign Up 2),
 astralyxdev (Checkout Summary), Preet Suthar (HextaUI, Auth Verify Email),
 shadcn (shadcn/ui), and the authors of each library listed there.

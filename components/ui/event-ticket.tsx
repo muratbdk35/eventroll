@@ -16,6 +16,13 @@ import {
   useState,
   useSyncExternalStore,
 } from "react";
+import {
+  DEFAULT_TICKET,
+  TICKET_COLORS,
+  TICKET_PATTERNS,
+  type TicketColor,
+  type TicketPattern,
+} from "@/lib/events/ticket";
 import { cn } from "@/lib/utils";
 
 const GEOMETRY = {
@@ -39,12 +46,7 @@ const LAYOUT = {
   watermarkSize: 132 / 741,
 };
 
-const COLORS = {
-  back: "#6f95bd",
-  front: "#d7e4f2",
-  ink: "#10223a",
-  watermark: "#eef4fb",
-};
+const WATERMARK = "rgb(255 255 255 / 0.85)";
 
 function clipPath(width: number, height: number) {
   const r = GEOMETRY.cornerRadius * width;
@@ -136,6 +138,9 @@ export type EventTicketProps = {
   watermark?: string;
   /** Widest the ticket may grow; it fills its container up to this. */
   maxWidth?: number;
+  /** Colour and pattern ids (lib/events/ticket.ts); powder + plain by default. */
+  color?: TicketColor;
+  pattern?: TicketPattern;
   className?: string;
 };
 
@@ -147,8 +152,12 @@ export function EventTicket({
   stub,
   watermark,
   maxWidth = 560,
+  color = DEFAULT_TICKET.color,
+  pattern = DEFAULT_TICKET.pattern,
   className,
 }: EventTicketProps) {
+  const COLORS = TICKET_COLORS[color];
+  const P = TICKET_PATTERNS[pattern];
   const box = useRef<HTMLDivElement>(null);
   const card = useRef<HTMLDivElement>(null);
   const glare = useRef<HTMLDivElement>(null);
@@ -220,9 +229,9 @@ export function EventTicket({
             <Dithering
               colorBack={COLORS.back}
               colorFront={COLORS.front}
-              shape="warp"
-              type="random"
-              size={0.5}
+              shape={P.shape}
+              type={P.type}
+              size={P.size}
               speed={0}
               frame={12000}
               style={{ position: "absolute", inset: 0, width, height }}
@@ -244,7 +253,7 @@ export function EventTicket({
                   top: 0,
                   width: width - perfX,
                   height,
-                  color: COLORS.watermark,
+                  color: WATERMARK,
                   opacity: 0.55,
                 }}
               >

@@ -39,4 +39,10 @@ describe("computeExpiresAtFromEnd", () => {
       computeExpiresAtFromEnd(new Date("2026-06-15T01:30:00Z")).toISOString(),
     ).toBe("2026-06-22T23:59:59.999Z");
   });
+  it("keeps print templates and ticket styles for Premium", () => {
+    expect(plans.premium.printTemplates).toBe(true);
+    expect(plans.premium.ticketStyles).toBe(true);
+    expect(plans.standard.printTemplates).toBe(false);
+    expect(plans.standard.ticketStyles).toBe(false);
+  });
 });

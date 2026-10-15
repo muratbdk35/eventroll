@@ -427,3 +427,196 @@ html {
     scroll-behavior: auto;
   }
 }
+
+/*
+ * Event folder (components/host/event-folder.tsx). Geometry and motion from
+ * Glassmorphism Folder Cards by Kedhareswer Naidu (MIT, via 21st.dev),
+ * redrawn as a paper folder: a powder-blue back, the event's newest photos as
+ * prints, an opaque paper front. No backdrop blur, no generated art, no JS.
+ *
+ * Everything is measured in --u, 1/340 of the card's width, so the folder
+ * scales with its grid cell (container query units).
+ */
+
+.ef-root {
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --spring: cubic-bezier(0.34, 1.36, 0.5, 1);
+  --hinge: 0deg;
+  --lift: -40;
+  --spread: 0;
+  --fan: 0deg;
+  --stack: 13;
+  position: relative;
+  display: block;
+  aspect-ratio: 340 / 312;
+  container-type: inline-size;
+  border-radius: 1.5rem;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.ef-root:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 55%, transparent);
+}
+
+@media (hover: hover) {
+  .ef-root:hover {
+    --hinge: -11deg;
+    --lift: -74;
+    --spread: 10;
+    --fan: 1.6deg;
+    --stack: 12;
+  }
+}
+.ef-root:focus-visible {
+  --hinge: -11deg;
+  --lift: -74;
+  --spread: 10;
+  --fan: 1.6deg;
+  --stack: 12;
+}
+.ef-root:active {
+  --hinge: -6deg;
+}
+
+.ef-stage {
+  --u: calc(100cqw / 340);
+  position: absolute;
+  inset: auto 0 0 0;
+  height: calc(272 * var(--u));
+}
+
+.ef-shadow {
+  position: absolute;
+  left: calc(18 * var(--u));
+  right: calc(18 * var(--u));
+  bottom: calc(-6 * var(--u));
+  height: calc(56 * var(--u));
+  border-radius: 999px;
+  background: oklch(0.3 0.05 245 / 0.28);
+  filter: blur(calc(20 * var(--u)));
+}
+
+.ef-back {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* ---- prints ---------------------------------------------------------------- */
+.ef-files {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  /* nothing hangs out of the bottom of the pocket */
+  clip-path: inset(-400px -400px calc(10 * var(--u)) -400px);
+}
+.ef-sheet {
+  position: absolute;
+  left: calc(34 * var(--u));
+  top: calc(96 * var(--u));
+  width: calc(272 * var(--u));
+  height: calc(184 * var(--u));
+  overflow: hidden;
+  border-radius: calc(12 * var(--u));
+  background: #fff;
+  padding: calc(6 * var(--u));
+  box-shadow:
+    0 0 0 0.5px rgb(20 35 60 / 0.12),
+    0 calc(10 * var(--u)) calc(24 * var(--u)) calc(-8 * var(--u))
+      rgb(20 35 60 / 0.3);
+  transform-origin: 50% 100%;
+  transform: translate(
+      calc((var(--jx) + var(--slot) * var(--spread)) * var(--u)),
+      calc((var(--lift) - var(--depth) * var(--stack)) * var(--u))
+    )
+    rotate(calc(var(--jr) + var(--slot) * var(--fan)));
+  transition: transform 0.75s var(--spring) calc(var(--depth) * 40ms);
+}
+.ef-sheet img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: calc(7 * var(--u));
+  object-fit: cover;
+  background: var(--muted);
+}
+.ef-blank {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  gap: calc(9 * var(--u));
+  padding: calc(14 * var(--u)) calc(8 * var(--u));
+}
+.ef-blank i {
+  display: block;
+  height: calc(5 * var(--u));
+  border-radius: 3px;
+  background: oklch(0.53 0.075 245 / 0.1);
+}
+.ef-blank i:first-child {
+  height: calc(9 * var(--u));
+  margin-bottom: calc(4 * var(--u));
+  background: oklch(0.53 0.075 245 / 0.18);
+}
+
+/* ---- paper front, hinged on its bottom edge ---------------------------------- */
+.ef-front {
+  position: absolute;
+  left: 0;
+  top: calc(74 * var(--u));
+  width: 100%;
+  height: calc(198 * var(--u));
+  z-index: 10;
+  transform-origin: 50% 100%;
+  transform: perspective(calc(760 * var(--u))) rotateX(var(--hinge));
+  transition: transform 0.8s var(--spring);
+}
+.ef-front-shape {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.ef-status {
+  position: absolute;
+  left: calc(20 * var(--u));
+  top: calc(16 * var(--u));
+}
+.ef-label {
+  position: absolute;
+  left: calc(26 * var(--u));
+  right: calc(26 * var(--u));
+  bottom: calc(26 * var(--u));
+  display: flex;
+  flex-direction: column;
+  gap: calc(5 * var(--u));
+  color: var(--foreground);
+}
+.ef-title {
+  overflow: hidden;
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, calc(22 * var(--u)), 1.5rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.012em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ef-meta {
+  overflow: hidden;
+  font-size: clamp(0.8rem, calc(14 * var(--u)), 0.95rem);
+  color: var(--muted-foreground);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ef-sheet,
+  .ef-front {
+    transition: none;
+  }
+}
