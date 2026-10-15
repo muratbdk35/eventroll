@@ -15,8 +15,6 @@ export type PlanLimits = {
   maxBytes: number;
   /** Printable QR templates (table cards, signs, posters). Premium only. */
   printTemplates: boolean;
-  /** Choosing the guest ticket's colour and pattern (DECISIONS #42). */
-  ticketStyles: boolean;
 };
 
 const GB = 1024 ** 3;
@@ -33,14 +31,12 @@ export const plans: Record<PlanId, PlanLimits> = {
     maxItems: 1500,
     maxBytes: 10 * GB,
     printTemplates: false,
-    ticketStyles: false,
   },
   premium: {
     priceUsd: 49,
     maxItems: 5000,
     maxBytes: 50 * GB,
     printTemplates: true,
-    ticketStyles: true,
   },
 };
 

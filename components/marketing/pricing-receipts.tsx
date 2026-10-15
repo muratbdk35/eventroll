@@ -5,9 +5,8 @@ import {
   ReceiptCard,
   receiptCtaClass,
 } from "@/components/billing/receipt-card";
-import { MiniTicket } from "@/components/billing/mini-ticket";
 import { receiptContent } from "@/components/billing/receipt-content";
-import { planOrder, plans } from "@/lib/plans";
+import { planOrder } from "@/lib/plans";
 import { publicEnv } from "@/lib/public-env";
 import { cn } from "@/lib/utils";
 
@@ -61,14 +60,6 @@ export async function PricingReceipts() {
               >
                 <ReceiptCard
                   {...content}
-                  attachment={
-                    plans[id].ticketStyles ? (
-                      <MiniTicket
-                        title={t("ticketTag.title")}
-                        sub={t("ticketTag.sub")}
-                      />
-                    ) : undefined
-                  }
                   cta={
                     <Link
                       href={`/create?plan=${id}`}

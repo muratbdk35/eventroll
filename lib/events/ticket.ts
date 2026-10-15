@@ -1,56 +1,60 @@
 /**
- * Ticket styles (DECISIONS #42). Every plan gets the ticket in powder blue
- * with the plain pattern; choosing another colour or pattern is Premium.
- * Ink colours read at 4.5:1 or better on the base colour.
+ * Ticket colours (DECISIONS #42). Every plan can pick one; the ticket's design
+ * stays exactly as adapted (warp texture, year watermark). Each palette keeps
+ * the original's structure: a mid-tone base, a pale dither, dark ink that
+ * reads at 4.5:1 or better on the base, and a pale watermark.
  */
 
 export const TICKET_COLORS = {
-  powder: { back: "#4d7399", front: "#6b90b6", ink: "#f4f8fc" },
-  midnight: { back: "#1f2a44", front: "#33456b", ink: "#f3e9d6" },
-  sage: { back: "#4f6b4c", front: "#6d8a69", ink: "#f2f5ec" },
-  blush: { back: "#9c4f60", front: "#bd6e7f", ink: "#fff3f5" },
-  terracotta: { back: "#a24a28", front: "#c4693f", ink: "#fff4ec" },
-  sand: { back: "#c9b48a", front: "#ddcca8", ink: "#2b2214" },
-} as const;
-
-export const TICKET_PATTERNS = {
-  plain: { shape: "simplex", type: "4x4", size: 2 },
-  dots: { shape: "dots", type: "4x4", size: 2.5 },
-  wave: { shape: "wave", type: "8x8", size: 2 },
-  swirl: { shape: "swirl", type: "random", size: 1.5 },
+  powder: {
+    back: "#6f95bd",
+    front: "#d7e4f2",
+    ink: "#10223a",
+    watermark: "#eef4fb",
+  },
+  sage: {
+    back: "#86a37f",
+    front: "#e0ead9",
+    ink: "#15241a",
+    watermark: "#f1f6ee",
+  },
+  blush: {
+    back: "#c98b98",
+    front: "#f3dde2",
+    ink: "#2f121a",
+    watermark: "#fbf0f2",
+  },
+  terracotta: {
+    back: "#cf8560",
+    front: "#f6dccd",
+    ink: "#2e1408",
+    watermark: "#fcefe7",
+  },
+  sand: {
+    back: "#c4ad86",
+    front: "#f0e6d3",
+    ink: "#2a2112",
+    watermark: "#faf5ec",
+  },
+  lavender: {
+    back: "#9a90c4",
+    front: "#e3def3",
+    ink: "#191433",
+    watermark: "#f4f1fb",
+  },
 } as const;
 
 export type TicketColor = keyof typeof TICKET_COLORS;
-export type TicketPattern = keyof typeof TICKET_PATTERNS;
 
 export const ticketColors = Object.keys(TICKET_COLORS) as TicketColor[];
-export const ticketPatterns = Object.keys(TICKET_PATTERNS) as TicketPattern[];
 
-export const DEFAULT_TICKET = { color: "powder", pattern: "plain" } as const;
+export const DEFAULT_TICKET_COLOR: TicketColor = "powder";
 
 export function isTicketColor(v: unknown): v is TicketColor {
   return typeof v === "string" && v in TICKET_COLORS;
 }
-export function isTicketPattern(v: unknown): v is TicketPattern {
-  return typeof v === "string" && v in TICKET_PATTERNS;
-}
 
-/**
- * The style a guest sees: the host's choice when the plan allows it,
- * otherwise the default.
- */
-export function ticketStyle(event: {
-  ticketColor: string | null;
-  ticketPattern: string | null;
-  allowed: boolean;
-}): { color: TicketColor; pattern: TicketPattern } {
-  if (!event.allowed) return DEFAULT_TICKET;
-  return {
-    color: isTicketColor(event.ticketColor)
-      ? event.ticketColor
-      : DEFAULT_TICKET.color,
-    pattern: isTicketPattern(event.ticketPattern)
-      ? event.ticketPattern
-      : DEFAULT_TICKET.pattern,
-  };
+/** The stored colour, or the default when unset or unknown. */
+export function ticketColor(v: unknown): TicketColor {
+  return isTicketColor(v) ? v : DEFAULT_TICKET_COLOR;
 }

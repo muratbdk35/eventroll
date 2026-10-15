@@ -1,4 +1,4 @@
-import type { TicketColor, TicketPattern } from "@/lib/events/ticket";
+import type { TicketColor } from "@/lib/events/ticket";
 import type { PlanId } from "@/lib/plans";
 
 // Shared by the server page and the client steps (a "use client" module would
@@ -19,7 +19,7 @@ export type FlowEvent = {
   uploadClosesAt: string | null;
   maxUploadsPerDevice: number | null;
   plan: PlanId | null;
-  ticket: { color: TicketColor; pattern: TicketPattern };
+  ticketColor: TicketColor;
 };
 
 export type FlowProps = {

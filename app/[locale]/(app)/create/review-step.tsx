@@ -112,14 +112,12 @@ export function ReviewStep({ event, devPay }: FlowProps) {
     <div>
       <StepHeading title={t("review.title")} subtitle={t("review.subtitle")} />
 
-      {/* The ticket guests see at the top of their page (#41, #42). Every
-          plan can try its styles here; Premium keeps them (#44). */}
+      {/* The ticket guests see at the top of their page, in the colour the
+          host picks (#41, #42). */}
       <TicketSettings
         className="mb-7"
         eventId={ev.id}
-        allowed={plan.ticketStyles}
-        initial={ev.ticket}
-        devPay={devPay}
+        initial={ev.ticketColor}
         preview={{
           presenter: publicEnv.appName,
           event: te(`types.${type}`),
@@ -131,6 +129,9 @@ export function ReviewStep({ event, devPay }: FlowProps) {
               })
             : "",
           stub: tg("ticketStub"),
+          watermark: ev.startsAt
+            ? String(new Date(ev.startsAt).getFullYear())
+            : undefined,
         }}
       />
 

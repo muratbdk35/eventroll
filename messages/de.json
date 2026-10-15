@@ -231,17 +231,12 @@
         "qr": "QR-Code & Link",
         "pin": "PIN-Schutz",
         "uploadRules": "Upload-Zeiten & Limits",
-        "templates": "Druckvorlagen",
-        "ticket": "Ticket-Farben und -Muster"
+        "templates": "Druckvorlagen"
       },
       "values": {
         "original": "Original",
         "days": "{days} Tage",
         "notIncluded": "Nicht dabei"
-      },
-      "ticketTag": {
-        "title": "Ticket-Stile",
-        "sub": "Farben und Muster fürs Gäste-Ticket"
       }
     },
     "faq": {
@@ -566,29 +561,18 @@
     },
     "ticket": {
       "title": "Gäste-Ticket",
-      "hint": "Die Seite deiner Gäste öffnet sich mit diesem Ticket.",
+      "hint": "Die Seite deiner Gäste öffnet sich mit diesem Ticket. Wähl seine Farbe.",
       "color": "Farbe",
-      "pattern": "Muster",
       "saved": "Ticket gespeichert.",
       "failed": "Speichern fehlgeschlagen. Versuch es erneut.",
       "colors": {
         "powder": "Puderblau",
-        "midnight": "Mitternacht",
         "sage": "Salbei",
         "blush": "Altrosa",
         "terracotta": "Terrakotta",
-        "sand": "Sand"
-      },
-      "patterns": {
-        "plain": "Schlicht",
-        "dots": "Punkte",
-        "wave": "Wellen",
-        "swirl": "Wirbel"
-      },
-      "tryHint": "Probier es aus: Tipp auf eine Farbe oder ein Muster, und das Ticket ändert sich. Behalten kannst du es mit Premium.",
-      "preview": "Nur Vorschau. Deine Gäste sehen weiter Puderblau.",
-      "upgrade": "Zu Premium wechseln",
-      "upgraded": "Premium ist aktiv. Dein Ticket ist gespeichert."
+        "sand": "Sand",
+        "lavender": "Lavendel"
+      }
     }
   },
   "Guest": {

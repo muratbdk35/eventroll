@@ -50,9 +50,6 @@ export function receiptContent(
     p.printTemplates
       ? [t("rows.templates"), "✓"]
       : [t("rows.templates"), t("values.notIncluded"), true],
-    p.ticketStyles
-      ? [t("rows.ticket"), "✓"]
-      : [t("rows.ticket"), t("values.notIncluded"), true],
   ];
   return {
     merchant: upper(appName),

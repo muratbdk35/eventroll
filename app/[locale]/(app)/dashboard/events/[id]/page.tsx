@@ -29,15 +29,10 @@ import {
   listEventMedia,
   mediaByUploader,
 } from "@/lib/events/queries";
-import {
-  DEFAULT_TICKET,
-  isTicketColor,
-  isTicketPattern,
-} from "@/lib/events/ticket";
+import { ticketColor } from "@/lib/events/ticket";
 import { guestUrl } from "@/lib/events/urls";
 import { Link, redirect } from "@/lib/i18n/navigation";
 import type { Locale } from "@/lib/i18n/routing";
-import { plans } from "@/lib/plans";
 import { publicEnv } from "@/lib/public-env";
 import { presignGet } from "@/lib/storage";
 import { extFor, isAllowedMime } from "@/lib/uploads";
@@ -178,23 +173,15 @@ export default async function EventPage({
           ) : (
             <div className="space-y-6">
               <TicketSettings
-                devPay={devMode}
                 eventId={event.id}
-                allowed={Boolean(event.plan && plans[event.plan].ticketStyles)}
-                initial={{
-                  color: isTicketColor(event.ticketColor)
-                    ? event.ticketColor
-                    : DEFAULT_TICKET.color,
-                  pattern: isTicketPattern(event.ticketPattern)
-                    ? event.ticketPattern
-                    : DEFAULT_TICKET.pattern,
-                }}
+                initial={ticketColor(event.ticketColor)}
                 preview={{
                   presenter: publicEnv.appName,
                   event: t(`types.${event.type}`),
                   name: event.name,
                   footer: date(event.eventDate),
                   stub: tg("ticketStub"),
+                  watermark: event.eventDate.slice(0, 4),
                 }}
               />
               <SettingsForm

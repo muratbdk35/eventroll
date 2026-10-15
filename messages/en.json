@@ -228,17 +228,12 @@
         "qr": "QR code & link",
         "pin": "PIN protection",
         "uploadRules": "Upload hours & limits",
-        "templates": "Print templates",
-        "ticket": "Ticket colours and patterns"
+        "templates": "Print templates"
       },
       "values": {
         "original": "Original",
         "days": "{days} days",
         "notIncluded": "Not included"
-      },
-      "ticketTag": {
-        "title": "Ticket styles",
-        "sub": "Colours and patterns for the guest ticket"
       }
     },
     "faq": {
@@ -563,29 +558,18 @@
     },
     "ticket": {
       "title": "Guest ticket",
-      "hint": "Your guests' page opens with this ticket.",
+      "hint": "Your guests' page opens with this ticket. Pick its colour.",
       "color": "Colour",
-      "pattern": "Pattern",
       "saved": "Ticket saved.",
       "failed": "Could not save. Try again.",
       "colors": {
         "powder": "Powder blue",
-        "midnight": "Midnight",
         "sage": "Sage",
         "blush": "Blush",
         "terracotta": "Terracotta",
-        "sand": "Sand"
-      },
-      "patterns": {
-        "plain": "Plain",
-        "dots": "Dots",
-        "wave": "Waves",
-        "swirl": "Swirl"
-      },
-      "tryHint": "Try them: tap a colour or pattern and the ticket changes. Keeping it is part of Premium.",
-      "preview": "Preview only. Your guests still see powder blue.",
-      "upgrade": "Switch to Premium",
-      "upgraded": "Premium is on. Your ticket is saved."
+        "sand": "Sand",
+        "lavender": "Lavender"
+      }
     }
   },
   "Guest": {

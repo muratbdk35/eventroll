@@ -41,8 +41,6 @@ export type ReceiptCardProps = {
   /** Extra emphasis when used as a selectable option. */
   selected?: boolean;
   cta: React.ReactNode;
-  /** Something stapled to the top of the receipt (Premium's ticket). */
-  attachment?: React.ReactNode;
   className?: string;
 };
 
@@ -62,16 +60,10 @@ export function ReceiptCard({
   featured = false,
   selected = false,
   cta,
-  attachment,
   className,
 }: ReceiptCardProps) {
   return (
     <div className="relative">
-      {attachment && (
-        <div className="absolute -end-3 -top-16 z-10 sm:-end-12">
-          {attachment}
-        </div>
-      )}
       <div
         className={cn(
           "relative px-6 pt-8 pb-8 font-mono text-[12.5px] leading-relaxed text-[oklch(0.23_0.02_240)] transition-transform duration-300 hover:-translate-y-1",

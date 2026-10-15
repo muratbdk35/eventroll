@@ -20,8 +20,7 @@ import { getEventBySlug } from "@/lib/events/queries";
 import { getUploadState } from "@/lib/events/upload-state";
 import { getGuestSession } from "@/lib/guest/session";
 import type { Locale } from "@/lib/i18n/routing";
-import { plans } from "@/lib/plans";
-import { ticketStyle } from "@/lib/events/ticket";
+import { ticketColor } from "@/lib/events/ticket";
 import { publicEnv } from "@/lib/public-env";
 import { Uploader } from "./uploader";
 
@@ -81,15 +80,14 @@ export default async function GuestPage({
               timeZone: "UTC",
             })}
             stub={t("ticketStub")}
-            {...ticketStyle({
-              ticketColor: event.ticketColor,
-              ticketPattern: event.ticketPattern,
-              allowed: Boolean(event.plan && plans[event.plan].ticketStyles),
-            })}
+            watermark={event.eventDate.slice(0, 4)}
+            color={ticketColor(event.ticketColor)}
           />
         </header>
 
-        <main className="relative flex-1 bg-[oklch(0.975_0.012_244)] px-5 pt-7 pb-8">
+        {/* No background of its own: header and main share one ground, so
+            the ticket's shadow isn't cut off in a straight line. */}
+        <main className="relative flex-1 px-5 pt-7 pb-8">
           {state === "open" ? (
             <>
               <Uploader

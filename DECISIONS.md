@@ -548,24 +548,25 @@ drives the visual choices instead of SaaS defaults.
   card, the photo picker, and "12 photos uploaded" on wide screens.
 - The hero film strip is straight, with SVG sprocket holes.
 
-## 42. The guest ticket for everyone, its styles for Premium (owner request, 2026-10-15)
+## 42. The guest ticket and its colour, for everyone (owner request, 2026-10-15)
 
 - Every guest page opens with the event ticket on a plain ground; the cover
-  photo behind it looked muddy and is gone. Default style: powder blue,
-  plain pattern (`lib/events/ticket.ts`).
-- Premium lets the host choose the ticket's colour (powder, midnight, sage,
-  blush, terracotta, sand) and pattern (plain, dots, waves, swirl) in the
-  event settings, with a live preview (`components/host/ticket-settings`).
-  Standard can try them in the preview (see #44). `updateTicket` checks the plan on the
-  server; the guest page ignores stored styles when the plan lacks
-  `ticketStyles`. New nullable columns `events.ticket_color/pattern`
-  (migration 0004, additive).
-- The review step shows the same ticket picker (see #44).
-  Receipts list "Ticket colours and patterns" (✓ / struck out).
+  photo behind it looked muddy and is gone.
+- The ticket keeps the design as first adapted (warp texture, dark ink, the
+  event year on the stub). A try with selectable patterns and a calmer
+  texture looked worse and was reverted.
+- Every plan picks the ticket colour in the event settings and in the
+  review step, with a live preview (`components/host/ticket-settings`).
+  Six palettes, each with the original's structure: mid-tone base, pale
+  dither, dark ink at 4.5:1 or better, pale watermark
+  (`lib/events/ticket.ts`). Stored in `events.ticket_color`; unknown or
+  null means powder blue. `events.ticket_pattern` (migration 0004) is
+  unused and kept until a later cleanup migration.
+- The ticket is not a Premium feature, so receipts don't list it.
 - Premium receipt stands out: faint blue paper, the plan name in reverse
-  print, and a small "Ticket styles" ticket stapled to its corner
-  (`components/billing/mini-ticket.tsx`, CSS only).
-- Ticket texture calmer: close halftone, light ink, no year watermark.
+  print.
+- The guest page's main area has no background of its own: header and main
+  share one ground, so the ticket's shadow isn't cut off in a line.
 - Date fields: the visible day is formatted from the value's own date. With
   no app time zone, next-intl formatted in UTC and showed 00:00 on the 17th
   as the 16th in Istanbul. Upload times in the photo grid and the review
@@ -589,13 +590,7 @@ drives the visual choices instead of SaaS defaults.
 
 ## 44. Show Premium before the payment (owner request, 2026-10-15)
 
-Hosts on Standard never saw what Premium adds. Now they can touch it:
-
-- Ticket styles: every swatch and pattern works in the preview for
-  Standard too; nothing is saved, and the note reads "Preview only". In dev
-  (no Stripe) a "Switch to Premium" button upgrades and saves the chosen
-  style. The picker is also in the create flow's review step, so every host
-  meets it before publishing.
-- QR templates: the Standard preview is no longer blurred. The real
-  template shows under a faint diagonal "PREMIUM" watermark, with the offer
-  over its lower half; printing stays Premium-only.
+Hosts on Standard never saw what Premium adds. QR templates: the Standard
+preview is no longer blurred. The real template shows under a faint diagonal
+"PREMIUM" watermark, with the offer over its lower half; printing stays
+Premium-only.

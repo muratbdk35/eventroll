@@ -231,17 +231,12 @@
         "qr": "QR kod ve link",
         "pin": "PIN koruması",
         "uploadRules": "Yükleme saati ve limit",
-        "templates": "Baskı şablonları",
-        "ticket": "Bilet renk ve desenleri"
+        "templates": "Baskı şablonları"
       },
       "values": {
         "original": "Orijinal",
         "days": "{days} gün",
         "notIncluded": "Dahil değil"
-      },
-      "ticketTag": {
-        "title": "Bilet stilleri",
-        "sub": "Misafir biletine renk ve desen"
       }
     },
     "faq": {
@@ -566,29 +561,18 @@
     },
     "ticket": {
       "title": "Misafir bileti",
-      "hint": "Misafirlerinin sayfası bu biletle açılır.",
+      "hint": "Misafirlerinin sayfası bu biletle açılır. Rengini seç.",
       "color": "Renk",
-      "pattern": "Desen",
       "saved": "Bilet kaydedildi.",
       "failed": "Kaydedilemedi. Tekrar dene.",
       "colors": {
         "powder": "Toz mavi",
-        "midnight": "Gece mavisi",
         "sage": "Adaçayı",
         "blush": "Gül kurusu",
         "terracotta": "Kiremit",
-        "sand": "Kum"
-      },
-      "patterns": {
-        "plain": "Sade",
-        "dots": "Nokta",
-        "wave": "Dalga",
-        "swirl": "Girdap"
-      },
-      "tryHint": "Dene: bir renge ya da desene dokun, bilet değişsin. Kalıcı yapmak Premium'da.",
-      "preview": "Sadece önizleme. Misafirlerin hâlâ toz maviyi görüyor.",
-      "upgrade": "Premium'a geç",
-      "upgraded": "Premium açıldı. Biletin kaydedildi."
+        "sand": "Kum",
+        "lavender": "Lavanta"
+      }
     }
   },
   "Guest": {
