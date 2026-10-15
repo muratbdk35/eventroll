@@ -14,6 +14,7 @@ import {
 } from "./app-previews";
 import { MockAddMore, MockThumb } from "./mock";
 import { SectionHeading } from "./section-heading";
+import { optimized } from "@/lib/images";
 
 // Bento grid inspired by 21st.dev "Feature Bento" (uilayout). Every tile carries
 // its own small visual instead of a generic icon chip.
@@ -196,7 +197,7 @@ export async function FeaturesBento() {
             <h3 className="max-w-md font-heading text-3xl leading-tight font-bold sm:text-4xl">
               {t("noApp.title")}
             </h3>
-            <p className="mt-3 max-w-lg text-pretty text-primary-foreground/85">
+            <p className="mt-3 max-w-lg text-pretty text-primary-foreground">
               {t("noApp.body")}
             </p>
           </div>
@@ -254,9 +255,9 @@ export async function FeaturesBento() {
               statusLabel={te("status.active")}
               meta={`${te("photoCount", { count: 1248 })}, ${te("guestsCount", { count: 142 })}`}
               srcs={[
-                "/marketing/dance-floor.jpg",
-                "/marketing/confetti.jpg",
-                "/marketing/table-toast.jpg",
+                optimized("/marketing/dance-floor.jpg", 256),
+                optimized("/marketing/confetti.jpg", 256),
+                optimized("/marketing/table-toast.jpg", 256),
               ]}
             />
           </AppPreview>

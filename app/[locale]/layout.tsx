@@ -15,11 +15,16 @@ const sans = Schibsted_Grotesk({
   variable: "--font-sans",
   subsets: ["latin", "latin-ext"],
 });
-const mono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+// Mono only shows on receipts and PINs: not worth a preload on every page.
+const mono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+  preload: false,
+});
 const display = Fraunces({
   variable: "--font-display",
   subsets: ["latin", "latin-ext"],
-  axes: ["opsz", "SOFT"],
+  axes: ["opsz"],
 });
 
 export function generateStaticParams() {

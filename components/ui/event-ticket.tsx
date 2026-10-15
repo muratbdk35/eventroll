@@ -6,16 +6,11 @@
 // eventroll: powder-blue palette, the texture is still (the original drifts
 // forever; a still ticket costs nothing on a guest's phone), the official
 // @paper-design/shaders-react package (Apache-2.0) instead of a bundled copy,
-// fluid width, our fonts, no shutter sound.
+// fluid width (container units, so it renders on the server), our fonts, no
+// shutter sound.
 
 import { Dithering } from "@paper-design/shaders-react";
-import {
-  useCallback,
-  useLayoutEffect,
-  useRef,
-  useState,
-  useSyncExternalStore,
-} from "react";
+import { useCallback, useRef, useSyncExternalStore } from "react";
 import {
   DEFAULT_TICKET_COLOR,
   TICKET_COLORS,
@@ -44,27 +39,34 @@ const LAYOUT = {
   watermarkSize: 132 / 741,
 };
 
-function clipPath(width: number, height: number) {
-  const r = GEOMETRY.cornerRadius * width;
-  const n = GEOMETRY.notchRadius * width;
-  const p = GEOMETRY.perforation * width;
-  return [
-    `M ${r} 0`,
-    `L ${p - n} 0`,
-    `A ${n} ${n} 0 0 0 ${p + n} 0`,
-    `L ${width - r} 0`,
-    `A ${r} ${r} 0 0 0 ${width} ${r}`,
-    `L ${width} ${height - r}`,
-    `A ${r} ${r} 0 0 0 ${width - r} ${height}`,
-    `L ${p + n} ${height}`,
-    `A ${n} ${n} 0 0 0 ${p - n} ${height}`,
-    `L ${r} ${height}`,
-    `A ${r} ${r} 0 0 0 0 ${height - r}`,
-    `L 0 ${r}`,
-    `A ${r} ${r} 0 0 0 ${r} 0`,
-    "Z",
-  ].join(" ");
-}
+const pct = (fraction: number) => `${(fraction * 100).toFixed(4)}cqw`;
+
+/*
+ * The ticket's shape, cut with a CSS mask instead of a measured clip-path:
+ * six circles bitten out (the four scooped corners and the two notches at the
+ * perforation), each a full-size layer, intersected. Sized in container
+ * units, so the ticket renders complete on the server; it is the guest
+ * page's largest element (DECISIONS #49).
+ */
+const R = pct(GEOMETRY.cornerRadius);
+const NOTCH = pct(GEOMETRY.notchRadius);
+const AT = `${(GEOMETRY.perforation * 100).toFixed(3)}%`;
+const bite = (radius: string, x: string, y: string) =>
+  `radial-gradient(circle ${radius} at ${x} ${y}, transparent 98%, #000 100%)`;
+const MASK = [
+  bite(R, "0", "0"),
+  bite(R, "100%", "0"),
+  bite(R, "100%", "100%"),
+  bite(R, "0", "100%"),
+  bite(NOTCH, AT, "0"),
+  bite(NOTCH, AT, "100%"),
+].join(", ");
+const SHAPE: React.CSSProperties = {
+  WebkitMaskImage: MASK,
+  maskImage: MASK,
+  WebkitMaskComposite: "source-in",
+  maskComposite: "intersect",
+};
 
 /**
  * Wraps the name by length (not one word per line, which split "Elif & Can"
@@ -106,6 +108,7 @@ function fitScale(
   );
 }
 
+const noop = () => () => {};
 const hoverQuery = "(hover: hover) and (pointer: fine)";
 const motionQuery = "(prefers-reduced-motion: reduce)";
 function useMedia(query: string) {
@@ -151,24 +154,19 @@ export function EventTicket({
   className,
 }: EventTicketProps) {
   const COLORS = TICKET_COLORS[color];
-  const box = useRef<HTMLDivElement>(null);
   const card = useRef<HTMLDivElement>(null);
   const glare = useRef<HTMLDivElement>(null);
-  const [width, setWidth] = useState(0);
   // Both hooks run on every render (no short-circuit between them).
   const finePointer = useMedia(hoverQuery);
   const reducedMotion = useMedia(motionQuery);
   const canTilt = finePointer && !reducedMotion;
-
-  useLayoutEffect(() => {
-    const el = box.current;
-    if (!el) return;
-    const ro = new ResizeObserver(([e]) =>
-      setWidth(Math.min(maxWidth, Math.floor(e.contentRect.width))),
-    );
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, [maxWidth]);
+  // The texture is WebGL, so it joins after hydration; until then the ticket
+  // shows its base colour with every line of text already in place.
+  const mounted = useSyncExternalStore(
+    noop,
+    () => true,
+    () => false,
+  );
 
   const onMove = useCallback((e: React.PointerEvent) => {
     const el = card.current;
@@ -191,34 +189,38 @@ export function EventTicket({
     if (glare.current) glare.current.style.background = "transparent";
   }, []);
 
-  const height = width / GEOMETRY.aspect;
-  const perfX = GEOMETRY.perforation * width;
   const lines = splitName(name);
+  // Every measure is a fraction of the width, so the fit is too.
   const scale = fitScale(lines, {
-    width: perfX - LAYOUT.padding * width * 1.6,
-    height: (LAYOUT.footerTop - LAYOUT.nameTop - 0.02) * width,
-    size: LAYOUT.nameSize * width,
-    lead: LAYOUT.nameLead * width,
+    width: GEOMETRY.perforation - LAYOUT.padding * 1.6,
+    height: LAYOUT.footerTop - LAYOUT.nameTop - 0.02,
+    size: LAYOUT.nameSize,
+    lead: LAYOUT.nameLead,
   });
-  const path = width ? `path('${clipPath(width, height)}')` : undefined;
+  const stubBox: React.CSSProperties = {
+    left: pct(GEOMETRY.perforation),
+    top: 0,
+    width: pct(1 - GEOMETRY.perforation),
+    height: "100%",
+  };
 
   return (
-    <div ref={box} className={cn("w-full", className)}>
-      {width > 0 && (
+    <div className={cn("w-full", className)}>
+      <div
+        ref={card}
+        role="img"
+        aria-label={`${name}. ${event}. ${footer}`}
+        className="[container-type:inline-size] relative mx-auto w-full drop-shadow-[0_24px_30px_rgb(20_35_60/0.28)] select-none"
+        style={{ maxWidth, aspectRatio: `${GEOMETRY.aspect}` }}
+        onPointerMove={canTilt ? onMove : undefined}
+        onPointerLeave={canTilt ? onLeave : undefined}
+      >
         <div
-          ref={card}
-          role="img"
-          aria-label={`${name}. ${event}. ${footer}`}
-          className="relative mx-auto drop-shadow-[0_24px_30px_rgb(20_35_60/0.28)] select-none"
-          style={{ width, height }}
-          onPointerMove={canTilt ? onMove : undefined}
-          onPointerLeave={canTilt ? onLeave : undefined}
+          aria-hidden
+          className="absolute inset-0 overflow-hidden"
+          style={{ ...SHAPE, background: COLORS.back }}
         >
-          <div
-            aria-hidden
-            className="absolute inset-0"
-            style={{ clipPath: path, background: COLORS.back }}
-          >
+          {mounted && (
             <Dithering
               colorBack={COLORS.back}
               colorFront={COLORS.front}
@@ -227,109 +229,94 @@ export function EventTicket({
               size={0.5}
               speed={0}
               frame={12000}
-              style={{ position: "absolute", inset: 0, width, height }}
-            />
-            {/* perforation */}
-            <div
-              className="absolute inset-y-0"
               style={{
-                left: perfX,
-                width: Math.max(1, 0.0022 * width),
-                backgroundImage: `repeating-linear-gradient(to bottom, ${COLORS.ink}66 0 ${0.012 * width}px, transparent ${0.012 * width}px ${0.024 * width}px)`,
+                position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
               }}
             />
-            {watermark && (
-              <div
-                className="absolute grid place-items-center font-heading font-semibold tabular-nums"
+          )}
+          {/* perforation */}
+          <div
+            className="absolute inset-y-0"
+            style={{
+              left: pct(GEOMETRY.perforation),
+              width: `max(1px, ${pct(0.0022)})`,
+              backgroundImage: `repeating-linear-gradient(to bottom, ${COLORS.ink}66 0 ${pct(0.012)}, transparent ${pct(0.012)} ${pct(0.024)})`,
+            }}
+          />
+          {watermark && (
+            <div
+              className="absolute grid place-items-center font-heading font-semibold tabular-nums"
+              style={{ ...stubBox, color: COLORS.watermark, opacity: 0.55 }}
+            >
+              <span
                 style={{
-                  left: perfX,
-                  top: 0,
-                  width: width - perfX,
-                  height,
-                  color: COLORS.watermark,
-                  opacity: 0.55,
+                  writingMode: "vertical-rl",
+                  fontSize: pct(LAYOUT.watermarkSize),
+                  lineHeight: 1,
+                  letterSpacing: "-0.04em",
                 }}
               >
-                <span
-                  style={{
-                    writingMode: "vertical-rl",
-                    fontSize: LAYOUT.watermarkSize * width,
-                    lineHeight: 1,
-                    letterSpacing: "-0.04em",
-                  }}
-                >
-                  {watermark}
-                </span>
-              </div>
-            )}
-            <div className="absolute inset-0" style={{ color: COLORS.ink }}>
-              <div
-                className="absolute font-semibold tracking-[0.04em] whitespace-pre uppercase"
-                style={{
-                  left: LAYOUT.padding * width,
-                  top: LAYOUT.labelTop * width,
-                  fontSize: LAYOUT.labelSize * width,
-                  lineHeight: `${LAYOUT.labelLead * width}px`,
-                }}
-              >
-                {presenter}
-                {"\n"}
-                {event}
-              </div>
-              <div
-                className="absolute font-heading font-semibold tracking-[-0.015em]"
-                style={{
-                  left: LAYOUT.padding * width,
-                  top: LAYOUT.nameTop * width,
-                  fontSize: LAYOUT.nameSize * width * scale,
-                  lineHeight: `${LAYOUT.nameLead * width * scale}px`,
-                }}
-              >
-                {lines.map((l, i) => (
-                  <div key={i}>{l}</div>
-                ))}
-              </div>
-              <div
-                className="absolute font-semibold tracking-[0.04em] whitespace-nowrap uppercase"
-                style={{
-                  left: LAYOUT.padding * width,
-                  top: LAYOUT.footerTop * width,
-                  fontSize: LAYOUT.footerSize * width,
-                }}
-              >
-                {footer}
-              </div>
-              <div
-                className="absolute grid place-items-center font-semibold whitespace-nowrap uppercase opacity-90"
-                style={{
-                  left: perfX,
-                  top: 0,
-                  width: width - perfX,
-                  height,
-                  fontSize: LAYOUT.stubSize * width,
-                }}
-              >
-                <span style={{ writingMode: "vertical-rl" }}>{stub}</span>
-              </div>
+                {watermark}
+              </span>
+            </div>
+          )}
+          <div className="absolute inset-0" style={{ color: COLORS.ink }}>
+            <div
+              className="absolute font-semibold tracking-[0.04em] whitespace-pre uppercase"
+              style={{
+                left: pct(LAYOUT.padding),
+                top: pct(LAYOUT.labelTop),
+                fontSize: pct(LAYOUT.labelSize),
+                lineHeight: pct(LAYOUT.labelLead),
+              }}
+            >
+              {presenter}
+              {"\n"}
+              {event}
+            </div>
+            <div
+              className="absolute font-heading font-semibold tracking-[-0.015em]"
+              style={{
+                left: pct(LAYOUT.padding),
+                top: pct(LAYOUT.nameTop),
+                fontSize: pct(LAYOUT.nameSize * scale),
+                lineHeight: pct(LAYOUT.nameLead * scale),
+              }}
+            >
+              {lines.map((l, i) => (
+                <div key={i}>{l}</div>
+              ))}
+            </div>
+            <div
+              className="absolute font-semibold tracking-[0.04em] whitespace-nowrap uppercase"
+              style={{
+                left: pct(LAYOUT.padding),
+                top: pct(LAYOUT.footerTop),
+                fontSize: pct(LAYOUT.footerSize),
+              }}
+            >
+              {footer}
+            </div>
+            <div
+              className="absolute grid place-items-center font-semibold whitespace-nowrap uppercase opacity-90"
+              style={{ ...stubBox, fontSize: pct(LAYOUT.stubSize) }}
+            >
+              <span style={{ writingMode: "vertical-rl" }}>{stub}</span>
             </div>
           </div>
-          {canTilt && (
-            <div
-              ref={glare}
-              aria-hidden
-              className="pointer-events-none absolute inset-0 transition-[background] duration-500"
-              style={{ clipPath: path }}
-            />
-          )}
         </div>
-      )}
-      {width === 0 && (
-        <div
-          aria-hidden
-          className="mx-auto"
-          style={{ aspectRatio: `${GEOMETRY.aspect}`, maxWidth }}
-        />
-      )}
+        {canTilt && (
+          <div
+            ref={glare}
+            aria-hidden
+            className="pointer-events-none absolute inset-0 transition-[background] duration-500"
+            style={SHAPE}
+          />
+        )}
+      </div>
     </div>
   );
 }

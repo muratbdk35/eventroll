@@ -27,7 +27,8 @@ export async function EventTypes() {
             <div className="relative aspect-[4/5] overflow-hidden rounded-[2px] bg-muted sm:aspect-[4/3]">
               <Image
                 src={src}
-                alt={t(`${key}.title`)}
+                // The caption under the print names it already.
+                alt=""
                 fill
                 sizes="(min-width: 768px) 380px, 50vw"
                 className="object-cover"

@@ -21,7 +21,7 @@ export async function TopBar({
         </Link>
         <div className="flex items-center gap-3">
           <Button asChild className="h-9 rounded-full px-4">
-            <Link href="/create">
+            <Link href="/create" aria-label={t("newEvent")}>
               <Plus aria-hidden />
               <span className="hidden sm:inline">{t("newEvent")}</span>
             </Link>

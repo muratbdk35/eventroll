@@ -11,6 +11,7 @@ import { Face } from "@/components/host/print-templates";
 import { Row } from "@/components/host/settings-form";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
+import { optimized } from "@/lib/images";
 
 // Landing visuals are the real app components (DECISIONS #33), rendered at a
 // fixed width, scaled down with `zoom` and made inert. Nothing here is a
@@ -152,8 +153,8 @@ const photos = [
   "confetti.jpg",
 ].map((f, i) => ({
   id: `lp-${i}`,
-  src: `/marketing/${f}`,
-  full: `/marketing/${f}`,
+  src: optimized(`/marketing/${f}`, 384),
+  full: optimized(`/marketing/${f}`, 1080),
   download: `/marketing/${f}`,
   bytes: 0,
   uploaderName: null,

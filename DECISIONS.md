@@ -646,3 +646,24 @@ Replaces the magic link and the cross-device login requests of #34.
   `color-mix` (supported on older iPhones, unlike relative colours). In the
   app `--primary` is still powder blue, so nothing there changes.
 - Upload confetti uses the ticket's colours.
+
+## 49. Speed pass (Lighthouse, 2026-10-15)
+
+Measured every page with Lighthouse 12 (PageSpeed's engine; its keyless API
+quota was used up): public pages on the test site, signed-in pages on a local
+production build with a session cookie.
+
+- The guest ticket renders on the server: every measure is a fraction of the
+  width, so it is sized in container units (`cqw`) instead of measuring with
+  a ResizeObserver, and the shape (scooped corners, notches) is a CSS mask of
+  six circles instead of a measured clip-path. It looks the same; the text no
+  longer waits for JavaScript. Only the WebGL texture joins after hydration.
+- Marketing photos shown through plain `<img>` (PhotoStack, the photo grid
+  preview) go through the image optimizer (`lib/images.ts`), about 1 MB less
+  on the landing page; PhotoStack images load lazily.
+- Fraunces drops the unused SOFT axis (font files roughly halved); Geist Mono
+  is no longer preloaded on every page.
+- Accessibility to 100: the icon-only "new event" link has a name, a caption
+  on the primary tile has full contrast, print captions don't repeat as alt.
+- SEO below 100 on login, create, guest and legal pages is by design: they
+  are noindex (the test site as a whole is too).

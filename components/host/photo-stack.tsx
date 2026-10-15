@@ -39,6 +39,8 @@ export function PhotoStack({
               <img
                 src={src}
                 alt=""
+                loading="lazy"
+                decoding="async"
                 className="aspect-[4/5] w-full rounded-[3px] object-cover"
               />
             ) : (

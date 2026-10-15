@@ -5,6 +5,7 @@ import { LiveShare } from "@/components/host/live-share";
 import { publicEnv } from "@/lib/public-env";
 import { AppPreview, CreatePreview } from "./app-previews";
 import { SectionHeading } from "./section-heading";
+import { optimized } from "@/lib/images";
 
 // Each step shows the real app screen for it (DECISIONS #33): the create flow,
 // the "your event is live" card and the dashboard event card.
@@ -46,9 +47,9 @@ async function CollectVisual() {
         statusLabel={te("status.active")}
         meta={`${date}, ${te("photoCount", { count: 1248 })}`}
         srcs={[
-          "/marketing/toast.jpg",
-          "/marketing/rings.jpg",
-          "/marketing/cake.jpg",
+          optimized("/marketing/toast.jpg", 256),
+          optimized("/marketing/rings.jpg", 256),
+          optimized("/marketing/cake.jpg", 256),
         ]}
       />
     </AppPreview>
