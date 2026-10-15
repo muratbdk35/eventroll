@@ -610,3 +610,26 @@ a slow glint every few seconds (`.foil-glint` in `globals.css`), off under
 reduced motion. Dark ink on foil keeps the text readable. Standard keeps the
 plain white paper, so the difference shows at a glance on the landing page
 and in the create flow.
+
+## 47. Sign in with an email code, not a link (owner request, 2026-10-15)
+
+Replaces the magic link and the cross-device login requests of #34.
+
+- Better Auth's `emailOTP` plugin: a 6-digit code, valid 10 minutes, 5
+  tries, stored hashed; a new code replaces the old one. Turnstile guards
+  sending it (`/email-otp/send-verification-otp`).
+- The host never leaves the page: the login form turns into six code boxes
+  (shadcn `input-otp`, `autocomplete="one-time-code"`, digits only) that sign
+  in as soon as the sixth digit is typed. The code can be read on any device,
+  so the cross-device machinery (`lib/login-requests.ts`, `/api/login-request`,
+  `/auth/confirmed`) is gone. Leftover `login-request:` rows in `verification`
+  expire on their own.
+- The code is also in the subject ("EventRoll giriş kodun: 482913"), so it
+  shows in the phone's notification, and Safari can offer it from Mail.
+- Email layout follows the code emails people already trust (Slack, Linear,
+  Notion): logo, one line, the code large in a dashed box like the ticket's
+  perforation, validity, a "never share it" line. The label is upper-cased
+  per locale ("GİRİŞ KODU"). The email logo is now powder blue.
+- The magic-link plugin stays only for `/api/dev-login`; its sender throws,
+  so no link email can go out. In local development the code is also printed
+  to the server console (the local Resend key can only send).

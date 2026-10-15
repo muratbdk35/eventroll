@@ -1,6 +1,5 @@
 import {
   Body,
-  Button,
   Container,
   Head,
   Heading,
@@ -13,21 +12,23 @@ import {
   Text,
 } from "@react-email/components";
 
-// Based on the React Email "Raycast magic link" template (MIT): logo, one big
-// headline, one obvious button, a plain fallback link and a quiet footer.
-// Restyled with the app's warm palette; table-safe inline styles only.
+// Sign-in code email (DECISIONS #47). The layout follows the code emails
+// people already trust (Slack, Linear, Notion): logo, one line of context,
+// the code large in a box, how long it lasts, and a quiet footer. The code box
+// borrows the guest ticket's perforation. Table-safe inline styles only.
 
-export type MagicLinkEmailProps = {
+export type SignInCodeEmailProps = {
+  /** For `lang` and upper-casing ("GİRİŞ KODU", not "GIRIŞ KODU"). */
+  locale: string;
   appName: string;
   appUrl: string;
-  url: string;
+  code: string;
   copy: {
     preview: string;
     heading: string;
     body: string;
-    button: string;
+    codeLabel: string;
     validity: string;
-    fallback: string;
     ignore: string;
     footer: string;
   };
@@ -35,16 +36,17 @@ export type MagicLinkEmailProps = {
 
 const ink = "#1f2630";
 const muted = "#66707c";
-const primary = "#5b80ad";
+const line = "#dbe3ee";
 
-export function MagicLinkEmail({
+export function SignInCodeEmail({
+  locale,
   appName,
   appUrl,
-  url,
+  code,
   copy,
-}: MagicLinkEmailProps) {
+}: SignInCodeEmailProps) {
   return (
-    <Html>
+    <Html lang={locale}>
       <Head />
       <Preview>{copy.preview}</Preview>
       <Body
@@ -62,7 +64,7 @@ export function MagicLinkEmail({
             margin: "0 auto",
             backgroundColor: "#fbfcfe",
             borderRadius: 24,
-            border: "1px solid #dbe3ee",
+            border: `1px solid ${line}`,
             padding: "40px 36px 32px",
           }}
         >
@@ -76,11 +78,11 @@ export function MagicLinkEmail({
           <Heading
             style={{
               color: ink,
-              fontSize: 28,
-              lineHeight: "34px",
+              fontSize: 26,
+              lineHeight: "32px",
               fontWeight: 800,
               letterSpacing: "-0.02em",
-              margin: "28px 0 12px",
+              margin: "28px 0 10px",
             }}
           >
             {copy.heading}
@@ -96,49 +98,48 @@ export function MagicLinkEmail({
             {copy.body}
           </Text>
 
-          <Section style={{ margin: "28px 0 10px" }}>
-            <Button
-              href={url}
+          <Section
+            style={{
+              margin: "28px 0 12px",
+              backgroundColor: "#e8f0f8",
+              border: "2px dashed #9db6d2",
+              borderRadius: 16,
+              padding: "18px 12px 20px",
+              textAlign: "center",
+            }}
+          >
+            <Text
               style={{
-                backgroundColor: primary,
-                color: "#ffffff",
-                fontSize: 16,
+                color: muted,
+                fontSize: 11,
                 fontWeight: 700,
-                padding: "15px 28px",
-                borderRadius: 999,
-                boxShadow: "0 10px 24px -10px rgba(96,128,168,0.8)",
+                letterSpacing: "0.16em",
+                margin: "0 0 6px",
               }}
             >
-              {copy.button}
-            </Button>
+              {copy.codeLabel.toLocaleUpperCase(locale)}
+            </Text>
+            <Text
+              style={{
+                color: "#2f5478",
+                fontFamily:
+                  "'SF Mono', SFMono-Regular, Menlo, Consolas, 'Courier New', monospace",
+                fontSize: 40,
+                lineHeight: "48px",
+                fontWeight: 700,
+                letterSpacing: "0.32em",
+                margin: 0,
+                paddingLeft: "0.32em",
+              }}
+            >
+              {code}
+            </Text>
           </Section>
-          <Text style={{ color: muted, fontSize: 13, margin: "0 0 24px" }}>
+          <Text style={{ color: muted, fontSize: 13, margin: "0 0 4px" }}>
             {copy.validity}
           </Text>
 
-          <Text
-            style={{
-              color: muted,
-              fontSize: 13,
-              lineHeight: "20px",
-              margin: 0,
-            }}
-          >
-            {copy.fallback}
-          </Text>
-          <Link
-            href={url}
-            style={{
-              color: primary,
-              fontSize: 12,
-              lineHeight: "18px",
-              wordBreak: "break-all",
-            }}
-          >
-            {url}
-          </Link>
-
-          <Hr style={{ borderColor: "#dbe3ee", margin: "28px 0 20px" }} />
+          <Hr style={{ borderColor: line, margin: "24px 0 20px" }} />
           <Text
             style={{
               color: muted,
@@ -160,8 +161,9 @@ export function MagicLinkEmail({
         >
           <Link href={appUrl} style={{ color: muted, fontWeight: 700 }}>
             {appName}
-          </Link>{" "}
-          · {copy.footer}
+          </Link>
+          <br />
+          {copy.footer}
         </Text>
       </Body>
     </Html>

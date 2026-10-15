@@ -16,33 +16,26 @@
   },
   "Login": {
     "title": "Willkommen bei {appName}",
-    "subtitle": "Gib deine E-Mail-Adresse ein und wir senden dir einen Anmeldelink. Neu hier? Derselbe Link erstellt dein Konto.",
+    "subtitle": "Gib deine E-Mail-Adresse ein, wir schicken dir einen 6-stelligen Code. Neu hier? Derselbe Code legt dein Konto an.",
     "emailLabel": "E-Mail-Adresse",
     "emailPlaceholder": "du@beispiel.de",
-    "submit": "Anmeldelink senden",
+    "submit": "Anmeldecode senden",
     "submitting": "Wird gesendet…",
     "or": "oder",
     "google": "Weiter mit Google",
-    "sentTitle": "Schau in dein Postfach",
-    "sentBody": "Wir haben einen Bestätigungslink an <b>{email}</b> geschickt. Sobald du ihn antippst, geht es hier von selbst weiter, auch wenn du die E-Mail auf dem Handy öffnest.",
     "error": "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
     "legal": "Mit dem Fortfahren akzeptierst du unsere <terms>AGB</terms> und unsere <privacy>Datenschutzerklärung</privacy>.",
-    "waiting": "Warte auf Bestätigung…",
     "notReceived": "Keine E-Mail?",
     "notReceivedHint": "Sieh im Spam- und Werbeordner nach. Kommt in einer Minute nichts, schick sie erneut.",
-    "resend": "Erneut senden",
-    "expiredTitle": "Der Link ist abgelaufen",
-    "expiredBody": "Zu deiner Sicherheit gelten Links 15 Minuten. Wir schicken dir einen neuen.",
-    "confirmed": {
-      "title": "E-Mail bestätigt",
-      "body": "Du bist als {email} angemeldet.",
-      "otherTab": "Der Tab oder Computer, der den Link angefordert hat, macht von selbst weiter. Du kannst diese Seite schließen.",
-      "continue": "Hier weitermachen",
-      "errorTitle": "Ungültiger Link",
-      "errorBody": "Dieser Link wurde vielleicht schon benutzt oder ist abgelaufen. Fordere einen neuen an.",
-      "tryAgain": "Neuen Link anfordern"
-    },
-    "toGoogle": "Google wird geöffnet…"
+    "resend": "Neuen Code senden",
+    "toGoogle": "Google wird geöffnet…",
+    "codeTitle": "Code eingeben",
+    "codeBody": "Wir haben einen 6-stelligen Code an <b>{email}</b> geschickt. Gib ihn hier ein; lesen kannst du ihn auf jedem Gerät.",
+    "codeLabel": "Anmeldecode",
+    "codeSubmit": "Anmelden",
+    "codeVerifying": "Wird geprüft…",
+    "codeWrong": "Der Code stimmt nicht. Prüf ihn und versuch es erneut.",
+    "codeExpired": "Dieser Code ist abgelaufen oder wurde zu oft probiert. Fordere einen neuen an."
   },
   "Dashboard": {
     "title": "Deine Events",
@@ -65,15 +58,14 @@
     "eventsTitle": "Deine Events"
   },
   "Email": {
-    "magicLink": {
-      "subject": "Dein {appName}-Bestätigungslink",
-      "preview": "Bestätige deine E-Mail und mach dort weiter, wo du warst",
-      "heading": "✨ Bestätige deine E-Mail",
-      "body": "Hallo! Tipp auf den Button, um deine E-Mail zu bestätigen und dort weiterzumachen, wo du warst.",
-      "button": "E-Mail bestätigen",
-      "validity": "Der Link gilt 15 Minuten und nur einmal.",
-      "fallback": "Funktioniert der Button nicht, kopiere diesen Link in deinen Browser:",
-      "ignore": "Wenn du das nicht angefordert hast, ignoriere diese E-Mail einfach; an deinem Konto ändert sich nichts.",
+    "signInCode": {
+      "subject": "Dein {appName}-Anmeldecode: {code}",
+      "preview": "Dein Code: {code}",
+      "heading": "Dein Anmeldecode",
+      "body": "Gib diesen Code auf der {appName}-Seite ein, von der du kommst. Du musst nichts anklicken.",
+      "codeLabel": "Anmeldecode",
+      "validity": "Er gilt 10 Minuten und nur einmal. Ein neuer Code ersetzt diesen.",
+      "ignore": "Nicht von dir angefordert? Dann ignoriere die E-Mail; ohne den Code ändert sich nichts. Gib den Code niemals weiter.",
       "footer": "Alle Fotos deines Events an einem Ort."
     }
   },

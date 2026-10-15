@@ -1,14 +1,21 @@
 "use client";
 
-import { Clock, Loader2, Mail, RotateCw } from "lucide-react";
+import { REGEXP_ONLY_DIGITS } from "input-otp";
+import { Clock, Mail, RotateCw } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { HaloButton } from "@/components/halo/halo-button";
 import { HaloInput } from "@/components/halo/halo-input";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Turnstile } from "@/components/turnstile";
 import { authClient } from "@/lib/auth-client";
+import { useRouter } from "@/lib/i18n/navigation";
 import { publicEnv } from "@/lib/public-env";
 
 function GoogleIcon() {
@@ -44,13 +51,17 @@ export function LoginForm({
 }) {
   const t = useTranslations("Login");
   const locale = useLocale();
+  const router = useRouter();
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<
-    "idle" | "sending" | "sent" | "expired" | "error"
-  >("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "code" | "error">(
+    "idle",
+  );
+  const [code, setCode] = useState("");
+  const [verifying, setVerifying] = useState(false);
+  const [codeError, setCodeError] = useState<string | null>(null);
+  const codeRef = useRef<HTMLInputElement>(null);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [captchaKey, setCaptchaKey] = useState(0);
-  const [requestId, setRequestId] = useState<string | null>(null);
   // Google's page can take a few seconds to open: show it is on its way.
   const [toGoogle, setToGoogle] = useState(false);
   useEffect(() => {
@@ -60,120 +71,145 @@ export function LoginForm({
     return () => window.removeEventListener("pageshow", reset);
   }, []);
 
+  // Sign in with a 6-digit code from the email (DECISIONS #47): the host
+  // never leaves this page, and the code can be read on any device.
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("sending");
-    // A login request lets this tab continue on its own once the link in the
-    // email is opened, on this device or another one (DECISIONS #34).
-    const res = await fetch("/api/login-request", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({
-        email,
-        next: `/${locale}${callbackPath}`,
-        locale,
-      }),
-    }).catch(() => null);
-    const id: string | null = res?.ok ? (await res.json()).id : null;
-    if (!id) {
-      setStatus("error");
-      return;
-    }
-    const { error } = await authClient.signIn.magicLink({
+    const { error } = await authClient.emailOtp.sendVerificationOtp({
       email,
-      callbackURL: `/${locale}/auth/confirmed?req=${id}`,
-      errorCallbackURL: `/${locale}/auth/confirmed?error=1`,
-      metadata: { locale },
+      type: "sign-in",
       fetchOptions: {
-        headers: { "x-captcha-response": captchaToken ?? "" },
+        headers: {
+          "x-captcha-response": captchaToken ?? "",
+          "x-locale": locale,
+        },
       },
     });
+    // Tokens are single-use: get a fresh challenge for a retry or a resend.
+    setCaptchaToken(null);
+    setCaptchaKey((k) => k + 1);
     if (error) {
-      // Tokens are single-use: get a fresh challenge for the retry.
-      setCaptchaToken(null);
-      setCaptchaKey((k) => k + 1);
       setStatus("error");
       return;
     }
-    setRequestId(id);
-    setStatus("sent");
+    setCode("");
+    setCodeError(null);
+    setStatus("code");
   }
 
-  // Wait for the link to be opened anywhere, then sign this tab in too.
-  useEffect(() => {
-    if (status !== "sent" || !requestId) return;
-    let stop = false;
-    const tick = async () => {
-      const res = await fetch(`/api/login-request/${requestId}`, {
-        cache: "no-store",
-      }).catch(() => null);
-      if (stop || !res?.ok) return;
-      const data = (await res.json()) as { status: string; url?: string };
-      if (data.status === "approved" && data.url) {
-        stop = true;
-        window.location.assign(data.url);
-      } else if (data.status === "expired") {
-        stop = true;
-        setStatus("expired");
-      }
-    };
-    const timer = setInterval(tick, 2500);
-    return () => {
-      stop = true;
-      clearInterval(timer);
-    };
-  }, [status, requestId]);
+  async function verify(value: string) {
+    if (value.length !== 6 || verifying) return;
+    setVerifying(true);
+    setCodeError(null);
+    const { error } = await authClient.signIn.emailOtp({ email, otp: value });
+    if (error) {
+      setVerifying(false);
+      setCode("");
+      setCodeError(
+        error.code === "OTP_EXPIRED" || error.code === "TOO_MANY_ATTEMPTS"
+          ? t("codeExpired")
+          : t("codeWrong"),
+      );
+      // The field was disabled while checking: put the cursor back in it.
+      requestAnimationFrame(() => codeRef.current?.focus());
+      return;
+    }
+    // The session cookie is set; the next page renders signed in.
+    router.replace(callbackPath);
+    router.refresh();
+  }
 
-  if (status === "sent" || status === "expired") {
-    const expired = status === "expired";
-    // Layout from the 21st.dev "Auth Verify Email" (preetsuthar17) with the
-    // live "waiting for approval" pill of "Push Approval" (felipemenezes098).
+  if (status === "code") {
     return (
-      <div className="w-full text-center" role="status" aria-live="polite">
-        <span className="relative mx-auto flex size-16 items-center justify-center rounded-full bg-accent text-primary">
+      <div className="w-full text-center">
+        <span className="mx-auto flex size-16 items-center justify-center rounded-full bg-accent text-primary">
           <Mail className="size-7" aria-hidden />
-          {!expired && (
-            <span className="absolute -end-0.5 -bottom-0.5 flex size-6 items-center justify-center rounded-full bg-card shadow ring-1 ring-black/5">
-              <Loader2 className="size-3.5 animate-spin" aria-hidden />
-            </span>
-          )}
         </span>
         <h2 className="mt-4 font-heading text-xl font-semibold">
-          {expired ? t("expiredTitle") : t("sentTitle")}
+          {t("codeTitle")}
         </h2>
         <p className="mt-1.5 text-sm text-pretty text-muted-foreground">
-          {expired
-            ? t("expiredBody")
-            : t.rich("sentBody", {
-                email,
-                b: (chunks) => (
-                  <span className="font-medium text-foreground">{chunks}</span>
-                ),
-              })}
+          {t.rich("codeBody", {
+            email,
+            b: (chunks) => (
+              <span className="font-medium text-foreground">{chunks}</span>
+            ),
+          })}
         </p>
-        {!expired && (
-          <p className="mx-auto mt-4 flex w-fit items-center gap-2 rounded-full bg-muted px-3.5 py-1.5 text-xs font-medium text-muted-foreground">
-            <span className="relative flex size-2">
-              <span className="absolute inline-flex size-full animate-ping rounded-full bg-primary/60 motion-reduce:animate-none" />
-              <span className="relative inline-flex size-2 rounded-full bg-primary" />
-            </span>
-            {t("waiting")}
-          </p>
-        )}
-        {!expired && (
-          <div className="mt-5 flex items-start gap-3 rounded-2xl border border-border bg-muted/40 p-3.5 text-start">
-            <Clock
-              className="mt-0.5 size-4 shrink-0 text-muted-foreground"
-              aria-hidden
-            />
-            <div>
-              <p className="text-sm font-medium">{t("notReceived")}</p>
-              <p className="mt-0.5 text-xs text-pretty text-muted-foreground">
-                {t("notReceivedHint")}
-              </p>
-            </div>
+        <form
+          className="mt-6"
+          onSubmit={(e) => {
+            e.preventDefault();
+            verify(code);
+          }}
+        >
+          <label htmlFor="sign-in-code" className="sr-only">
+            {t("codeLabel")}
+          </label>
+          <InputOTP
+            id="sign-in-code"
+            ref={codeRef}
+            maxLength={6}
+            pattern={REGEXP_ONLY_DIGITS}
+            inputMode="numeric"
+            autoComplete="one-time-code"
+            autoFocus
+            value={code}
+            onChange={(v) => {
+              setCode(v);
+              if (codeError) setCodeError(null);
+            }}
+            onComplete={verify}
+            disabled={verifying}
+            containerClassName="justify-center"
+            aria-invalid={codeError ? true : undefined}
+            aria-describedby={codeError ? "sign-in-code-error" : undefined}
+          >
+            <InputOTPGroup className="gap-2 has-aria-invalid:ring-0">
+              {[0, 1, 2, 3, 4, 5].map((i) => (
+                <InputOTPSlot
+                  key={i}
+                  index={i}
+                  aria-invalid={codeError ? true : undefined}
+                  className="h-14 w-11 rounded-lg border bg-card font-mono text-2xl font-semibold shadow-xs first:rounded-lg last:rounded-lg sm:w-12"
+                />
+              ))}
+            </InputOTPGroup>
+          </InputOTP>
+          {codeError && (
+            <p
+              id="sign-in-code-error"
+              className="mt-3 text-sm text-destructive"
+              role="alert"
+            >
+              {codeError}
+            </p>
+          )}
+          <HaloButton
+            type="submit"
+            fullWidth
+            size="lg"
+            className="mt-5"
+            isLoading={verifying}
+            loadingText={t("codeVerifying")}
+            disabled={code.length !== 6}
+          >
+            {t("codeSubmit")}
+          </HaloButton>
+        </form>
+        <div className="mt-5 flex items-start gap-3 rounded-2xl border border-border bg-muted/40 p-3.5 text-start">
+          <Clock
+            className="mt-0.5 size-4 shrink-0 text-muted-foreground"
+            aria-hidden
+          />
+          <div>
+            <p className="text-sm font-medium">{t("notReceived")}</p>
+            <p className="mt-0.5 text-xs text-pretty text-muted-foreground">
+              {t("notReceivedHint")}
+            </p>
           </div>
-        )}
+        </div>
         <HaloButton
           tone="secondary"
           fullWidth

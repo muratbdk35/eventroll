@@ -81,14 +81,21 @@ export const adaptedComponents: Notice[] = [
     author: "Preet Suthar (preetsuthar17)",
     license: "MIT",
     url: "https://21st.dev/@preetsuthar17/components/auth-verify-email",
-    usedFor: "Sign-in and email confirmation screens. Modified.",
+    usedFor: "Sign-in and code entry screens. Modified.",
   },
   {
     name: "shadcn/ui",
     author: "shadcn",
     license: "MIT",
     url: "https://github.com/shadcn-ui/ui",
-    usedFor: "Base components (buttons, inputs, menus, calendar).",
+    usedFor: "Base components (buttons, inputs, menus, calendar, code input).",
+  },
+  {
+    name: "input-otp",
+    author: "Guilherme Rodz (guilhermerodz)",
+    license: "MIT",
+    url: "https://github.com/guilhermerodz/input-otp",
+    usedFor: "The six boxes for the sign-in code.",
   },
 ];
 

@@ -2,11 +2,11 @@ import "server-only";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
-import { captcha, magicLink } from "better-auth/plugins";
+import { captcha, emailOTP, magicLink } from "better-auth/plugins";
 import { headers } from "next/headers";
 import { db } from "@/lib/db";
 import * as schema from "@/lib/db/schema";
-import { sendMagicLinkEmail } from "@/lib/email/magic-link";
+import { sendSignInCodeEmail } from "@/lib/email/sign-in-code";
 import { env } from "@/lib/env";
 import { turnstileSecret } from "@/lib/turnstile";
 
@@ -38,16 +38,33 @@ export const auth = betterAuth({
     accountLinking: { enabled: true, trustedProviders: ["google"] },
   },
   plugins: [
-    // Bot protection on owner sign-up/sign-in (the magic link creates accounts).
+    // Bot protection on owner sign-up/sign-in (the code creates accounts).
     captcha({
       provider: "cloudflare-turnstile",
       secretKey: turnstileSecret() ?? "",
-      endpoints: ["/sign-in/magic-link"],
+      endpoints: ["/email-otp/send-verification-otp", "/sign-in/magic-link"],
     }),
+    // Sign in with a 6-digit code from the email (DECISIONS #47). Stored
+    // hashed; 10 minutes, 5 tries, a new code replaces the old one.
+    emailOTP({
+      otpLength: 6,
+      expiresIn: 60 * 10,
+      allowedAttempts: 5,
+      storeOTP: "hashed",
+      sendVerificationOTP: async ({ email, otp, type }, ctx) => {
+        if (type !== "sign-in") return;
+        await sendSignInCodeEmail({
+          email,
+          code: otp,
+          locale: ctx?.headers?.get("x-locale"),
+        });
+      },
+    }),
+    // Kept only so /api/dev-login can mint a session locally; it never sends
+    // email (sign-in links were replaced by codes, #47).
     magicLink({
-      expiresIn: 60 * 15,
-      sendMagicLink: async ({ email, url, metadata }) => {
-        await sendMagicLinkEmail({ email, url, locale: metadata?.locale });
+      sendMagicLink: async () => {
+        throw new Error("Sign-in links are disabled; use the email code.");
       },
     }),
     nextCookies(), // must stay last
