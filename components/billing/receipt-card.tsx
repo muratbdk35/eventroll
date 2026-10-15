@@ -10,11 +10,24 @@ import { cn } from "@/lib/utils";
 export const TORN_EDGE =
   "[clip-path:polygon(0_0,100%_0,100%_calc(100%-8px),97%_100%,94%_calc(100%-8px),91%_100%,88%_calc(100%-8px),85%_100%,82%_calc(100%-8px),79%_100%,76%_calc(100%-8px),73%_100%,70%_calc(100%-8px),67%_100%,64%_calc(100%-8px),61%_100%,58%_calc(100%-8px),55%_100%,52%_calc(100%-8px),49%_100%,46%_calc(100%-8px),43%_100%,40%_calc(100%-8px),37%_100%,34%_calc(100%-8px),31%_100%,28%_calc(100%-8px),25%_100%,22%_calc(100%-8px),19%_100%,16%_calc(100%-8px),13%_100%,10%_calc(100%-8px),7%_100%,4%_calc(100%-8px),1%_100%,0_calc(100%-8px))]";
 
-function Rule() {
+/*
+ * Premium is printed in gold foil on ivory (DECISIONS #46): a fine gold frame,
+ * the plan name as a foil strip with a slow glint, a gold seal, gold ticks,
+ * total and button. Standard keeps the plain paper.
+ */
+const FOIL =
+  "bg-[linear-gradient(110deg,#a8791f_0%,#e2c06a_28%,#fff0c2_44%,#d6aa4a_58%,#9c6f1c_100%)]";
+const GOLD_TEXT =
+  "bg-[linear-gradient(110deg,#7d5710_0%,#b8892b_40%,#d9b45a_55%,#8a6114_100%)] bg-clip-text text-transparent";
+
+function Rule({ gold = false }: { gold?: boolean }) {
   return (
     <span
       aria-hidden
-      className="my-3 block border-t border-dashed border-border"
+      className={cn(
+        "my-3 block border-t border-dashed",
+        gold ? "border-[#cfae5f]/60" : "border-border",
+      )}
     />
   );
 }
@@ -68,34 +81,51 @@ export function ReceiptCard({
         className={cn(
           "relative px-6 pt-8 pb-8 font-mono text-[12.5px] leading-relaxed text-[oklch(0.23_0.02_240)] transition-transform duration-300 hover:-translate-y-1",
           TORN_EDGE,
-          // Premium is printed on a faintly blue paper.
-          featured ? "bg-[#f1f6fc]" : "bg-[#fbfcfe]",
+          // Premium is printed on ivory.
+          featured ? "bg-[#fdf9ee]" : "bg-[#fbfcfe]",
           featured
-            ? "shadow-[0_40px_80px_-30px_rgb(40_10_0/0.7)] md:scale-[1.06] md:rotate-[1deg]"
+            ? "shadow-[0_40px_80px_-30px_rgb(70_45_0/0.65),0_0_0_1px_rgb(201_163_79/0.35)] md:scale-[1.06] md:rotate-[1deg]"
             : "shadow-[0_30px_60px_-30px_rgb(40_10_0/0.6)] md:-rotate-1",
           selected && "-translate-y-1",
           className,
         )}
       >
+        {featured && (
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-x-2.5 top-2.5 bottom-5 border border-[#cfae5f]/70 outline outline-1 outline-offset-[3px] outline-[#cfae5f]/30"
+          />
+        )}
         <p className="text-center text-[13.5px] font-bold tracking-[0.1em]">
           {merchant}
         </p>
         <p className="mt-1 text-center text-[10.5px] tracking-[0.06em] text-[oklch(0.52_0.02_241)]">
           {merchantLine}
         </p>
-        <Rule />
+        <Rule gold={featured} />
         <div className="flex items-center justify-between gap-3">
           <h3
             className={cn(
               "font-bold tracking-[0.08em]",
               // Receipts emphasise with reverse print.
-              featured && "-ms-1 bg-primary px-1.5 py-0.5 text-white",
+              featured &&
+                cn(
+                  "foil-glint -ms-1 px-1.5 py-0.5 text-[#2b1d04] shadow-[inset_0_1px_0_rgb(255_255_255/0.6),0_1px_2px_rgb(120_80_0/0.3)]",
+                  FOIL,
+                ),
             )}
           >
             {name}
           </h3>
           {stamp && (
-            <span className="-rotate-6 rounded border-2 border-primary px-2 py-0.5 text-[10.5px] font-bold tracking-[0.14em] whitespace-nowrap text-primary">
+            <span
+              className={cn(
+                "-rotate-6 rounded border-2 px-2 py-0.5 text-[10.5px] font-bold tracking-[0.14em] whitespace-nowrap",
+                featured
+                  ? "border-[#b8892b] text-[#8a6114] shadow-[inset_0_0_0_1px_rgb(255_240_194/0.8)]"
+                  : "border-primary text-primary",
+              )}
+            >
               {stamp}
             </span>
           )}
@@ -103,7 +133,7 @@ export function ReceiptCard({
         <p className="mt-1 text-[11px] text-[oklch(0.52_0.02_241)]">
           {tagline}
         </p>
-        <Rule />
+        <Rule gold={featured} />
         <ul className="space-y-1.5">
           {rows.map(([label, value, out]) => (
             <li
@@ -121,7 +151,8 @@ export function ReceiptCard({
               <span
                 className={cn(
                   "shrink-0 font-bold",
-                  value === "✓" && "text-primary",
+                  value === "✓" &&
+                    (featured ? "text-[#9a6d15]" : "text-primary"),
                   out && "font-semibold",
                 )}
               >
@@ -136,7 +167,7 @@ export function ReceiptCard({
             </li>
           ))}
         </ul>
-        <Rule />
+        <Rule gold={featured} />
         <div className="flex items-baseline justify-between text-[11.5px] text-[oklch(0.52_0.02_241)]">
           <span>{billingLabel}</span>
           <span>{billingValue}</span>
@@ -146,7 +177,7 @@ export function ReceiptCard({
           <span
             className={cn(
               "font-heading text-5xl font-extrabold tracking-tight",
-              featured && "text-primary",
+              featured && GOLD_TEXT,
             )}
           >
             {total}
@@ -157,11 +188,14 @@ export function ReceiptCard({
             {perGuest}
           </p>
         )}
-        <Rule />
+        <Rule gold={featured} />
         {cta}
         <div
           aria-hidden
-          className="mx-auto mt-5 h-9 w-4/5 [background-image:repeating-linear-gradient(90deg,currentColor_0,currentColor_2px,transparent_2px,transparent_5px,currentColor_5px,currentColor_6px,transparent_6px,transparent_9px)] opacity-70"
+          className={cn(
+            "mx-auto mt-5 h-9 w-4/5 [background-image:repeating-linear-gradient(90deg,currentColor_0,currentColor_2px,transparent_2px,transparent_5px,currentColor_5px,currentColor_6px,transparent_6px,transparent_9px)] opacity-70",
+            featured && "text-[#9a7424]",
+          )}
         />
         <p className="mt-2 text-center text-[10px] tracking-[0.2em] text-[oklch(0.52_0.02_241)]">
           {thanks}
@@ -177,7 +211,10 @@ export function receiptCtaClass(featured: boolean) {
     "flex w-full items-center justify-center gap-2 py-3.5 text-[12.5px] font-bold tracking-[0.1em] transition-all active:scale-[0.98]",
     "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none disabled:opacity-60",
     featured
-      ? "bg-primary text-primary-foreground shadow-[0_10px_24px_-10px_var(--primary)] hover:bg-primary/90"
+      ? cn(
+          "foil-glint text-[#2b1d04] shadow-[inset_0_1px_0_rgb(255_255_255/0.6),0_10px_24px_-10px_rgb(150_100_10/0.7)] hover:brightness-105",
+          FOIL,
+        )
       : "bg-[oklch(0.23_0.02_240)] text-white hover:bg-[oklch(0.3_0.02_240)]",
   );
 }

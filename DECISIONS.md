@@ -600,3 +600,13 @@ Premium-only.
 Revises #40: the "live" status was safelight red, which hosts read as an
 error. `--live` is now green (oklch 0.5 0.13 155; 0.72 in dark mode), so the
 status pill and the live dot on the event page say "on" plainly.
+
+## 46. Premium receipt in gold foil (owner request, 2026-10-15)
+
+The Premium receipt is printed on ivory with gold: a fine double gold frame,
+the plan name as a foil strip, a gold "best value" stamp, gold ticks, total
+(gradient text) and barcode, and a foil button. The name strip and button get
+a slow glint every few seconds (`.foil-glint` in `globals.css`), off under
+reduced motion. Dark ink on foil keeps the text readable. Standard keeps the
+plain white paper, so the difference shows at a glance on the landing page
+and in the create flow.
