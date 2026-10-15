@@ -667,3 +667,19 @@ production build with a session cookie.
   on the primary tile has full contrast, print captions don't repeat as alt.
 - SEO below 100 on login, create, guest and legal pages is by design: they
   are noindex (the test site as a whole is too).
+
+## 50. Planned: automatic flagging of explicit uploads (owner decision, 2026-10-16)
+
+To build once a Sightengine account exists (keys in env):
+
+- Every guest upload is checked with Sightengine `nudity-2.1`. Only
+  `sexual_activity` and `sexual_display` (explicit sex, exposed genitals)
+  count; erotica and all suggestive classes are ignored, so kissing,
+  swimwear, cleavage and dancing never trigger it.
+- A flagged photo is never deleted automatically: in the host's panel it is
+  blurred with a "needs review" label; the host keeps it, or deletes it and
+  blocks the device (`deletePhoto`, `blockDevice`).
+- Both plans. Landing card "Smart protection"; no "100% safe" claims (EU
+  rules on misleading advertising): flagged photos are blurred and the host
+  decides.
+- About $0.001–0.002 per photo. CSAM scanning is decided at launch.
