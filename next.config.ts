@@ -7,6 +7,10 @@ const withNextIntl = createNextIntlPlugin("./lib/i18n/request.ts");
 const nextConfig: NextConfig = {
   // PGlite (dev-only DB) loads WASM/data files at runtime and must not be bundled.
   serverExternalPackages: ["@electric-sql/pglite"],
+  // TTF fonts for the PNG templates (lib/print/fonts.ts).
+  outputFileTracingIncludes: {
+    "/api/events/[id]/template": ["./assets/fonts/**"],
+  },
   // Cache Components is intentionally off for the MVP (see DECISIONS.md #3).
   turbopack: {
     rules: {

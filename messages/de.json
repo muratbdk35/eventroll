@@ -482,7 +482,7 @@
     },
     "print": {
       "title": "QR-Vorlagen",
-      "subtitle": "Wähle eine Vorlage und Farbe und drucke sie aus. Für A4-Papier.",
+      "subtitle": "Wähl eine Vorlage und eine Farbe und lade sie als PNG herunter. Alles für A4, in Druckqualität.",
       "back": "Zurück zum Teilen",
       "templates": {
         "cards": "Tischkarten",
@@ -493,28 +493,28 @@
         "posterHint": "A4-Poster für Eingang oder Fotoecke"
       },
       "colorLabel": "Farbe",
-      "colors": {
-        "powder": "Puderblau",
-        "terracotta": "Terrakotta",
-        "midnight": "Nachtblau",
-        "sage": "Salbei",
-        "blush": "Rosé"
-      },
       "headlineLabel": "Überschrift",
       "headlineDefault": "Teilt eure Erinnerungen mit uns",
       "subline": "Mit der Handykamera scannen und Fotos hochladen",
-      "steps": "SCANNEN · AUSWÄHLEN · SENDEN",
       "noApp": "Keine App, kein Konto nötig",
-      "printButton": "Drucken / als PDF sichern",
-      "printHint": "Im Druckdialog Ränder auf \"Keine\" und Skalierung auf 100 % stellen.",
       "premiumTitle": "Vorlagen sind in Premium enthalten",
-      "premiumBody": "Mit Standard kannst du den QR-Code als PNG oder SVG laden und selbst verwenden.",
+      "premiumBody": "Die Vorschau ist frei. Herunterladen gehört zu Premium; mit Standard kannst du den QR-Code als PNG oder SVG laden und selbst verwenden.",
       "cutHint": "Entlang der gestrichelten Linien schneiden",
       "foldHint": "Hier falten",
       "showPin": "PIN auf der Karte zeigen",
       "showPinHint": "Ist es aus, sagst du den Gästen die PIN selbst.",
       "showPinResave": "Um sie zu zeigen, speichere die PIN in den Einstellungen noch einmal.",
-      "safariHint": "In Safari: Im Druckdialog \"Kopf- und Fußzeilen drucken\" ausschalten und \"Hintergründe drucken\" einschalten. Ränder \"Keine\", Skalierung 100 %."
+      "step1": "Scannen",
+      "step2": "Auswählen",
+      "step3": "Senden",
+      "stubLabel": "Gästefotos",
+      "paperLabel": "Weißer Hintergrund (tintensparend)",
+      "paperHint": "Das Ticket bleibt weiß, nur die Linien sind farbig. Spart Tinte beim Drucken zu Hause.",
+      "downloadPng": "PNG herunterladen",
+      "downloadHint": "A4, 300 dpi. Zu Hause oder im Copyshop mit 100 % Skalierung drucken.",
+      "previewAlt": "Vorschau: {template}",
+      "downloadPreparing": "Druckdatei wird erstellt…",
+      "downloadFailed": "Download fehlgeschlagen. Versuch es erneut."
     },
     "backToReview": "Zurück zur Übersicht",
     "download": {

@@ -1,13 +1,13 @@
 "use client";
 
 import { Clock, KeyRound, Smartphone } from "lucide-react";
-import { useTranslations } from "next-intl";
+import Image from "next/image";
+import { useLocale, useTranslations } from "next-intl";
 import { FlowShell } from "@/app/[locale]/(app)/create/create-flow";
 import { DetailsQuestions } from "@/app/[locale]/(app)/create/details-step";
 import { emptyDraft } from "@/app/[locale]/(app)/create/draft";
 import { GuestLinkField } from "@/components/host/guest-link-field";
 import { PhotoGrid } from "@/components/host/photo-grid";
-import { Face } from "@/components/host/print-templates";
 import { Row } from "@/components/host/settings-form";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
@@ -120,27 +120,21 @@ export function ControlPreview() {
   );
 }
 
-/** One printed table card from the Premium templates. */
-export function PrintPreview({ qr }: { qr: string }) {
-  const t = useTranslations("Events.print");
+/**
+ * One printed table card from the Premium templates: a PNG drawn by the
+ * real template code (scripts/render-print-card.tsx), one per language.
+ */
+export function PrintPreview() {
+  const locale = useLocale();
   return (
-    <div className="h-[296px] w-[210px] overflow-hidden rounded-[6px] shadow-xl ring-1 ring-black/10">
-      <Face
-        qr={qr}
-        color="powder"
-        layout="column"
-        text={{
-          eventName: "Elif & Can",
-          date: "14.06.2026",
-          headline: t("headlineDefault"),
-          subline: t("subline"),
-          steps: t("steps"),
-          noApp: t("noApp"),
-          pin: "2468",
-          pinLabel: "PIN",
-        }}
-      />
-    </div>
+    <Image
+      src={`/marketing/print-card-${locale}.png`}
+      alt=""
+      width={380}
+      height={552}
+      sizes="210px"
+      className="h-auto w-[210px] drop-shadow-[0_18px_24px_rgb(20_35_60/0.28)]"
+    />
   );
 }
 

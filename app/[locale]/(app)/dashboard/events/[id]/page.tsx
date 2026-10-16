@@ -143,8 +143,7 @@ export default async function EventPage({
                 </p>
                 <PrintTemplates
                   eventId={event.id}
-                  eventName={event.name}
-                  date={date(event.eventDate)}
+                  initialColor={ticketColor(event.ticketColor)}
                   hasPin={Boolean(event.accessPinHash)}
                   pin={event.accessPin}
                   premium={event.plan === "premium"}

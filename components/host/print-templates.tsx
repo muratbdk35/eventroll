@@ -1,343 +1,57 @@
 "use client";
 
 import {
+  Check,
   Download,
   KeyRound,
   LayoutGrid,
   Loader2,
   Lock,
-  Printer,
   RectangleVertical,
   Sparkles,
   Tent,
 } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { useState, useSyncExternalStore, useTransition } from "react";
-import { createPortal } from "react-dom";
+import { useLocale, useTranslations } from "next-intl";
+import { useEffect, useState, useTransition } from "react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { devActivate } from "@/lib/events/actions";
+import {
+  TICKET_COLORS,
+  ticketColors,
+  type TicketColor,
+} from "@/lib/events/ticket";
 import { useRouter } from "@/lib/i18n/navigation";
+import type { TemplateId } from "@/lib/print/sheet";
 import { cn } from "@/lib/utils";
 
 /**
- * Printable QR templates (Premium, DECISIONS #22 and #31). Every sheet is A4
- * in millimetres; the face scales with container query units so one design
- * serves the A6 card, the half-A4 tent card and the A4 poster. Printing uses
- * the browser dialog, which also saves as PDF. No EventRoll branding on
- * printed material (DECISIONS #21).
+ * QR templates (Premium, DECISIONS #22, #31, #51): pick a template, a ticket
+ * colour (or the white, ink-friendly version), a headline and whether the PIN
+ * shows. The server draws the sheet (/api/events/:id/template), so the
+ * preview here is the very PNG that downloads, at 300 dpi. Standard sees the
+ * same preview with a "PREMIUM" watermark and can download the bare QR.
  */
-
-const noop = () => () => {};
-
-type TemplateId = "cards" | "tent" | "poster";
-export type ColorId = "powder" | "terracotta" | "midnight" | "sage" | "blush";
-
-const palettes: Record<
-  ColorId,
-  { bg: string; ink: string; accent: string; soft: string }
-> = {
-  powder: {
-    bg: "#eef3f8",
-    ink: "#1d2836",
-    accent: "#457094",
-    soft: "#d6e2ef",
-  },
-  terracotta: {
-    bg: "#f7efe5",
-    ink: "#2b211c",
-    accent: "#c4623a",
-    soft: "#ecd9c6",
-  },
-  midnight: {
-    bg: "#1d2331",
-    ink: "#f6efe6",
-    accent: "#e9b07a",
-    soft: "#2c3446",
-  },
-  sage: { bg: "#eef0e5", ink: "#26311f", accent: "#647f50", soft: "#d9dfc8" },
-  blush: { bg: "#f9e9e5", ink: "#3b2327", accent: "#c0657a", soft: "#efd0cb" },
-};
 
 const templateIcons = {
   cards: LayoutGrid,
   tent: Tent,
   poster: RectangleVertical,
 } as const;
-
-export type FaceText = {
-  eventName: string;
-  date: string;
-  headline: string;
-  subline: string;
-  steps: string;
-  noApp: string;
-  /** Printed under the QR code when the host chooses to show it. */
-  pin?: string;
-  pinLabel?: string;
-};
-
-/** One printed face. Sizes are in cqw so it scales with its box. */
-export function Face({
-  qr,
-  color,
-  text,
-  layout,
-}: {
-  qr: string;
-  color: ColorId;
-  text: FaceText;
-  layout: "column" | "row";
-}) {
-  const p = palettes[color];
-  const row = layout === "row";
-  const pinChip = text.pin ? (
-    <p
-      className="inline-flex items-center font-mono font-bold"
-      style={{
-        fontSize: row ? "2.3cqw" : "3.4cqw",
-        letterSpacing: "0.18em",
-        background: p.ink,
-        color: p.bg,
-        borderRadius: "99px",
-        padding: row ? "0.6cqw 2cqw" : "1cqw 3cqw",
-        gap: row ? "1.2cqw" : "1.8cqw",
-      }}
-    >
-      <span style={{ opacity: 0.7 }}>{text.pinLabel}</span>
-      {text.pin}
-    </p>
-  ) : null;
-  return (
-    <div
-      className="relative size-full overflow-hidden"
-      style={{ containerType: "size", background: p.bg, color: p.ink }}
-    >
-      {/* soft decorative blobs */}
-      <span
-        aria-hidden
-        className="absolute rounded-full"
-        style={{
-          width: "70cqw",
-          height: "70cqw",
-          top: "-30cqw",
-          insetInlineEnd: "-28cqw",
-          background: p.soft,
-        }}
-      />
-      <span
-        aria-hidden
-        className="absolute rounded-full"
-        style={{
-          width: "46cqw",
-          height: "46cqw",
-          bottom: "-22cqw",
-          insetInlineStart: "-18cqw",
-          background: p.soft,
-        }}
-      />
-      {/* inset frame */}
-      <span
-        aria-hidden
-        className="absolute"
-        style={{
-          inset: "3.2cqw",
-          border: `0.35cqw solid ${p.accent}`,
-          borderRadius: "3cqw",
-          opacity: 0.55,
-        }}
-      />
-
-      <div
-        className={cn(
-          "relative flex size-full items-center text-center",
-          row ? "flex-row gap-[6cqw] px-[9cqw]" : "flex-col justify-center",
-        )}
-        style={row ? undefined : { padding: "9cqw", gap: "3.2cqh" }}
-      >
-        <div
-          className={cn(
-            "flex flex-col items-center",
-            row && "order-2 flex-1 items-start text-start",
-          )}
-          style={{ gap: row ? "1.6cqw" : "1.4cqh" }}
-        >
-          <p
-            className="font-semibold uppercase"
-            style={{
-              fontSize: row ? "2.4cqw" : "3.3cqw",
-              letterSpacing: "0.22em",
-              color: p.accent,
-            }}
-          >
-            {text.eventName}
-            {text.date &&
-              (row ? (
-                <span className="block" style={{ opacity: 0.75 }}>
-                  {text.date}
-                </span>
-              ) : (
-                <span style={{ opacity: 0.75 }}> · {text.date}</span>
-              ))}
-          </p>
-          <p
-            className="font-heading font-bold text-balance"
-            style={{
-              fontSize: row ? "5.6cqw" : "8.6cqw",
-              lineHeight: 1.05,
-              letterSpacing: "-0.01em",
-            }}
-          >
-            {text.headline}
-          </p>
-          {row && (
-            <p style={{ fontSize: "2.5cqw", opacity: 0.75 }}>{text.subline}</p>
-          )}
-          {row && (
-            <p
-              className="font-semibold"
-              style={{
-                fontSize: "2cqw",
-                letterSpacing: "0.2em",
-                color: p.accent,
-                marginTop: "1cqw",
-              }}
-            >
-              {text.steps}
-            </p>
-          )}
-          {row && pinChip && (
-            <div style={{ marginTop: "1.4cqw" }}>{pinChip}</div>
-          )}
-        </div>
-
-        <div
-          className={cn("shrink-0", row && "order-1")}
-          style={{
-            width: row ? "36cqw" : "52cqw",
-            background: "#fff",
-            padding: row ? "2.2cqw" : "3.2cqw",
-            borderRadius: row ? "3cqw" : "4.5cqw",
-            boxShadow: "0 1.5cqw 4cqw -1.5cqw rgb(0 0 0 / 0.25)",
-            transform: "rotate(-1.5deg)",
-          }}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element -- generated per event, authenticated */}
-          <img src={qr} alt="" className="block aspect-square w-full" />
-        </div>
-
-        {!row && (
-          <div className="flex flex-col items-center" style={{ gap: "1.2cqh" }}>
-            {pinChip}
-            <p style={{ fontSize: "3.8cqw", opacity: 0.8 }}>{text.subline}</p>
-            <p
-              className="font-semibold"
-              style={{
-                fontSize: "2.9cqw",
-                letterSpacing: "0.22em",
-                color: p.accent,
-              }}
-            >
-              {text.steps}
-            </p>
-            <p style={{ fontSize: "2.6cqw", opacity: 0.6 }}>{text.noApp}</p>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
-
-/** A full A4 sheet for the chosen template. */
-function Sheet({
-  template,
-  qr,
-  color,
-  text,
-  hints,
-}: {
-  template: TemplateId;
-  qr: string;
-  color: ColorId;
-  text: FaceText;
-  hints: { cut: string; fold: string };
-}) {
-  const face = (layout: "column" | "row") => (
-    <Face qr={qr} color={color} text={text} layout={layout} />
-  );
-  return (
-    <div
-      className="relative overflow-hidden bg-white"
-      style={{
-        width: "210mm",
-        height: "297mm",
-        printColorAdjust: "exact",
-        WebkitPrintColorAdjust: "exact",
-      }}
-    >
-      {template === "poster" && face("column")}
-
-      {template === "cards" && (
-        <>
-          <div className="grid size-full grid-cols-2 grid-rows-2">
-            {[0, 1, 2, 3].map((n) => (
-              <div key={n} style={{ padding: "4mm" }}>
-                <div className="size-full overflow-hidden rounded-[3mm]">
-                  {face("column")}
-                </div>
-              </div>
-            ))}
-          </div>
-          {/* cut guides */}
-          <span
-            aria-hidden
-            className="absolute inset-y-0 start-1/2 border-s border-dashed border-black/30"
-          />
-          <span
-            aria-hidden
-            className="absolute inset-x-0 top-1/2 border-t border-dashed border-black/30"
-          />
-          <span className="absolute start-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-[2mm] text-[2.4mm] whitespace-nowrap text-black/45 rtl:translate-x-1/2">
-            ✂ {hints.cut}
-          </span>
-        </>
-      )}
-
-      {template === "tent" && (
-        <div className="flex size-full flex-col">
-          {/* Top half is upside down so both sides read correctly once folded. */}
-          <div className="h-1/2 rotate-180">{face("row")}</div>
-          <div className="h-1/2">{face("row")}</div>
-          <span
-            aria-hidden
-            className="absolute inset-x-0 top-1/2 border-t border-dashed border-black/35"
-          />
-          <span className="absolute end-[6mm] top-1/2 -translate-y-1/2 bg-white px-[2mm] text-[2.4mm] text-black/45">
-            {hints.fold}
-          </span>
-        </div>
-      )}
-    </div>
-  );
-}
-
-/** Diagonal "PREMIUM" over the unpaid preview, so a screenshot isn't a print. */
-const WATERMARK = `url("data:image/svg+xml,${encodeURIComponent(
-  '<svg xmlns="http://www.w3.org/2000/svg" width="180" height="120"><text x="90" y="64" text-anchor="middle" transform="rotate(-28 90 60)" font-family="system-ui,sans-serif" font-size="15" font-weight="700" letter-spacing="3" fill="rgb(69 112 148 / 0.22)">PREMIUM</text></svg>',
-)}")`;
+const templates: TemplateId[] = ["cards", "tent", "poster"];
 
 export function PrintTemplates({
   eventId,
-  eventName,
-  date,
+  initialColor,
   hasPin,
   pin,
   premium,
   devMode,
 }: {
   eventId: string;
-  eventName: string;
-  date: string;
+  /** The guest ticket's colour, so the cards match the guest page. */
+  initialColor: TicketColor;
   hasPin: boolean;
   /** Readable PIN, null for PINs set before it was stored. */
   pin: string | null;
@@ -345,71 +59,69 @@ export function PrintTemplates({
   devMode: boolean;
 }) {
   const t = useTranslations("Events.print");
+  const tc = useTranslations("Events.ticket.colors");
+  const locale = useLocale();
   const router = useRouter();
   const [template, setTemplate] = useState<TemplateId>("cards");
-  const [color, setColor] = useState<ColorId>("powder");
+  const [color, setColor] = useState<TicketColor>(initialColor);
+  const [paper, setPaper] = useState(false);
   const [headline, setHeadline] = useState(() => t("headlineDefault"));
+  // The preview re-renders on the server: wait for a pause in typing.
+  const [typed, setTyped] = useState(headline);
   const [showPin, setShowPin] = useState(Boolean(pin));
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [upgrading, startUpgrade] = useTransition();
-  const qr = `/api/events/${eventId}/qr?format=svg`;
 
-  // The print copy is portalled straight under <body> so print CSS can hide
-  // everything else without fighting the dashboard layout.
-  const mounted = useSyncExternalStore(
-    noop,
-    () => true,
-    () => false,
-  );
-  // Desktop Safari keeps its own "print headers and footers" box (on by
-  // default), which takes room from the page and pushes the sheet onto a
-  // second one; a page can't switch it off, so say where it is.
-  const desktopSafari = useSyncExternalStore(
-    noop,
-    () =>
-      /^((?!chrome|chromium|crios|fxios|edg|android).)*safari/i.test(
-        navigator.userAgent,
-      ) && !/iphone|ipad|ipod/i.test(navigator.userAgent),
-    () => false,
-  );
+  useEffect(() => {
+    const id = setTimeout(() => setTyped(headline), 450);
+    return () => clearTimeout(id);
+  }, [headline]);
 
-  const text: FaceText = {
-    eventName,
-    date,
-    headline: headline.trim() || t("headlineDefault"),
-    subline: t("subline"),
-    steps: t("steps"),
-    noApp: t("noApp"),
-    pin: showPin && pin ? pin : undefined,
-    pinLabel: "PIN",
-  };
-  const hints = { cut: t("cutHint"), fold: t("foldHint") };
-  const sheet = (
-    <Sheet
-      template={template}
-      qr={qr}
-      color={color}
-      text={text}
-      hints={hints}
-    />
-  );
+  const q = new URLSearchParams({
+    t: template,
+    c: color,
+    locale,
+    h: typed.trim() || t("headlineDefault"),
+  });
+  if (paper) q.set("paper", "1");
+  if (showPin && pin) q.set("pin", "1");
+  const base = `/api/events/${eventId}/template?${q}`;
+  const preview = `${base}&w=1000`;
 
-  const templates: TemplateId[] = ["cards", "tent", "poster"];
+  // The 300 dpi sheet takes a few seconds on the server: fetch it with a
+  // spinner on the button, then hand the browser the file.
+  async function download() {
+    setSaving(true);
+    try {
+      const res = await fetch(`${base}&download`);
+      if (!res.ok) throw new Error(String(res.status));
+      const name =
+        /filename="([^"]+)"/.exec(
+          res.headers.get("content-disposition") ?? "",
+        )?.[1] ?? "qr.png";
+      const url = URL.createObjectURL(await res.blob());
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = name;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 10_000);
+    } catch {
+      toast.error(t("downloadFailed"));
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  // A new picture is on its way whenever the address changes.
+  const [shown, setShown] = useState(preview);
+  if (shown !== preview) {
+    setShown(preview);
+    setLoading(true);
+  }
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto]">
-      <style>{`
-        #print-root { display: none; }
-        @media print {
-          @page { size: A4 portrait; margin: 0; }
-          html, body { background: #fff !important; margin: 0 !important; height: auto !important; min-height: 0 !important; }
-          body > *:not(#print-root) { display: none !important; }
-          #print-root { display: block !important; break-inside: avoid; }
-          /* 1 mm of slack: browsers round the page box, and a sheet of
-             exactly 297 mm can spill a sliver onto a second page. */
-          #print-root > div { height: 296mm !important; break-after: avoid; }
-        }
-      `}</style>
-
+    <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)]">
       {/* Controls */}
       <div className="space-y-6">
         <div className="grid gap-2.5 sm:grid-cols-3 lg:grid-cols-1">
@@ -452,32 +164,54 @@ export function PrintTemplates({
           })}
         </div>
 
-        <div>
-          <p className="mb-2.5 text-sm font-medium">{t("colorLabel")}</p>
-          <div className="flex flex-wrap gap-2">
-            {(Object.keys(palettes) as ColorId[]).map((id) => (
-              <button
-                key={id}
-                type="button"
-                aria-pressed={color === id}
-                onClick={() => setColor(id)}
-                className={cn(
-                  "flex h-9 items-center gap-2 rounded-full border bg-card ps-1.5 pe-3.5 text-sm transition-all outline-none focus-visible:ring-2 focus-visible:ring-ring/50",
-                  color === id
-                    ? "border-primary/40 font-semibold ring-1 ring-primary/25"
-                    : "border-border hover:border-primary/25",
-                )}
-              >
-                <span
-                  className="size-6 rounded-full ring-1 ring-black/10"
+        <fieldset>
+          <legend className="mb-2.5 text-sm font-medium">
+            {t("colorLabel")}
+          </legend>
+          <div className="flex flex-wrap gap-2.5">
+            {ticketColors.map((id) => {
+              const c = TICKET_COLORS[id];
+              const on = color === id;
+              return (
+                <button
+                  key={id}
+                  type="button"
+                  aria-pressed={on}
+                  aria-label={tc(id)}
+                  title={tc(id)}
+                  onClick={() => setColor(id)}
+                  className={cn(
+                    "relative flex size-10 items-center justify-center rounded-full ring-offset-2 ring-offset-background transition-shadow outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                    on && "ring-2 ring-foreground",
+                  )}
                   style={{
-                    background: `linear-gradient(135deg, ${palettes[id].bg} 50%, ${palettes[id].accent} 50%)`,
+                    background: `linear-gradient(135deg, ${c.back} 50%, ${c.front} 50%)`,
                   }}
-                />
-                {t(`colors.${id}`)}
-              </button>
-            ))}
+                >
+                  {on && (
+                    <Check
+                      className="size-4"
+                      style={{ color: c.ink }}
+                      strokeWidth={3}
+                      aria-hidden
+                    />
+                  )}
+                </button>
+              );
+            })}
           </div>
+        </fieldset>
+
+        <div className="flex items-start gap-3 rounded-2xl border border-border bg-card p-3.5">
+          <div className="min-w-0 flex-1">
+            <label htmlFor="print-paper" className="block text-sm font-medium">
+              {t("paperLabel")}
+            </label>
+            <p className="mt-0.5 text-[13px] text-pretty text-muted-foreground">
+              {t("paperHint")}
+            </p>
+          </div>
+          <Switch id="print-paper" checked={paper} onCheckedChange={setPaper} />
         </div>
 
         <div>
@@ -521,109 +255,107 @@ export function PrintTemplates({
             />
           </div>
         )}
-
-        <div className="space-y-2">
-          <Button
-            className="h-11 w-full rounded-full text-[15px] shadow-[0_10px_24px_-10px_var(--primary)]"
-            disabled={!premium}
-            onClick={() => window.print()}
-          >
-            <Printer aria-hidden />
-            {t("printButton")}
-          </Button>
-          {desktopSafari && premium ? (
-            <p className="rounded-xl bg-accent/60 px-3 py-2 text-xs text-pretty text-accent-foreground">
-              {t("safariHint")}
-            </p>
-          ) : (
-            <p className="text-center text-xs text-pretty text-muted-foreground">
-              {t("printHint")}
-            </p>
-          )}
-        </div>
       </div>
 
-      {/* Preview: the real sheet, zoomed down on screen. */}
-      <div className="relative flex items-start justify-center">
-        <div
-          className={cn(
-            "[zoom:0.4] overflow-hidden rounded-md shadow-[0_30px_60px_-30px_rgb(60_30_10/0.5)] ring-1 ring-black/10 sm:[zoom:0.5]",
-            !premium && "pointer-events-none select-none",
-          )}
-          aria-hidden
-        >
-          {sheet}
-        </div>
-        {!premium && (
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0"
-            style={{ backgroundImage: WATERMARK }}
+      {/* Preview: the PNG itself, then the way out. */}
+      <div className="space-y-3 lg:sticky lg:top-20 lg:self-start">
+        <div className="relative overflow-hidden rounded-lg bg-white shadow-[0_30px_60px_-30px_rgb(20_35_60/0.45)] ring-1 ring-black/10">
+          {/* eslint-disable-next-line @next/next/no-img-element -- generated per request, authenticated */}
+          <img
+            src={preview}
+            alt={t("previewAlt", { template: t(`templates.${template}`) })}
+            width={1000}
+            height={1414}
+            className={cn(
+              "block aspect-[210/297] w-full transition-opacity duration-200",
+              loading && "opacity-60",
+            )}
+            onLoad={() => setLoading(false)}
+            onError={() => setLoading(false)}
           />
-        )}
-        {/* Standard sees the real template, unblurred, with the offer over
-            its lower half: the design sells itself (#44). */}
-        {!premium && (
-          <div className="absolute inset-x-0 bottom-0 flex justify-center p-4">
-            <div className="max-w-xs rounded-3xl border border-white/70 bg-card/90 p-5 text-center shadow-2xl backdrop-blur-md">
-              <span className="mx-auto flex size-11 items-center justify-center rounded-full bg-accent text-primary">
-                <Lock className="size-5" aria-hidden />
-              </span>
-              <p className="mt-3 font-heading text-base font-semibold">
-                {t("premiumTitle")}
-              </p>
-              <p className="mt-1 text-sm text-pretty text-muted-foreground">
-                {t("premiumBody")}
-              </p>
-              <div className="mt-4 flex justify-center gap-2">
-                <Button
-                  asChild
-                  variant="outline"
-                  className="h-9 rounded-full px-3.5"
-                >
-                  <a href={`/api/events/${eventId}/qr?format=png&download`}>
-                    <Download aria-hidden />
-                    PNG
-                  </a>
-                </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  className="h-9 rounded-full px-3.5"
-                >
-                  <a href={`/api/events/${eventId}/qr?format=svg&download`}>
-                    <Download aria-hidden />
-                    SVG
-                  </a>
-                </Button>
-              </div>
-              {devMode && (
-                <Button
-                  className="mt-2 h-9 w-full rounded-full"
-                  disabled={upgrading}
-                  onClick={() =>
-                    startUpgrade(async () => {
-                      await devActivate(eventId, "premium");
-                      router.refresh();
-                    })
-                  }
-                >
-                  {upgrading ? (
-                    <Loader2 className="animate-spin" aria-hidden />
-                  ) : (
-                    <Sparkles aria-hidden />
-                  )}
-                  Premium (dev)
-                </Button>
+          {loading && (
+            <span className="absolute inset-0 flex items-center justify-center">
+              <Loader2
+                className="size-6 animate-spin text-muted-foreground"
+                aria-hidden
+              />
+            </span>
+          )}
+        </div>
+
+        {premium ? (
+          <>
+            <Button
+              className="h-11 w-full rounded-full text-[15px] shadow-[0_10px_24px_-10px_var(--primary)]"
+              disabled={saving}
+              onClick={download}
+            >
+              {saving ? (
+                <Loader2 className="animate-spin" aria-hidden />
+              ) : (
+                <Download aria-hidden />
               )}
+              {saving ? t("downloadPreparing") : t("downloadPng")}
+            </Button>
+            <p className="text-center text-xs text-pretty text-muted-foreground">
+              {t("downloadHint")}
+            </p>
+          </>
+        ) : (
+          <div className="rounded-2xl border border-border bg-card p-4 text-center">
+            <span className="mx-auto flex size-10 items-center justify-center rounded-full bg-accent text-primary">
+              <Lock className="size-4.5" aria-hidden />
+            </span>
+            <p className="mt-2.5 font-heading text-base font-semibold">
+              {t("premiumTitle")}
+            </p>
+            <p className="mt-1 text-sm text-pretty text-muted-foreground">
+              {t("premiumBody")}
+            </p>
+            <div className="mt-3.5 flex justify-center gap-2">
+              <Button
+                asChild
+                variant="outline"
+                className="h-9 rounded-full px-3.5"
+              >
+                <a href={`/api/events/${eventId}/qr?format=png&download`}>
+                  <Download aria-hidden />
+                  PNG
+                </a>
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                className="h-9 rounded-full px-3.5"
+              >
+                <a href={`/api/events/${eventId}/qr?format=svg&download`}>
+                  <Download aria-hidden />
+                  SVG
+                </a>
+              </Button>
             </div>
+            {devMode && (
+              <Button
+                className="mt-2 h-9 w-full rounded-full"
+                disabled={upgrading}
+                onClick={() =>
+                  startUpgrade(async () => {
+                    await devActivate(eventId, "premium");
+                    router.refresh();
+                  })
+                }
+              >
+                {upgrading ? (
+                  <Loader2 className="animate-spin" aria-hidden />
+                ) : (
+                  <Sparkles aria-hidden />
+                )}
+                Premium (dev)
+              </Button>
+            )}
           </div>
         )}
       </div>
-
-      {mounted &&
-        premium &&
-        createPortal(<div id="print-root">{sheet}</div>, document.body)}
     </div>
   );
 }

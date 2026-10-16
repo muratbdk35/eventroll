@@ -482,7 +482,7 @@
     },
     "print": {
       "title": "QR şablonları",
-      "subtitle": "Bir şablon seç, rengini ayarla ve yazdır. A4 kâğıda göre hazırlanmıştır.",
+      "subtitle": "Bir şablon seç, rengini ayarla ve PNG olarak indir. Hepsi A4'e göre, baskı kalitesinde.",
       "back": "Paylaşıma dön",
       "templates": {
         "cards": "Masa kartı",
@@ -493,28 +493,28 @@
         "posterHint": "Girişe ya da fotoğraf köşesine A4 poster"
       },
       "colorLabel": "Renk",
-      "colors": {
-        "powder": "Toz mavi",
-        "terracotta": "Kiremit",
-        "midnight": "Gece",
-        "sage": "Adaçayı",
-        "blush": "Pudra"
-      },
       "headlineLabel": "Başlık",
       "headlineDefault": "Anılarını bizimle paylaş",
       "subline": "Telefon kameranla okut, fotoğraflarını yükle",
-      "steps": "OKUT · SEÇ · GÖNDER",
       "noApp": "Uygulama ya da üyelik gerekmez",
-      "printButton": "Yazdır / PDF kaydet",
-      "printHint": "Yazdırma penceresinde kenar boşluğu \"Yok\", ölçek %100 olsun.",
       "premiumTitle": "Şablonlar Premium'a dahil",
-      "premiumBody": "Standard planda QR kodu PNG ya da SVG olarak indirip kendin kullanabilirsin.",
+      "premiumBody": "Önizleme serbest. İndirmek Premium'da; Standart planda QR kodu PNG ya da SVG olarak indirip kendin kullanabilirsin.",
       "cutHint": "Kesik çizgilerden kes",
       "foldHint": "Ortadan katla",
       "showPin": "PIN'i kartta göster",
       "showPinHint": "Kapalıysa PIN'i misafirlerine ayrıca söylersin.",
       "showPinResave": "PIN'i göstermek için ayarlardan bir kez yeniden kaydet.",
-      "safariHint": "Safari'de: yazdırma penceresinde \"Üst bilgileri ve alt bilgileri yazdır\" kutusunu kapat, \"Arka planları yazdır\" kutusunu aç. Kenar boşluğu \"Yok\", ölçek %100 olsun."
+      "step1": "Okut",
+      "step2": "Seç",
+      "step3": "Gönder",
+      "stubLabel": "Misafir fotoğrafları",
+      "paperLabel": "Beyaz zemin (mürekkep dostu)",
+      "paperHint": "Bileti beyaz bırakır, sadece çizgiler renkli. Evde yazdırırken mürekkep tasarrufu.",
+      "downloadPng": "PNG indir",
+      "downloadHint": "A4, 300 DPI. Evde ya da fotokopicide %100 ölçekle yazdır.",
+      "previewAlt": "{template} önizlemesi",
+      "downloadPreparing": "Baskı dosyası hazırlanıyor…",
+      "downloadFailed": "İndirilemedi. Tekrar dene."
     },
     "backToReview": "Son kontrole dön",
     "download": {

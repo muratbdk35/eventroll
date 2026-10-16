@@ -236,7 +236,7 @@ export async function FeaturesBento() {
           </span>
           <div aria-hidden className="flex justify-center">
             <AppPreview width={210} scale={0.8} className="-rotate-3">
-              <PrintPreview qr={qrDataUri} />
+              <PrintPreview />
             </AppPreview>
           </div>
           <TileText title={t("print.title")} body={t("print.body")} />

@@ -683,3 +683,30 @@ To build once a Sightengine account exists (keys in env):
   rules on misleading advertising): flagged photos are blurred and the host
   decides.
 - About $0.001–0.002 per photo. CSAM scanning is decided at launch.
+
+## 51. QR templates redrawn as tickets, downloaded as PNG (owner request, 2026-10-16)
+
+- No print button any more (hosts don't print from the browser, and Safari's
+  own headers/footers box pushed sheets onto two pages). Templates download
+  as PNG: A4 at 300 dpi (2480 px), "Download PNG" with a spinner while the
+  server draws it.
+- The server draws the sheet with next/og (Satori + resvg):
+  `GET /api/events/:id/template` (owner only, published events). The page's
+  preview is that same PNG at 1000 px, so what you see is what you print.
+  Without Premium the preview carries a diagonal "PREMIUM" watermark and the
+  download answers 403; the bare QR stays downloadable as before.
+- Every piece is an admission ticket like the guest page's: scooped corners,
+  notches at a dashed perforation, a soft wash and halftone, the headline in
+  Fraunces, the QR on a white card, numbered steps (Scan, Pick, Send), and a
+  stub with the event's name, date and year (or the PIN). Colours are the six
+  ticket colours, starting from the event's own; "White background
+  (ink-friendly)" keeps the ticket white with coloured line work.
+- Layout code: `lib/print/sheet.tsx` (millimetres on A4; the ticket body is
+  one SVG, the type is flexbox). The halftone is one path of circles: an SVG
+  `<pattern>` took 12 s at 300 dpi, the path takes under 3 s.
+- Fonts: static TTF instances of Fraunces, Schibsted Grotesk and Geist Mono
+  in `assets/fonts` (SIL OFL), traced into the route via
+  `outputFileTracingIncludes`. Upper-casing happens per locale on the server
+  ("MİSAFİR", "EKİM").
+- The landing page shows a card drawn by the same code
+  (`scripts/render-print-card.tsx` → `public/marketing/print-card-<l>.png`).

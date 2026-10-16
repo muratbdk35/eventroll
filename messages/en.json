@@ -479,7 +479,7 @@
     },
     "print": {
       "title": "QR templates",
-      "subtitle": "Pick a template, choose a colour and print. Sized for A4 paper.",
+      "subtitle": "Pick a template, choose a colour and download a PNG. All sized for A4, at print quality.",
       "back": "Back to sharing",
       "templates": {
         "cards": "Table cards",
@@ -490,28 +490,28 @@
         "posterHint": "A4 poster for the entrance or photo corner"
       },
       "colorLabel": "Colour",
-      "colors": {
-        "powder": "Powder blue",
-        "terracotta": "Terracotta",
-        "midnight": "Midnight",
-        "sage": "Sage",
-        "blush": "Blush"
-      },
       "headlineLabel": "Headline",
       "headlineDefault": "Share your memories with us",
       "subline": "Scan with your phone camera and upload your photos",
-      "steps": "SCAN · PICK · SEND",
       "noApp": "No app or account needed",
-      "printButton": "Print / save as PDF",
-      "printHint": "In the print dialog set margins to \"None\" and scale to 100%.",
       "premiumTitle": "Templates are part of Premium",
-      "premiumBody": "On Standard you can download the QR code as PNG or SVG and use it yourself.",
+      "premiumBody": "Preview freely. Downloading is part of Premium; on Standard you can download the QR code as PNG or SVG and use it yourself.",
       "cutHint": "Cut along the dashed lines",
       "foldHint": "Fold here",
       "showPin": "Show the PIN on the card",
       "showPinHint": "If off, tell your guests the PIN yourself.",
       "showPinResave": "To show it, save the PIN once more in settings.",
-      "safariHint": "In Safari: in the print dialog, turn off \"Print headers and footers\" and turn on \"Print backgrounds\". Margins \"None\", scale 100%."
+      "step1": "Scan",
+      "step2": "Pick",
+      "step3": "Send",
+      "stubLabel": "Guest photos",
+      "paperLabel": "White background (ink-friendly)",
+      "paperHint": "Keeps the ticket white with coloured lines only. Saves ink when printing at home.",
+      "downloadPng": "Download PNG",
+      "downloadHint": "A4, 300 dpi. Print at home or at a copy shop at 100% scale.",
+      "previewAlt": "Preview of the {template}",
+      "downloadPreparing": "Preparing the print file…",
+      "downloadFailed": "Download failed. Try again."
     },
     "backToReview": "Back to review",
     "download": {
