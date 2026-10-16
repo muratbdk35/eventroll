@@ -20,6 +20,12 @@ const font = (file: string) => {
 const fonts = [
   { name: "Fraunces", data: font("fraunces-600.ttf"), weight: 600 as const },
   { name: "Fraunces", data: font("fraunces-700.ttf"), weight: 700 as const },
+  {
+    name: "Fraunces",
+    data: font("fraunces-italic-500.ttf"),
+    weight: 500 as const,
+    style: "italic" as const,
+  },
   { name: "Schibsted", data: font("schibsted-500.ttf"), weight: 500 as const },
   { name: "Schibsted", data: font("schibsted-700.ttf"), weight: 700 as const },
   {
@@ -27,7 +33,7 @@ const fonts = [
     data: font("geist-mono-700.ttf"),
     weight: 700 as const,
   },
-].map((f) => ({ ...f, style: "normal" as const }));
+].map((f) => ({ style: "normal" as const, ...f }));
 
 const dates = {
   tr: "14 Haziran 2026",
@@ -57,17 +63,15 @@ async function main() {
         text: {
           eventName: "Elif & Can",
           date: dates[locale].toLocaleUpperCase(locale),
-          year: "2026",
+          label: String(m.label).toLocaleUpperCase(locale),
           headline: m.headlineDefault,
           subline: m.subline,
-          steps: [m.step1, m.step2, m.step3],
           noApp: m.noApp,
-          stubLabel: String(m.stubLabel).toLocaleUpperCase(locale),
           cutHint: m.cutHint,
           foldHint: m.foldHint,
         },
       }),
-      { width, height: Math.round((width / 95) * 138), fonts },
+      { width, height: Math.round((width / 105) * 148.5), fonts },
     );
     const out = join(root, `public/marketing/print-card-${locale}.png`);
     writeFileSync(out, Buffer.from(await res.arrayBuffer()));

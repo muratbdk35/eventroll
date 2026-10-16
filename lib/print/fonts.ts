@@ -7,26 +7,45 @@ import { join } from "node:path";
 // outputFileTracingIncludes in next.config.ts.
 const dir = join(process.cwd(), "assets/fonts");
 
-let cache: Promise<
+type Style = "normal" | "italic";
+type Weight = 500 | 600 | 700;
+
+const files: { name: string; file: string; weight: Weight; style: Style }[] = [
+  { name: "Fraunces", file: "fraunces-600.ttf", weight: 600, style: "normal" },
+  { name: "Fraunces", file: "fraunces-700.ttf", weight: 700, style: "normal" },
   {
-    name: string;
-    data: ArrayBuffer;
-    weight: 500 | 600 | 700;
-    style: "normal";
-  }[]
+    name: "Fraunces",
+    file: "fraunces-italic-500.ttf",
+    weight: 500,
+    style: "italic",
+  },
+  {
+    name: "Schibsted",
+    file: "schibsted-500.ttf",
+    weight: 500,
+    style: "normal",
+  },
+  {
+    name: "Schibsted",
+    file: "schibsted-700.ttf",
+    weight: 700,
+    style: "normal",
+  },
+  {
+    name: "Geist Mono",
+    file: "geist-mono-700.ttf",
+    weight: 700,
+    style: "normal",
+  },
+];
+
+let cache: Promise<
+  { name: string; data: ArrayBuffer; weight: Weight; style: Style }[]
 > | null = null;
 
 export function printFonts() {
   cache ??= Promise.all(
-    (
-      [
-        ["Fraunces", "fraunces-600.ttf", 600],
-        ["Fraunces", "fraunces-700.ttf", 700],
-        ["Schibsted", "schibsted-500.ttf", 500],
-        ["Schibsted", "schibsted-700.ttf", 700],
-        ["Geist Mono", "geist-mono-700.ttf", 700],
-      ] as const
-    ).map(async ([name, file, weight]) => {
+    files.map(async ({ name, file, weight, style }) => {
       const buf = await readFile(join(dir, file));
       return {
         name,
@@ -35,7 +54,7 @@ export function printFonts() {
           buf.byteOffset + buf.byteLength,
         ) as ArrayBuffer,
         weight,
-        style: "normal" as const,
+        style,
       };
     }),
   );

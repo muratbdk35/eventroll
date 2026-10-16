@@ -501,17 +501,14 @@
       "showPin": "Show the PIN on the card",
       "showPinHint": "If off, tell your guests the PIN yourself.",
       "showPinResave": "To show it, save the PIN once more in settings.",
-      "step1": "Scan",
-      "step2": "Pick",
-      "step3": "Send",
-      "stubLabel": "Guest photos",
-      "paperLabel": "White background (ink-friendly)",
-      "paperHint": "Keeps the ticket white with coloured lines only. Saves ink when printing at home.",
+      "paperLabel": "White background",
+      "paperHint": "Pure white instead of cream; no ink on the background.",
       "downloadPng": "Download PNG",
       "downloadHint": "A4, 300 dpi. Print at home or at a copy shop at 100% scale.",
       "previewAlt": "Preview of the {template}",
       "downloadPreparing": "Preparing the print file…",
-      "downloadFailed": "Download failed. Try again."
+      "downloadFailed": "Download failed. Try again.",
+      "label": "Guest photos"
     },
     "backToReview": "Back to review",
     "download": {

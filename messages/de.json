@@ -504,17 +504,14 @@
       "showPin": "PIN auf der Karte zeigen",
       "showPinHint": "Ist es aus, sagst du den Gästen die PIN selbst.",
       "showPinResave": "Um sie zu zeigen, speichere die PIN in den Einstellungen noch einmal.",
-      "step1": "Scannen",
-      "step2": "Auswählen",
-      "step3": "Senden",
-      "stubLabel": "Gästefotos",
-      "paperLabel": "Weißer Hintergrund (tintensparend)",
-      "paperHint": "Das Ticket bleibt weiß, nur die Linien sind farbig. Spart Tinte beim Drucken zu Hause.",
+      "paperLabel": "Weißer Hintergrund",
+      "paperHint": "Reinweiß statt Creme; der Hintergrund braucht keine Tinte.",
       "downloadPng": "PNG herunterladen",
       "downloadHint": "A4, 300 dpi. Zu Hause oder im Copyshop mit 100 % Skalierung drucken.",
       "previewAlt": "Vorschau: {template}",
       "downloadPreparing": "Druckdatei wird erstellt…",
-      "downloadFailed": "Download fehlgeschlagen. Versuch es erneut."
+      "downloadFailed": "Download fehlgeschlagen. Versuch es erneut.",
+      "label": "Gästefotos"
     },
     "backToReview": "Zurück zur Übersicht",
     "download": {

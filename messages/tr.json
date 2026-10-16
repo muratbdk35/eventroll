@@ -504,17 +504,14 @@
       "showPin": "PIN'i kartta göster",
       "showPinHint": "Kapalıysa PIN'i misafirlerine ayrıca söylersin.",
       "showPinResave": "PIN'i göstermek için ayarlardan bir kez yeniden kaydet.",
-      "step1": "Okut",
-      "step2": "Seç",
-      "step3": "Gönder",
-      "stubLabel": "Misafir fotoğrafları",
-      "paperLabel": "Beyaz zemin (mürekkep dostu)",
-      "paperHint": "Bileti beyaz bırakır, sadece çizgiler renkli. Evde yazdırırken mürekkep tasarrufu.",
+      "paperLabel": "Beyaz zemin",
+      "paperHint": "Krem kâğıt yerine bembeyaz; zemine mürekkep basılmaz.",
       "downloadPng": "PNG indir",
       "downloadHint": "A4, 300 DPI. Evde ya da fotokopicide %100 ölçekle yazdır.",
       "previewAlt": "{template} önizlemesi",
       "downloadPreparing": "Baskı dosyası hazırlanıyor…",
-      "downloadFailed": "İndirilemedi. Tekrar dene."
+      "downloadFailed": "İndirilemedi. Tekrar dene.",
+      "label": "Misafir fotoğrafları"
     },
     "backToReview": "Son kontrole dön",
     "download": {

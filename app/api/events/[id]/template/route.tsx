@@ -78,12 +78,10 @@ export async function GET(req: Request, { params }: Ctx) {
     text: {
       eventName: event.name,
       date: date.toLocaleUpperCase(locale),
-      year: event.eventDate.slice(0, 4),
+      label: t("label").toLocaleUpperCase(locale),
       headline,
       subline: t("subline"),
-      steps: [t("step1"), t("step2"), t("step3")],
       noApp: t("noApp"),
-      stubLabel: t("stubLabel").toLocaleUpperCase(locale),
       cutHint: t("cutHint"),
       foldHint: t("foldHint"),
       pin,

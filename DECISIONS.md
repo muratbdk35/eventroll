@@ -695,16 +695,16 @@ To build once a Sightengine account exists (keys in env):
   preview is that same PNG at 1000 px, so what you see is what you print.
   Without Premium the preview carries a diagonal "PREMIUM" watermark and the
   download answers 403; the bare QR stays downloadable as before.
-- Every piece is an admission ticket like the guest page's: scooped corners,
-  notches at a dashed perforation, a soft wash and halftone, the headline in
-  Fraunces, the QR on a white card, numbered steps (Scan, Pick, Send), and a
-  stub with the event's name, date and year (or the PIN). Colours are the six
-  ticket colours, starting from the event's own; "White background
-  (ink-friendly)" keeps the ticket white with coloured line work.
-- Layout code: `lib/print/sheet.tsx` (millimetres on A4; the ticket body is
-  one SVG, the type is flexbox). The halftone is one path of circles: an SVG
-  `<pattern>` took 12 s at 300 dpi, the path takes under 3 s.
-- Fonts: static TTF instances of Fraunces, Schibsted Grotesk and Geist Mono
+- Design: "elegant", picked by the owner from three drafts (elegant,
+  modern, polaroid) after a ticket-shaped first try didn't land. Cream
+  paper, a fine double frame in the event's colour, "GUEST PHOTOS" between
+  two rules, the event's name large in Fraunces (shrinks and wraps for long
+  names), the date in spaced capitals, the QR in a hairline frame, the
+  headline in Fraunces italic, one line of how-to, "no app needed". Colours:
+  the six ticket colours, starting from the event's own; "White background"
+  drops the cream. The tent card puts the words left and the QR right.
+- Layout code: `lib/print/sheet.tsx` (millimetres on A4, flexbox only).
+- Fonts: static TTF instances of Fraunces (incl. italic), Schibsted Grotesk and Geist Mono
   in `assets/fonts` (SIL OFL), traced into the route via
   `outputFileTracingIncludes`. Upper-casing happens per locale on the server
   ("MİSAFİR", "EKİM").
