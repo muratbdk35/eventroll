@@ -178,18 +178,6 @@ export default async function EventPage({
             />
           ) : (
             <div className="space-y-6">
-              <TicketSettings
-                eventId={event.id}
-                initial={ticketColor(event.ticketColor)}
-                preview={{
-                  presenter: publicEnv.appName,
-                  event: t(`types.${event.type}`),
-                  name: event.name,
-                  footer: date(event.eventDate),
-                  stub: tg("ticketStub"),
-                  watermark: event.eventDate.slice(0, 4),
-                }}
-              />
               <SettingsForm
                 eventId={event.id}
                 initial={{
@@ -207,7 +195,20 @@ export default async function EventPage({
                   uploadClosesAt: event.uploadClosesAt?.toISOString() ?? null,
                   maxUploadsPerDevice: event.maxUploadsPerDevice,
                 }}
-              />
+              >
+                <TicketSettings
+                  eventId={event.id}
+                  initial={ticketColor(event.ticketColor)}
+                  preview={{
+                    presenter: publicEnv.appName,
+                    event: t(`types.${event.type}`),
+                    name: event.name,
+                    footer: date(event.eventDate),
+                    stub: tg("ticketStub"),
+                    watermark: event.eventDate.slice(0, 4),
+                  }}
+                />
+              </SettingsForm>
             </div>
           )}
         </div>

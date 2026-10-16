@@ -98,9 +98,12 @@ export function Row({
 export function SettingsForm({
   eventId,
   initial,
+  children,
 }: {
   eventId: string;
   initial: Initial;
+  /** Shown between the form and the danger zone (the ticket colour card). */
+  children?: React.ReactNode;
 }) {
   const t = useTranslations("Events.settings");
   const tEvents = useTranslations("Events");
@@ -169,8 +172,38 @@ export function SettingsForm({
     });
   }
 
+  const canSave =
+    dirty &&
+    !pending &&
+    !pinInvalid &&
+    rangeOk &&
+    hoursOk &&
+    Boolean(s.name.trim());
+
   return (
-    <div className="space-y-4 pb-24">
+    <div className="space-y-4">
+      {/* One save button at the top, kept in view under the header. */}
+      <div className="sticky top-[4.5rem] z-20 flex items-center justify-between gap-3 rounded-2xl border border-border bg-card/90 py-2 ps-4 pe-2 shadow-sm backdrop-blur-md">
+        <p
+          className={cn(
+            "min-w-0 truncate text-sm",
+            dirty ? "font-medium text-foreground" : "text-muted-foreground",
+          )}
+          aria-live="polite"
+        >
+          {dirty ? t("unsaved") : t("allSaved")}
+        </p>
+        <Button
+          type="submit"
+          form="settings"
+          className="h-9 shrink-0 rounded-full px-5"
+          disabled={!canSave}
+        >
+          {pending && <Loader2 className="animate-spin" aria-hidden />}
+          {pending ? t("saving") : t("saveShort")}
+        </Button>
+      </div>
+
       <form id="settings" onSubmit={onSubmit} className="space-y-4">
         <section className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
           <h2 className="border-b border-border px-5 py-3.5 font-heading text-base font-semibold sm:px-6">
@@ -386,6 +419,8 @@ export function SettingsForm({
         </section>
       </form>
 
+      {children}
+
       <section className="rounded-2xl border border-destructive/20 bg-card p-5 shadow-sm sm:px-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
@@ -406,45 +441,6 @@ export function SettingsForm({
           </Button>
         </div>
       </section>
-
-      {/* Sticky save bar, only while there are unsaved changes. */}
-      <div
-        className={cn(
-          "fixed inset-x-0 bottom-[calc(1rem+env(safe-area-inset-bottom))] z-40 flex justify-center px-4 transition-all duration-200",
-          dirty
-            ? "translate-y-0 opacity-100"
-            : "pointer-events-none translate-y-4 opacity-0",
-        )}
-        aria-hidden={!dirty}
-      >
-        <div className="flex w-full max-w-lg items-center justify-between gap-3 rounded-full bg-foreground py-2 ps-5 pe-2 text-background shadow-2xl">
-          <p className="text-sm font-medium">{t("unsaved")}</p>
-          <div className="flex gap-2">
-            <Button
-              type="button"
-              variant="ghost"
-              className="h-8 rounded-full text-background hover:bg-white/10 hover:text-background"
-              onClick={() => setS(base)}
-              disabled={pending}
-              tabIndex={dirty ? 0 : -1}
-            >
-              {t("discard")}
-            </Button>
-            <Button
-              type="submit"
-              form="settings"
-              className="h-8 rounded-full px-4"
-              disabled={
-                pending || pinInvalid || !rangeOk || !hoursOk || !s.name.trim()
-              }
-              tabIndex={dirty ? 0 : -1}
-            >
-              {pending && <Loader2 className="animate-spin" aria-hidden />}
-              {pending ? t("saving") : t("save")}
-            </Button>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

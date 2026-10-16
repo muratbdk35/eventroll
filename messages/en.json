@@ -430,10 +430,11 @@
       "hoursToggle": "Limit upload hours",
       "perPhoneToggle": "Limit photos per phone",
       "unsaved": "You have unsaved changes",
-      "discard": "Discard",
       "when": "Date & time",
       "pinFormat": "Enter 4 to 8 digits.",
-      "hoursError": "The upload window must close after it opens (it can run past midnight)."
+      "hoursError": "The upload window must close after it opens (it can run past midnight).",
+      "saveShort": "Save",
+      "allSaved": "All changes saved"
     },
     "openGuest": "Guest page",
     "copyLink": "Copy link",

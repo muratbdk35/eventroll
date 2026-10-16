@@ -433,10 +433,11 @@
       "hoursToggle": "Upload-Zeiten begrenzen",
       "perPhoneToggle": "Fotos pro Handy begrenzen",
       "unsaved": "Ungespeicherte Änderungen",
-      "discard": "Verwerfen",
       "when": "Datum & Uhrzeit",
       "pinFormat": "Gib 4 bis 8 Ziffern ein.",
-      "hoursError": "Das Upload-Fenster muss nach dem Öffnen schließen (auch nach Mitternacht)."
+      "hoursError": "Das Upload-Fenster muss nach dem Öffnen schließen (auch nach Mitternacht).",
+      "saveShort": "Speichern",
+      "allSaved": "Alle Änderungen gespeichert"
     },
     "openGuest": "Gästeseite",
     "copyLink": "Link kopieren",

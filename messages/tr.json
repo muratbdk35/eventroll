@@ -433,10 +433,11 @@
       "hoursToggle": "Yükleme saatlerini sınırla",
       "perPhoneToggle": "Telefon başına fotoğrafı sınırla",
       "unsaved": "Kaydedilmemiş değişiklikler var",
-      "discard": "Vazgeç",
       "when": "Tarih ve saat",
       "pinFormat": "4 ile 8 arası rakam gir.",
-      "hoursError": "Kapanış açılıştan sonra olmalı (gece yarısını geçebilir)."
+      "hoursError": "Kapanış açılıştan sonra olmalı (gece yarısını geçebilir).",
+      "saveShort": "Kaydet",
+      "allSaved": "Tüm değişiklikler kaydedildi"
     },
     "openGuest": "Misafir sayfası",
     "copyLink": "Bağlantıyı kopyala",
