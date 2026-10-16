@@ -360,6 +360,17 @@ export function PrintTemplates({
     () => true,
     () => false,
   );
+  // Desktop Safari keeps its own "print headers and footers" box (on by
+  // default), which takes room from the page and pushes the sheet onto a
+  // second one; a page can't switch it off, so say where it is.
+  const desktopSafari = useSyncExternalStore(
+    noop,
+    () =>
+      /^((?!chrome|chromium|crios|fxios|edg|android).)*safari/i.test(
+        navigator.userAgent,
+      ) && !/iphone|ipad|ipod/i.test(navigator.userAgent),
+    () => false,
+  );
 
   const text: FaceText = {
     eventName,
@@ -390,9 +401,12 @@ export function PrintTemplates({
         #print-root { display: none; }
         @media print {
           @page { size: A4 portrait; margin: 0; }
-          html, body { background: #fff !important; margin: 0 !important; }
+          html, body { background: #fff !important; margin: 0 !important; height: auto !important; min-height: 0 !important; }
           body > *:not(#print-root) { display: none !important; }
-          #print-root { display: block !important; }
+          #print-root { display: block !important; break-inside: avoid; }
+          /* 1 mm of slack: browsers round the page box, and a sheet of
+             exactly 297 mm can spill a sliver onto a second page. */
+          #print-root > div { height: 296mm !important; break-after: avoid; }
         }
       `}</style>
 
@@ -517,9 +531,15 @@ export function PrintTemplates({
             <Printer aria-hidden />
             {t("printButton")}
           </Button>
-          <p className="text-center text-xs text-pretty text-muted-foreground">
-            {t("printHint")}
-          </p>
+          {desktopSafari && premium ? (
+            <p className="rounded-xl bg-accent/60 px-3 py-2 text-xs text-pretty text-accent-foreground">
+              {t("safariHint")}
+            </p>
+          ) : (
+            <p className="text-center text-xs text-pretty text-muted-foreground">
+              {t("printHint")}
+            </p>
+          )}
         </div>
       </div>
 

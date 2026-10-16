@@ -513,7 +513,8 @@
       "foldHint": "Ortadan katla",
       "showPin": "PIN'i kartta göster",
       "showPinHint": "Kapalıysa PIN'i misafirlerine ayrıca söylersin.",
-      "showPinResave": "PIN'i göstermek için ayarlardan bir kez yeniden kaydet."
+      "showPinResave": "PIN'i göstermek için ayarlardan bir kez yeniden kaydet.",
+      "safariHint": "Safari'de: yazdırma penceresinde \"Üst bilgileri ve alt bilgileri yazdır\" kutusunu kapat, \"Arka planları yazdır\" kutusunu aç. Kenar boşluğu \"Yok\", ölçek %100 olsun."
     },
     "backToReview": "Son kontrole dön",
     "download": {

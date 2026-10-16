@@ -510,7 +510,8 @@
       "foldHint": "Fold here",
       "showPin": "Show the PIN on the card",
       "showPinHint": "If off, tell your guests the PIN yourself.",
-      "showPinResave": "To show it, save the PIN once more in settings."
+      "showPinResave": "To show it, save the PIN once more in settings.",
+      "safariHint": "In Safari: in the print dialog, turn off \"Print headers and footers\" and turn on \"Print backgrounds\". Margins \"None\", scale 100%."
     },
     "backToReview": "Back to review",
     "download": {

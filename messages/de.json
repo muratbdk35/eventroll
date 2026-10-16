@@ -513,7 +513,8 @@
       "foldHint": "Hier falten",
       "showPin": "PIN auf der Karte zeigen",
       "showPinHint": "Ist es aus, sagst du den Gästen die PIN selbst.",
-      "showPinResave": "Um sie zu zeigen, speichere die PIN in den Einstellungen noch einmal."
+      "showPinResave": "Um sie zu zeigen, speichere die PIN in den Einstellungen noch einmal.",
+      "safariHint": "In Safari: Im Druckdialog \"Kopf- und Fußzeilen drucken\" ausschalten und \"Hintergründe drucken\" einschalten. Ränder \"Keine\", Skalierung 100 %."
     },
     "backToReview": "Zurück zur Übersicht",
     "download": {
