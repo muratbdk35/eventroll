@@ -12,17 +12,28 @@ import { SingleCard } from "../lib/print/sheet";
 const root = process.cwd();
 const font = (file: string) => {
   const b = readFileSync(join(root, "assets/fonts", file));
-  return b.buffer.slice(b.byteOffset, b.byteOffset + b.byteLength) as ArrayBuffer;
+  return b.buffer.slice(
+    b.byteOffset,
+    b.byteOffset + b.byteLength,
+  ) as ArrayBuffer;
 };
 const fonts = [
   { name: "Fraunces", data: font("fraunces-600.ttf"), weight: 600 as const },
   { name: "Fraunces", data: font("fraunces-700.ttf"), weight: 700 as const },
   { name: "Schibsted", data: font("schibsted-500.ttf"), weight: 500 as const },
   { name: "Schibsted", data: font("schibsted-700.ttf"), weight: 700 as const },
-  { name: "Geist Mono", data: font("geist-mono-700.ttf"), weight: 700 as const },
+  {
+    name: "Geist Mono",
+    data: font("geist-mono-700.ttf"),
+    weight: 700 as const,
+  },
 ].map((f) => ({ ...f, style: "normal" as const }));
 
-const dates = { tr: "14 Haziran 2026", en: "June 14, 2026", de: "14. Juni 2026" };
+const dates = {
+  tr: "14 Haziran 2026",
+  en: "June 14, 2026",
+  de: "14. Juni 2026",
+};
 
 async function main() {
   const qrSvg = await QRCode.toString("https://eventroll.eu/e/k7Qm9xZ2pA", {
