@@ -8,6 +8,7 @@ import {
   jsonb,
   pgEnum,
   pgTable,
+  real,
   text,
   timestamp,
   uuid,
@@ -146,6 +147,12 @@ export const media = pgTable(
     uploaderFingerprint: text(),
     // When the guest ticked "I accept the terms / I may share these photos".
     guestConsentAt: timestamp(tz),
+    // Automatic check for explicit images (DECISIONS #52): null = not
+    // checked, "clear", "flagged" (shown blurred to the host), "approved"
+    // (the host looked and kept it). `moderationScore` is the higher of
+    // Sightengine's sexual_activity / sexual_display, 0–1.
+    moderation: text(),
+    moderationScore: real(),
     status: mediaStatus().notNull().default("pending"),
     createdAt: createdAt(),
   },

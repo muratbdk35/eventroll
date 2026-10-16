@@ -183,6 +183,23 @@ export async function deletePhoto(
   return { ok: true };
 }
 
+/** The host looked at a flagged photo and keeps it (DECISIONS #52). */
+export async function approvePhoto(
+  eventId: string,
+  mediaId: string,
+): Promise<ActionResult> {
+  const user = await requireUser();
+  if (!user) return { ok: false, error: "unauthorized" };
+  const event = await getOwnedEvent(eventId, user.id);
+  if (!event) return { ok: false, error: "not_found" };
+  await db
+    .update(media)
+    .set({ moderation: "approved" })
+    .where(and(eq(media.id, mediaId), eq(media.eventId, event.id)));
+  revalidatePath("/[locale]/dashboard", "layout");
+  return { ok: true };
+}
+
 /** Deletes everything a device uploaded and blocks it from uploading again. */
 export async function blockDevice(
   eventId: string,

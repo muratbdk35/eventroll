@@ -130,7 +130,16 @@ export async function createPendingUploads(opts: {
 }
 
 export type ConfirmResult =
-  | { ok: true }
+  | {
+      ok: true;
+      /** The ready photo, for the explicit-image check (null if it was ready already). */
+      ready: {
+        id: string;
+        r2Key: string;
+        thumbKey: string | null;
+        mime: string;
+      } | null;
+    }
   | {
       ok: false;
       reason: "not_found" | "missing_file" | "device_limit" | "event_full";
@@ -162,7 +171,7 @@ export async function confirmUpload(opts: {
   if (!row || row.status === "deleted" || row.status === "hidden") {
     return { ok: false, reason: "not_found" };
   }
-  if (row.status === "ready") return { ok: true }; // idempotent
+  if (row.status === "ready") return { ok: true, ready: null }; // idempotent
 
   const head = await headObject(row.r2Key);
   if (!head || head.size !== row.bytes || head.size > MAX_FILE_BYTES) {
@@ -218,7 +227,10 @@ export async function confirmUpload(opts: {
       event.maxUploadsPerDevice !== null && event.mediaCount < limits.maxItems;
     return { ok: false, reason: limitHit ? "device_limit" : "event_full" };
   }
-  return { ok: true };
+  return {
+    ok: true,
+    ready: { id: row.id, r2Key: row.r2Key, thumbKey: thumb, mime: row.mime },
+  };
 }
 
 async function discard(row: {

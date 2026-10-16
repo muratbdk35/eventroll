@@ -374,7 +374,13 @@
       "select": "Seç",
       "seeAll": "Tüm fotoğrafları gör ({count})",
       "showing": "{total} fotoğraftan {shown} tanesi gösteriliyor",
-      "showMore": "Daha fazla göster"
+      "showMore": "Daha fazla göster",
+      "flagged": "İncelenmeli",
+      "flaggedBody": "Bu fotoğraf otomatik olarak uygunsuz olabilir diye işaretlendi. Bakıp karar ver: tut, sil ya da göndereni engelle.",
+      "reveal": "Göster",
+      "approve": "Sorun yok, tut",
+      "flaggedCount": "{count, plural, one {# fotoğraf incelenmeli} other {# fotoğraf incelenmeli}}",
+      "flaggedCountHint": "Otomatik kontrol açık içerik olabilecek fotoğrafları bulanıklaştırır. Açıp sen karar ver."
     },
     "share": {
       "title": "QR kodun",

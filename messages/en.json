@@ -371,7 +371,13 @@
       "select": "Select",
       "seeAll": "See all {count} photos",
       "showing": "Showing {shown} of {total}",
-      "showMore": "Show more"
+      "showMore": "Show more",
+      "flagged": "Needs review",
+      "flaggedBody": "This photo was automatically flagged as possibly explicit. Take a look and decide: keep it, delete it or block the sender.",
+      "reveal": "Show",
+      "approve": "It's fine, keep it",
+      "flaggedCount": "{count, plural, one {# photo needs review} other {# photos need review}}",
+      "flaggedCountHint": "The automatic check blurs photos that may be explicit. Open them and decide."
     },
     "share": {
       "title": "Your QR code",

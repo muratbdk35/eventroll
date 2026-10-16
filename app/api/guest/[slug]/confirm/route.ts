@@ -1,8 +1,9 @@
-import { NextResponse } from "next/server";
+import { after, NextResponse } from "next/server";
 import { z } from "zod";
 import { getEventBySlug } from "@/lib/events/queries";
 import { getGuestSession } from "@/lib/guest/session";
 import { confirmUpload, uploadDenial } from "@/lib/guest/uploads";
+import { moderateMedia } from "@/lib/moderation";
 
 const bodySchema = z.object({
   mediaId: z.uuid(),
@@ -42,5 +43,8 @@ export async function POST(req: Request, { params }: Ctx) {
       { status: result.reason === "not_found" ? 404 : 409 },
     );
   }
+  // The explicit-image check runs once the guest has their answer (#52).
+  const ready = result.ready;
+  if (ready) after(() => moderateMedia(ready));
   return NextResponse.json({ ok: true });
 }

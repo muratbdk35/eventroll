@@ -374,7 +374,13 @@
       "select": "Auswählen",
       "seeAll": "Alle {count} Fotos ansehen",
       "showing": "{shown} von {total} angezeigt",
-      "showMore": "Mehr anzeigen"
+      "showMore": "Mehr anzeigen",
+      "flagged": "Prüfen",
+      "flaggedBody": "Dieses Foto wurde automatisch als möglicherweise anstößig markiert. Sieh es dir an und entscheide: behalten, löschen oder den Absender sperren.",
+      "reveal": "Anzeigen",
+      "approve": "In Ordnung, behalten",
+      "flaggedCount": "{count, plural, one {# Foto muss geprüft werden} other {# Fotos müssen geprüft werden}}",
+      "flaggedCountHint": "Die automatische Prüfung macht möglicherweise anstößige Fotos unscharf. Öffne sie und entscheide."
     },
     "share": {
       "title": "Dein QR-Code",

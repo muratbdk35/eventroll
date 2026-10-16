@@ -75,6 +75,9 @@ const schema = z.object({
   // Observability / analytics
   NEXT_PUBLIC_POSTHOG_KEY: optional,
   NEXT_PUBLIC_POSTHOG_HOST: z.url().optional(),
+  // Explicit-image check for guest uploads (DECISIONS #52); off without keys.
+  SIGHTENGINE_API_USER: optional,
+  SIGHTENGINE_API_SECRET: optional,
   SENTRY_DSN: optional,
   NEXT_PUBLIC_SENTRY_DSN: optional,
   SENTRY_AUTH_TOKEN: optional,

@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
-import { ChevronRight, ExternalLink, Settings } from "lucide-react";
+import {
+  ChevronRight,
+  ExternalLink,
+  Settings,
+  ShieldAlert,
+} from "lucide-react";
 import {
   getFormatter,
   getTranslations,
@@ -24,6 +29,7 @@ import { Button } from "@/components/ui/button";
 import { getSession } from "@/lib/auth";
 import { env, isProduction } from "@/lib/env";
 import {
+  countFlagged,
   getEventStats,
   getOwnedEvent,
   listEventMedia,
@@ -71,13 +77,14 @@ export default async function EventPage({
       : PREVIEW_PHOTOS;
   const withPhotos = view === "main" || view === "photos";
 
-  const [t, tg, format, stats, rows, guests] = await Promise.all([
+  const [t, tg, format, stats, rows, guests, flagged] = await Promise.all([
     getTranslations("Events"),
     getTranslations("Guest"),
     getFormatter(),
     getEventStats(event.id),
     withPhotos ? listEventMedia(event.id, shown) : Promise.resolve([]),
     withPhotos ? mediaByUploader(event.id) : Promise.resolve([]),
+    withPhotos ? countFlagged(event.id) : Promise.resolve(0),
   ]);
   const link = guestUrl(event);
   const eventPath = `/dashboard/events/${event.id}`;
@@ -221,6 +228,7 @@ export default async function EventPage({
       width: m.width,
       height: m.height,
       canBlock: Boolean(m.deviceId),
+      flagged: m.moderation === "flagged",
       createdAt: m.createdAt.toISOString(),
     })),
   );
@@ -261,6 +269,22 @@ export default async function EventPage({
             <DownloadMenu />
           </div>
         </div>
+        {flagged > 0 && (
+          <div className="mb-4 flex items-start gap-3 rounded-2xl border border-amber-500/25 bg-amber-500/8 p-3.5">
+            <ShieldAlert
+              className="mt-0.5 size-4 shrink-0 text-amber-700"
+              aria-hidden
+            />
+            <div>
+              <p className="text-sm font-semibold">
+                {t("photos.flaggedCount", { count: flagged })}
+              </p>
+              <p className="mt-0.5 text-[13px] text-pretty text-muted-foreground">
+                {t("photos.flaggedCountHint")}
+              </p>
+            </div>
+          </div>
+        )}
         <PhotoGrid eventId={event.id} photos={photos} published={published} />
         {view === "main" && stats.photos > photos.length && (
           <Link

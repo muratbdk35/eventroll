@@ -710,3 +710,27 @@ To build once a Sightengine account exists (keys in env):
   ("MİSAFİR", "EKİM").
 - The landing page shows a card drawn by the same code
   (`scripts/render-print-card.tsx` → `public/marketing/print-card-<l>.png`).
+
+## 52. Explicit-image check for guest uploads (owner decision, 2026-10-16)
+
+Built as planned in #50.
+
+- `lib/moderation.ts`: Sightengine `nudity-2.1` on the photo's JPEG preview
+  (or the original if it is JPEG/PNG/WebP/GIF; HEIC without a preview is
+  skipped). Only `sexual_activity` and `sexual_display` count; at 0.5 or
+  more the photo is `flagged`, otherwise `clear`. Erotica and suggestive
+  classes are ignored. Runs with `after()` once the guest's confirm has
+  answered, so uploads never wait or fail because of it. Without
+  `SIGHTENGINE_API_USER/SECRET`, or when Sightengine fails (free plan:
+  2,000/month, 500/day), the photo stays unchecked.
+- `media.moderation` (null / clear / flagged / approved) and
+  `moderation_score` (migration 0005, additive).
+- Host side: flagged photos are blurred with a "Needs review" badge, a
+  banner counts them, the viewer opens them blurred with "Show" and "It's
+  fine, keep it" (`approvePhoto`), next to delete and block. A flagged photo
+  never becomes a dashboard folder cover. Downloads include every photo; the
+  host decides.
+- Privacy policy names Sightengine SAS (Paris) as a processor and describes
+  the check; sign-in retention now says codes (10 minutes, hashed).
+- Cost: one operation per photo; free plan to start, Starter ($29 for
+  10,000, then $0.002 each) once there are several events a month.

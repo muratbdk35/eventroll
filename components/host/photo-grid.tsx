@@ -7,8 +7,11 @@ import {
   ChevronLeft,
   ChevronRight,
   Download,
+  Eye,
   ImageIcon,
   QrCode,
+  ShieldAlert,
+  ShieldCheck,
   Trash2,
   X,
 } from "lucide-react";
@@ -23,7 +26,7 @@ import {
 import { createPortal } from "react-dom";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { blockDevice, deletePhoto } from "@/lib/events/actions";
+import { approvePhoto, blockDevice, deletePhoto } from "@/lib/events/actions";
 import { Link, useRouter } from "@/lib/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { usePhotoSelection } from "./photo-downloads";
@@ -42,6 +45,8 @@ export type GridPhoto = {
   bytes: number;
   uploaderName: string | null;
   canBlock: boolean;
+  /** Flagged by the explicit-image check: blurred until the host looks (#52). */
+  flagged?: boolean;
   createdAt: string;
   width: number | null;
   height: number | null;
@@ -83,6 +88,9 @@ export function PhotoGrid({
   const selecting = selection?.selecting ?? false;
   const [open, setOpen] = useState<number | null>(null);
   const current = open === null ? null : photos[open];
+  // Flagged photos the host chose to look at in the viewer.
+  const [revealed, setRevealed] = useState<Set<string>>(() => new Set());
+  const hidden = (p: GridPhoto) => Boolean(p.flagged) && !revealed.has(p.id);
 
   const close = useCallback(() => setOpen(null), []);
   const step = useCallback(
@@ -109,8 +117,11 @@ export function PhotoGrid({
     };
   }, [open, close, step]);
 
-  function run(confirmText: string, fn: () => ReturnType<typeof deletePhoto>) {
-    if (!window.confirm(confirmText)) return;
+  function run(
+    confirmText: string | null,
+    fn: () => ReturnType<typeof deletePhoto>,
+  ) {
+    if (confirmText && !window.confirm(confirmText)) return;
     start(async () => {
       const res = await fn();
       if (res.ok) {
@@ -175,6 +186,17 @@ export function PhotoGrid({
             className="flex items-center justify-end gap-1 p-3 text-white sm:p-4"
             onClick={(e) => e.stopPropagation()}
           >
+            {current.flagged && (
+              <ViewerButton
+                label={t("approve")}
+                disabled={pending}
+                onClick={() =>
+                  run(null, () => approvePhoto(eventId, current.id))
+                }
+              >
+                <ShieldCheck className="size-5" />
+              </ViewerButton>
+            )}
             <ViewerButton label={t("download")} href={current.download}>
               <Download className="size-5" />
             </ViewerButton>
@@ -206,7 +228,11 @@ export function PhotoGrid({
           <div className="relative flex min-h-0 flex-1 items-center justify-center px-3 pb-8 sm:px-20">
             <motion.div
               layoutId={`photo-${current.id}`}
-              className="clip-round relative overflow-hidden rounded-2xl bg-neutral-900 shadow-2xl"
+              className={cn(
+                "clip-round relative overflow-hidden rounded-2xl bg-neutral-900 shadow-2xl",
+                // Room for the "show" prompt even before the image arrives.
+                hidden(current) && "min-h-64 min-w-72",
+              )}
               transition={{ type: "spring", stiffness: 260, damping: 28 }}
               onClick={(e) => e.stopPropagation()}
             >
@@ -219,8 +245,42 @@ export function PhotoGrid({
                     e.currentTarget.src = current.src;
                 }}
                 alt=""
-                className="block max-h-[78vh] w-auto max-w-[92vw] object-contain sm:max-w-[70vw]"
+                className={cn(
+                  "block max-h-[78vh] w-auto max-w-[92vw] object-contain transition-[filter] duration-300 sm:max-w-[70vw]",
+                  hidden(current) && "blur-2xl",
+                )}
               />
+              {hidden(current) && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/30 p-6 text-center text-white">
+                  <ShieldAlert className="size-8" aria-hidden />
+                  <p className="max-w-xs text-sm text-pretty">
+                    {t("flaggedBody")}
+                  </p>
+                  <div className="flex flex-wrap justify-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setRevealed((s) => new Set(s).add(current.id))
+                      }
+                      className="inline-flex h-10 items-center gap-2 rounded-full bg-white px-4 text-sm font-semibold text-neutral-900 transition-transform active:scale-95"
+                    >
+                      <Eye className="size-4" aria-hidden />
+                      {t("reveal")}
+                    </button>
+                    <button
+                      type="button"
+                      disabled={pending}
+                      onClick={() =>
+                        run(null, () => approvePhoto(eventId, current.id))
+                      }
+                      className="inline-flex h-10 items-center gap-2 rounded-full border border-white/40 px-4 text-sm font-semibold text-white transition-transform active:scale-95 disabled:opacity-60"
+                    >
+                      <ShieldCheck className="size-4" aria-hidden />
+                      {t("approve")}
+                    </button>
+                  </div>
+                </div>
+              )}
               <motion.div
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -317,8 +377,17 @@ export function PhotoGrid({
                       selecting
                         ? selection?.selected.has(p.id) && "scale-[0.94]"
                         : "group-hover:scale-[1.05]",
+                      p.flagged && "scale-110 blur-xl",
                     )}
                   />
+                  {p.flagged && (
+                    <span className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-black/55 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-sm">
+                        <ShieldAlert className="size-3.5" aria-hidden />
+                        {t("flagged")}
+                      </span>
+                    </span>
+                  )}
                   {selecting && (
                     <span
                       aria-hidden

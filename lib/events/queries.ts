@@ -74,7 +74,14 @@ export async function latestPhotoKeys(eventIds: string[], limit = 3) {
       ),
     })
     .from(media)
-    .where(and(inArray(media.eventId, eventIds), eq(media.status, "ready")))
+    .where(
+      and(
+        inArray(media.eventId, eventIds),
+        eq(media.status, "ready"),
+        // A photo waiting for review never becomes a folder's cover (#52).
+        sql`${media.moderation} is distinct from 'flagged'`,
+      ),
+    )
     .as("ranked");
   const rows = await db
     .select({ eventId: ranked.eventId, key: ranked.key })
@@ -92,6 +99,21 @@ export async function listEventMedia(eventId: string, limit = 120) {
     .where(and(eq(media.eventId, eventId), eq(media.status, "ready")))
     .orderBy(desc(media.createdAt))
     .limit(limit);
+}
+
+/** Ready photos the explicit-image check flagged for review (#52). */
+export async function countFlagged(eventId: string) {
+  const [row] = await db
+    .select({ n: count() })
+    .from(media)
+    .where(
+      and(
+        eq(media.eventId, eventId),
+        eq(media.status, "ready"),
+        eq(media.moderation, "flagged"),
+      ),
+    );
+  return row?.n ?? 0;
 }
 
 /** Photo count and bytes per uploader name (null = no name), for downloads. */
