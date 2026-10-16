@@ -150,6 +150,10 @@
       "control": {
         "title": "You stay in control",
         "body": "Protect uploads with a PIN, set when uploads open and close, and cap how many photos each phone can add."
+      },
+      "moderation": {
+        "title": "Content moderation",
+        "body": "Photos that may be explicit are detected automatically, blurred and put to you. Take a look and decide: keep them, delete them or block the sender. Kisses, dancing and evening dresses are fine; only explicit content gets flagged."
       }
     },
     "eventTypes": {

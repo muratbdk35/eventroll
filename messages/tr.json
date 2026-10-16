@@ -153,6 +153,10 @@
       "control": {
         "title": "Kontrol sende",
         "body": "Yüklemeleri PIN ile koru, yüklemenin ne zaman açılıp kapanacağını belirle ve her telefonun ekleyebileceği fotoğraf sayısını sınırla."
+      },
+      "moderation": {
+        "title": "İçerik moderasyonu",
+        "body": "Uygunsuz olabilecek fotoğraflar otomatik olarak tespit edilip bulanıklaştırılır ve sana sorulur. Açıp bakarsın; tutmak, silmek ya da göndereni engellemek senin kararın. Öpücükler, danslar ve abiye elbiseler rahat; sadece açık içerik işaretlenir."
       }
     },
     "eventTypes": {

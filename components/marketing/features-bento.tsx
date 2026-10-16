@@ -1,4 +1,4 @@
-import { Check, Send } from "lucide-react";
+import { Check, Eye, Send, ShieldAlert, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import QRCode from "qrcode";
@@ -50,6 +50,70 @@ function TileText({
     <div className={cn("mt-auto pt-6", className)}>
       <h3 className="font-heading text-lg font-semibold">{title}</h3>
       <p className="mt-1.5 text-sm text-pretty opacity-75">{body}</p>
+    </div>
+  );
+}
+
+/**
+ * A slice of the host's gallery with the content check at work (#52): two
+ * photos as they are, one blurred with "Needs review" and the two choices.
+ */
+function ModerationMock({
+  badge,
+  banner,
+  show,
+  keep,
+}: {
+  badge: string;
+  banner: string;
+  show: string;
+  keep: string;
+}) {
+  const photo = (src: string, className?: string) => (
+    <div
+      className={cn(
+        "clip-round relative overflow-hidden rounded-xl bg-muted shadow-sm ring-1 ring-black/5",
+        className,
+      )}
+    >
+      <Image src={src} alt="" fill sizes="160px" className="object-cover" />
+    </div>
+  );
+  return (
+    <div aria-hidden className="w-full max-w-md select-none">
+      <div className="flex items-center gap-2 rounded-xl border border-amber-500/25 bg-amber-500/10 px-3 py-2 text-[13px] font-semibold">
+        <ShieldAlert className="size-3.5 text-amber-700" />
+        {banner}
+      </div>
+      <div className="mt-2.5 grid grid-cols-3 gap-2.5">
+        {photo("/marketing/toast.jpg", "aspect-[3/4]")}
+        <div className="clip-round relative aspect-[3/4] overflow-hidden rounded-xl bg-muted shadow-sm ring-1 ring-black/5">
+          <Image
+            src="/marketing/dance-floor.jpg"
+            alt=""
+            fill
+            sizes="160px"
+            className="scale-110 object-cover blur-lg"
+          />
+          <span className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/20 p-2">
+            <span className="inline-flex items-center gap-1 rounded-full bg-black/55 px-2.5 py-1 text-[11px] font-semibold text-white">
+              <ShieldAlert className="size-3" />
+              {badge}
+            </span>
+          </span>
+        </div>
+        {photo("/marketing/cake.jpg", "aspect-[3/4]")}
+      </div>
+      <div className="mt-2.5 flex justify-center gap-2">
+        <span className="inline-flex h-8 items-center gap-1.5 rounded-full bg-card px-3 text-xs font-semibold shadow-sm ring-1 ring-black/5">
+          <Eye className="size-3.5" />
+          {show}
+        </span>
+        <span className="inline-flex h-8 items-center gap-1.5 rounded-full bg-primary px-3 text-xs font-semibold text-primary-foreground shadow-sm">
+          <ShieldCheck className="size-3.5" />
+          {keep}
+        </span>
+      </div>
     </div>
   );
 }
@@ -169,9 +233,10 @@ async function PickerMock() {
 }
 
 export async function FeaturesBento() {
-  const [t, te] = await Promise.all([
+  const [t, te, tp] = await Promise.all([
     getTranslations("Landing.features"),
     getTranslations("Events"),
+    getTranslations("Events.photos"),
   ]);
   const guestLink = `${publicEnv.appUrl}/e/k7Qm9xZ2pA`;
   const qrSvg = await QRCode.toString(guestLink, {
@@ -262,6 +327,23 @@ export async function FeaturesBento() {
             />
           </AppPreview>
           <TileText title={t("guests.title")} body={t("guests.body")} />
+        </Tile>
+
+        {/* Content moderation (#52): wide, between the tiles and languages. */}
+        <Tile className="md:col-span-6 md:flex-row md:items-center md:gap-10">
+          <div className="flex justify-center md:w-1/2">
+            <ModerationMock
+              badge={tp("flagged")}
+              banner={tp("flaggedCount", { count: 1 })}
+              show={tp("reveal")}
+              keep={tp("approve")}
+            />
+          </div>
+          <TileText
+            className="md:mt-0 md:w-1/2 md:pt-0"
+            title={t("moderation.title")}
+            body={t("moderation.body")}
+          />
         </Tile>
 
         {/* Languages */}

@@ -679,7 +679,7 @@ To build once a Sightengine account exists (keys in env):
 - A flagged photo is never deleted automatically: in the host's panel it is
   blurred with a "needs review" label; the host keeps it, or deletes it and
   blocks the device (`deletePhoto`, `blockDevice`).
-- Both plans. Landing card "Smart protection"; no "100% safe" claims (EU
+- Both plans. Landing card "Content moderation" (wide tile, a gallery slice with one blurred photo); no "100% safe" claims (EU
   rules on misleading advertising): flagged photos are blurred and the host
   decides.
 - About $0.001–0.002 per photo. CSAM scanning is decided at launch.

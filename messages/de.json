@@ -153,6 +153,10 @@
       "control": {
         "title": "Du behältst die Kontrolle",
         "body": "Schütze Uploads mit einer PIN, lege fest, wann Uploads möglich sind, und begrenze, wie viele Fotos jedes Handy hinzufügen kann."
+      },
+      "moderation": {
+        "title": "Inhaltsmoderation",
+        "body": "Möglicherweise anstößige Fotos werden automatisch erkannt, unscharf gemacht und dir vorgelegt. Sieh sie dir an und entscheide: behalten, löschen oder den Absender sperren. Küsse, Tanzen und Abendkleider sind kein Problem; markiert werden nur explizite Inhalte."
       }
     },
     "eventTypes": {
