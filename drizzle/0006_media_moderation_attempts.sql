@@ -1,0 +1,1 @@
+ALTER TABLE "media" ADD COLUMN "moderation_attempts" integer DEFAULT 0 NOT NULL;

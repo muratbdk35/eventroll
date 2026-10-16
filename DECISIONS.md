@@ -734,3 +734,14 @@ Built as planned in #50.
   the check; sign-in retention now says codes (10 minutes, hashed).
 - Cost: one operation per photo; free plan to start, Starter ($29 for
   10,000, then $0.002 each) once there are several events a month.
+- Retries (2026-10-17): a photo is tried at most 3 times in all
+  (`media.moderation_attempts`, migration 0006). A Sightengine throttle (its
+  per-second limit; a guest sending a burst) is waited out and retried a few
+  times within the same check and never uses up an attempt; any other failure
+  does, and a HEIC without a preview is marked done at once. A nightly Vercel
+  Cron (`vercel.json`, 03:30 UTC, `/api/cron/moderation`, authorised with
+  `CRON_SECRET`) retries unchecked photos one at a time, least-tried first,
+  and stops after ~45 s; the rest waits for the next night. Crons only run on
+  production deployments, so this starts with the launch.
+- CSAM scanning (hash matching, e.g. Cloudflare's CSAM Scanning Tool or
+  PhotoDNA) is planned before launch.

@@ -153,6 +153,8 @@ export const media = pgTable(
     // Sightengine's sexual_activity / sexual_display, 0–1.
     moderation: text(),
     moderationScore: real(),
+    // Checks tried so far; capped so a photo is never retried endlessly.
+    moderationAttempts: integer().notNull().default(0),
     status: mediaStatus().notNull().default("pending"),
     createdAt: createdAt(),
   },

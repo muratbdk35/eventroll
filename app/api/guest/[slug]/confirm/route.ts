@@ -13,6 +13,10 @@ const bodySchema = z.object({
 
 type Ctx = { params: Promise<{ slug: string }> };
 
+// Room for the explicit-image check after the answer, which waits and
+// retries when Sightengine throttles a burst of uploads.
+export const maxDuration = 60;
+
 export async function POST(req: Request, { params }: Ctx) {
   const event = await getEventBySlug((await params).slug);
   if (!event) return NextResponse.json({ error: "not_found" }, { status: 404 });
