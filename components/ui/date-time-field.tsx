@@ -80,7 +80,8 @@ export function DateTimeField({
       </PopoverTrigger>
       <PopoverContent
         align="start"
-        className="w-auto rounded-2xl border-border/70 p-0 shadow-xl shadow-primary/10"
+        collisionPadding={12}
+        className="w-auto max-w-[calc(100vw-24px)] rounded-2xl border-border/70 p-0 shadow-xl shadow-primary/10"
       >
         <Calendar
           mode="single"

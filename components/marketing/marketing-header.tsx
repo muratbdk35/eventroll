@@ -43,13 +43,13 @@ export async function MarketingHeader() {
             asChild
             variant="ghost"
             size="icon"
-            className="rounded-full sm:hidden"
+            className="size-9 shrink-0 rounded-full sm:hidden"
           >
             <Link href="/login" aria-label={nav("login")} title={nav("login")}>
               <LogIn aria-hidden />
             </Link>
           </Button>
-          <Button asChild className="rounded-xl">
+          <Button asChild className="h-9 shrink-0 rounded-xl px-3 text-[13px] sm:h-10 sm:px-4 sm:text-sm">
             <Link href="/create">{t("cta")}</Link>
           </Button>
         </div>

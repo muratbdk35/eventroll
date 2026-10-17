@@ -43,6 +43,7 @@ export function GuestLinkField({
           type="button"
           variant="default"
           className="h-9 rounded-full px-4"
+          aria-label={copied ? t("copied") : t("copy")}
           onClick={copy}
         >
           {copied ? <Check aria-hidden /> : <Copy aria-hidden />}

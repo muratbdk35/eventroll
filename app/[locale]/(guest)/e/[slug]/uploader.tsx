@@ -424,6 +424,7 @@ export function Uploader(props: Props) {
             <HaloInput
               id="pin"
               size="lg"
+              autoFocus
               inputMode="numeric"
               autoComplete="one-time-code"
               maxLength={8}
@@ -585,7 +586,7 @@ export function Uploader(props: Props) {
               </button>
             )}
           </div>
-          <ul className="grid grid-cols-3 gap-2.5">
+          <ul className="grid grid-cols-3 gap-2.5 max-h-[50vh] overflow-y-auto overscroll-contain p-2 -m-2">
             {items.map((item, i) => (
               <li
                 key={item.key}
@@ -685,12 +686,14 @@ export function Uploader(props: Props) {
               padding="sm"
               surfaceClassName="gap-3"
             >
-              <label className="flex cursor-pointer items-start gap-3 px-1 pt-0.5">
+              <div className="flex items-start gap-3 px-1 pt-0.5">
                 <button
                   type="button"
+                  id="guest-consent"
                   key={consentShake}
                   role="checkbox"
                   aria-checked={consent}
+                  aria-labelledby="guest-consent-text"
                   onClick={() => {
                     setConsent((c) => !c);
                     if (notice === "consent") setNotice(null);
@@ -713,12 +716,20 @@ export function Uploader(props: Props) {
                     />
                   )}
                 </button>
-                <span className="text-[12.5px] leading-snug text-muted-foreground">
+                <span
+                  id="guest-consent-text"
+                  className="cursor-pointer text-[12.5px] leading-snug text-muted-foreground select-none"
+                  onClick={() => {
+                    setConsent((c) => !c);
+                    if (notice === "consent") setNotice(null);
+                  }}
+                >
                   {t.rich("consent", {
                     terms: (c) => (
                       <Link
                         href="/legal/terms"
                         target="_blank"
+                        onClick={(e) => e.stopPropagation()}
                         className="font-medium text-foreground underline underline-offset-2"
                       >
                         {c}
@@ -728,6 +739,7 @@ export function Uploader(props: Props) {
                       <Link
                         href="/legal/privacy"
                         target="_blank"
+                        onClick={(e) => e.stopPropagation()}
                         className="font-medium text-foreground underline underline-offset-2"
                       >
                         {c}
@@ -735,7 +747,7 @@ export function Uploader(props: Props) {
                     ),
                   })}
                 </span>
-              </label>
+              </div>
               {notice && (
                 <p
                   className="px-1 text-[12.5px] font-medium text-destructive"
