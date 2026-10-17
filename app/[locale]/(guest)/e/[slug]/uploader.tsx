@@ -44,7 +44,7 @@ type Item = {
   status: "selected" | "uploading" | "done" | "error";
   /** 0–1 while uploading. */
   progress: number;
-  error?: "tooBig" | "badType" | "failed" | "limitReached";
+  error?: "tooBig" | "badType" | "failed" | "limitReached" | "albumFull";
 };
 
 const EXT_MIME: Record<string, AllowedMime> = {
@@ -137,6 +137,13 @@ function ProgressRing({ value }: { value: number }) {
       />
     </svg>
   );
+}
+
+/** Server refusals guests can't fix by retrying get their own message. */
+function denial(code: string | undefined): Item["error"] {
+  if (code === "device_limit") return "limitReached";
+  if (code === "event_full") return "albumFull";
+  return "failed";
 }
 
 export function Uploader(props: Props) {
@@ -283,7 +290,7 @@ export function Uploader(props: Props) {
         batch.forEach(({ item }) =>
           patch(item.key, {
             status: "error",
-            error: err?.error === "device_limit" ? "limitReached" : "failed",
+            error: denial(err?.error),
           }),
         );
         continue;
@@ -321,7 +328,7 @@ export function Uploader(props: Props) {
               } | null;
               patch(item.key, {
                 status: "error",
-                error: e?.error === "device_limit" ? "limitReached" : "failed",
+                error: denial(e?.error),
               });
             } else {
               ok += 1;

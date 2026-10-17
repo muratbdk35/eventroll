@@ -634,7 +634,8 @@
     "namePlaceholder": "Type your name",
     "metaTitle": "{name} · Share your photos",
     "metaDescription": "Upload the photos you took with your phone here. No app or account needed.",
-    "ogCta": "Share your photos"
+    "ogCta": "Share your photos",
+    "albumFull": "Album is full"
   },
   "App": {
     "events": "Events",

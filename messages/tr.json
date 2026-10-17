@@ -637,7 +637,8 @@
     "namePlaceholder": "Adını yaz",
     "metaTitle": "{name} · Fotoğraflarını paylaş",
     "metaDescription": "Telefon kameranla çektiğin fotoğrafları buradan yükle. Uygulama ya da üyelik gerekmez.",
-    "ogCta": "Fotoğraflarını paylaş"
+    "ogCta": "Fotoğraflarını paylaş",
+    "albumFull": "Albüm doldu"
   },
   "App": {
     "events": "Etkinlikler",

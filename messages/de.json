@@ -637,7 +637,8 @@
     "namePlaceholder": "Gib deinen Namen ein",
     "metaTitle": "{name} · Teile deine Fotos",
     "metaDescription": "Lade hier die Fotos hoch, die du mit dem Handy gemacht hast. Keine App, kein Konto nötig.",
-    "ogCta": "Teile deine Fotos"
+    "ogCta": "Teile deine Fotos",
+    "albumFull": "Album ist voll"
   },
   "App": {
     "events": "Events",
