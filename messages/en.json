@@ -40,18 +40,12 @@
     "emptyTitle": "No events yet",
     "emptyBody": "Create your first event. Your QR code is ready once you pick a plan and publish.",
     "createEvent": "Create event",
-    "openEvent": "Open",
     "subtitle": "Create an event, share the QR code, collect every photo in original quality.",
     "newEventCard": "New event",
     "newEventCardBody": "QR code in a minute",
     "step1": "Create your event",
     "step2": "Pick a plan",
     "step3": "Share the QR code",
-    "listTitle": "Events",
-    "listSubtitle": "Every event you've created. Photos are kept until 7 days after the event.",
-    "colEvent": "Event",
-    "colStatus": "Status",
-    "colPhotos": "Photos",
     "eventsTitle": "Your events"
   },
   "Email": {
@@ -75,28 +69,20 @@
       "cta": "Create event"
     },
     "hero": {
-      "eyebrow": "For weddings, birthdays and every get-together",
       "line1": "Scan. Upload.",
       "line2": "Done.",
       "subhead": "Share one QR code with your guests and every photo they take lands in your private album. No app, no account, straight from the phone's browser.",
       "cta": "Create your event",
-      "secondary": "See how it works",
-      "point1": "No app for guests",
-      "point2": "Full-quality originals",
-      "point3": "One-time payment"
+      "secondary": "See how it works"
     },
     "demo": {
       "date": "Sat, 14 June",
       "eventName": "Elif & Can",
       "button": "Add photos",
-      "mine": "Your uploads",
       "count": "{count} photos",
       "notifyTitle": "{count} photos uploaded",
       "notifyBody": "Sent straight to the couple",
       "privacy": "Only Elif & Can can see your photos.",
-      "photoBy": "by {name}, {time}",
-      "qrTitle": "Share your photos with us",
-      "qrBody": "Scan · Upload · Done",
       "pin": "PIN 2468",
       "ticketDate": "14 June 2026"
     },
@@ -118,14 +104,12 @@
       }
     },
     "features": {
-      "eyebrow": "Why hosts love it",
       "title": "Every angle of your day, in one place",
       "subtitle": "The photos you'd never see otherwise, from the people who took them.",
       "noApp": {
         "badge": "Works on any phone",
         "title": "No app. No sign-up. Just the camera.",
-        "body": "Guests scan, tap one big button and pick their photos. It works in Safari, Chrome and even inside WhatsApp or Instagram.",
-        "pickerCta": "Upload {count} photos"
+        "body": "Guests scan, tap one big button and pick their photos. It works in Safari, Chrome and even inside WhatsApp or Instagram."
       },
       "private": {
         "title": "Private by default",
@@ -157,7 +141,6 @@
       }
     },
     "eventTypes": {
-      "eyebrow": "For every occasion",
       "title": "Made for the moments people gather",
       "wedding": {
         "title": "Weddings",
@@ -186,7 +169,6 @@
       "subtitle": "Whatever you're celebrating, your guests already have the best camera in their pocket."
     },
     "pricing": {
-      "eyebrow": "Simple pricing",
       "title": "Pay once. Keep every moment.",
       "subtitle": "No subscription, no hidden fees. One payment per event, and every photo your guests take is yours in full quality.",
       "merchantLine": "ONE EVENT · ONE PAYMENT",
@@ -233,7 +215,6 @@
       }
     },
     "faq": {
-      "eyebrow": "FAQ",
       "title": "Questions, answered",
       "items": {
         "app": {
@@ -301,11 +282,8 @@
     "updated": "Last updated: {date}"
   },
   "Events": {
-    "newTitle": "Create your event",
-    "newSubtitle": "Takes a minute. Then pick a plan and publish to get your QR code.",
     "nameLabel": "Event name",
     "namePlaceholder": "Anna & Tom's wedding",
-    "dateLabel": "Event date",
     "typeLabel": "Event type",
     "types": {
       "wedding": "Wedding",
@@ -317,8 +295,6 @@
       "other": "Other"
     },
     "create": "Create event",
-    "creating": "Creating…",
-    "createError": "Couldn't create the event. Check the fields and try again.",
     "back": "All events",
     "status": {
       "draft": "Draft",
@@ -329,7 +305,6 @@
     },
     "photoCount": "{count, plural, one {# photo} other {# photos}}",
     "tabs": {
-      "overview": "Photos",
       "share": "Share",
       "settings": "Settings"
     },
@@ -345,14 +320,11 @@
       "premium": "Premium (${price})",
       "devNote": "Local development: checkout isn't connected yet, so this activates the plan for free.",
       "choose": "Choose {plan}",
-      "best": "Best value",
       "oneTime": "one-time",
       "photos": "Up to {count} photos",
       "storage": "{gb} GB, original quality",
       "qr": "QR code and guest link",
-      "print": "Printable table cards and posters",
-      "taglinePremium": "For big celebrations",
-      "taglineStandard": "For smaller gatherings"
+      "print": "Printable table cards and posters"
     },
     "photos": {
       "empty": "No photos yet. They show up here as guests upload.",
@@ -392,9 +364,6 @@
       "png": "Download PNG",
       "svg": "Download SVG",
       "pinOn": "Guests will be asked for the PIN.",
-      "cardTitle": "Share your photos",
-      "cardHint": "Scan with your phone camera",
-      "cardPin": "PIN required",
       "stepsTitle": "How guests join",
       "step1": "Scan the QR code with the camera",
       "step2": "Pick photos from the gallery",
@@ -410,7 +379,6 @@
       "pinLabel": "PIN",
       "pinHint": "4–8 digits. Print it on the card so only guests at your event can upload.",
       "pinSet": "A PIN is set. Enter a new one to change it.",
-      "pinRemove": "Remove PIN",
       "hours": "Upload hours",
       "opens": "Opens",
       "closes": "Closes",
@@ -442,20 +410,11 @@
     "guestsCount": "{count, plural, one {# guest} other {# guests}}",
     "next": {
       "title": "What happens next",
-      "one": "Pick a plan and publish to get your QR code.",
-      "two": "Pick a plan to open uploads.",
-      "three": "Guests scan and share. No app, no account."
+      "one": "Pick a plan and publish to get your QR code."
     },
     "preview": "Guest page preview",
-    "previewName": "Your event",
-    "newSubtitleShort": "Your QR code is ready once you pick a plan and publish.",
     "cancel": "Cancel",
     "meta": "{type}, {date}",
-    "shareQr": "Share QR",
-    "closedTitle": "Uploads are closed",
-    "closedBody": "Pick a plan to open uploads. One payment, no subscription.",
-    "uploadsBy": "Uploaded by",
-    "allPhotos": "{count, plural, one {# photo} other {# photos}}",
     "backToEvent": "Back to event",
     "photosTitle": "Photos",
     "deletesOnShort": "Deleted on {date}",
@@ -574,7 +533,6 @@
     }
   },
   "Guest": {
-    "welcome": "Share your photos from {event}",
     "privacy": "Only the host sees what you upload. We never show your photos to other guests.",
     "pinTitle": "Enter the event PIN",
     "pinLabel": "PIN",
@@ -623,8 +581,6 @@
     },
     "notFoundTitle": "Event not found",
     "notFoundBody": "Check the link or QR code and try again.",
-    "dropHint": "or drag photos here",
-    "formats": "JPG, PNG, HEIC, original quality",
     "pinSubtitle": "You'll find it on the card at your table.",
     "for": "Photos for",
     "heroTitle": "Leave a memory",
@@ -649,7 +605,6 @@
     "newEvent": "New event",
     "yourEvents": "Your events",
     "menu": "Menu",
-    "closeMenu": "Close menu",
     "home": "Website"
   },
   "Create": {
@@ -755,5 +710,16 @@
     "photo": "Photo {n}",
     "texts": "Licence texts",
     "textsIntro": "Full texts of the licences above."
+  },
+  "NotFound": {
+    "title": "This page doesn't exist",
+    "body": "The page you're looking for may have moved, or never existed.",
+    "home": "Back to the home page"
+  },
+  "ErrorPage": {
+    "title": "Something went wrong",
+    "body": "An error occurred while loading the page. Try again; if it persists, come back in a few minutes.",
+    "retry": "Try again",
+    "home": "Home page"
   }
 }

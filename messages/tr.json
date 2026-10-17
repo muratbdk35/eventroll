@@ -43,18 +43,12 @@
     "emptyTitle": "Henüz etkinlik yok",
     "emptyBody": "İlk etkinliğini oluştur. Plan seçip yayınladığında QR kodun hazır olur.",
     "createEvent": "Etkinlik oluştur",
-    "openEvent": "Aç",
     "subtitle": "Etkinlik oluştur, QR kodu paylaş, tüm fotoğrafları orijinal kalitede topla.",
     "newEventCard": "Yeni etkinlik",
     "newEventCardBody": "Bir dakikada QR kod",
     "step1": "Etkinliğini oluştur",
     "step2": "Plan seç",
     "step3": "QR kodu paylaş",
-    "listTitle": "Etkinlikler",
-    "listSubtitle": "Oluşturduğun tüm etkinlikler. Fotoğraflar etkinlikten 7 gün sonrasına kadar saklanır.",
-    "colEvent": "Etkinlik",
-    "colStatus": "Durum",
-    "colPhotos": "Fotoğraf",
     "eventsTitle": "Etkinliklerin"
   },
   "Email": {
@@ -78,28 +72,20 @@
       "cta": "Etkinlik oluştur"
     },
     "hero": {
-      "eyebrow": "Düğünler, doğum günleri ve tüm buluşmalar için",
       "line1": "Okut. Yükle.",
       "line2": "Bitti.",
       "subhead": "QR kodu davetlilerle paylaş; misafirlerin tüm fotoğrafları senin özel albümüne düşer. Uygulama yok, hesap yok, doğrudan telefonun tarayıcısından.",
       "cta": "Etkinliğini oluştur",
-      "secondary": "Nasıl çalışır?",
-      "point1": "Misafire uygulama yok",
-      "point2": "Orijinal kalite",
-      "point3": "Tek seferlik ödeme"
+      "secondary": "Nasıl çalışır?"
     },
     "demo": {
       "date": "Cmt, 14 Haziran",
       "eventName": "Elif & Can",
       "button": "Fotoğraf ekle",
-      "mine": "Yüklediklerin",
       "count": "{count} fotoğraf",
       "notifyTitle": "{count} fotoğraf yüklendi",
       "notifyBody": "Doğrudan çifte ulaştı",
       "privacy": "Fotoğraflarını sadece Elif & Can görebilir.",
-      "photoBy": "{name}, {time}",
-      "qrTitle": "Fotoğraflarını bizimle paylaş",
-      "qrBody": "Okut · Yükle · Bitti",
       "pin": "PIN 2468",
       "ticketDate": "14 Haziran 2026"
     },
@@ -121,14 +107,12 @@
       }
     },
     "features": {
-      "eyebrow": "Neden seviliyor",
       "title": "Günün her açısı, tek bir yerde",
       "subtitle": "Başka türlü asla göremeyeceğin fotoğraflar, onları çekenlerden.",
       "noApp": {
         "badge": "Her telefonda çalışır",
         "title": "Uygulama yok. Kayıt yok. Sadece kamera.",
-        "body": "Misafirler okutur, tek büyük butona dokunur ve fotoğraflarını seçer. Safari'de, Chrome'da, hatta WhatsApp ve Instagram içinde bile çalışır.",
-        "pickerCta": "{count} fotoğrafı yükle"
+        "body": "Misafirler okutur, tek büyük butona dokunur ve fotoğraflarını seçer. Safari'de, Chrome'da, hatta WhatsApp ve Instagram içinde bile çalışır."
       },
       "private": {
         "title": "Varsayılan olarak gizli",
@@ -160,7 +144,6 @@
       }
     },
     "eventTypes": {
-      "eyebrow": "Her özel gün için",
       "title": "İnsanların bir araya geldiği anlar için",
       "wedding": {
         "title": "Düğünler",
@@ -189,7 +172,6 @@
       "subtitle": "Ne kutlarsan kutla, misafirlerinin cebinde zaten en iyi kamera var."
     },
     "pricing": {
-      "eyebrow": "Basit fiyatlandırma",
       "title": "Bir kez öde. Her anı sakla.",
       "subtitle": "Abonelik yok, gizli ücret yok. Etkinlik başına tek ödeme; misafirlerinin çektiği her kare orijinal kalitesiyle senin.",
       "merchantLine": "TEK ETKİNLİK · TEK ÖDEME",
@@ -236,7 +218,6 @@
       }
     },
     "faq": {
-      "eyebrow": "SSS",
       "title": "Sorular ve cevaplar",
       "items": {
         "app": {
@@ -304,11 +285,8 @@
     "updated": "Son güncelleme: {date}"
   },
   "Events": {
-    "newTitle": "Etkinliğini oluştur",
-    "newSubtitle": "Bir dakika sürer. Sonra plan seçip yayınlarsın, QR kodun hazır olur.",
     "nameLabel": "Etkinlik adı",
     "namePlaceholder": "Ayşe & Mehmet'in düğünü",
-    "dateLabel": "Etkinlik tarihi",
     "typeLabel": "Etkinlik türü",
     "types": {
       "wedding": "Düğün",
@@ -320,8 +298,6 @@
       "other": "Diğer"
     },
     "create": "Etkinlik oluştur",
-    "creating": "Oluşturuluyor…",
-    "createError": "Etkinlik oluşturulamadı. Alanları kontrol edip tekrar dene.",
     "back": "Tüm etkinlikler",
     "status": {
       "draft": "Taslak",
@@ -332,7 +308,6 @@
     },
     "photoCount": "{count, plural, one {# fotoğraf} other {# fotoğraf}}",
     "tabs": {
-      "overview": "Fotoğraflar",
       "share": "Paylaş",
       "settings": "Ayarlar"
     },
@@ -348,14 +323,11 @@
       "premium": "Premium (${price})",
       "devNote": "Yerel geliştirme: ödeme henüz bağlı değil, bu buton planı ücretsiz aktifleştirir.",
       "choose": "{plan} seç",
-      "best": "En avantajlı",
       "oneTime": "tek seferlik",
       "photos": "{count} fotoğrafa kadar",
       "storage": "{gb} GB, orijinal kalite",
       "qr": "QR kod ve misafir bağlantısı",
-      "print": "Yazdırılabilir masa kartları ve posterler",
-      "taglinePremium": "Büyük kutlamalar için",
-      "taglineStandard": "Daha küçük buluşmalar için"
+      "print": "Yazdırılabilir masa kartları ve posterler"
     },
     "photos": {
       "empty": "Henüz fotoğraf yok. Misafirler yükledikçe burada görünür.",
@@ -395,9 +367,6 @@
       "png": "PNG indir",
       "svg": "SVG indir",
       "pinOn": "Misafirlerden PIN istenecek.",
-      "cardTitle": "Fotoğraflarını paylaş",
-      "cardHint": "Telefon kamerasıyla okut",
-      "cardPin": "PIN gerekli",
       "stepsTitle": "Misafirler nasıl katılır",
       "step1": "Kamerayla QR kodu okutur",
       "step2": "Galeriden fotoğrafları seçer",
@@ -413,7 +382,6 @@
       "pinLabel": "PIN",
       "pinHint": "4–8 rakam. Karta yazdır, sadece etkinliğindekiler yükleyebilsin.",
       "pinSet": "PIN ayarlı. Değiştirmek için yenisini gir.",
-      "pinRemove": "PIN'i kaldır",
       "hours": "Yükleme saatleri",
       "opens": "Açılış",
       "closes": "Kapanış",
@@ -445,20 +413,11 @@
     "guestsCount": "{count, plural, one {# misafir} other {# misafir}}",
     "next": {
       "title": "Sonra ne olacak",
-      "one": "Plan seç ve yayınla, QR kodun hazır olsun.",
-      "two": "Yüklemeyi açmak için plan seçersin.",
-      "three": "Misafirler okutur ve paylaşır. Uygulama yok, hesap yok."
+      "one": "Plan seç ve yayınla, QR kodun hazır olsun."
     },
     "preview": "Misafir sayfası önizlemesi",
-    "previewName": "Etkinliğin",
-    "newSubtitleShort": "Plan seçip yayınladığında QR kodun hazır olur.",
     "cancel": "Vazgeç",
     "meta": "{type}, {date}",
-    "shareQr": "QR paylaş",
-    "closedTitle": "Yüklemeler kapalı",
-    "closedBody": "Yüklemeyi açmak için plan seç. Tek ödeme, abonelik yok.",
-    "uploadsBy": "Yükleyen",
-    "allPhotos": "{count, plural, one {# fotoğraf} other {# fotoğraf}}",
     "backToEvent": "Etkinliğe dön",
     "photosTitle": "Fotoğraflar",
     "deletesOnShort": "{date} tarihinde silinir",
@@ -577,7 +536,6 @@
     }
   },
   "Guest": {
-    "welcome": "{event} fotoğraflarını paylaş",
     "privacy": "Yüklediklerini sadece ev sahibi görür. Fotoğrafların diğer misafirlere gösterilmez.",
     "pinTitle": "Etkinlik PIN'ini gir",
     "pinLabel": "PIN",
@@ -626,8 +584,6 @@
     },
     "notFoundTitle": "Etkinlik bulunamadı",
     "notFoundBody": "Bağlantıyı ya da QR kodu kontrol edip tekrar dene.",
-    "dropHint": "ya da fotoğrafları buraya sürükle",
-    "formats": "JPG, PNG, HEIC, orijinal kalite",
     "pinSubtitle": "Masandaki kartta yazıyor.",
     "for": "Fotoğraflar",
     "heroTitle": "Bir anı bırak",
@@ -652,7 +608,6 @@
     "newEvent": "Yeni etkinlik",
     "yourEvents": "Etkinliklerin",
     "menu": "Menü",
-    "closeMenu": "Menüyü kapat",
     "home": "Web sitesi"
   },
   "Create": {
@@ -758,5 +713,16 @@
     "photo": "Fotoğraf {n}",
     "texts": "Lisans metinleri",
     "textsIntro": "Yukarıdaki lisansların tam metinleri."
+  },
+  "NotFound": {
+    "title": "Bu sayfa yok",
+    "body": "Aradığın sayfa taşınmış ya da hiç var olmamış olabilir.",
+    "home": "Ana sayfaya dön"
+  },
+  "ErrorPage": {
+    "title": "Bir şeyler ters gitti",
+    "body": "Sayfa yüklenirken bir hata oluştu. Tekrar dene; düzelmezse birkaç dakika sonra yeniden gel.",
+    "retry": "Tekrar dene",
+    "home": "Ana sayfa"
   }
 }

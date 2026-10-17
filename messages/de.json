@@ -43,18 +43,12 @@
     "emptyTitle": "Noch keine Events",
     "emptyBody": "Erstelle dein erstes Event. Dein QR-Code ist bereit, sobald du einen Plan wählst und veröffentlichst.",
     "createEvent": "Event erstellen",
-    "openEvent": "Öffnen",
     "subtitle": "Event erstellen, QR-Code teilen, jedes Foto in Originalqualität sammeln.",
     "newEventCard": "Neues Event",
     "newEventCardBody": "QR-Code in einer Minute",
     "step1": "Event erstellen",
     "step2": "Tarif wählen",
     "step3": "QR-Code teilen",
-    "listTitle": "Events",
-    "listSubtitle": "Alle Events, die du erstellt hast. Fotos bleiben bis 7 Tage nach dem Event gespeichert.",
-    "colEvent": "Event",
-    "colStatus": "Status",
-    "colPhotos": "Fotos",
     "eventsTitle": "Deine Events"
   },
   "Email": {
@@ -78,28 +72,20 @@
       "cta": "Event erstellen"
     },
     "hero": {
-      "eyebrow": "Für Hochzeiten, Geburtstage und jedes Fest",
       "line1": "Scannen. Hochladen.",
       "line2": "Fertig.",
       "subhead": "Teile einen QR-Code mit deinen Gästen, und jedes Foto landet in deinem privaten Album. Keine App, kein Konto, direkt im Handy-Browser.",
       "cta": "Event erstellen",
-      "secondary": "So funktioniert's",
-      "point1": "Keine App für Gäste",
-      "point2": "Originale in voller Qualität",
-      "point3": "Einmalzahlung"
+      "secondary": "So funktioniert's"
     },
     "demo": {
       "date": "Sa, 14. Juni",
       "eventName": "Elif & Can",
       "button": "Fotos hinzufügen",
-      "mine": "Deine Uploads",
       "count": "{count} Fotos",
       "notifyTitle": "{count} Fotos hochgeladen",
       "notifyBody": "Direkt an das Brautpaar",
       "privacy": "Nur Elif & Can sehen deine Fotos.",
-      "photoBy": "von {name}, {time}",
-      "qrTitle": "Teile deine Fotos mit uns",
-      "qrBody": "Scannen · Hochladen · Fertig",
       "pin": "PIN 2468",
       "ticketDate": "14. Juni 2026"
     },
@@ -121,14 +107,12 @@
       }
     },
     "features": {
-      "eyebrow": "Darum lieben es Gastgeber",
       "title": "Jeder Blickwinkel deines Tages, an einem Ort",
       "subtitle": "Die Fotos, die du sonst nie sehen würdest, von den Menschen, die sie gemacht haben.",
       "noApp": {
         "badge": "Funktioniert auf jedem Handy",
         "title": "Keine App. Keine Anmeldung. Nur die Kamera.",
-        "body": "Gäste scannen, tippen auf einen großen Button und wählen ihre Fotos. Funktioniert in Safari, Chrome und sogar in WhatsApp oder Instagram.",
-        "pickerCta": "{count} Fotos hochladen"
+        "body": "Gäste scannen, tippen auf einen großen Button und wählen ihre Fotos. Funktioniert in Safari, Chrome und sogar in WhatsApp oder Instagram."
       },
       "private": {
         "title": "Standardmäßig privat",
@@ -160,7 +144,6 @@
       }
     },
     "eventTypes": {
-      "eyebrow": "Für jeden Anlass",
       "title": "Gemacht für Momente, in denen Menschen zusammenkommen",
       "wedding": {
         "title": "Hochzeiten",
@@ -189,7 +172,6 @@
       "subtitle": "Egal was du feierst, deine Gäste haben die beste Kamera schon in der Tasche."
     },
     "pricing": {
-      "eyebrow": "Einfache Preise",
       "title": "Einmal zahlen. Jeden Moment behalten.",
       "subtitle": "Kein Abo, keine versteckten Kosten. Eine Zahlung pro Event, und jedes Foto deiner Gäste gehört dir in voller Qualität.",
       "merchantLine": "EIN EVENT · EINE ZAHLUNG",
@@ -236,7 +218,6 @@
       }
     },
     "faq": {
-      "eyebrow": "FAQ",
       "title": "Fragen und Antworten",
       "items": {
         "app": {
@@ -304,11 +285,8 @@
     "updated": "Zuletzt aktualisiert: {date}"
   },
   "Events": {
-    "newTitle": "Event erstellen",
-    "newSubtitle": "Dauert eine Minute. Danach wählst du einen Plan und veröffentlichst, dann ist dein QR-Code da.",
     "nameLabel": "Name des Events",
     "namePlaceholder": "Hochzeit von Anna & Tom",
-    "dateLabel": "Datum",
     "typeLabel": "Art des Events",
     "types": {
       "wedding": "Hochzeit",
@@ -320,8 +298,6 @@
       "other": "Sonstiges"
     },
     "create": "Event erstellen",
-    "creating": "Wird erstellt…",
-    "createError": "Das Event konnte nicht erstellt werden. Prüfe die Felder und versuche es erneut.",
     "back": "Alle Events",
     "status": {
       "draft": "Entwurf",
@@ -332,7 +308,6 @@
     },
     "photoCount": "{count, plural, one {# Foto} other {# Fotos}}",
     "tabs": {
-      "overview": "Fotos",
       "share": "Teilen",
       "settings": "Einstellungen"
     },
@@ -348,14 +323,11 @@
       "premium": "Premium (${price})",
       "devNote": "Lokale Entwicklung: Die Bezahlung ist noch nicht angebunden, daher aktiviert dies den Tarif kostenlos.",
       "choose": "{plan} wählen",
-      "best": "Bestes Angebot",
       "oneTime": "einmalig",
       "photos": "Bis zu {count} Fotos",
       "storage": "{gb} GB, Originalqualität",
       "qr": "QR-Code und Gäste-Link",
-      "print": "Druckbare Tischkarten und Poster",
-      "taglinePremium": "Für große Feiern",
-      "taglineStandard": "Für kleinere Treffen"
+      "print": "Druckbare Tischkarten und Poster"
     },
     "photos": {
       "empty": "Noch keine Fotos. Sie erscheinen hier, sobald Gäste hochladen.",
@@ -395,9 +367,6 @@
       "png": "PNG herunterladen",
       "svg": "SVG herunterladen",
       "pinOn": "Gäste müssen die PIN eingeben.",
-      "cardTitle": "Teile deine Fotos",
-      "cardHint": "Mit der Handykamera scannen",
-      "cardPin": "PIN erforderlich",
       "stepsTitle": "So machen Gäste mit",
       "step1": "QR-Code mit der Kamera scannen",
       "step2": "Fotos aus der Galerie auswählen",
@@ -413,7 +382,6 @@
       "pinLabel": "PIN",
       "pinHint": "4–8 Ziffern. Drucke sie auf die Karte, damit nur Gäste deines Events hochladen können.",
       "pinSet": "Eine PIN ist gesetzt. Gib eine neue ein, um sie zu ändern.",
-      "pinRemove": "PIN entfernen",
       "hours": "Upload-Zeiten",
       "opens": "Beginnt",
       "closes": "Endet",
@@ -445,20 +413,11 @@
     "guestsCount": "{count, plural, one {# Gast} other {# Gäste}}",
     "next": {
       "title": "So geht es weiter",
-      "one": "Wähle einen Plan und veröffentliche, um deinen QR-Code zu bekommen.",
-      "two": "Wähle einen Tarif, um Uploads zu öffnen.",
-      "three": "Gäste scannen und teilen. Keine App, kein Konto."
+      "one": "Wähle einen Plan und veröffentliche, um deinen QR-Code zu bekommen."
     },
     "preview": "Vorschau der Gästeseite",
-    "previewName": "Dein Event",
-    "newSubtitleShort": "Dein QR-Code ist bereit, sobald du einen Plan wählst und veröffentlichst.",
     "cancel": "Abbrechen",
     "meta": "{type}, {date}",
-    "shareQr": "QR teilen",
-    "closedTitle": "Uploads sind geschlossen",
-    "closedBody": "Wähle einen Tarif, um Uploads zu öffnen. Einmalzahlung, kein Abo.",
-    "uploadsBy": "Hochgeladen von",
-    "allPhotos": "{count, plural, one {# Foto} other {# Fotos}}",
     "backToEvent": "Zurück zum Event",
     "photosTitle": "Fotos",
     "deletesOnShort": "Wird am {date} gelöscht",
@@ -577,7 +536,6 @@
     }
   },
   "Guest": {
-    "welcome": "Teile deine Fotos von {event}",
     "privacy": "Nur die Gastgeber sehen, was du hochlädst. Wir zeigen deine Fotos nie anderen Gästen.",
     "pinTitle": "Event-PIN eingeben",
     "pinLabel": "PIN",
@@ -626,8 +584,6 @@
     },
     "notFoundTitle": "Event nicht gefunden",
     "notFoundBody": "Prüfe den Link oder QR-Code und versuche es erneut.",
-    "dropHint": "oder Fotos hierher ziehen",
-    "formats": "JPG, PNG, HEIC, Originalqualität",
     "pinSubtitle": "Du findest sie auf der Karte an deinem Tisch.",
     "for": "Fotos für",
     "heroTitle": "Hinterlasse eine Erinnerung",
@@ -652,7 +608,6 @@
     "newEvent": "Neues Event",
     "yourEvents": "Deine Events",
     "menu": "Menü",
-    "closeMenu": "Menü schließen",
     "home": "Website"
   },
   "Create": {
@@ -758,5 +713,16 @@
     "photo": "Foto {n}",
     "texts": "Lizenztexte",
     "textsIntro": "Die vollständigen Texte der Lizenzen oben."
+  },
+  "NotFound": {
+    "title": "Diese Seite gibt es nicht",
+    "body": "Die gesuchte Seite wurde verschoben oder hat nie existiert.",
+    "home": "Zur Startseite"
+  },
+  "ErrorPage": {
+    "title": "Etwas ist schiefgelaufen",
+    "body": "Beim Laden der Seite ist ein Fehler aufgetreten. Versuch es erneut; wenn es bleibt, komm in ein paar Minuten wieder.",
+    "retry": "Erneut versuchen",
+    "home": "Startseite"
   }
 }
