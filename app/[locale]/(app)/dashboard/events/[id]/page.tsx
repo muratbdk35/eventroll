@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import {
+  Archive,
   ChevronRight,
   ExternalLink,
   Settings,
@@ -35,6 +36,7 @@ import {
   listEventMedia,
   mediaByUploader,
 } from "@/lib/events/queries";
+import { pastWindow } from "@/lib/events/notices";
 import { ticketColor } from "@/lib/events/ticket";
 import { guestUrl } from "@/lib/events/urls";
 import { Link, redirect } from "@/lib/i18n/navigation";
@@ -96,6 +98,9 @@ export default async function EventPage({
   const link = guestUrl(event);
   const eventPath = `/dashboard/events/${event.id}`;
   const published = event.status === "active";
+  // Past the download window (#54): purged by the daily job, or about to be.
+  const expired = event.status === "expired" || pastWindow(event.expiresAt);
+  const purged = Boolean(event.purgedAt);
   const devMode = !isProduction && !env.STRIPE_SECRET_KEY;
   const date = (d: Date | string) =>
     format.dateTime(typeof d === "string" ? new Date(`${d}T12:00:00Z`) : d, {
@@ -124,7 +129,11 @@ export default async function EventPage({
           <li className="text-foreground">
             {t("guestsCount", { count: stats.guests })}
           </li>
-          <li>{t("deletesOnShort", { date: date(event.expiresAt) })}</li>
+          <li>
+            {event.purgedAt
+              ? t("deletedOnShort", { date: date(event.purgedAt) })
+              : t("deletesOnShort", { date: date(event.expiresAt) })}
+          </li>
         </ul>
       </div>
     </div>
@@ -339,37 +348,57 @@ export default async function EventPage({
       {header}
 
       <div className="mt-8">
-        {published ? (
+        {expired ? (
+          <div className="flex items-start gap-4 rounded-2xl border border-border bg-card p-5 shadow-sm">
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-muted">
+              <Archive className="size-5 text-muted-foreground" aria-hidden />
+            </span>
+            <div>
+              <h2 className="font-heading text-lg font-semibold">
+                {t("expiredNotice.title")}
+              </h2>
+              <p className="mt-1 text-sm text-pretty text-muted-foreground">
+                {purged
+                  ? t("expiredNotice.purged", {
+                      date: date(event.purgedAt ?? event.expiresAt),
+                    })
+                  : t("expiredNotice.pending")}
+              </p>
+            </div>
+          </div>
+        ) : published ? (
           <LiveShare eventId={event.id} link={link} />
         ) : (
           <ResumeSetup eventId={event.id} plan={event.plan} />
         )}
       </div>
 
-      {photosSection}
+      {!purged && photosSection}
 
-      <Link
-        href={`${eventPath}?view=settings`}
-        className="group mt-10 flex items-center gap-4 rounded-2xl border border-border bg-card p-4 shadow-sm transition-colors hover:border-primary/30 sm:p-5"
-      >
-        <span className="flex size-10 items-center justify-center rounded-full bg-muted">
-          <Settings className="size-5 text-muted-foreground" aria-hidden />
-        </span>
-        <span className="min-w-0 flex-1">
-          <span className="block font-semibold">{t("tabs.settings")}</span>
-          <span className="block truncate text-sm text-muted-foreground">
-            {[
-              t("settings.pinToggle"),
-              t("settings.hoursToggle"),
-              t("settings.perPhoneToggle"),
-            ].join(", ")}
+      {!expired && (
+        <Link
+          href={`${eventPath}?view=settings`}
+          className="group mt-10 flex items-center gap-4 rounded-2xl border border-border bg-card p-4 shadow-sm transition-colors hover:border-primary/30 sm:p-5"
+        >
+          <span className="flex size-10 items-center justify-center rounded-full bg-muted">
+            <Settings className="size-5 text-muted-foreground" aria-hidden />
           </span>
-        </span>
-        <ChevronRight
-          className="size-5 text-muted-foreground transition-transform group-hover:translate-x-0.5 rtl:rotate-180"
-          aria-hidden
-        />
-      </Link>
+          <span className="min-w-0 flex-1">
+            <span className="block font-semibold">{t("tabs.settings")}</span>
+            <span className="block truncate text-sm text-muted-foreground">
+              {[
+                t("settings.pinToggle"),
+                t("settings.hoursToggle"),
+                t("settings.perPhoneToggle"),
+              ].join(", ")}
+            </span>
+          </span>
+          <ChevronRight
+            className="size-5 text-muted-foreground transition-transform group-hover:translate-x-0.5 rtl:rotate-180"
+            aria-hidden
+          />
+        </Link>
+      )}
     </PageBody>
   );
 }

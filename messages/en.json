@@ -557,7 +557,13 @@
         "sand": "Sand",
         "lavender": "Lavender"
       }
-    }
+    },
+    "expiredNotice": {
+      "title": "This event has expired",
+      "purged": "The download window is over, so for privacy the photos were permanently deleted on {date}.",
+      "pending": "The download window is over. The photos will be permanently deleted within a few hours; if you haven't downloaded them yet, do it now."
+    },
+    "deletedOnShort": "Deleted on {date}"
   },
   "Guest": {
     "privacy": "Only the host sees what you upload. We never show your photos to other guests.",

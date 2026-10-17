@@ -560,7 +560,13 @@
         "sand": "Sand",
         "lavender": "Lavendel"
       }
-    }
+    },
+    "expiredNotice": {
+      "title": "Dieses Event ist abgelaufen",
+      "purged": "Der Download-Zeitraum ist vorbei, daher wurden die Fotos zum Schutz der Privatsphäre am {date} endgültig gelöscht.",
+      "pending": "Der Download-Zeitraum ist vorbei. Die Fotos werden in wenigen Stunden endgültig gelöscht; lade sie jetzt herunter, falls noch nicht geschehen."
+    },
+    "deletedOnShort": "Am {date} gelöscht"
   },
   "Guest": {
     "privacy": "Nur die Gastgeber sehen, was du hochlädst. Wir zeigen deine Fotos nie anderen Gästen.",

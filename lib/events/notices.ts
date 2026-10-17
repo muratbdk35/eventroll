@@ -24,3 +24,8 @@ export function noticeDue(
   if (left <= 3 * DAY && !e.reminder3MailAt) return "reminder3";
   return null;
 }
+
+/** Whether the download window is over (the photos are or will be deleted). */
+export function pastWindow(expiresAt: Date, now: Date = new Date()) {
+  return expiresAt.getTime() <= now.getTime();
+}
