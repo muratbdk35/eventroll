@@ -89,10 +89,6 @@ const schema = z.object({
   NEXT_PUBLIC_GADS_PURCHASE_LABEL: optional,
   NEXT_PUBLIC_META_PIXEL_ID: optional,
   NEXT_PUBLIC_GA_ID: optional,
-
-  // Phase 2 (optional)
-  MODERATION_API_USER: optional,
-  MODERATION_API_SECRET: optional,
 });
 
 /**
