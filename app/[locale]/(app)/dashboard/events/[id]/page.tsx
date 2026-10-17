@@ -43,7 +43,14 @@ import { publicEnv } from "@/lib/public-env";
 import { presignGet } from "@/lib/storage";
 import { extFor, isAllowedMime } from "@/lib/uploads";
 
-export const metadata: Metadata = { robots: { index: false } };
+export async function generateMetadata({
+  params,
+}: PageProps<"/[locale]/dashboard/events/[id]">): Promise<Metadata> {
+  const { id } = await params;
+  const session = await getSession();
+  const event = session ? await getOwnedEvent(id, session.user.id) : null;
+  return { title: event?.name, robots: { index: false } };
+}
 
 type View = "main" | "photos" | "share" | "settings" | "print";
 

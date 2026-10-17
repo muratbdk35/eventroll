@@ -745,3 +745,26 @@ Built as planned in #50.
   production deployments, so this starts with the launch.
 - CSAM scanning (hash matching, e.g. Cloudflare's CSAM Scanning Tool or
   PhotoDNA) is planned before launch.
+
+## 53. Overnight sweep (2026-10-17)
+
+Owner asked for a free-hand review of the whole app.
+
+- Guest link previews: the guest page's title is the event's name and what
+  to do ("Elif & Can · Share your photos"), and `opengraph-image.tsx` draws
+  the event's own ticket (its colour, type, name, date, "GUEST" stub,
+  1200×630) with next/og, so a link shared in WhatsApp shows the ticket. The
+  event page's tab shows the event's name.
+- Localised 404 (`app/[locale]/not-found.tsx` plus a `[...rest]` catch-all)
+  and an error page with retry (`app/[locale]/error.tsx`) instead of Next's
+  English defaults.
+- The site header hid the whole logo under 400 px (it hid every child span,
+  and the logo itself is a span); now only the word mark hides.
+- 45 unused strings left over from earlier designs removed in all three
+  languages (typecheck confirms none was used).
+- `getEventBySlug` / `getOwnedEvent` are cached per request, so metadata and
+  page share one query.
+- Checked and fine: every server action and API route checks the session
+  and ownership; dev-only routes are off in production; `.dev-storage`
+  paths can't escape their folder; no horizontal overflow or console errors
+  on any page at 375 px and 1280 px in tr/en/de.

@@ -28,10 +28,32 @@ import {
 import { publicEnv } from "@/lib/public-env";
 import { Uploader } from "./uploader";
 
-export const metadata: Metadata = {
-  robots: { index: false, follow: false },
-  referrer: "no-referrer",
-};
+/**
+ * The title guests see in the tab and in the link preview when the host
+ * shares the link (WhatsApp, iMessage): the event's name and what to do.
+ */
+export async function generateMetadata({
+  params,
+}: PageProps<"/[locale]/e/[slug]">): Promise<Metadata> {
+  const { slug } = await params;
+  const [event, t] = await Promise.all([
+    getEventBySlug(slug),
+    getTranslations("Guest"),
+  ]);
+  const base: Metadata = {
+    robots: { index: false, follow: false },
+    referrer: "no-referrer",
+  };
+  if (!event || event.status === "deleted") return base;
+  const title = t("metaTitle", { name: event.name });
+  const description = t("metaDescription");
+  return {
+    ...base,
+    title: { absolute: title },
+    description,
+    openGraph: { title, description, type: "website" },
+  };
+}
 
 const stateIcon = {
   needs_plan: Hourglass,

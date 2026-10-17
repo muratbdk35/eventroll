@@ -601,7 +601,10 @@
     "ticketStub": "Misafir",
     "nameRequired": "Zorunlu",
     "nameRequiredHint": "Ev sahibi fotoğrafları kimin gönderdiğini görmek istiyor.",
-    "namePlaceholder": "Adını yaz"
+    "namePlaceholder": "Adını yaz",
+    "metaTitle": "{name} · Fotoğraflarını paylaş",
+    "metaDescription": "Telefon kameranla çektiğin fotoğrafları buradan yükle. Uygulama ya da üyelik gerekmez.",
+    "ogCta": "Fotoğraflarını paylaş"
   },
   "App": {
     "events": "Etkinlikler",

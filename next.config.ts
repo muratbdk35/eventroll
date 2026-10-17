@@ -10,6 +10,7 @@ const nextConfig: NextConfig = {
   // TTF fonts for the PNG templates (lib/print/fonts.ts).
   outputFileTracingIncludes: {
     "/api/events/[id]/template": ["./assets/fonts/**"],
+    "/[locale]/e/[slug]/opengraph-image": ["./assets/fonts/**"],
   },
   // Cache Components is intentionally off for the MVP (see DECISIONS.md #3).
   turbopack: {

@@ -1,4 +1,5 @@
 import "server-only";
+import { cache } from "react";
 import {
   and,
   count,
@@ -22,7 +23,8 @@ export async function listOwnedEvents(ownerId: string) {
     .orderBy(desc(events.eventDate), desc(events.createdAt));
 }
 
-export async function getOwnedEvent(id: string, ownerId: string) {
+/** Cached per request, so metadata and the page share one query. */
+export const getOwnedEvent = cache(async (id: string, ownerId: string) => {
   if (!/^[0-9a-f-]{36}$/i.test(id)) return null;
   const [row] = await db
     .select()
@@ -36,16 +38,17 @@ export async function getOwnedEvent(id: string, ownerId: string) {
     )
     .limit(1);
   return row ?? null;
-}
+});
 
-export async function getEventBySlug(slug: string) {
+/** Cached per request, so metadata and the page share one query. */
+export const getEventBySlug = cache(async (slug: string) => {
   const [row] = await db
     .select()
     .from(events)
     .where(eq(events.slug, slug))
     .limit(1);
   return row ?? null;
-}
+});
 
 export async function getEventStats(eventId: string) {
   const [row] = await db
