@@ -764,6 +764,16 @@ Owner asked for a free-hand review of the whole app.
   languages (typecheck confirms none was used).
 - `getEventBySlug` / `getOwnedEvent` are cached per request, so metadata and
   page share one query.
+- A full album: guests used to see "failed, try again" (which can never
+  succeed); now the photo says "Album is full". The host's event page warns
+  from 90% ("Album nearly full (92%), 1,380 of 1,500 photos", with the
+  Premium limit on Standard) and says plainly when guests can no longer
+  upload.
+- An expired event's page no longer offers to "finish setup": it says the
+  photos will be, or were, deleted (with the date), and hides the empty
+  gallery and settings (#54).
+- `.env.example` documents `SIGHTENGINE_*`; the unused `MODERATION_API_*`
+  placeholders are gone.
 - Checked and fine: every server action and API route checks the session
   and ownership; dev-only routes are off in production; `.dev-storage`
   paths can't escape their folder; no horizontal overflow or console errors
