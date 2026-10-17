@@ -3,6 +3,7 @@ import {
   Archive,
   ChevronRight,
   ExternalLink,
+  HardDrive,
   Settings,
   ShieldAlert,
 } from "lucide-react";
@@ -37,6 +38,8 @@ import {
   mediaByUploader,
 } from "@/lib/events/queries";
 import { pastWindow } from "@/lib/events/notices";
+import { plans } from "@/lib/plans";
+import { cn } from "@/lib/utils";
 import { ticketColor } from "@/lib/events/ticket";
 import { guestUrl } from "@/lib/events/urls";
 import { Link, redirect } from "@/lib/i18n/navigation";
@@ -101,6 +104,14 @@ export default async function EventPage({
   // Past the download window (#54): purged by the daily job, or about to be.
   const expired = event.status === "expired" || pastWindow(event.expiresAt);
   const purged = Boolean(event.purgedAt);
+  // How full the album is: the tighter of photo count and storage.
+  const limits = event.plan ? plans[event.plan] : null;
+  const usage = limits
+    ? Math.max(
+        event.mediaCount / limits.maxItems,
+        event.storageBytes / limits.maxBytes,
+      )
+    : 0;
   const devMode = !isProduction && !env.STRIPE_SECRET_KEY;
   const date = (d: Date | string) =>
     format.dateTime(typeof d === "string" ? new Date(`${d}T12:00:00Z`) : d, {
@@ -372,6 +383,40 @@ export default async function EventPage({
           <ResumeSetup eventId={event.id} plan={event.plan} />
         )}
       </div>
+
+      {published && !expired && usage >= 0.9 && limits && (
+        <div
+          role="status"
+          className={cn(
+            "mt-4 flex items-start gap-3 rounded-2xl border p-4",
+            usage >= 1
+              ? "border-destructive/25 bg-destructive/5"
+              : "border-amber-500/25 bg-amber-500/8",
+          )}
+        >
+          <HardDrive
+            className={cn(
+              "mt-0.5 size-4 shrink-0",
+              usage >= 1 ? "text-destructive" : "text-amber-700",
+            )}
+            aria-hidden
+          />
+          <div>
+            <p className="text-sm font-semibold">
+              {usage >= 1
+                ? t("capacity.full")
+                : t("capacity.almost", { pct: Math.floor(usage * 100) })}
+            </p>
+            <p className="mt-0.5 text-[13px] text-pretty text-muted-foreground">
+              {t("capacity.detail", {
+                count: event.mediaCount,
+                max: limits.maxItems,
+              })}
+              {event.plan === "standard" && ` ${t("capacity.premium")}`}
+            </p>
+          </div>
+        </div>
+      )}
 
       {!purged && photosSection}
 

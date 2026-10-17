@@ -566,7 +566,13 @@
       "purged": "İndirme süresi bittiği için fotoğraflar gizlilik gereği {date} tarihinde kalıcı olarak silindi.",
       "pending": "İndirme süresi doldu. Fotoğraflar birkaç saat içinde kalıcı olarak silinecek; hâlâ indirmediysen hemen indir."
     },
-    "deletedOnShort": "{date} tarihinde silindi"
+    "deletedOnShort": "{date} tarihinde silindi",
+    "capacity": {
+      "full": "Albüm doldu: misafirler artık fotoğraf yükleyemiyor",
+      "almost": "Albüm neredeyse dolu (%{pct})",
+      "detail": "{count} / {max} fotoğraf.",
+      "premium": "Premium planda sınır 5.000 fotoğraf ve 50 GB."
+    }
   },
   "Guest": {
     "privacy": "Yüklediklerini sadece ev sahibi görür. Fotoğrafların diğer misafirlere gösterilmez.",

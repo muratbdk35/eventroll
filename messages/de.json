@@ -566,7 +566,13 @@
       "purged": "Der Download-Zeitraum ist vorbei, daher wurden die Fotos zum Schutz der Privatsphäre am {date} endgültig gelöscht.",
       "pending": "Der Download-Zeitraum ist vorbei. Die Fotos werden in wenigen Stunden endgültig gelöscht; lade sie jetzt herunter, falls noch nicht geschehen."
     },
-    "deletedOnShort": "Am {date} gelöscht"
+    "deletedOnShort": "Am {date} gelöscht",
+    "capacity": {
+      "full": "Das Album ist voll: Gäste können keine Fotos mehr hochladen",
+      "almost": "Dein Album ist zu {pct} % voll",
+      "detail": "{count} von {max} Fotos.",
+      "premium": "Mit Premium liegt das Limit bei 5.000 Fotos und 50 GB."
+    }
   },
   "Guest": {
     "privacy": "Nur die Gastgeber sehen, was du hochlädst. Wir zeigen deine Fotos nie anderen Gästen.",
