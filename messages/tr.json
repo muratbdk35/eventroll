@@ -61,6 +61,33 @@
       "validity": "10 dakika geçerli ve tek kullanımlık. Yeni kod istersen bu geçersiz olur.",
       "ignore": "Bu kodu sen istemediysen görmezden gel; kod olmadan hiçbir şey değişmez. Kodu kimseyle paylaşma.",
       "footer": "Etkinliğinin tüm fotoğrafları, tek bir yerde."
+    },
+    "notice": {
+      "footer": "Etkinliğinin tüm fotoğrafları, tek bir yerde.",
+      "albumReady": {
+        "subject": "Albümün hazır: {name}",
+        "preview": "Misafirlerin {count, plural, one {# fotoğraf} other {# fotoğraf}} yükledi.",
+        "heading": "Albümün hazır",
+        "body": "{name} için misafirlerin {count, plural, one {# fotoğraf} other {# fotoğraf}} yükledi. Hepsini orijinal kalitesinde tek seferde indirebilir, misafire göre ya da seçerek de alabilirsin.",
+        "note": "Fotoğraflar {date} tarihinde gizliliğin için kalıcı olarak silinecek. O güne kadar indirmeyi unutma.",
+        "button": "Albümü aç"
+      },
+      "reminder3": {
+        "subject": "3 gün kaldı: {name} fotoğrafları silinecek",
+        "preview": "Fotoğraflar {date} tarihinde silinecek.",
+        "heading": "Fotoğrafların 3 gün sonra silinecek",
+        "body": "{name} albümündeki {count, plural, one {# fotoğraf} other {# fotoğraf}} {date} tarihinde kalıcı olarak silinecek. İndirmediysen şimdi tam zamanı.",
+        "note": "Silinme tarihi: {date}",
+        "button": "Şimdi indir"
+      },
+      "reminder1": {
+        "subject": "Son gün: {name} fotoğrafları yarın silinecek",
+        "preview": "Bu senin son hatırlatman.",
+        "heading": "Fotoğrafların yarın silinecek",
+        "body": "{name} albümündeki {count, plural, one {# fotoğraf} other {# fotoğraf}} {date} tarihinde kalıcı olarak silinecek ve geri getirilemeyecek. Bu son hatırlatma.",
+        "note": "Silinme tarihi: {date}",
+        "button": "Hemen indir"
+      }
     }
   },
   "Landing": {

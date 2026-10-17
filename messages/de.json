@@ -61,6 +61,33 @@
       "validity": "Er gilt 10 Minuten und nur einmal. Ein neuer Code ersetzt diesen.",
       "ignore": "Nicht von dir angefordert? Dann ignoriere die E-Mail; ohne den Code ändert sich nichts. Gib den Code niemals weiter.",
       "footer": "Alle Fotos deines Events an einem Ort."
+    },
+    "notice": {
+      "footer": "Alle Fotos deines Events an einem Ort.",
+      "albumReady": {
+        "subject": "Dein Album ist fertig: {name}",
+        "preview": "Deine Gäste haben {count, plural, one {# Foto} other {# Fotos}} hochgeladen.",
+        "heading": "Dein Album ist fertig",
+        "body": "Deine Gäste haben für {name} {count, plural, one {# Foto} other {# Fotos}} hochgeladen. Lade alle auf einmal in voller Qualität herunter, nach Gast sortiert oder nur die, die du auswählst.",
+        "note": "Zum Schutz deiner Privatsphäre werden die Fotos am {date} endgültig gelöscht. Lade sie vorher herunter.",
+        "button": "Album öffnen"
+      },
+      "reminder3": {
+        "subject": "Noch 3 Tage: Fotos von {name} werden gelöscht",
+        "preview": "Die Fotos werden am {date} gelöscht.",
+        "heading": "Deine Fotos werden in 3 Tagen gelöscht",
+        "body": "Die {count, plural, one {# Foto} other {# Fotos}} im Album {name} werden am {date} endgültig gelöscht. Falls du sie noch nicht heruntergeladen hast, ist jetzt der richtige Moment.",
+        "note": "Löschdatum: {date}",
+        "button": "Jetzt herunterladen"
+      },
+      "reminder1": {
+        "subject": "Letzter Tag: Fotos von {name} werden morgen gelöscht",
+        "preview": "Das ist deine letzte Erinnerung.",
+        "heading": "Deine Fotos werden morgen gelöscht",
+        "body": "Die {count, plural, one {# Foto} other {# Fotos}} im Album {name} werden am {date} endgültig gelöscht und lassen sich nicht wiederherstellen. Das ist die letzte Erinnerung.",
+        "note": "Löschdatum: {date}",
+        "button": "Jetzt herunterladen"
+      }
     }
   },
   "Landing": {

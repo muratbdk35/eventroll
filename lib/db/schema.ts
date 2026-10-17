@@ -115,6 +115,12 @@ export const events = pgTable(
     ticketPattern: text(),
     storageBytes: bigint({ mode: "number" }).notNull().default(0),
     mediaCount: integer().notNull().default(0),
+    // Host emails sent by the daily job (DECISIONS #54), each at most once.
+    albumReadyMailAt: timestamp(tz),
+    reminder3MailAt: timestamp(tz),
+    reminder1MailAt: timestamp(tz),
+    // When the daily job deleted the photos after the download window.
+    purgedAt: timestamp(tz),
     createdAt: createdAt(),
     updatedAt: timestamp(tz)
       .notNull()

@@ -768,3 +768,30 @@ Owner asked for a free-hand review of the whole app.
   and ownership; dev-only routes are off in production; `.dev-storage`
   paths can't escape their folder; no horizontal overflow or console errors
   on any page at 375 px and 1280 px in tr/en/de.
+
+## 54. Deletion after the download window, host emails, one daily job (2026-10-17)
+
+Found in the sweep: nothing ever deleted an expired event's photos (uploads
+closed, files stayed in R2 forever), although the privacy policy promises
+permanent deletion after the 7th day; and the "album ready" email and
+reminders planned in #23 were never built.
+
+- `lib/events/retention.ts`: events past `expiresAt` (not already deleted)
+  lose every photo, preview and cover in storage; media rows become
+  `deleted` with names, device ids, fingerprints and consent times cleared;
+  the event becomes `expired` with counters zeroed, blocked devices and the
+  readable PIN cleared, and `purged_at` set. The event row stays for the
+  host's dashboard and invoices.
+- `lib/email/host-notices.ts` + `lib/events/notices.ts` (unit-tested): to
+  the host, each at most once: "Your album is ready" once the event is over
+  and has photos, then reminders 3 days and 1 day before deletion. If the
+  first email only goes out in the last three days, it counts as the 3-day
+  reminder. Same email frame as the sign-in code (`templates/notice.tsx`).
+  Columns `album_ready_mail_at`, `reminder3_mail_at`, `reminder1_mail_at`,
+  `purged_at` (migration 0007, additive).
+- One Vercel Cron, `/api/cron/daily` at 07:00 UTC (09:00–10:00 in TR/DE):
+  purge, then emails, then the moderation retry (#52) with the time left;
+  the separate moderation cron is gone. `?dry=1` (and `&at=<date>` to
+  pretend another day) reports without changing anything; tested that way
+  against the dev database only. Crons run on production deployments, so
+  all of this starts at launch.

@@ -58,6 +58,33 @@
       "validity": "It works for 10 minutes, once. A new code replaces this one.",
       "ignore": "Didn't ask for this? You can ignore it; nothing changes without the code. Never share it with anyone.",
       "footer": "Every photo from your event, in one place."
+    },
+    "notice": {
+      "footer": "Every photo from your event, in one place.",
+      "albumReady": {
+        "subject": "Your album is ready: {name}",
+        "preview": "Your guests uploaded {count, plural, one {# photo} other {# photos}}.",
+        "heading": "Your album is ready",
+        "body": "Your guests uploaded {count, plural, one {# photo} other {# photos}} for {name}. Download them all at once in full quality, or by guest, or pick the ones you want.",
+        "note": "For your privacy, the photos will be permanently deleted on {date}. Don't forget to download them before then.",
+        "button": "Open the album"
+      },
+      "reminder3": {
+        "subject": "3 days left: photos from {name} will be deleted",
+        "preview": "The photos will be deleted on {date}.",
+        "heading": "Your photos will be deleted in 3 days",
+        "body": "The {count, plural, one {# photo} other {# photos}} in the {name} album will be permanently deleted on {date}. If you haven't downloaded them yet, now is the time.",
+        "note": "Deletion date: {date}",
+        "button": "Download now"
+      },
+      "reminder1": {
+        "subject": "Last day: photos from {name} will be deleted tomorrow",
+        "preview": "This is your last reminder.",
+        "heading": "Your photos will be deleted tomorrow",
+        "body": "The {count, plural, one {# photo} other {# photos}} in the {name} album will be permanently deleted on {date} and can't be recovered. This is the last reminder.",
+        "note": "Deletion date: {date}",
+        "button": "Download now"
+      }
     }
   },
   "Landing": {
