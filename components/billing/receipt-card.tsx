@@ -262,7 +262,7 @@ export function ReceiptCard({
                     key={value}
                     aria-hidden
                     className={cn(
-                      "mark-in absolute inset-y-0 -left-2 -right-0.5 -skew-x-6 rounded-[2px] transition-colors duration-500",
+                      "mark-in absolute inset-y-0 -right-0.5 -left-2 -skew-x-6 rounded-[2px] transition-colors duration-500",
                       MARK[tier],
                     )}
                   />
