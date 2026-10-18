@@ -143,7 +143,7 @@
         "body": "Gäste scannen, tippen auf einen großen Button und wählen ihre Fotos. Funktioniert in Safari, Chrome und sogar in WhatsApp oder Instagram."
       },
       "private": {
-        "title": "Standardmäßig privat",
+        "title": "Komplett privat",
         "body": "Nur du siehst die Fotos. Gäste sehen nur ihre eigenen Uploads, nichts ist öffentlich oder wird indexiert."
       },
       "originals": {
