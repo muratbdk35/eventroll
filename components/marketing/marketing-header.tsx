@@ -1,4 +1,3 @@
-import { LogIn } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Logo } from "@/components/brand/logo";
 import { LocaleSwitcher } from "@/components/locale-switcher";
@@ -14,8 +13,7 @@ export async function MarketingHeader() {
     <header className="sticky top-0 z-50 border-b border-border/50 bg-background/75 backdrop-blur-lg">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4">
         <Link href="/" aria-label="Home" className="shrink-0">
-          {/* Mark only on the narrowest phones, so language + CTA still fit. */}
-          <Logo className="max-[399px]:[&>span]:hidden" />
+          <Logo />
         </Link>
         <nav
           className="hidden items-center gap-1 text-sm md:flex"
@@ -33,23 +31,12 @@ export async function MarketingHeader() {
             ),
           )}
         </nav>
-        <div className="flex items-center gap-1.5 sm:gap-2">
+        <div className="flex items-center gap-2">
           <LocaleSwitcher />
-          <Button asChild variant="ghost" className="hidden sm:inline-flex">
+          <Button asChild variant="ghost" size="sm" className="h-9 rounded-full px-3 text-sm">
             <Link href="/login">{nav("login")}</Link>
           </Button>
-          {/* Phones: no room for the word, but returning hosts still need a way in. */}
-          <Button
-            asChild
-            variant="ghost"
-            size="icon"
-            className="size-9 shrink-0 rounded-full sm:hidden"
-          >
-            <Link href="/login" aria-label={nav("login")} title={nav("login")}>
-              <LogIn aria-hidden />
-            </Link>
-          </Button>
-          <Button asChild className="h-9 shrink-0 rounded-xl px-3 text-[13px] sm:h-10 sm:px-4 sm:text-sm">
+          <Button asChild className="hidden h-9 rounded-xl px-4 text-sm sm:inline-flex">
             <Link href="/create">{t("cta")}</Link>
           </Button>
         </div>

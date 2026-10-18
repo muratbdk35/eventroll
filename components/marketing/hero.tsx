@@ -15,13 +15,13 @@ export async function Hero() {
     <section className="relative overflow-hidden">
       <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 pt-12 pb-14 lg:grid-cols-[1.1fr_1fr] lg:pt-16">
         <div>
-          <h1 className="font-heading text-[3.4rem] leading-[0.95] font-semibold tracking-[-0.02em] sm:text-7xl lg:text-[5.4rem]">
+          <h1 className="font-heading text-4xl leading-[1.05] font-semibold tracking-[-0.02em] sm:text-6xl lg:text-[5.2rem] lg:leading-[0.98]">
             {t("line1")} {t("line2")}
           </h1>
-          <p className="mt-7 max-w-lg text-lg leading-relaxed text-pretty text-muted-foreground">
+          <p className="mt-4 max-w-lg text-base leading-relaxed text-pretty text-muted-foreground sm:mt-7 sm:text-lg">
             {t("subhead")}
           </p>
-          <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3 sm:mt-9">
             <HaloButton href="/create" size="lg">
               {t("cta")}
             </HaloButton>
