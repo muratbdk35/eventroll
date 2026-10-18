@@ -373,6 +373,15 @@
     scale: 0 1;
   }
 }
+@keyframes mark-in {
+  from {
+    scale: 0 1;
+  }
+}
+.mark-in {
+  transform-origin: left center;
+  animation: mark-in 0.45s 0.08s cubic-bezier(0.3, 0.7, 0.3, 1) both;
+}
 .strike-in {
   transform-origin: left center;
   animation: strike-in 0.35s 0.1s ease-out both;
@@ -439,6 +448,7 @@
   .print-in,
   .stamp-in,
   .strike-in,
+  .mark-in,
   .develop,
   .question-in,
   .thumb-in {

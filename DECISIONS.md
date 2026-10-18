@@ -822,7 +822,9 @@ reminders planned in #23 were never built.
   names under the stops are tappable). Every plan prints the same rows, so
   sliding re-prints only the values; the paper "premiums up" with the tier:
   plain (Mini), reverse-printed name and "most chosen" stamp (Standard),
-  ivory with a hairline frame (Pro), gold foil (VIP). Starts on Standard, or
+  silver foil with a steel frame, corner marks and a gunmetal button (Pro),
+  gold foil (VIP). Photos, storage and the download window, the values that
+  change, are printed larger with a highlighter swept under them. Starts on Standard, or
   on the plan picked on the landing page.
 - Migration 0008 maps the old `premium` to `vip`. Four Stripe prices
   (`STRIPE_PRICE_MINI/STANDARD/PRO/VIP`) replace the two.

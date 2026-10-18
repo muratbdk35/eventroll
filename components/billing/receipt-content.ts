@@ -39,10 +39,16 @@ export function receiptContent(
       minimumFractionDigits: digits,
       maximumFractionDigits: digits,
     });
-  const rows: [string, string, boolean?][] = [
-    [t("rows.photos"), number(p.maxItems)],
-    [t("rows.storage"), `${p.maxBytes / 1024 ** 3} GB`],
-    [t("rows.retention"), t("values.days", { days: p.retentionDays })],
+  // The first three change from plan to plan and are printed larger.
+  const rows: [string, string, boolean?, boolean?][] = [
+    [t("rows.photos"), number(p.maxItems), false, true],
+    [t("rows.storage"), `${p.maxBytes / 1024 ** 3} GB`, false, true],
+    [
+      t("rows.retention"),
+      t("values.days", { days: p.retentionDays }),
+      false,
+      true,
+    ],
     [t("rows.quality"), t("values.original")],
     [t("rows.zip"), "✓"],
     [t("rows.qr"), "✓"],
@@ -54,13 +60,19 @@ export function receiptContent(
       : [t("rows.templates"), t("values.notIncluded"), true],
   ];
   const stamp =
-    id === "standard" ? t("stamp") : id === "vip" ? t("stampVip") : undefined;
+    id === "standard"
+      ? t("stamp")
+      : id === "pro"
+        ? t("stampPro")
+        : id === "vip"
+          ? t("stampVip")
+          : undefined;
   return {
     merchant: upper(appName),
     merchantLine: t("merchantLine"),
     name: upper(t(`plans.${id}.name`)),
     tagline: t(`plans.${id}.tagline`),
-    rows: rows.map(([l, v, out]) => [upper(l), upper(v), out]),
+    rows: rows.map(([l, v, out, key]) => [upper(l), upper(v), out, key]),
     billingLabel: t("billing"),
     billingValue: t("oneTime"),
     totalLabel: t("total"),

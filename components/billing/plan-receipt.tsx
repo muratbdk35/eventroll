@@ -7,6 +7,7 @@ import { planOrder, type PlanId } from "@/lib/plans";
 import { cn } from "@/lib/utils";
 import {
   FOIL,
+  SILVER,
   Printed,
   ReceiptCard,
   receiptCtaClass,
@@ -62,7 +63,12 @@ export function PlanReceipt({
     } catch {}
   }
 
-  const ink = gold ? "bg-[#9a7424]" : "bg-[oklch(0.23_0.02_240)]";
+  const silver = tier === 2;
+  const ink = gold
+    ? "bg-[#9a7424]"
+    : silver
+      ? "bg-[#4a5563]"
+      : "bg-[oklch(0.23_0.02_240)]";
 
   return (
     <ReceiptCard
@@ -117,7 +123,12 @@ export function PlanReceipt({
                       "foil-glint border-[#9a7424] shadow-[0_2px_6px_rgb(120_80_0/0.45)]",
                       FOIL,
                     )
-                  : "border-[oklch(0.23_0.02_240)] bg-[#fbfcfe] shadow-[0_2px_6px_rgb(20_30_45/0.25)]",
+                  : silver
+                    ? cn(
+                        "foil-glint border-[#4a5563] shadow-[0_2px_6px_rgb(20_30_45/0.4)]",
+                        SILVER,
+                      )
+                    : "border-[oklch(0.23_0.02_240)] bg-[#fbfcfe] shadow-[0_2px_6px_rgb(20_30_45/0.25)]",
               )}
             />
           </Slider.Root>
@@ -137,7 +148,11 @@ export function PlanReceipt({
                   i === index
                     ? cn(
                         "font-bold",
-                        gold ? "text-[#8a6114]" : "text-[oklch(0.23_0.02_240)]",
+                        gold
+                          ? "text-[#8a6114]"
+                          : silver
+                            ? "text-[#3b4654]"
+                            : "text-[oklch(0.23_0.02_240)]",
                       )
                     : "text-[oklch(0.55_0.02_241)] hover:text-[oklch(0.23_0.02_240)]",
                 )}
