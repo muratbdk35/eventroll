@@ -200,40 +200,62 @@
       "title": "Pay once. Keep every moment.",
       "subtitle": "No subscription, no hidden fees. One payment per event, and every photo your guests take is yours in full quality.",
       "merchantLine": "ONE EVENT · ONE PAYMENT",
-      "stamp": "Best value",
+      "stamp": "Most chosen",
+      "stampVip": "All in",
       "billing": "BILLING",
       "oneTime": "ONE-TIME",
       "total": "TOTAL",
       "perGuest": "≈ {price} per guest at {guests} guests",
       "thanks": "NO. {no} · THANK YOU",
+      "everyPlan": "Every plan includes",
       "trust": {
-        "secure": "Secure checkout with Stripe",
-        "oneTime": "One payment, no subscription",
+        "guests": "Unlimited guests, no app or sign-up",
         "original": "Original quality, never compressed",
-        "zip": "{days}-day full ZIP download"
+        "zip": "One-click ZIP download",
+        "moderation": "Automatic filter for explicit images",
+        "oneTime": "One payment, no subscription",
+        "secure": "Secure checkout with Stripe"
       },
       "howToPay": "Set up your event for free. Pick a plan and publish when you're ready for guests to upload.",
       "footnote": "Prices in USD, shown in your local currency at checkout, VAT included.",
       "plans": {
+        "mini": {
+          "name": "Mini",
+          "tagline": "For small celebrations and birthdays",
+          "cta": "Get Mini"
+        },
         "standard": {
           "name": "Standard",
           "tagline": "For most weddings and parties",
           "cta": "Get Standard"
         },
-        "premium": {
-          "name": "Premium",
-          "tagline": "For big weddings and crowded events",
-          "cta": "Get Premium"
+        "pro": {
+          "name": "Pro",
+          "tagline": "For big weddings and busy parties",
+          "cta": "Get Pro"
+        },
+        "vip": {
+          "name": "VIP",
+          "tagline": "For grand weddings and multi-day events",
+          "cta": "Get VIP"
         }
+      },
+      "dial": {
+        "label": "Pick your plan",
+        "guests": "≈ {guests} guests",
+        "guestsMax": "{guests}+ guests",
+        "value": "{plan}, {price}, {photos} photos"
       },
       "rows": {
         "photos": "Photos",
         "storage": "Storage",
+        "retention": "Download window",
         "quality": "Quality",
         "zip": "ZIP download",
         "qr": "QR code & link",
         "pin": "PIN protection",
         "uploadRules": "Upload hours & limits",
+        "moderation": "Content moderation",
         "templates": "Print templates"
       },
       "values": {
@@ -251,11 +273,11 @@
         },
         "how": {
           "q": "How do guests get the link?",
-          "a": "Share the QR code or link in your invitation, a message or an email. With Premium you also get print-ready table cards and posters."
+          "a": "Share the QR code or link in your invitation, a message or an email. Pro and VIP also include print-ready table cards and posters."
         },
         "payment": {
           "q": "When do I pay?",
-          "a": "Creating your event is free. When you're ready, you choose Standard or Premium, pay once and publish, and your QR code is ready. No subscription, nothing renews."
+          "a": "Creating your event is free. When you're ready, you choose Mini, Standard, Pro or VIP, pay once and publish, and your QR code is ready. No subscription, nothing renews."
         },
         "quality": {
           "q": "Are the photos compressed?",
@@ -263,7 +285,7 @@
         },
         "duration": {
           "q": "How long are my photos kept?",
-          "a": "Your album stays open until 7 days after the event. Download the full-quality ZIP in that time; we'll remind you by email before anything is deleted. After that, all photos are permanently deleted, which keeps your guests' memories private."
+          "a": "Your album stays open for 7 to 30 days after the event, depending on your plan: Mini 7, Standard 14, Pro 21, VIP 30 days. Download the full-quality ZIP in that time; we'll remind you by email before anything is deleted. After that, all photos are permanently deleted, which keeps your guests' memories private."
         },
         "privacy": {
           "q": "Who can see the photos?",
@@ -271,11 +293,11 @@
         },
         "limits": {
           "q": "What happens when the album is full?",
-          "a": "Guests see a friendly message and you can upgrade from Standard to Premium in one click. Nothing already uploaded is lost."
+          "a": "Guests see a friendly message and you can move up a plan in one click. Nothing already uploaded is lost."
         },
         "guests": {
           "q": "Is there a limit on guests?",
-          "a": "No. Any number of guests can upload. Your plan only limits the total number of photos in the album: 1,500 with Standard, 5,000 with Premium."
+          "a": "No. Any number of guests can upload. Your plan only limits the total number of photos in the album: 1,000 with Mini, 2,500 with Standard, 5,000 with Pro and 7,500 with VIP."
         },
         "misuse": {
           "q": "What if my QR code ends up in the wrong hands?",
@@ -344,8 +366,6 @@
     "activate": {
       "title": "Choose a plan to open uploads",
       "body": "After choosing a plan you publish the event and your QR code is ready. One payment, no subscription.",
-      "standard": "Standard (${price})",
-      "premium": "Premium (${price})",
       "devNote": "Local development: checkout isn't connected yet, so this activates the plan for free.",
       "choose": "Choose {plan}",
       "oneTime": "one-time",
@@ -396,7 +416,7 @@
       "step1": "Scan the QR code with the camera",
       "step2": "Pick photos from the gallery",
       "step3": "They land in your album, in full quality",
-      "printPremium": "Printable table cards and posters are included with Premium.",
+      "printLocked": "Printable table cards and posters are included with Pro and VIP.",
       "open": "Open guest page",
       "locked": "Unlocks once the event is published"
     },
@@ -457,7 +477,6 @@
       "createBody": "{date}, {start}–{end}",
       "editDetails": "Edit details",
       "planSummary": "Up to {photos} photos, {gb} GB, original quality",
-      "upgrade": "Upgrade to Premium",
       "publish": "Publish your event",
       "publishBody": "Publishing opens the guest page and gets your QR code ready.",
       "publishLocked": "Choose a plan first",
@@ -492,8 +511,8 @@
       "headlineDefault": "Share your memories with us",
       "subline": "Scan with your phone camera and upload your photos",
       "noApp": "No app or account needed",
-      "premiumTitle": "Templates are part of Premium",
-      "premiumBody": "Preview freely. Downloading is part of Premium; on Standard you can download the QR code as PNG or SVG and use it yourself.",
+      "lockedTitle": "Templates come with Pro and VIP",
+      "lockedBody": "Preview freely. Downloading is part of Pro and VIP; on the other plans you can download the QR code as PNG or SVG and use it yourself.",
       "cutHint": "Cut along the dashed lines",
       "foldHint": "Fold here",
       "showPin": "Show the PIN on the card",
@@ -569,7 +588,7 @@
       "full": "The album is full: guests can't upload any more photos",
       "almost": "Your album is {pct}% full",
       "detail": "{count} of {max} photos.",
-      "premium": "Premium raises the limit to 5,000 photos and 50 GB."
+      "next": "{plan} raises the limit to {photos} photos and {gb} GB."
     }
   },
   "Guest": {
@@ -684,9 +703,8 @@
     },
     "plan": {
       "title": "Choose your plan",
-      "subtitle": "One payment, no subscription. Both plans include everything; they differ in capacity and print templates.",
+      "subtitle": "One payment, no subscription. Every plan includes everything; slide to compare capacity, download window and print templates.",
       "choose": "Continue with {plan}",
-      "yourPick": "Your pick",
       "hint": "Payment is the next step"
     },
     "account": {
@@ -726,7 +744,7 @@
       "on": "On",
       "off": "Off",
       "edit": "Edit",
-      "upgrade": "Upgrade to Premium",
+      "upgrade": "Upgrade to {plan}",
       "publishHint": "Publishing opens the guest page and gets your QR code ready. You can still change settings afterwards.",
       "publish": "Publish event",
       "publishing": "Publishing…",

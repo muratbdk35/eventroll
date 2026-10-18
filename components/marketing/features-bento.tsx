@@ -297,7 +297,7 @@ export async function FeaturesBento() {
         {/* Print */}
         <Tile className="bg-accent md:col-span-2">
           <span className="absolute end-5 top-5 z-10 rounded-full bg-foreground px-2.5 py-1 text-[11px] font-semibold text-background">
-            Premium
+            Pro · VIP
           </span>
           <div aria-hidden className="flex justify-center">
             <AppPreview width={210} scale={0.8} className="-rotate-3">

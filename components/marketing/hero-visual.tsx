@@ -8,7 +8,7 @@ export function HeroVisual() {
         <PhoneGallery />
       </div>
 
-      {/* A real printed table card (Premium templates). */}
+      {/* A real printed table card (Pro and VIP templates). */}
       <AppPreview
         width={210}
         scale={0.78}

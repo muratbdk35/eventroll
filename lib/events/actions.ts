@@ -7,7 +7,11 @@ import { getSession } from "@/lib/auth";
 import { db, schema } from "@/lib/db";
 import { env, isProduction } from "@/lib/env";
 import { hashPin } from "@/lib/guest/session";
-import { computeExpiresAtFromEnd, type PlanId } from "@/lib/plans";
+import {
+  computeExpiresAt,
+  computeExpiresAtFromEnd,
+  type PlanId,
+} from "@/lib/plans";
 import { deleteObjects } from "@/lib/storage";
 import { getOwnedEvent } from "./queries";
 import {
@@ -108,7 +112,7 @@ export async function updateSettings(
       eventDate: d.eventDate,
       startsAt: new Date(d.startsAt),
       endsAt: new Date(d.endsAt),
-      expiresAt: computeExpiresAtFromEnd(new Date(d.endsAt)),
+      expiresAt: computeExpiresAtFromEnd(new Date(d.endsAt), event.plan),
       uploadOpensAt: d.uploadOpensAt ? new Date(d.uploadOpensAt) : null,
       uploadClosesAt: d.uploadClosesAt ? new Date(d.uploadClosesAt) : null,
       maxUploadsPerDevice: d.maxUploadsPerDevice,
@@ -276,7 +280,14 @@ export async function devActivate(
   if (!user) return { ok: false, error: "unauthorized" };
   const event = await getOwnedEvent(eventId, user.id);
   if (!event) return { ok: false, error: "not_found" };
-  await db.update(events).set({ plan }).where(eq(events.id, event.id));
+  // The plan sets how long the album stays (DECISIONS #55).
+  const expiresAt = event.endsAt
+    ? computeExpiresAtFromEnd(event.endsAt, plan)
+    : computeExpiresAt(event.eventDate, plan);
+  await db
+    .update(events)
+    .set({ plan, expiresAt })
+    .where(eq(events.id, event.id));
   revalidatePath("/[locale]/dashboard", "layout");
   return { ok: true };
 }

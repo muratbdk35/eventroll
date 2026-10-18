@@ -8,6 +8,7 @@ import { isTicketColor, ticketColor } from "@/lib/events/ticket";
 import { guestUrl } from "@/lib/events/urls";
 import { routing, type Locale } from "@/lib/i18n/routing";
 import { printFonts } from "@/lib/print/fonts";
+import { plans } from "@/lib/plans";
 import { A4, Sheet, type TemplateId } from "@/lib/print/sheet";
 
 type Ctx = { params: Promise<{ id: string }> };
@@ -23,7 +24,7 @@ const PRINT_WIDTH = 2480;
  * GET /api/events/:id/template?t=cards|tent|poster&c=<ticket colour>&paper=1
  *   &h=<headline>&pin=1&locale=tr&w=<px>&download
  * The template as a PNG (DECISIONS #51). Owner only, published events only.
- * Without Premium the image carries a "PREMIUM" watermark and can't be
+ * Without Pro or VIP the image carries a "PRO" watermark and can't be
  * downloaded.
  */
 export async function GET(req: Request, { params }: Ctx) {
@@ -35,9 +36,9 @@ export async function GET(req: Request, { params }: Ctx) {
   if (event.status !== "active") return new NextResponse(null, { status: 409 });
 
   const q = new URL(req.url).searchParams;
-  const premium = event.plan === "premium";
+  const included = plans[event.plan].printTemplates;
   const download = q.has("download");
-  if (download && !premium) return new NextResponse(null, { status: 403 });
+  if (download && !included) return new NextResponse(null, { status: 403 });
 
   const template = TEMPLATES.find((x) => x === q.get("t")) ?? "cards";
   const color = isTicketColor(q.get("c"))
@@ -90,7 +91,7 @@ export async function GET(req: Request, { params }: Ctx) {
   });
 
   const height = Math.round((width / A4.w) * A4.h);
-  const element = premium ? (
+  const element = included ? (
     sheet
   ) : (
     <div style={{ display: "flex", position: "relative" }}>
@@ -124,7 +125,7 @@ export async function GET(req: Request, { params }: Ctx) {
               color: "rgba(20,30,45,0.16)",
             }}
           >
-            PREMIUM
+            PRO
           </div>
         ))}
       </div>

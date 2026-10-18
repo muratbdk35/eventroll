@@ -343,6 +343,41 @@
   animation: receipt-in 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
+/* The plan slider re-prints the receipt (DECISIONS #55): values drop in like
+   fresh thermal print, the stamp lands, a missing feature is struck through. */
+@keyframes print-in {
+  from {
+    opacity: 0;
+    translate: 0 -0.3em;
+    filter: blur(2px);
+  }
+}
+.print-in {
+  animation: print-in 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes stamp-in {
+  0% {
+    opacity: 0;
+    scale: 1.7;
+  }
+  60% {
+    opacity: 1;
+    scale: 0.94;
+  }
+}
+.stamp-in {
+  animation: stamp-in 0.38s cubic-bezier(0.3, 0.7, 0.4, 1) both;
+}
+@keyframes strike-in {
+  from {
+    scale: 0 1;
+  }
+}
+.strike-in {
+  transform-origin: left center;
+  animation: strike-in 0.35s 0.1s ease-out both;
+}
+
 /* Rounded overflow-hidden box whose children move or scale: without its own
    stacking context Chrome paints them on a separate layer and the corners
    turn square while they animate. Keeps outer shadows (no mask). */
@@ -401,6 +436,9 @@
   .float-y,
   .demo-press,
   .receipt-in,
+  .print-in,
+  .stamp-in,
+  .strike-in,
   .develop,
   .question-in,
   .thumb-in {
@@ -622,7 +660,7 @@ html {
   }
 }
 
-/* A slow glint across gold foil (Premium receipt, DECISIONS #46). */
+/* A slow glint across gold foil (VIP receipt, DECISIONS #46, #55). */
 .foil-glint {
   position: relative;
   overflow: hidden;

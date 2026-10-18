@@ -27,7 +27,7 @@ import type { TemplateId } from "@/lib/print/sheet";
 import { cn } from "@/lib/utils";
 
 /**
- * QR templates (Premium, DECISIONS #22, #31, #51): pick a template, a ticket
+ * QR templates (Pro and VIP, DECISIONS #22, #31, #51): pick a template, a ticket
  * colour (or the white, ink-friendly version), a headline and whether the PIN
  * shows. The server draws the sheet (/api/events/:id/template), so the
  * preview here is the very PNG that downloads, at 300 dpi. Standard sees the
@@ -46,7 +46,7 @@ export function PrintTemplates({
   initialColor,
   hasPin,
   pin,
-  premium,
+  included,
   devMode,
 }: {
   eventId: string;
@@ -55,7 +55,8 @@ export function PrintTemplates({
   hasPin: boolean;
   /** Readable PIN, null for PINs set before it was stored. */
   pin: string | null;
-  premium: boolean;
+  /** The plan includes the print templates (Pro and VIP). */
+  included: boolean;
   devMode: boolean;
 }) {
   const t = useTranslations("Events.print");
@@ -283,7 +284,7 @@ export function PrintTemplates({
           )}
         </div>
 
-        {premium ? (
+        {included ? (
           <>
             <Button
               className="h-11 w-full rounded-full text-[15px] shadow-[0_10px_24px_-10px_var(--primary)]"
@@ -307,10 +308,10 @@ export function PrintTemplates({
               <Lock className="size-4.5" aria-hidden />
             </span>
             <p className="mt-2.5 font-heading text-base font-semibold">
-              {t("premiumTitle")}
+              {t("lockedTitle")}
             </p>
             <p className="mt-1 text-sm text-pretty text-muted-foreground">
-              {t("premiumBody")}
+              {t("lockedBody")}
             </p>
             <div className="mt-3.5 flex justify-center gap-2">
               <Button
@@ -340,7 +341,7 @@ export function PrintTemplates({
                 disabled={upgrading}
                 onClick={() =>
                   startUpgrade(async () => {
-                    await devActivate(eventId, "premium");
+                    await devActivate(eventId, "pro");
                     router.refresh();
                   })
                 }
@@ -350,7 +351,7 @@ export function PrintTemplates({
                 ) : (
                   <Sparkles aria-hidden />
                 )}
-                Premium (dev)
+                Pro (dev)
               </Button>
             )}
           </div>

@@ -805,3 +805,24 @@ reminders planned in #23 were never built.
   pretend another day) reports without changing anything; tested that way
   against the dev database only. Crons run on production deployments, so
   all of this starts at launch.
+
+## 55. Four plans on one slider receipt (owner decision, 2026-10-18)
+
+- Mini $19 (1,000 photos, 10 GB, 7 days), Standard $29 (2,500, 25 GB, 14
+  days), Pro $39 (5,000, 50 GB, 21 days), VIP $49 (7,500, 75 GB, 30 days).
+  The download window now depends on the plan (`retentionDays`); before a
+  plan is chosen the shortest one applies, and choosing a plan recomputes
+  `expiresAt`. Worst-case costs per tier, including a server-side ZIP, stay
+  well under the price (see the conversation of 2026-10-18).
+- Content moderation (#52) is part of every plan, not an add-on: a safety
+  feature people opt out of is a liability, and it costs cents per event.
+- Print templates are in Pro and VIP (the owner: "hem pro hem vipte").
+- The landing pricing and the paywall show one receipt with a four-stop dial
+  printed on it (Radix slider, keyboard and screen-reader friendly; the plan
+  names under the stops are tappable). Every plan prints the same rows, so
+  sliding re-prints only the values; the paper "premiums up" with the tier:
+  plain (Mini), reverse-printed name and "most chosen" stamp (Standard),
+  ivory with a hairline frame (Pro), gold foil (VIP). Starts on Standard, or
+  on the plan picked on the landing page.
+- Migration 0008 maps the old `premium` to `vip`. Four Stripe prices
+  (`STRIPE_PRICE_MINI/STANDARD/PRO/VIP`) replace the two.

@@ -1,9 +1,11 @@
+import type { PlanId } from "@/lib/plans";
+
 export type UploadState =
   "open" | "needs_plan" | "not_open_yet" | "closed" | "expired" | "unavailable";
 
 type EventForState = {
   status: "draft" | "active" | "expired" | "deleted" | "suspended";
-  plan: "standard" | "premium" | null;
+  plan: PlanId | null;
   uploadOpensAt: Date | null;
   uploadClosesAt: Date | null;
   expiresAt: Date;

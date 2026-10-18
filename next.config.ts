@@ -12,6 +12,8 @@ const nextConfig: NextConfig = {
     "/api/events/[id]/template": ["./assets/fonts/**"],
     "/[locale]/e/[slug]/opengraph-image": ["./assets/fonts/**"],
   },
+  // The landing photos use 60 (lib/images.ts); the default allows only 75.
+  images: { qualities: [60, 75] },
   // Cache Components is intentionally off for the MVP (see DECISIONS.md #3).
   turbopack: {
     rules: {

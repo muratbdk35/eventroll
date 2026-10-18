@@ -203,40 +203,62 @@
       "title": "Einmal zahlen. Jeden Moment behalten.",
       "subtitle": "Kein Abo, keine versteckten Kosten. Eine Zahlung pro Event, und jedes Foto deiner Gäste gehört dir in voller Qualität.",
       "merchantLine": "EIN EVENT · EINE ZAHLUNG",
-      "stamp": "Bester Wert",
+      "stamp": "Am beliebtesten",
+      "stampVip": "Rundum",
       "billing": "ABRECHNUNG",
       "oneTime": "EINMALIG",
       "total": "GESAMT",
       "perGuest": "≈ {price} pro Gast bei {guests} Gästen",
       "thanks": "NR. {no} · DANKE",
+      "everyPlan": "In jedem Plan",
       "trust": {
-        "secure": "Sicher bezahlen mit Stripe",
-        "oneTime": "Eine Zahlung, kein Abo",
+        "guests": "Unbegrenzt Gäste, ohne App oder Anmeldung",
         "original": "Originalqualität, nie komprimiert",
-        "zip": "{days} Tage ZIP-Download"
+        "zip": "ZIP-Download mit einem Klick",
+        "moderation": "Automatischer Filter für explizite Bilder",
+        "oneTime": "Eine Zahlung, kein Abo",
+        "secure": "Sicher bezahlen mit Stripe"
       },
       "howToPay": "Richte dein Event kostenlos ein. Wähle einen Plan und veröffentliche, sobald deine Gäste hochladen sollen.",
       "footnote": "Preise in USD, an der Kasse in deiner Landeswährung angezeigt, inkl. MwSt.",
       "plans": {
+        "mini": {
+          "name": "Mini",
+          "tagline": "Für kleine Feiern und Geburtstage",
+          "cta": "Mini holen"
+        },
         "standard": {
           "name": "Standard",
           "tagline": "Für die meisten Hochzeiten und Partys",
           "cta": "Standard holen"
         },
-        "premium": {
-          "name": "Premium",
-          "tagline": "Für große Hochzeiten und volle Events",
-          "cta": "Premium holen"
+        "pro": {
+          "name": "Pro",
+          "tagline": "Für große Hochzeiten und volle Partys",
+          "cta": "Pro holen"
+        },
+        "vip": {
+          "name": "VIP",
+          "tagline": "Für große Hochzeiten und mehrtägige Events",
+          "cta": "VIP holen"
         }
+      },
+      "dial": {
+        "label": "Wähle deinen Plan",
+        "guests": "≈ {guests} Gäste",
+        "guestsMax": "{guests}+ Gäste",
+        "value": "{plan}, {price}, {photos} Fotos"
       },
       "rows": {
         "photos": "Fotos",
         "storage": "Speicher",
+        "retention": "Download-Zeitraum",
         "quality": "Qualität",
         "zip": "ZIP-Download",
         "qr": "QR-Code & Link",
         "pin": "PIN-Schutz",
         "uploadRules": "Upload-Zeiten & Limits",
+        "moderation": "Inhaltsmoderation",
         "templates": "Druckvorlagen"
       },
       "values": {
@@ -254,11 +276,11 @@
         },
         "how": {
           "q": "Wie bekommen Gäste den Link?",
-          "a": "Teile den QR-Code oder Link in deiner Einladung, per Nachricht oder E-Mail. Mit Premium bekommst du zusätzlich druckfertige Tischkarten und Plakate."
+          "a": "Teile den QR-Code oder Link in deiner Einladung, per Nachricht oder E-Mail. Mit Pro und VIP bekommst du zusätzlich druckfertige Tischkarten und Plakate."
         },
         "payment": {
           "q": "Wann bezahle ich?",
-          "a": "Ein Event zu erstellen ist kostenlos. Wenn du bereit bist, wählst du Standard oder Premium, zahlst einmal und veröffentlichst, dann ist dein QR-Code da. Kein Abo, nichts verlängert sich."
+          "a": "Ein Event zu erstellen ist kostenlos. Wenn du bereit bist, wählst du Mini, Standard, Pro oder VIP, zahlst einmal und veröffentlichst, dann ist dein QR-Code da. Kein Abo, nichts verlängert sich."
         },
         "quality": {
           "q": "Werden die Fotos komprimiert?",
@@ -266,7 +288,7 @@
         },
         "duration": {
           "q": "Wie lange werden meine Fotos gespeichert?",
-          "a": "Dein Album bleibt bis 7 Tage nach dem Event geöffnet. Lade in dieser Zeit das ZIP in Originalqualität herunter; wir erinnern dich per E-Mail, bevor etwas gelöscht wird. Danach werden alle Fotos endgültig gelöscht, damit die Erinnerungen deiner Gäste privat bleiben."
+          "a": "Dein Album bleibt je nach Plan 7 bis 30 Tage nach dem Event geöffnet: Mini 7, Standard 14, Pro 21, VIP 30 Tage. Lade in dieser Zeit das ZIP in Originalqualität herunter; wir erinnern dich per E-Mail, bevor etwas gelöscht wird. Danach werden alle Fotos endgültig gelöscht, damit die Erinnerungen deiner Gäste privat bleiben."
         },
         "privacy": {
           "q": "Wer kann die Fotos sehen?",
@@ -274,11 +296,11 @@
         },
         "limits": {
           "q": "Was passiert, wenn das Album voll ist?",
-          "a": "Gäste sehen einen freundlichen Hinweis und du kannst mit einem Klick von Standard auf Premium upgraden. Bereits Hochgeladenes geht nicht verloren."
+          "a": "Gäste sehen einen freundlichen Hinweis und du kannst mit einem Klick einen Plan höher wechseln. Bereits Hochgeladenes geht nicht verloren."
         },
         "guests": {
           "q": "Gibt es eine Begrenzung bei Gästen?",
-          "a": "Nein. Beliebig viele Gäste können hochladen. Dein Plan begrenzt nur die Gesamtzahl der Fotos im Album: 1.500 mit Standard, 5.000 mit Premium."
+          "a": "Nein. Beliebig viele Gäste können hochladen. Dein Plan begrenzt nur die Gesamtzahl der Fotos im Album: 1.000 mit Mini, 2.500 mit Standard, 5.000 mit Pro und 7.500 mit VIP."
         },
         "misuse": {
           "q": "Was, wenn mein QR-Code in falsche Hände gerät?",
@@ -347,8 +369,6 @@
     "activate": {
       "title": "Tarif wählen, um Uploads zu öffnen",
       "body": "Dein QR-Code funktioniert, sobald ein Tarif aktiv ist. Einmalzahlung, kein Abo.",
-      "standard": "Standard (${price})",
-      "premium": "Premium (${price})",
       "devNote": "Lokale Entwicklung: Die Bezahlung ist noch nicht angebunden, daher aktiviert dies den Tarif kostenlos.",
       "choose": "{plan} wählen",
       "oneTime": "einmalig",
@@ -399,7 +419,7 @@
       "step1": "QR-Code mit der Kamera scannen",
       "step2": "Fotos aus der Galerie auswählen",
       "step3": "Sie landen in voller Qualität in deinem Album",
-      "printPremium": "Druckbare Tischkarten und Poster sind in Premium enthalten.",
+      "printLocked": "Druckbare Tischkarten und Poster sind in Pro und VIP enthalten.",
       "open": "Gästeseite öffnen",
       "locked": "Wird nach dem Veröffentlichen freigeschaltet"
     },
@@ -460,7 +480,6 @@
       "createBody": "{date}, {start}–{end}",
       "editDetails": "Details bearbeiten",
       "planSummary": "Bis zu {photos} Fotos, {gb} GB, Originalqualität",
-      "upgrade": "Auf Premium upgraden",
       "publish": "Event veröffentlichen",
       "publishBody": "Beim Veröffentlichen öffnet sich die Gästeseite und dein QR-Code ist bereit.",
       "publishLocked": "Wähle zuerst einen Plan",
@@ -495,8 +514,8 @@
       "headlineDefault": "Teilt eure Erinnerungen mit uns",
       "subline": "Mit der Handykamera scannen und Fotos hochladen",
       "noApp": "Keine App, kein Konto nötig",
-      "premiumTitle": "Vorlagen sind in Premium enthalten",
-      "premiumBody": "Die Vorschau ist frei. Herunterladen gehört zu Premium; mit Standard kannst du den QR-Code als PNG oder SVG laden und selbst verwenden.",
+      "lockedTitle": "Vorlagen gibt es mit Pro und VIP",
+      "lockedBody": "Die Vorschau ist frei. Herunterladen gehört zu Pro und VIP; mit den anderen Plänen kannst du den QR-Code als PNG oder SVG laden und selbst verwenden.",
       "cutHint": "Entlang der gestrichelten Linien schneiden",
       "foldHint": "Hier falten",
       "showPin": "PIN auf der Karte zeigen",
@@ -572,7 +591,7 @@
       "full": "Das Album ist voll: Gäste können keine Fotos mehr hochladen",
       "almost": "Dein Album ist zu {pct} % voll",
       "detail": "{count} von {max} Fotos.",
-      "premium": "Mit Premium liegt das Limit bei 5.000 Fotos und 50 GB."
+      "next": "Mit {plan} liegt das Limit bei {photos} Fotos und {gb} GB."
     }
   },
   "Guest": {
@@ -687,9 +706,8 @@
     },
     "plan": {
       "title": "Wähle deinen Plan",
-      "subtitle": "Einmalzahlung, kein Abo. Beide Pläne enthalten alles; sie unterscheiden sich in Kapazität und Druckvorlagen.",
+      "subtitle": "Einmalzahlung, kein Abo. Jeder Plan enthält alles; schieb den Regler, um Kapazität, Download-Zeitraum und Druckvorlagen zu vergleichen.",
       "choose": "Weiter mit {plan}",
-      "yourPick": "Deine Wahl",
       "hint": "Die Zahlung folgt im nächsten Schritt"
     },
     "account": {
@@ -729,7 +747,7 @@
       "on": "An",
       "off": "Aus",
       "edit": "Bearbeiten",
-      "upgrade": "Auf Premium upgraden",
+      "upgrade": "Auf {plan} upgraden",
       "publishHint": "Beim Veröffentlichen öffnet sich die Gästeseite und dein QR-Code ist bereit. Einstellungen kannst du auch danach ändern.",
       "publish": "Event veröffentlichen",
       "publishing": "Wird veröffentlicht…",

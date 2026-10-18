@@ -19,14 +19,15 @@ export function SharePanel({
   link,
   hasPin,
   published,
-  premium,
+  templates,
 }: {
   eventId: string;
   eventName: string;
   link: string;
   hasPin: boolean;
   published: boolean;
-  premium: boolean;
+  /** The plan includes the print templates (Pro and VIP). */
+  templates: boolean;
 }) {
   const t = useTranslations("Events.share");
   const tSteps = useTranslations("Events.steps");
@@ -136,7 +137,7 @@ export function SharePanel({
         <span className="min-w-0 flex-1">
           <span className="block font-semibold">{tLive("templates")}</span>
           <span className="block text-sm text-pretty text-muted-foreground">
-            {premium ? tPrint("subtitle") : t("printPremium")}
+            {templates ? tPrint("subtitle") : t("printLocked")}
           </span>
         </span>
         <ChevronRight

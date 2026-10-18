@@ -94,7 +94,7 @@ export function getLegalDoc(
           heading: "5. How long we keep data",
           body: [
             [
-              "Photos and previews: permanently deleted at the end of the 7th day after the event date. Hosts can delete single photos, all photos from one phone, or the whole event earlier at any time.",
+              "Photos and previews: permanently deleted at the end of the download window your plan includes, counted from the day the event ends (7, 14, 21 or 30 days for Mini, Standard, Pro or VIP; 7 days before a plan is chosen). Hosts can delete single photos, all photos from one phone, or the whole event earlier at any time.",
               "Event settings and guest-related records (names, device IDs, hashes, consent times): deleted together with the photos.",
               "Account data: kept while your account exists and deleted within 30 days after you ask us to delete your account, except data we must keep by law (for example invoices).",
               "Sign-in codes: expire after 10 minutes and are stored only as a hash.",
@@ -188,7 +188,7 @@ export function getLegalDoc(
         {
           heading: "5. The event window and deletion",
           body: [
-            "An event lasts at most 24 hours. All photos are kept until the end of the 7th day after the event date and are then permanently deleted. It is the host's responsibility to download the album in that time. We send reminders before deletion, but we cannot restore deleted photos.",
+            "An event lasts at most 24 hours. All photos are kept until the end of the download window of the chosen plan (7, 14, 21 or 30 days after the event ends for Mini, Standard, Pro or VIP) and are then permanently deleted. It is the host's responsibility to download the album in that time. We send reminders before deletion, but we cannot restore deleted photos.",
           ],
         },
         {

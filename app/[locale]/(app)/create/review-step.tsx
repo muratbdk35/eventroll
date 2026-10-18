@@ -16,7 +16,7 @@ import { TicketSettings } from "@/components/host/ticket-settings";
 import { devActivate, publishEvent } from "@/lib/events/actions";
 import { Link, useRouter } from "@/lib/i18n/navigation";
 import type { EVENT_TYPES } from "@/lib/events/schemas";
-import { plans } from "@/lib/plans";
+import { nextPlan, plans } from "@/lib/plans";
 import { publicEnv } from "@/lib/public-env";
 import { StepFooter, StepHeading } from "./create-flow";
 import { type FlowProps } from "./flow";
@@ -72,6 +72,7 @@ export function ReviewStep({ event, devPay }: FlowProps) {
   const ev = event;
   const planId = event.plan;
   const plan = plans[planId];
+  const upgrade = nextPlan(planId);
   const type = ev.type as (typeof EVENT_TYPES)[number];
 
   const when = (iso: string | null) =>
@@ -180,19 +181,19 @@ export function ReviewStep({ event, devPay }: FlowProps) {
             ],
           ]}
         >
-          {planId === "standard" && devPay && (
+          {upgrade && devPay && (
             <HaloButton
               tone="secondary"
               isLoading={upgrading}
               leading={<Sparkles aria-hidden />}
               onClick={() =>
                 startUpgrade(async () => {
-                  await devActivate(ev.id, "premium");
+                  await devActivate(ev.id, upgrade);
                   router.refresh();
                 })
               }
             >
-              {t("review.upgrade")}
+              {t("review.upgrade", { plan: tp(`plans.${upgrade}.name`) })}
             </HaloButton>
           )}
         </Section>

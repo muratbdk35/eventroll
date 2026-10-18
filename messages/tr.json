@@ -203,40 +203,62 @@
       "title": "Bir kez öde. Her anı sakla.",
       "subtitle": "Abonelik yok, gizli ücret yok. Etkinlik başına tek ödeme; misafirlerinin çektiği her kare orijinal kalitesiyle senin.",
       "merchantLine": "TEK ETKİNLİK · TEK ÖDEME",
-      "stamp": "En iyi değer",
+      "stamp": "En çok seçilen",
+      "stampVip": "Tam paket",
       "billing": "ÖDEME",
       "oneTime": "TEK SEFERLİK",
       "total": "TOPLAM",
       "perGuest": "{guests} misafirde kişi başı ≈ {price}",
       "thanks": "NO. {no} · TEŞEKKÜRLER",
+      "everyPlan": "Her planda",
       "trust": {
-        "secure": "Stripe ile güvenli ödeme",
-        "oneTime": "Tek ödeme, abonelik yok",
+        "guests": "Sınırsız misafir, uygulama ya da üyelik yok",
         "original": "Orijinal kalite, asla sıkıştırılmaz",
-        "zip": "{days} gün tam ZIP indirme"
+        "zip": "Tek tıkla ZIP indirme",
+        "moderation": "Uygunsuz görsellere otomatik filtre",
+        "oneTime": "Tek ödeme, abonelik yok",
+        "secure": "Stripe ile güvenli ödeme"
       },
       "howToPay": "Etkinliğini ücretsiz hazırla. Misafirler yüklemeye başlamadan önce planını seç ve yayınla.",
       "footnote": "Fiyatlar USD cinsindendir; ödeme sırasında yerel para biriminde, KDV dahil gösterilir.",
       "plans": {
+        "mini": {
+          "name": "Mini",
+          "tagline": "Küçük kutlamalar ve doğum günleri için",
+          "cta": "Mini'yi al"
+        },
         "standard": {
           "name": "Standart",
           "tagline": "Çoğu düğün ve parti için",
           "cta": "Standart'ı al"
         },
-        "premium": {
-          "name": "Premium",
-          "tagline": "Büyük düğünler ve kalabalık etkinlikler için",
-          "cta": "Premium'u al"
+        "pro": {
+          "name": "Pro",
+          "tagline": "Büyük düğünler ve kalabalık partiler için",
+          "cta": "Pro'yu al"
+        },
+        "vip": {
+          "name": "VIP",
+          "tagline": "Görkemli düğünler ve çok günlü etkinlikler için",
+          "cta": "VIP'i al"
         }
+      },
+      "dial": {
+        "label": "Planını seç",
+        "guests": "≈ {guests} misafir",
+        "guestsMax": "{guests}+ misafir",
+        "value": "{plan}, {price}, {photos} fotoğraf"
       },
       "rows": {
         "photos": "Fotoğraf",
         "storage": "Depolama",
+        "retention": "İndirme süresi",
         "quality": "Kalite",
         "zip": "ZIP indirme",
         "qr": "QR kod ve link",
         "pin": "PIN koruması",
         "uploadRules": "Yükleme saati ve limit",
+        "moderation": "İçerik moderasyonu",
         "templates": "Baskı şablonları"
       },
       "values": {
@@ -254,11 +276,11 @@
         },
         "how": {
           "q": "Misafirler linke nasıl ulaşır?",
-          "a": "QR kodu ya da linki davetiyende, bir mesajda veya e-postada paylaş. Premium'da baskıya hazır masa kartları ve afişler de var."
+          "a": "QR kodu ya da linki davetiyende, bir mesajda veya e-postada paylaş. Pro ve VIP'te baskıya hazır masa kartları ve afişler de var."
         },
         "payment": {
           "q": "Ödemeyi ne zaman yaparım?",
-          "a": "Etkinliğini oluşturmak ücretsiz. Hazır olduğunda Standard ya da Premium'u seçip bir kez ödersin, yayınlarsın ve QR kodun hazır olur. Abonelik yok, hiçbir şey yenilenmez."
+          "a": "Etkinliğini oluşturmak ücretsiz. Hazır olduğunda Mini, Standart, Pro ya da VIP'i seçip bir kez ödersin, yayınlarsın ve QR kodun hazır olur. Abonelik yok, hiçbir şey yenilenmez."
         },
         "quality": {
           "q": "Fotoğraflar sıkıştırılıyor mu?",
@@ -266,7 +288,7 @@
         },
         "duration": {
           "q": "Fotoğraflarım ne kadar saklanır?",
-          "a": "Albümün etkinlikten sonraki 7. günün sonuna kadar açık kalır. Bu sürede orijinal kalitedeki ZIP'i indir; silinmeden önce sana e-postayla hatırlatırız. Sonrasında tüm fotoğraflar kalıcı olarak silinir, böylece misafirlerinin anıları gizli kalır."
+          "a": "Albümün etkinlikten sonra planına göre 7 ile 30 gün açık kalır: Mini 7, Standart 14, Pro 21, VIP 30 gün. Bu sürede orijinal kalitedeki ZIP'i indir; silinmeden önce sana e-postayla hatırlatırız. Sonrasında tüm fotoğraflar kalıcı olarak silinir, böylece misafirlerinin anıları gizli kalır."
         },
         "privacy": {
           "q": "Fotoğrafları kim görebilir?",
@@ -274,11 +296,11 @@
         },
         "limits": {
           "q": "Albüm dolarsa ne olur?",
-          "a": "Misafirler nazik bir mesaj görür, sen de tek tıkla Standart'tan Premium'a geçebilirsin. Daha önce yüklenen hiçbir şey kaybolmaz."
+          "a": "Misafirler nazik bir mesaj görür, sen de tek tıkla bir üst plana geçebilirsin. Daha önce yüklenen hiçbir şey kaybolmaz."
         },
         "guests": {
           "q": "Misafir sayısında sınır var mı?",
-          "a": "Hayır. İstediğin kadar misafir yükleyebilir. Planın sadece albümdeki toplam fotoğraf sayısını sınırlar: Standart'ta 1.500, Premium'da 5.000."
+          "a": "Hayır. İstediğin kadar misafir yükleyebilir. Planın sadece albümdeki toplam fotoğraf sayısını sınırlar: Mini'de 1.000, Standart'ta 2.500, Pro'da 5.000, VIP'te 7.500."
         },
         "misuse": {
           "q": "QR kodum yanlış ellere geçerse ne olur?",
@@ -347,8 +369,6 @@
     "activate": {
       "title": "Yüklemeyi açmak için plan seç",
       "body": "Plan seçtikten sonra etkinliği yayınlarsın ve QR kodun hazır olur. Tek ödeme, abonelik yok.",
-      "standard": "Standard (${price})",
-      "premium": "Premium (${price})",
       "devNote": "Yerel geliştirme: ödeme henüz bağlı değil, bu buton planı ücretsiz aktifleştirir.",
       "choose": "{plan} seç",
       "oneTime": "tek seferlik",
@@ -399,7 +419,7 @@
       "step1": "Kamerayla QR kodu okutur",
       "step2": "Galeriden fotoğrafları seçer",
       "step3": "Fotoğraflar tam kalitede albümüne düşer",
-      "printPremium": "Yazdırılabilir masa kartları ve posterler Premium'a dahil.",
+      "printLocked": "Yazdırılabilir masa kartları ve posterler Pro ve VIP'e dahil.",
       "open": "Misafir sayfasını aç",
       "locked": "Etkinlik yayınlandıktan sonra açılır"
     },
@@ -460,7 +480,6 @@
       "createBody": "{date}, {start}–{end}",
       "editDetails": "Bilgileri düzenle",
       "planSummary": "{photos} fotoğrafa kadar, {gb} GB, orijinal kalite",
-      "upgrade": "Premium'a yükselt",
       "publish": "Etkinliği yayınla",
       "publishBody": "Yayınladığında misafir sayfası açılır ve QR kodun hazır olur.",
       "publishLocked": "Önce bir plan seç",
@@ -495,8 +514,8 @@
       "headlineDefault": "Anılarını bizimle paylaş",
       "subline": "Telefon kameranla okut, fotoğraflarını yükle",
       "noApp": "Uygulama ya da üyelik gerekmez",
-      "premiumTitle": "Şablonlar Premium'a dahil",
-      "premiumBody": "Önizleme serbest. İndirmek Premium'da; Standart planda QR kodu PNG ya da SVG olarak indirip kendin kullanabilirsin.",
+      "lockedTitle": "Şablonlar Pro ve VIP'e dahil",
+      "lockedBody": "Önizleme serbest. İndirmek Pro ve VIP'te; diğer planlarda QR kodu PNG ya da SVG olarak indirip kendin kullanabilirsin.",
       "cutHint": "Kesik çizgilerden kes",
       "foldHint": "Ortadan katla",
       "showPin": "PIN'i kartta göster",
@@ -572,7 +591,7 @@
       "full": "Albüm doldu: misafirler artık fotoğraf yükleyemiyor",
       "almost": "Albüm neredeyse dolu (%{pct})",
       "detail": "{count} / {max} fotoğraf.",
-      "premium": "Premium planda sınır 5.000 fotoğraf ve 50 GB."
+      "next": "{plan} planında sınır {photos} fotoğraf ve {gb} GB."
     }
   },
   "Guest": {
@@ -687,9 +706,8 @@
     },
     "plan": {
       "title": "Planını seç",
-      "subtitle": "Tek ödeme, abonelik yok. İki planda da her şey dahil; fark kapasite ve baskı şablonları.",
+      "subtitle": "Tek ödeme, abonelik yok. Her planda her şey dahil; kaydırarak kapasite, indirme süresi ve baskı şablonlarını karşılaştır.",
       "choose": "{plan} ile devam et",
-      "yourPick": "Seçtiğin plan",
       "hint": "Ödeme bir sonraki adımda"
     },
     "account": {
@@ -729,7 +747,7 @@
       "on": "Açık",
       "off": "Kapalı",
       "edit": "Düzenle",
-      "upgrade": "Premium'a yükselt",
+      "upgrade": "{plan} planına yükselt",
       "publishHint": "Yayınladığında misafir sayfası açılır ve QR kodun hazır olur. Sonrasında da ayarları değiştirebilirsin.",
       "publish": "Etkinliği yayınla",
       "publishing": "Yayınlanıyor…",

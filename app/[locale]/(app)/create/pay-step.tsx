@@ -6,7 +6,7 @@ import { useEffect, useRef, useState, useTransition } from "react";
 import { HaloButton } from "@/components/halo/halo-button";
 import { createEventFromDraft, devActivate } from "@/lib/events/actions";
 import { useRouter } from "@/lib/i18n/navigation";
-import { DOWNLOAD_WINDOW_DAYS, plans } from "@/lib/plans";
+import { plans } from "@/lib/plans";
 import { StepFooter, StepHeading } from "./create-flow";
 import { type FlowProps, flowHref } from "./flow";
 import { clearDraft, draftOk, draftPayload, loadDraft } from "./draft";
@@ -114,7 +114,7 @@ export function PayStep({ plan, event, devPay }: FlowProps) {
               {t("pay.includes", {
                 photos: format.number(p.maxItems),
                 gb: p.maxBytes / 1024 ** 3,
-                days: DOWNLOAD_WINDOW_DAYS,
+                days: p.retentionDays,
               })}
             </p>
           </div>

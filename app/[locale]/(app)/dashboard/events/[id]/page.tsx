@@ -38,7 +38,7 @@ import {
   mediaByUploader,
 } from "@/lib/events/queries";
 import { pastWindow } from "@/lib/events/notices";
-import { plans } from "@/lib/plans";
+import { nextPlan, plans } from "@/lib/plans";
 import { cn } from "@/lib/utils";
 import { ticketColor } from "@/lib/events/ticket";
 import { guestUrl } from "@/lib/events/urls";
@@ -89,9 +89,10 @@ export default async function EventPage({
       : PREVIEW_PHOTOS;
   const withPhotos = view === "main" || view === "photos";
 
-  const [t, tg, format, stats, rows, guests, flagged] = await Promise.all([
+  const [t, tg, tp, format, stats, rows, guests, flagged] = await Promise.all([
     getTranslations("Events"),
     getTranslations("Guest"),
+    getTranslations("Landing.pricing"),
     getFormatter(),
     getEventStats(event.id),
     withPhotos ? listEventMedia(event.id, shown) : Promise.resolve([]),
@@ -106,6 +107,8 @@ export default async function EventPage({
   const purged = Boolean(event.purgedAt);
   // How full the album is: the tighter of photo count and storage.
   const limits = event.plan ? plans[event.plan] : null;
+  const templates = Boolean(limits?.printTemplates);
+  const upgrade = event.plan ? nextPlan(event.plan) : null;
   const usage = limits
     ? Math.max(
         event.mediaCount / limits.maxItems,
@@ -180,7 +183,7 @@ export default async function EventPage({
                   initialColor={ticketColor(event.ticketColor)}
                   hasPin={Boolean(event.accessPinHash)}
                   pin={event.accessPin}
-                  premium={event.plan === "premium"}
+                  included={templates}
                   devMode={devMode}
                 />
               </>
@@ -191,7 +194,7 @@ export default async function EventPage({
                 link={link}
                 hasPin={Boolean(event.accessPinHash)}
                 published={false}
-                premium={event.plan === "premium"}
+                templates={templates}
               />
             )
           ) : view === "share" ? (
@@ -201,7 +204,7 @@ export default async function EventPage({
               link={link}
               hasPin={Boolean(event.accessPinHash)}
               published={published}
-              premium={event.plan === "premium"}
+              templates={templates}
             />
           ) : (
             <div className="space-y-6">
@@ -412,7 +415,12 @@ export default async function EventPage({
                 count: event.mediaCount,
                 max: limits.maxItems,
               })}
-              {event.plan === "standard" && ` ${t("capacity.premium")}`}
+              {upgrade &&
+                ` ${t("capacity.next", {
+                  plan: tp(`plans.${upgrade}.name`),
+                  photos: format.number(plans[upgrade].maxItems),
+                  gb: plans[upgrade].maxBytes / 1024 ** 3,
+                })}`}
             </p>
           </div>
         </div>

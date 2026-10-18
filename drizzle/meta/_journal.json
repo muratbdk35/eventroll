@@ -57,6 +57,13 @@
       "when": 1792240142121,
       "tag": "0007_event_notices_and_purge",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1792334999373,
+      "tag": "0008_plan_tiers",
+      "breakpoints": true
     }
   ]
 }

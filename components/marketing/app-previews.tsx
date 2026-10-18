@@ -121,7 +121,7 @@ export function ControlPreview() {
 }
 
 /**
- * One printed table card from the Premium templates: a PNG drawn by the
+ * One printed table card from the print templates: a PNG drawn by the
  * real template code (scripts/render-print-card.tsx), one per language.
  */
 export function PrintPreview() {
