@@ -93,7 +93,8 @@
       "features": "Features",
       "pricing": "Pricing",
       "faq": "FAQ",
-      "cta": "Create event"
+      "cta": "Create event",
+      "ctaShort": "Create"
     },
     "hero": {
       "line1": "Scan. Upload.",

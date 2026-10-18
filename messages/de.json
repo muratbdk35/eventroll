@@ -96,7 +96,8 @@
       "features": "Funktionen",
       "pricing": "Preise",
       "faq": "FAQ",
-      "cta": "Event erstellen"
+      "cta": "Event erstellen",
+      "ctaShort": "Erstellen"
     },
     "hero": {
       "line1": "Scannen. Hochladen.",

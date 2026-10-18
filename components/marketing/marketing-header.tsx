@@ -13,7 +13,12 @@ export async function MarketingHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/50 bg-background/75 backdrop-blur-lg">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-2 px-3 sm:gap-3 sm:px-4">
-        <Link href="/" aria-label="Home" className="shrink-0">
+        {/* Under 360 px only the mark: the bar must fit the narrowest phones. */}
+        <Link
+          href="/"
+          aria-label="Home"
+          className="shrink-0 max-[359px]:[&>span>span]:hidden"
+        >
           <Logo />
         </Link>
         <nav
@@ -56,7 +61,11 @@ export async function MarketingHeader() {
             asChild
             className="h-8 shrink-0 rounded-lg px-2.5 text-xs font-semibold sm:h-9 sm:rounded-xl sm:px-4 sm:text-sm"
           >
-            <Link href="/create">{t("cta")}</Link>
+            {/* Phones get the short word so the bar fits down to 320 px. */}
+            <Link href="/create" aria-label={t("cta")}>
+              <span className="sm:hidden">{t("ctaShort")}</span>
+              <span className="hidden sm:inline">{t("cta")}</span>
+            </Link>
           </Button>
         </div>
       </div>

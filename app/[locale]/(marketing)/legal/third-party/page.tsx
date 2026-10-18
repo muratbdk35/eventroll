@@ -97,7 +97,7 @@ export default async function ThirdPartyPage({
           <p className="mt-2 mb-5 text-pretty text-muted-foreground">
             {t("librariesIntro")}
           </p>
-          <ul className="grid gap-x-6 rounded-2xl border border-border bg-card px-4 py-2 text-sm sm:grid-cols-2 sm:px-5">
+          <ul className="grid grid-cols-[minmax(0,1fr)] gap-x-6 rounded-2xl border border-border bg-card px-4 py-2 text-sm sm:grid-cols-2 sm:px-5">
             {libraries.map((l) => (
               <li
                 key={l.name}

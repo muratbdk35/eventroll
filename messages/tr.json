@@ -96,7 +96,8 @@
       "features": "Özellikler",
       "pricing": "Fiyatlar",
       "faq": "SSS",
-      "cta": "Etkinlik oluştur"
+      "cta": "Etkinlik oluştur",
+      "ctaShort": "Oluştur"
     },
     "hero": {
       "line1": "Okut. Yükle.",
