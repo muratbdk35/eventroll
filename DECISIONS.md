@@ -828,3 +828,22 @@ reminders planned in #23 were never built.
   on the plan picked on the landing page.
 - Migration 0008 maps the old `premium` to `vip`. Four Stripe prices
   (`STRIPE_PRICE_MINI/STANDARD/PRO/VIP`) replace the two.
+
+## 56. Phones save to the gallery; flagged photos hidden by default (owner request, 2026-10-18)
+
+- On phones and tablets (share sheet with files and a coarse pointer), the
+  download menu leads with "Save all to gallery"; downloads by guest and the
+  selection bar save to the gallery too, with the ZIP still offered. The
+  album is split into groups the share sheet handles (40 photos or 300 MB),
+  downloaded one group at a time; each group needs one tap (the share sheet
+  wants a fresh gesture) on "Save N photos", then "Save Images" on iPhone.
+  Closing the sheet keeps the group ready; "Stop" ends the run.
+- Saved photo ids are remembered per event in browser storage, so starting
+  again continues with the rest ("Save again" starts over).
+- The screen is kept on while photos download (Screen Wake Lock), for the
+  ZIP too: a phone that locks mid-download stopped it. Computers keep the ZIP.
+- Photos the explicit-image check flagged (#52) are now hidden by default:
+  not in the grid, not in downloads, not in the counts there. A banner says
+  how many are hidden; its switch (`events.hide_flagged`, migration 0009,
+  default true) shows them blurred for review. Approved photos always show.
+- Still to do: measure on a real iPhone with a few hundred photos.

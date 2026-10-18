@@ -5,7 +5,6 @@ import {
   ExternalLink,
   HardDrive,
   Settings,
-  ShieldAlert,
 } from "lucide-react";
 import {
   getFormatter,
@@ -19,6 +18,7 @@ import {
   DownloadMenu,
   PhotoDownloads,
 } from "@/components/host/photo-downloads";
+import { FlaggedBanner } from "@/components/host/flagged-banner";
 import { PhotoGrid } from "@/components/host/photo-grid";
 import { RefreshButton } from "@/components/host/refresh-button";
 import { PrintTemplates } from "@/components/host/print-templates";
@@ -95,8 +95,12 @@ export default async function EventPage({
     getTranslations("Landing.pricing"),
     getFormatter(),
     getEventStats(event.id),
-    withPhotos ? listEventMedia(event.id, shown) : Promise.resolve([]),
-    withPhotos ? mediaByUploader(event.id) : Promise.resolve([]),
+    withPhotos
+      ? listEventMedia(event.id, shown, { hideFlagged: event.hideFlagged })
+      : Promise.resolve([]),
+    withPhotos
+      ? mediaByUploader(event.id, { hideFlagged: event.hideFlagged })
+      : Promise.resolve([]),
     withPhotos ? countFlagged(event.id) : Promise.resolve(0),
   ]);
   const link = guestUrl(event);
@@ -264,6 +268,9 @@ export default async function EventPage({
     })),
   );
 
+  // Hidden photos waiting for review don't count in the grid (#56).
+  const listed = stats.photos - (event.hideFlagged ? flagged : 0);
+
   const photosSection = (
     <PhotoDownloads
       eventId={event.id}
@@ -278,9 +285,9 @@ export default async function EventPage({
           <div className="flex items-center gap-2.5">
             <h2 className="font-heading text-xl font-semibold">
               {t("photosTitle")}
-              {stats.photos > 0 && (
+              {listed > 0 && (
                 <span className="ms-2 text-base font-normal text-muted-foreground tabular-nums">
-                  {stats.photos}
+                  {listed}
                 </span>
               )}
             </h2>
@@ -301,36 +308,27 @@ export default async function EventPage({
           </div>
         </div>
         {flagged > 0 && (
-          <div className="mb-4 flex items-start gap-3 rounded-2xl border border-amber-500/25 bg-amber-500/8 p-3.5">
-            <ShieldAlert
-              className="mt-0.5 size-4 shrink-0 text-amber-700"
-              aria-hidden
-            />
-            <div>
-              <p className="text-sm font-semibold">
-                {t("photos.flaggedCount", { count: flagged })}
-              </p>
-              <p className="mt-0.5 text-[13px] text-pretty text-muted-foreground">
-                {t("photos.flaggedCountHint")}
-              </p>
-            </div>
-          </div>
+          <FlaggedBanner
+            eventId={event.id}
+            count={flagged}
+            hidden={event.hideFlagged}
+          />
         )}
         <PhotoGrid eventId={event.id} photos={photos} published={published} />
-        {view === "main" && stats.photos > photos.length && (
+        {view === "main" && listed > photos.length && (
           <Link
             href={`${eventPath}?view=photos`}
             className="mt-5 flex h-12 w-full items-center justify-center gap-2 rounded-2xl border border-border bg-card text-sm font-semibold shadow-xs transition-colors hover:border-primary/30 hover:bg-accent/40"
           >
-            {t("photos.seeAll", { count: stats.photos })}
+            {t("photos.seeAll", { count: listed })}
           </Link>
         )}
-        {view === "photos" && stats.photos > photos.length && (
+        {view === "photos" && listed > photos.length && (
           <div className="mt-6 flex flex-col items-center gap-2">
             <p className="text-sm text-muted-foreground">
               {t("photos.showing", {
                 shown: photos.length,
-                total: stats.photos,
+                total: listed,
               })}
             </p>
             <Link

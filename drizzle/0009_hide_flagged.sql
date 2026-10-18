@@ -1,0 +1,1 @@
+ALTER TABLE "events" ADD COLUMN "hide_flagged" boolean DEFAULT true NOT NULL;

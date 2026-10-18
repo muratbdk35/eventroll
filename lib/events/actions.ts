@@ -204,6 +204,26 @@ export async function approvePhoto(
   return { ok: true };
 }
 
+/**
+ * Shows or hides the photos the explicit-image check flagged, in the grid and
+ * in downloads (DECISIONS #56). Hidden by default.
+ */
+export async function setHideFlagged(
+  eventId: string,
+  hide: boolean,
+): Promise<ActionResult> {
+  const user = await requireUser();
+  if (!user) return { ok: false, error: "unauthorized" };
+  const event = await getOwnedEvent(eventId, user.id);
+  if (!event) return { ok: false, error: "not_found" };
+  await db
+    .update(events)
+    .set({ hideFlagged: hide })
+    .where(eq(events.id, event.id));
+  revalidatePath("/[locale]/dashboard", "layout");
+  return { ok: true };
+}
+
 /** Deletes everything a device uploaded and blocks it from uploading again. */
 export async function blockDevice(
   eventId: string,

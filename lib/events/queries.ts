@@ -61,6 +61,9 @@ export async function getEventStats(eventId: string) {
   return { photos: row?.photos ?? 0, guests: row?.guests ?? 0 };
 }
 
+/** Leaves out photos waiting for review (#52, #56). */
+const notFlagged = sql`${media.moderation} is distinct from 'flagged'`;
+
 /**
  * Newest photo keys (thumbnail if any) for many events in one query, so the
  * dashboard doesn't run a query per event.
@@ -82,7 +85,7 @@ export async function latestPhotoKeys(eventIds: string[], limit = 3) {
         inArray(media.eventId, eventIds),
         eq(media.status, "ready"),
         // A photo waiting for review never becomes a folder's cover (#52).
-        sql`${media.moderation} is distinct from 'flagged'`,
+        notFlagged,
       ),
     )
     .as("ranked");
@@ -95,11 +98,21 @@ export async function latestPhotoKeys(eventIds: string[], limit = 3) {
   return out;
 }
 
-export async function listEventMedia(eventId: string, limit = 120) {
+export async function listEventMedia(
+  eventId: string,
+  limit = 120,
+  { hideFlagged = false } = {},
+) {
   return db
     .select()
     .from(media)
-    .where(and(eq(media.eventId, eventId), eq(media.status, "ready")))
+    .where(
+      and(
+        eq(media.eventId, eventId),
+        eq(media.status, "ready"),
+        hideFlagged ? notFlagged : undefined,
+      ),
+    )
     .orderBy(desc(media.createdAt))
     .limit(limit);
 }
@@ -120,7 +133,10 @@ export async function countFlagged(eventId: string) {
 }
 
 /** Photo count and bytes per uploader name (null = no name), for downloads. */
-export async function mediaByUploader(eventId: string) {
+export async function mediaByUploader(
+  eventId: string,
+  { hideFlagged = false } = {},
+) {
   return db
     .select({
       uploaderName: media.uploaderName,
@@ -128,7 +144,13 @@ export async function mediaByUploader(eventId: string) {
       bytes: sql<number>`coalesce(sum(${media.bytes}), 0)`.mapWith(Number),
     })
     .from(media)
-    .where(and(eq(media.eventId, eventId), eq(media.status, "ready")))
+    .where(
+      and(
+        eq(media.eventId, eventId),
+        eq(media.status, "ready"),
+        hideFlagged ? notFlagged : undefined,
+      ),
+    )
     .groupBy(media.uploaderName)
     .orderBy(desc(count()));
 }
@@ -139,9 +161,14 @@ export async function mediaByUploader(eventId: string) {
  */
 export async function listDownloadMedia(
   eventId: string,
-  filter: { ids?: string[]; uploader?: string | null } = {},
+  filter: {
+    ids?: string[];
+    uploader?: string | null;
+    hideFlagged?: boolean;
+  } = {},
 ) {
   const where = [eq(media.eventId, eventId), eq(media.status, "ready")];
+  if (filter.hideFlagged) where.push(notFlagged);
   if (filter.ids) where.push(inArray(media.id, filter.ids));
   if (filter.uploader !== undefined) {
     where.push(

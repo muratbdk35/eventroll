@@ -95,6 +95,9 @@ export const events = pgTable(
     // end of event + the plan's retentionDays (lib/plans.ts)
     expiresAt: timestamp(tz).notNull(),
     requireName: boolean().notNull().default(false),
+    // Photos the explicit-image check flagged stay out of the host's grid and
+    // downloads until approved; the host can show them (DECISIONS #56).
+    hideFlagged: boolean().notNull().default(true),
     // Guest access controls (DECISIONS #21): optional PIN, upload window above,
     // and a per-device photo cap (null = unlimited).
     accessPinHash: text(),

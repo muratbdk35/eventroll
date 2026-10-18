@@ -32,14 +32,15 @@ export async function POST(req: Request, { params }: Ctx) {
     return NextResponse.json({ error: "invalid" }, { status: 400 });
   }
   const q = parsed.data;
-  const rows = await listDownloadMedia(
-    event.id,
-    "ids" in q
+  // Photos the host keeps hidden (#56) are never downloaded by accident.
+  const rows = await listDownloadMedia(event.id, {
+    ...("ids" in q
       ? { ids: q.ids }
       : "uploader" in q
         ? { uploader: q.uploader }
-        : {},
-  );
+        : {}),
+    hideFlagged: event.hideFlagged,
+  });
 
   const files = await Promise.all(
     rows.map(async (m) => ({

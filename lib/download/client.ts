@@ -219,9 +219,110 @@ export function canShareFiles(): boolean {
   }
 }
 
-/** The share sheet chokes on huge batches; beyond this, use the ZIP. */
+/**
+ * Phones and tablets save to the gallery through the share sheet (DECISIONS
+ * #56); a Mac can share files too, but there the ZIP is what people want.
+ */
+export function prefersGallery(): boolean {
+  return (
+    canShareFiles() &&
+    typeof matchMedia !== "undefined" &&
+    matchMedia("(pointer: coarse)").matches
+  );
+}
+
+/** iPhone and iPad (iPadOS reports itself as a Mac with touch). */
+export function isApplePhone(): boolean {
+  if (typeof navigator === "undefined") return false;
+  return (
+    /iPhone|iPad|iPod/.test(navigator.userAgent) ||
+    (navigator.userAgent.includes("Macintosh") && navigator.maxTouchPoints > 1)
+  );
+}
+
+/** The share sheet chokes on huge batches, so the gallery saves in groups. */
 export const SHARE_MAX_FILES = 40;
 export const SHARE_MAX_BYTES = 300 * 1024 ** 2;
+
+/** Splits files into groups the share sheet handles, keeping album order. */
+export function shareBatches(files: DownloadFile[]): DownloadFile[][] {
+  const out: DownloadFile[][] = [];
+  let cur: DownloadFile[] = [];
+  let bytes = 0;
+  for (const f of files) {
+    if (
+      cur.length > 0 &&
+      (cur.length >= SHARE_MAX_FILES || bytes + f.bytes > SHARE_MAX_BYTES)
+    ) {
+      out.push(cur);
+      cur = [];
+      bytes = 0;
+    }
+    cur.push(f);
+    bytes += f.bytes;
+  }
+  if (cur.length) out.push(cur);
+  return out;
+}
+
+/**
+ * Keeps the screen on while photos download (Screen Wake Lock, where
+ * supported); a locked phone stops the download. Re-acquired when the page
+ * comes back, since the browser drops it when hidden. Returns a release.
+ */
+export function keepAwake(): () => void {
+  if (typeof navigator === "undefined" || !("wakeLock" in navigator)) {
+    return () => {};
+  }
+  let lock: WakeLockSentinel | null = null;
+  let done = false;
+  const acquire = () => {
+    if (done || document.visibilityState !== "visible") return;
+    navigator.wakeLock
+      .request("screen")
+      .then((l) => {
+        if (done) void l.release();
+        else lock = l;
+      })
+      .catch(() => {});
+  };
+  acquire();
+  document.addEventListener("visibilitychange", acquire);
+  return () => {
+    done = true;
+    document.removeEventListener("visibilitychange", acquire);
+    void lock?.release().catch(() => {});
+  };
+}
+
+/**
+ * Photos already saved to this phone's gallery, per event, so a stopped save
+ * picks up where it left off. Browser storage only; it may be empty.
+ */
+const savedKey = (eventId: string) => `eventroll:saved:${eventId}`;
+
+export function savedOnPhone(eventId: string): Set<string> {
+  try {
+    const raw = localStorage.getItem(savedKey(eventId));
+    return new Set(raw ? (JSON.parse(raw) as string[]) : []);
+  } catch {
+    return new Set();
+  }
+}
+
+export function markSaved(eventId: string, ids: string[]) {
+  try {
+    const all = savedOnPhone(eventId);
+    for (const id of ids) all.add(id);
+    localStorage.setItem(savedKey(eventId), JSON.stringify([...all]));
+  } catch {}
+}
+
+export function forgetSaved(eventId: string) {
+  try {
+    localStorage.removeItem(savedKey(eventId));
+  } catch {}
+}
 
 const MIME: Record<string, string> = {
   jpg: "image/jpeg",
