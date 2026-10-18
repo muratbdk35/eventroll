@@ -30,7 +30,7 @@ export function isLegalPage(value: string): value is LegalPage {
   return (legalPages as readonly string[]).includes(value);
 }
 
-const UPDATED = "14 October 2026";
+const UPDATED = "18 October 2026";
 
 export function getLegalDoc(
   page: LegalPage,
@@ -79,7 +79,8 @@ export function getLegalDoc(
             ],
             "Legal basis: providing the upload to the host you are sending photos to (Art. 6(1)(b) GDPR) and our legitimate interest in keeping the service safe (Art. 6(1)(f) GDPR).",
             "Who sees your photos: only the host of the event. Other guests never see your photos, and albums are not public or indexed by search engines.",
-            "Automatic check for explicit images: a small preview of each photo is checked automatically for explicit sexual content. A photo that is flagged is not deleted; it is shown blurred to the host, who decides whether to keep it. The check does not identify people, and the result is deleted together with the photo. Legal basis: our legitimate interest and the host's in keeping events free of explicit material (Art. 6(1)(f) GDPR).",
+            "We do not look at photos. Storing them, creating previews and the automatic check below happen without anyone viewing them. A person at our company opens a photo only where the law requires it, for example to act on a report of illegal content or on a request from the authorities, or where the host explicitly asks us to for support with specific photos. Any such access is limited to the photos concerned.",
+            "Automatic check for explicit images: a small preview of each photo is checked automatically for explicit sexual content. A photo that is flagged is not deleted; it is kept out of the host's album and downloads, and the host can show it, blurred, to decide whether to keep it. The check does not identify people, and the result is deleted together with the photo. Legal basis: our legitimate interest and the host's in keeping events free of explicit material (Art. 6(1)(f) GDPR).",
           ],
         },
         {
@@ -132,7 +133,7 @@ export function getLegalDoc(
         {
           heading: "8. Security",
           body: [
-            "All connections are encrypted (HTTPS). Photos are stored in a private bucket and are only delivered through short-lived signed links. Access to production systems is limited to the people who need it.",
+            "All connections are encrypted (HTTPS). Photos are stored in a private bucket and are only delivered through short-lived signed links. Access to production systems is limited to the people who need it, protected by two-factor authentication, and is not used to view photos except as described in section 3.",
           ],
         },
         {
@@ -219,7 +220,7 @@ export function getLegalDoc(
         {
           heading: "8. Our rights in the service and in your content",
           body: [
-            "We only use photos to provide the service: to store them, create previews and deliver them to the host. We do not claim ownership, do not show them to anyone else and do not use them for advertising or AI training.",
+            "We only use photos to provide the service: to store them, create previews and deliver them to the host. We do not claim ownership, do not look at them or show them to anyone else, and do not use them for advertising or AI training. We open a photo only where the law requires it or where the host asks us to for support (see the privacy policy).",
             "We may remove content and suspend events or accounts that break these terms or the law, and we report content involving the sexual abuse of children to the competent authorities.",
           ],
         },
