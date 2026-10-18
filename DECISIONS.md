@@ -846,4 +846,10 @@ reminders planned in #23 were never built.
   not in the grid, not in downloads, not in the counts there. A banner says
   how many are hidden; its switch (`events.hide_flagged`, migration 0009,
   default true) shows them blurred for review. Approved photos always show.
+- Photos files pictures by their EXIF date only. JPEGs without EXIF
+  (WhatsApp, downloads, screenshots) get a DateTimeOriginal of the upload
+  moment when saved to the gallery (`lib/download/exif.ts`), so they land on
+  the event day rather than the day of saving. Files with EXIF, the stored
+  originals and ZIPs are not touched. Tested on an iPhone 2026-10-18: photos
+  arrive in Photos; dates were the save day for EXIF-less pictures, hence this.
 - Still to do: measure on a real iPhone with a few hundred photos.

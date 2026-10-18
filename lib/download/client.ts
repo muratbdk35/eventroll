@@ -6,6 +6,7 @@
  * parts small enough to hold in memory.
  */
 import { makeZip } from "client-zip";
+import { withCaptureDate } from "./exif";
 import { photoFileName, splitParts, zipFileName } from "./names";
 
 export type DownloadFile = {
@@ -349,8 +350,15 @@ export async function prepareShare(
     const res = await fetchWithRetry(f.url, opts.signal);
     if (res) {
       const blob = await res.blob();
+      const dated =
+        f.ext === "jpg"
+          ? withCaptureDate(
+              new Uint8Array(await blob.arrayBuffer()),
+              new Date(f.createdAt),
+            )
+          : null;
       ready.push(
-        new File([blob], photoFileName(f, i + 1, opts.anonymous), {
+        new File([dated ?? blob], photoFileName(f, i + 1, opts.anonymous), {
           type: MIME[f.ext] ?? blob.type,
           lastModified: new Date(f.createdAt).getTime(),
         }),
