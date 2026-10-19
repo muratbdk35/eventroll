@@ -1044,3 +1044,18 @@ strict-origin-when-cross-origin` (event links don't leak to other sites),
   receipt says paid). The invoice description, right under the title, now
   starts with "Paid: charged at checkout, nothing more to pay" in the
   buyer's language (tr/de/en), so nobody thinks they owe more.
+
+## 67. Only the translations a page needs reach the browser (2026-10-19)
+
+- `NextIntlClientProvider` sent every namespace to every page: the landing
+  page carried the dashboard's texts too (about 150 KB of inline data, a
+  large part of its main-thread time on a slow phone). Now each section's
+  layout sends only what its client components use (`clientMessages`):
+  marketing gets Contact plus the slices of Create/Events its mock screens
+  use, the guest page gets Guest, the app gets Events, Create, Login, Guest,
+  Dashboard and Landing.pricing; Nav, App, ErrorPage and NotFound go
+  everywhere. A crawl of 54 pages (3 languages) shows no missing message.
+- When a client component starts using a new namespace, add it to its
+  section's layout; a missing one logs MISSING_MESSAGE in the console.
+- Images: a 512 px size between 384 and 640 so small images on dense
+  phone screens aren't served at 640 px.

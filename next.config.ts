@@ -57,7 +57,12 @@ const nextConfig: NextConfig = {
     "/[locale]/e/[slug]/opengraph-image": ["./assets/fonts/**"],
   },
   // The landing photos use 60 (lib/images.ts); the default allows only 75.
-  images: { qualities: [60, 75] },
+  // 512 between the default 384 and 640: small marketing images at 2-3x
+  // phone density were being served at 640 px.
+  images: {
+    qualities: [60, 75],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384, 512],
+  },
   // Cache Components is intentionally off for the MVP (see DECISIONS.md #3).
   turbopack: {
     rules: {
