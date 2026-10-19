@@ -7,11 +7,11 @@ local file that `scripts/launch-env.mjs` pushes to Vercel without printing.
 
 ## 0. Before the day
 
-| What                                                                                                                                                     | Who            |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| Legal texts (written by Claude, German binding) checked by a lawyer or a legal-text service; then remove the DRAFT banner and the noindex on legal pages | Owner + Claude |
-| Tax adviser confirmed: flat 19% VAT (no OSS yet)                                                                                                         | Owner          |
-| Vercel Pro plan (commercial use)                                                                                                                         | Owner          |
+| What                                                                                                               | Who    |
+| ------------------------------------------------------------------------------------------------------------------ | ------ |
+| Remove the DRAFT banner and the noindex on legal pages (owner, 2026-10-20: launch first, lawyer check right after) | Claude |
+| Tax adviser confirmed: flat 19% VAT (no OSS yet)                                                                   | Owner  |
+| Vercel Pro plan (commercial use)                                                                                   | Owner  |
 
 ## 1. Accounts and keys (owner, ~30 min)
 
@@ -41,7 +41,7 @@ Already in Vercel Production: `SUPPORT_EMAIL`, `UPSTASH_REDIS_REST_URL`,
 DATABASE_URL="<production pooled URL>" npx drizzle-kit migrate
 ```
 
-All migrations (0000–0012) on the empty `production` branch. Check: the
+All migrations (0000–0013) on the empty `production` branch. Check: the
 tables exist and are empty. No test data is copied.
 
 ## 3. Stripe live (Claude, ~5 min)
@@ -103,9 +103,13 @@ missing value, not a broken app.
 7. Refund it in one click; refund email arrives; Stripe shows Refunded.
 8. Cron: `curl -H "Authorization: Bearer $CRON_SECRET" "https://eventroll.eu/api/cron/daily?dry=1"` answers `dryRun: true`.
 9. Contact form message reaches hello@eventroll.eu.
+10. `/de/withdraw`: a test withdrawal reaches hello@eventroll.eu and the acknowledgement arrives.
 
 ## 8. After launch
 
+- Legal texts checked by a lawyer or a legal-text service (questions: the
+  withdrawal instructions and checkout consent, digital service vs digital
+  content, the refund after the event has started); Claude applies the changes.
 - Stripe Public details and the company site point at eventroll.eu.
 - The test site stays on Preview for further work; it keeps test keys.
 - CSAM hash scanning: Cloudflare's CSAM Scanning Tool needs photos served
