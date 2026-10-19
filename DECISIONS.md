@@ -1028,7 +1028,11 @@ strict-origin-when-cross-origin` (event links don't leak to other sites),
   emailed to the buyer and listed in the Stripe dashboard; about 0.4% per
   paid invoice. Seller name, address and tax ID on it come from the Stripe
   account settings, not from the app.
-- Open: VAT on the invoice. Invoices up to 250 € may be simplified
-  (Kleinbetragsrechnung), but must show the VAT rate. Either Stripe Tax
-  (`STRIPE_TAX_ENABLED`, per-country rate under OSS, ~0.5% per payment) or
-  a fixed 19% rate, as the company's tax adviser decides.
+- VAT: the company pays VAT but has no USt-IdNr. and so no OSS
+  registration; while its cross-border EU consumer sales stay under
+  10,000 €/year, German VAT applies to all of them. So every line carries a
+  19% German VAT rate, included in the price (`npm run stripe:setup` creates
+  it; checkout looks it up): 29 € = 24.37 € + 4.63 € VAT, shown on the
+  invoice. Above the threshold: get a USt-IdNr., register for OSS and set
+  `STRIPE_TAX_ENABLED=true` (Stripe Tax, per-country rates). To be confirmed
+  by the tax adviser. The restricted key also needs Tax Rates (write).

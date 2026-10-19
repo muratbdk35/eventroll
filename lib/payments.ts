@@ -26,6 +26,32 @@ import { productId } from "@/lib/stripe-ids";
 const { events, orders } = schema;
 type EventRow = typeof events.$inferSelect;
 
+/**
+ * The 19% German VAT rate, included in the price (scripts/stripe-setup.mts),
+ * looked up once per server instance. Null if it isn't set up.
+ */
+let vatRate: Promise<string | null> | null = null;
+function germanVat(): Promise<string | null> {
+  if (!stripe) return Promise.resolve(null);
+  vatRate ??= stripe.taxRates
+    .list({ active: true, limit: 100 })
+    .then(
+      (r) =>
+        r.data.find(
+          (t) =>
+            t.metadata?.app === "eventroll" &&
+            t.percentage === 19 &&
+            t.inclusive,
+        )?.id ?? null,
+    )
+    .catch((e) => {
+      vatRate = null; // try again next time
+      console.error("[checkout] tax rate lookup failed", e);
+      return null;
+    });
+  return vatRate;
+}
+
 const CHECKOUT_LOCALES = new Set(["tr", "de", "en"]);
 
 export async function createCheckout(opts: {
@@ -48,6 +74,12 @@ export async function createCheckout(opts: {
   const amount = amountFor(event.plan, plan);
   if (amount === null) return { ok: false, error: "invalid" };
 
+  // VAT: Stripe Tax per country once the company is in OSS, until then the
+  // German 19% for everyone (DECISIONS #66).
+  const taxRate = env.STRIPE_TAX_ENABLED ? null : await germanVat();
+  if (!env.STRIPE_TAX_ENABLED && !taxRate) {
+    console.error("[checkout] no 19% tax rate; run npm run stripe:setup");
+  }
   const orderId = randomUUID();
   const metadata = {
     app: "eventroll",
@@ -67,6 +99,7 @@ export async function createCheckout(opts: {
           unit_amount: amount,
           product: productId(plan),
         },
+        ...(taxRate ? { tax_rates: [taxRate] } : {}),
       },
     ],
     customer_email: opts.email,

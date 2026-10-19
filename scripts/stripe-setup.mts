@@ -1,6 +1,8 @@
 /**
  * Creates (or updates) one Stripe product per plan, with fixed ids
- * (`eventroll_mini` …), so checkout can refer to them (DECISIONS #63).
+ * (`eventroll_mini` …), so checkout can refer to them (DECISIONS #63), and
+ * the 19% German VAT rate, included in the price, shown on every invoice
+ * (DECISIONS #66).
  * Prices aren't Stripe objects: amounts come from lib/plans.ts at checkout.
  * Safe to run again; run it once per Stripe account / mode.
  *
@@ -35,4 +37,26 @@ for (const plan of planOrder) {
     await stripe.products.create({ id, ...fields });
     console.log(`created ${id}`);
   }
+}
+
+// German VAT, included in the price. Tax rates can't be updated or given an
+// id, so an existing active one tagged for the app is reused.
+const rates = await stripe.taxRates.list({ active: true, limit: 100 });
+const existing = rates.data.find(
+  (r) => r.metadata?.app === "eventroll" && r.percentage === 19 && r.inclusive,
+);
+if (existing) {
+  console.log(`tax rate ${existing.id} (19% incl.) already there`);
+} else {
+  const r = await stripe.taxRates.create({
+    display_name: "MwSt.",
+    description: "Umsatzsteuer 19 % (Deutschland)",
+    percentage: 19,
+    inclusive: true,
+    country: "DE",
+    jurisdiction: "DE",
+    tax_type: "vat",
+    metadata: { app: "eventroll" },
+  });
+  console.log(`created tax rate ${r.id} (19% incl.)`);
 }
