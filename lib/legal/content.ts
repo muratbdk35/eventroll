@@ -38,7 +38,7 @@ export function getLegalDoc(
 ): LegalDoc {
   const { appName, supportEmail } = ctx;
   const company = "FeyaTech UG (haftungsbeschränkt)";
-  const address = "[street and number], [postcode] [city], Germany";
+  const address = "Pestalozzistraße 25, 22305 Hamburg, Germany";
 
   const docs: Record<LegalPage, LegalDoc> = {
     privacy: {
