@@ -176,6 +176,15 @@ export function PayStep({ plan, event, devPay }: FlowProps) {
                   {c}
                 </Link>
               ),
+              withdrawal: (c) => (
+                <Link
+                  href="/legal/withdrawal"
+                  target="_blank"
+                  className="font-medium text-primary underline underline-offset-2"
+                >
+                  {c}
+                </Link>
+              ),
             })}
           </span>
         </label>

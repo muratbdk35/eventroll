@@ -1059,3 +1059,29 @@ strict-origin-when-cross-origin` (event links don't leak to other sites),
   section's layout; a missing one logs MISSING_MESSAGE in the console.
 - Images: a 512 px size between 384 and 640 so small images on dense
   phone screens aren't served at 640 px.
+
+## 68. Legal texts in three languages, German binding (2026-10-19)
+
+- The owner asked Claude to write the legal texts and will have them checked
+  (lawyer or a legal-text service) before launch. `lib/legal/de.ts` is the
+  binding version; `en.ts` and `tr.ts` are translations, and the pages say so
+  with a link to the German text. A test keeps the three in step and fails
+  on any leftover `[…]` placeholder.
+- Added what was missing for selling to consumers: the withdrawal
+  instructions and model form, word for word from the statutory model
+  (Anlage 1 und 2 zu Art. 246a EGBGB) for services, including the value
+  compensation sentence and when the right ends; how the contract is made,
+  correcting entries, contract languages and storage of the contract text;
+  DSA points of contact (Art. 11, 12) and moderation in the terms (Art. 14,
+  16, 17); a data processing agreement on request for business hosts; the
+  competent supervisory authority (Hamburg). Removed claims that no longer
+  held (sign-in links; Sentry and PostHog are not in use).
+- Pay buttons say "Zahlungspflichtig bestellen" in German (§ 312j BGB); the
+  consent checkbox links the terms and the withdrawal instructions.
+- Order confirmation on a durable medium (§ 312f BGB): when an order turns
+  paid, the buyer gets an email in their language with the order, the VAT,
+  the time and wording of their consent, the withdrawal instructions and
+  form, and the German terms and withdrawal instructions attached (plus the
+  translations).
+- The withdrawal instructions give the company phone number, as the model
+  requires "where available"; it is already on Stripe invoices.

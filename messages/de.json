@@ -88,6 +88,24 @@
         "note": "Löschdatum: {date}",
         "button": "Jetzt herunterladen"
       }
+    },
+    "order": {
+      "subject": "Bestellbestätigung: {plan}, {event}",
+      "heading": "Vielen Dank für Ihre Bestellung",
+      "intro": "Wir haben Ihre Zahlung erhalten, der Plan ist für Ihr Event freigeschaltet. Diese E-Mail ist Ihre Bestellbestätigung und der Vertragstext; bitte bewahren Sie sie auf.",
+      "orderNo": "Bestellnr.",
+      "date": "Datum",
+      "event": "Event",
+      "plan": "Plan",
+      "upgrade": "Upgrade von {from}",
+      "total": "Gesamt (inkl. MwSt.)",
+      "vat": "Darin enthaltene MwSt. (19 %)",
+      "consentTitle": "Ihre Erklärung zum Widerrufsrecht",
+      "consent": "Am {time} haben Sie ausdrücklich verlangt, dass wir vor Ablauf der Widerrufsfrist mit der Leistung beginnen, und bestätigt, dass Ihnen bekannt ist, dass Ihr Widerrufsrecht erlischt, sobald die Leistung vollständig erbracht ist.",
+      "button": "Event öffnen",
+      "attachments": "Im Anhang finden Sie die Allgemeinen Geschäftsbedingungen und die Widerrufsbelehrung. Die Widerrufsbelehrung mit dem Muster-Widerrufsformular steht außerdem unten in dieser E-Mail.",
+      "footer": "Sie erhalten diese E-Mail, weil Sie bei {appName} einen Plan gekauft haben. Fragen? Antworten Sie auf diese E-Mail oder schreiben Sie an {email}.",
+      "seller": "Verkäufer: {seller}"
     }
   },
   "Landing": {
@@ -323,6 +341,7 @@
       "links": {
         "privacy": "Datenschutz",
         "terms": "AGB",
+        "withdrawal": "Widerrufsbelehrung",
         "cookies": "Cookies",
         "imprint": "Impressum",
         "dmca-report": "Inhalt melden",
@@ -332,9 +351,10 @@
     }
   },
   "Legal": {
-    "draft": "ENTWURF: Dieser Text wird vor dem Start anwaltlich geprüft.",
-    "englishOnly": "Derzeit nur auf Englisch verfügbar.",
-    "updated": "Zuletzt aktualisiert: {date}"
+    "draft": "ENTWURF: Dieser Text wird vor dem Start rechtlich geprüft.",
+    "updated": "Zuletzt aktualisiert: {date}",
+    "translation": "",
+    "german": ""
   },
   "Events": {
     "nameLabel": "Name des Events",
@@ -630,7 +650,7 @@
       "subtitleNone": "Wähle einen Plan.",
       "details": "{photos} Fotos, {gb} GB, {days} Tage Download-Zeitraum",
       "templates": "Druckvorlagen",
-      "pay": "Zu {plan} wechseln ({price})",
+      "pay": "Zahlungspflichtig auf {plan} wechseln ({price})",
       "note": "Sicher bezahlen mit Stripe. Alles bisher Hochgeladene bleibt, wie es ist.",
       "top": "Du hast schon den größten Plan.",
       "link": "Plan upgraden",
@@ -789,11 +809,11 @@
       "tax": "MwSt.",
       "taxValue": "inklusive",
       "total": "Gesamt",
-      "button": "{price} bezahlen",
+      "button": "Zahlungspflichtig bestellen ({price})",
       "secure": "Sichere Zahlung mit Stripe",
       "devNote": "Lokale Entwicklung: Zahlungen sind noch nicht angebunden, dieser Button aktiviert den Plan kostenlos.",
       "changePlan": "Plan ändern",
-      "consent": "Ich möchte, dass die Leistung sofort beginnt. Mir ist bekannt, dass mein 14-tägiges Widerrufsrecht erlischt, sobald die Leistung vollständig erbracht ist, und ich akzeptiere die <terms>AGB</terms>.",
+      "consent": "Ich verlange ausdrücklich, dass die Leistung sofort beginnt. Mir ist bekannt, dass mein 14-tägiges Widerrufsrecht erlischt, sobald die Leistung vollständig erbracht ist. Ich habe die <terms>AGB</terms> und die <withdrawal>Widerrufsbelehrung</withdrawal> gelesen und akzeptiere sie.",
       "failed": "Die Zahlungsseite konnte nicht geöffnet werden. Versuch es gleich noch einmal."
     },
     "review": {

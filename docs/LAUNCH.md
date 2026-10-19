@@ -7,15 +7,15 @@ local file that `scripts/launch-env.mjs` pushes to Vercel without printing.
 
 ## 0. Before the day
 
-| What                                                                                                                                                        | Who   |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
-| Lawyer has reviewed the legal pages (terms incl. withdrawal waiver text, privacy incl. IP storage and reports, imprint) and removed the `[Lawyer: …]` notes | Owner |
-| Tax adviser confirmed: flat 19% VAT (no OSS yet)                                                                                                            | Owner |
-| EUIPO trademark application for "EventRoll" (classes 9, 42)                                                                                                 | Owner |
-| Two-factor authentication on Vercel, Neon, Cloudflare, Resend, Upstash, Stripe, Google Cloud                                                                | Owner |
-| Production IP key saved in a password manager, `~/eventroll/IP_ENCRYPTION_KEY-production.txt` deleted                                                       | Owner |
-| Sightengine: a new API secret (the old one was pasted in a chat)                                                                                            | Owner |
-| Vercel Pro plan (commercial use)                                                                                                                            | Owner |
+| What                                                                                                                                                     | Who            |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| Legal texts (written by Claude, German binding) checked by a lawyer or a legal-text service; then remove the DRAFT banner and the noindex on legal pages | Owner + Claude |
+| Tax adviser confirmed: flat 19% VAT (no OSS yet)                                                                                                         | Owner          |
+| EUIPO trademark application for "EventRoll" (classes 9, 42)                                                                                              | Owner          |
+| Two-factor authentication on Vercel, Neon, Cloudflare, Resend, Upstash, Stripe, Google Cloud                                                             | Owner          |
+| Production IP key saved in a password manager, `~/eventroll/IP_ENCRYPTION_KEY-production.txt` deleted                                                    | Owner          |
+| Sightengine: a new API secret (the old one was pasted in a chat)                                                                                         | Owner          |
+| Vercel Pro plan (commercial use)                                                                                                                         | Owner          |
 
 ## 1. Accounts and keys (owner, ~30 min)
 

@@ -85,6 +85,24 @@
         "note": "Deletion date: {date}",
         "button": "Download now"
       }
+    },
+    "order": {
+      "subject": "Order confirmed: {plan}, {event}",
+      "heading": "Thank you for your order",
+      "intro": "We received your payment and the plan is active for your event. This email is your order confirmation and contract text; please keep it.",
+      "orderNo": "Order no.",
+      "date": "Date",
+      "event": "Event",
+      "plan": "Plan",
+      "upgrade": "upgrade from {from}",
+      "total": "Total (VAT included)",
+      "vat": "Of which VAT (19%)",
+      "consentTitle": "Your consent regarding the right of withdrawal",
+      "consent": "On {time} you expressly requested that the service start immediately, before the withdrawal period ends, and confirmed that you know your right of withdrawal ends once the service has been fully provided.",
+      "button": "Open your event",
+      "attachments": "Attached are the terms and conditions (AGB) and the withdrawal instructions; the German texts are binding. You'll also find the withdrawal instructions and the model form below.",
+      "footer": "You received this email because you bought a plan on {appName}. Questions? Reply to this email or write to {email}.",
+      "seller": "Seller: {seller}"
     }
   },
   "Landing": {
@@ -320,6 +338,7 @@
       "links": {
         "privacy": "Privacy policy",
         "terms": "Terms",
+        "withdrawal": "Right of withdrawal",
         "cookies": "Cookies",
         "imprint": "Imprint",
         "dmca-report": "Report content",
@@ -329,9 +348,10 @@
     }
   },
   "Legal": {
-    "draft": "DRAFT: this text will be reviewed by a lawyer before launch.",
-    "englishOnly": "",
-    "updated": "Last updated: {date}"
+    "draft": "DRAFT: this text will be legally checked before launch.",
+    "updated": "Last updated: {date}",
+    "translation": "This is a translation; the German text is binding.",
+    "german": "German text"
   },
   "Events": {
     "nameLabel": "Event name",
@@ -627,7 +647,7 @@
       "subtitleNone": "Pick a plan.",
       "details": "{photos} photos, {gb} GB, {days}-day download window",
       "templates": "print templates",
-      "pay": "Switch to {plan} ({price})",
+      "pay": "Switch to {plan}: pay {price}",
       "note": "Secure checkout with Stripe. Everything uploaded so far stays as it is.",
       "top": "You're already on the biggest plan.",
       "link": "Upgrade plan",
@@ -786,11 +806,11 @@
       "tax": "VAT",
       "taxValue": "included",
       "total": "Total",
-      "button": "Pay {price}",
+      "button": "Buy now: pay {price}",
       "secure": "Secure payment with Stripe",
       "devNote": "Local development: payments aren't connected yet, this button activates the plan for free.",
       "changePlan": "Change plan",
-      "consent": "I want the service to start right away. I know my 14-day right of withdrawal ends once the service has been fully provided, and I accept the <terms>terms</terms>.",
+      "consent": "I want the service to start right away. I know my 14-day right of withdrawal ends once the service has been fully provided. I have read and accept the <terms>terms</terms> and the <withdrawal>withdrawal instructions</withdrawal>.",
       "failed": "The payment page couldn't be opened. Please try again in a moment."
     },
     "review": {

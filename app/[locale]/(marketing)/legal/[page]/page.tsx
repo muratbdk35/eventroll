@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { MarketingHeader } from "@/components/marketing/marketing-header";
 import { SiteFooter } from "@/components/marketing/site-footer";
 import { env } from "@/lib/env";
+import { Link } from "@/lib/i18n/navigation";
 import { routing, type Locale } from "@/lib/i18n/routing";
 import { getLegalDoc, isLegalPage, legalPages } from "@/lib/legal/content";
 
@@ -13,21 +14,25 @@ export function generateStaticParams() {
   );
 }
 
-function doc(page: string) {
+function doc(page: string, locale: string) {
   if (!isLegalPage(page)) notFound();
-  return getLegalDoc(page, {
-    appName: env.NEXT_PUBLIC_APP_NAME,
-    supportEmail: env.SUPPORT_EMAIL ?? "[support email]",
-    appUrl: env.NEXT_PUBLIC_APP_URL.replace(/\/$/, ""),
-  });
+  return getLegalDoc(
+    page,
+    {
+      appName: env.NEXT_PUBLIC_APP_NAME,
+      supportEmail: env.SUPPORT_EMAIL ?? "[support email]",
+      appUrl: env.NEXT_PUBLIC_APP_URL.replace(/\/$/, ""),
+    },
+    locale,
+  );
 }
 
 export async function generateMetadata({
   params,
 }: PageProps<"/[locale]/legal/[page]">): Promise<Metadata> {
-  const { page } = await params;
+  const { page, locale } = await params;
   // DRAFT pages stay out of search results until reviewed.
-  return { title: doc(page).title, robots: { index: false } };
+  return { title: doc(page, locale).title, robots: { index: false } };
 }
 
 export default async function LegalPage({
@@ -35,7 +40,7 @@ export default async function LegalPage({
 }: PageProps<"/[locale]/legal/[page]">) {
   const { locale, page } = await params;
   setRequestLocale(locale as Locale);
-  const content = doc(page);
+  const content = doc(page, locale);
   const t = await getTranslations("Legal");
 
   return (
@@ -44,8 +49,20 @@ export default async function LegalPage({
       <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-10 sm:py-16">
         <p className="rounded-xl border border-dashed border-primary/40 bg-accent/60 px-4 py-3 text-sm text-accent-foreground">
           {t("draft")}
-          {locale !== "en" && <> {t("englishOnly")}</>}
         </p>
+        {/* Only the German text is binding (DECISIONS #68). */}
+        {locale !== "de" && (
+          <p className="mt-3 text-sm text-muted-foreground">
+            {t("translation")}{" "}
+            <Link
+              href={`/legal/${page}`}
+              locale="de"
+              className="font-medium text-primary underline underline-offset-2"
+            >
+              {t("german")}
+            </Link>
+          </p>
+        )}
         <h1 className="mt-10 font-heading text-3xl font-bold tracking-tight sm:text-4xl">
           {content.title}
         </h1>

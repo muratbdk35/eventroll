@@ -45,6 +45,7 @@ export async function SiteFooter() {
               [
                 "privacy",
                 "terms",
+                "withdrawal",
                 "cookies",
                 "imprint",
                 "dmca-report",

@@ -8,9 +8,12 @@ import {
   computeExpiresAt,
   computeExpiresAtFromEnd,
   CURRENCY,
+  isPlanId,
   type PlanId,
 } from "@/lib/plans";
 import { amountFor, canSelfRefund, planFromOrders } from "@/lib/pricing";
+import { sendOrderConfirmation } from "@/lib/email/order-confirmation";
+import { SELLER } from "@/lib/legal/content";
 import { stripe } from "@/lib/stripe";
 import { productId } from "@/lib/stripe-ids";
 
@@ -60,8 +63,7 @@ const PAID_NOTE: Record<string, string> = {
 };
 
 /** Printed at the bottom of every invoice (§ 14 UStG seller details). */
-const INVOICE_FOOTER =
-  "EventRoll ist ein Angebot der FeyaTech UG (haftungsbeschränkt), Pestalozzistraße 25, 22305 Hamburg. Geschäftsführerin: Feyza Barutcu. Amtsgericht Hamburg, HRB 186207. Steuernummer: 43/720/02102.";
+const INVOICE_FOOTER = `EventRoll ist ein Angebot der ${SELLER.company}, ${SELLER.address}. Geschäftsführerin: ${SELLER.managingDirector}. ${SELLER.register}. Steuernummer: ${SELLER.taxNumber}.`;
 
 const CHECKOUT_LOCALES = new Set(["tr", "de", "en"]);
 
@@ -217,9 +219,41 @@ export async function fulfilSession(session: Stripe.Checkout.Session) {
     .where(
       and(eq(orders.stripeSessionId, session.id), eq(orders.status, "pending")),
     )
-    .returning({ eventId: orders.eventId });
-  if (order) await syncPlan(order.eventId);
-  return order ? ("fulfilled" as const) : ("already" as const);
+    .returning({
+      id: orders.id,
+      eventId: orders.eventId,
+      plan: orders.plan,
+      paidAt: orders.paidAt,
+      withdrawalWaiverAt: orders.withdrawalWaiverAt,
+    });
+  if (!order) return "already" as const;
+  await syncPlan(order.eventId);
+  // The confirmation on a durable medium (§ 312f BGB). Only the request
+  // that turned the order paid gets here, so it is sent once.
+  const to = session.customer_details?.email ?? session.customer_email;
+  if (to) {
+    const [ev] = await db
+      .select({ name: events.name })
+      .from(events)
+      .where(eq(events.id, order.eventId))
+      .limit(1);
+    const from = session.metadata?.from;
+    await sendOrderConfirmation({
+      to,
+      locale: session.locale,
+      orderId: order.id,
+      eventId: order.eventId,
+      eventName: ev?.name ?? "",
+      plan: order.plan,
+      from: from && isPlanId(from) ? from : null,
+      amountCents: session.amount_total ?? 0,
+      taxCents: session.total_details?.amount_tax ?? 0,
+      currency: session.currency?.toUpperCase() ?? CURRENCY,
+      paidAt: order.paidAt ?? new Date(),
+      consentAt: order.withdrawalWaiverAt,
+    }).catch((e) => console.error("[order] confirmation email failed", e));
+  }
+  return "fulfilled" as const;
 }
 
 /** The success page: verify with Stripe instead of trusting the URL. */

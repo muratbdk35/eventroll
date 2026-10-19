@@ -88,6 +88,24 @@
         "note": "Silinme tarihi: {date}",
         "button": "Hemen indir"
       }
+    },
+    "order": {
+      "subject": "Siparişin onaylandı: {plan}, {event}",
+      "heading": "Siparişin için teşekkürler",
+      "intro": "Ödemen alındı ve planın etkinliğinde açıldı. Bu e-posta sipariş onayın ve sözleşme metnindir; lütfen sakla.",
+      "orderNo": "Sipariş no.",
+      "date": "Tarih",
+      "event": "Etkinlik",
+      "plan": "Plan",
+      "upgrade": "{from} planından yükseltme",
+      "total": "Toplam (KDV dahil)",
+      "vat": "İçindeki KDV (%19)",
+      "consentTitle": "Cayma hakkına ilişkin onayın",
+      "consent": "{time} tarihinde, hizmetin cayma süresi dolmadan hemen başlamasını açıkça istediğini ve hizmet tamamen sağlandığında cayma hakkının sona ereceğini bildiğini onayladın.",
+      "button": "Etkinliğini aç",
+      "attachments": "Ekte kullanım şartları (AGB) ve cayma bildirimi yer alıyor; bağlayıcı olan Almanca metinlerdir. Aşağıda cayma bildirimini ve örnek formu da bulabilirsin.",
+      "footer": "Bu e-postayı {appName}'de bir plan satın aldığın için aldın. Sorun olursa bu e-postayı yanıtla ya da {email} adresine yaz.",
+      "seller": "Satıcı: {seller}"
     }
   },
   "Landing": {
@@ -323,6 +341,7 @@
       "links": {
         "privacy": "Gizlilik politikası",
         "terms": "Kullanım şartları",
+        "withdrawal": "Cayma hakkı",
         "cookies": "Çerezler",
         "imprint": "Künye",
         "dmca-report": "İçerik bildir",
@@ -332,9 +351,10 @@
     }
   },
   "Legal": {
-    "draft": "TASLAK: Bu metin yayından önce bir avukat tarafından incelenecek.",
-    "englishOnly": "Şimdilik yalnızca İngilizce mevcut.",
-    "updated": "Son güncelleme: {date}"
+    "draft": "TASLAK: Bu metin yayından önce hukuki olarak kontrol edilecek.",
+    "updated": "Son güncelleme: {date}",
+    "translation": "Bu bir çeviridir; bağlayıcı olan Almanca metindir.",
+    "german": "Almanca metin"
   },
   "Events": {
     "nameLabel": "Etkinlik adı",
@@ -630,7 +650,7 @@
       "subtitleNone": "Bir plan seç.",
       "details": "{photos} fotoğraf, {gb} GB, {days} gün indirme süresi",
       "templates": "baskı şablonları",
-      "pay": "{plan} planına geç ({price})",
+      "pay": "{plan} planına geç: {price} öde",
       "note": "Stripe ile güvenli ödeme. Şimdiye kadar yüklenen her şey aynen kalır.",
       "top": "Zaten en büyük plandasın.",
       "link": "Planı yükselt",
@@ -789,11 +809,11 @@
       "tax": "KDV",
       "taxValue": "dahil",
       "total": "Toplam",
-      "button": "{price} öde",
+      "button": "Satın al: {price} öde",
       "secure": "Stripe ile güvenli ödeme",
       "devNote": "Yerel geliştirme: ödeme henüz bağlı değil, bu buton planı ücretsiz aktifleştirir.",
       "changePlan": "Planı değiştir",
-      "consent": "Hizmetin hemen başlamasını istiyorum. Hizmet tamamen sağlandığında 14 günlük cayma hakkımın sona ereceğini biliyorum ve <terms>kullanım şartlarını</terms> kabul ediyorum.",
+      "consent": "Hizmetin hemen başlamasını istiyorum. Hizmet tamamen sağlandığında 14 günlük cayma hakkımın sona ereceğini biliyorum. <terms>Kullanım şartlarını</terms> ve <withdrawal>cayma bildirimini</withdrawal> okudum ve kabul ediyorum.",
       "failed": "Ödeme sayfası açılamadı. Biraz sonra tekrar dene."
     },
     "review": {
