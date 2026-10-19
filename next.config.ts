@@ -22,7 +22,7 @@ const csp = [
   `img-src 'self' data: blob: https://*.r2.cloudflarestorage.com${vercelLive} https://vercel.com`,
   "media-src 'self' blob: https://*.r2.cloudflarestorage.com",
   `font-src 'self' data:${vercelLive}`,
-  `connect-src 'self' https://*.r2.cloudflarestorage.com https://challenges.cloudflare.com https://*.ingest.sentry.io https://*.ingest.de.sentry.io https://eu.i.posthog.com https://eu-assets.i.posthog.com${vercelLive}${preview ? " wss://ws-us3.pusher.com" : ""}${dev ? " ws: wss:" : ""}`,
+  `connect-src 'self' data: https://*.r2.cloudflarestorage.com https://challenges.cloudflare.com https://*.ingest.sentry.io https://*.ingest.de.sentry.io https://eu.i.posthog.com https://eu-assets.i.posthog.com${vercelLive}${preview ? " wss://ws-us3.pusher.com" : ""}${dev ? " ws: wss:" : ""}`,
   `frame-src https://challenges.cloudflare.com${vercelLive}`,
   "worker-src 'self' blob:",
   "frame-ancestors 'none'",
