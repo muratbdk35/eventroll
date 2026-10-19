@@ -22,6 +22,7 @@ export type LegalDoc = {
 export type LegalCtx = {
   appName: string;
   supportEmail: string;
+  phone: string;
   contactUrl: string;
   company: string;
   address: string;

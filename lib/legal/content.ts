@@ -1,11 +1,12 @@
 /**
- * Legal pages (DECISIONS #68, #69). German (de.ts) is the binding version;
- * en.ts is a translation for information and is also shown in Turkish. The texts describe what the
+ * Legal pages (DECISIONS #68, #70). German (de.ts) is the binding version;
+ * en.ts and tr.ts are translations for information. The texts describe what the
  * product actually does; change them together with the code, and have them
  * checked by a lawyer or a legal-text service before launch.
  */
 import { docsDe } from "./de";
 import { docsEn } from "./en";
+import { docsTr } from "./tr";
 import {
   legalPages,
   type LegalBlock,
@@ -21,6 +22,7 @@ export type { LegalBlock, LegalDoc, LegalPage };
 export const SELLER = {
   company: "FeyaTech UG (haftungsbeschränkt)",
   address: "Pestalozzistraße 25, 22305 Hamburg, Deutschland",
+  phone: "+49 176 61915459",
   managingDirector: "Feyza Barutcu",
   register: "Amtsgericht Hamburg, HRB 186207",
   taxNumber: "43/720/02102",
@@ -30,13 +32,12 @@ export function isLegalPage(value: string): value is LegalPage {
   return (legalPages as readonly string[]).includes(value);
 }
 
-export type LegalLocale = "de" | "en";
+export type LegalLocale = "de" | "en" | "tr";
 
-const BUILDERS = { de: docsDe, en: docsEn };
+const BUILDERS = { de: docsDe, en: docsEn, tr: docsTr };
 
-/** Turkish visitors read the English translation. */
 const pick = (locale: string): LegalLocale =>
-  locale === "en" || locale === "tr" ? "en" : "de";
+  locale in BUILDERS ? (locale as LegalLocale) : "de";
 
 export function getLegalDoc(
   page: LegalPage,
@@ -48,7 +49,7 @@ export function getLegalDoc(
     ...SELLER,
     appName: ctx.appName,
     supportEmail: ctx.supportEmail,
-    contactUrl: `${ctx.appUrl ?? ""}/${locale === "tr" ? "tr" : l}/contact`,
+    contactUrl: `${ctx.appUrl ?? ""}/${l}/contact`,
   };
   return BUILDERS[l](full)[page];
 }

@@ -669,7 +669,7 @@
     }
   },
   "Guest": {
-    "privacy": "Nur die Gastgeber sehen, was du hochlädst. Wir zeigen deine Fotos nie anderen Gästen.",
+    "privacy": "Nur die Gastgeber sehen, was du hochlädst. Wir zeigen deine Fotos nie anderen Gästen. Deine Fotos behalten Aufnahmezeit und, falls dein Handy ihn gespeichert hat, den Ort.",
     "pinTitle": "Event-PIN eingeben",
     "pinLabel": "PIN",
     "pinWrong": "Die PIN stimmt nicht.",

@@ -7,7 +7,7 @@ const UPDATED = "19 October 2026";
 
 export function docsEn(c: LegalCtx): LegalDocs {
   const seller = `${c.company}, ${c.address}`;
-  const reach = `${seller}, email: ${c.supportEmail}`;
+  const reach = `${seller}, phone: ${c.phone}, email: ${c.supportEmail}`;
   return {
     privacy: {
       title: "Privacy policy",
@@ -324,6 +324,7 @@ export function docsEn(c: LegalCtx): LegalDocs {
             c.address,
             `Represented by the managing director: ${c.managingDirector}`,
             `Commercial register: ${c.register}`,
+            `Phone: ${c.phone}`,
             `Email: ${c.supportEmail}`,
             `Contact form: ${c.contactUrl}`,
           ],

@@ -103,7 +103,7 @@
       "consentTitle": "Cayma hakkına ilişkin onayın",
       "consent": "{time} tarihinde, hizmetin cayma süresi dolmadan hemen başlamasını açıkça istediğini ve hizmet tamamen sağlandığında cayma hakkının sona ereceğini bildiğini onayladın.",
       "button": "Etkinliğini aç",
-      "attachments": "Kullanım şartları (AGB) ve cayma bildirimi ekte.",
+      "attachments": "Kullanım şartları (AGB) ve cayma bildirimi ekte: bağlayıcı Almanca metin ve Türkçe çevirisi.",
       "footer": "Bu e-postayı {appName}'de bir plan satın aldığın için aldın. Sorun olursa bu e-postayı yanıtla ya da {email} adresine yaz.",
       "seller": "Satıcı: {seller}"
     }
@@ -353,7 +353,7 @@
   "Legal": {
     "draft": "TASLAK: Bu metin yayından önce hukuki olarak kontrol edilecek.",
     "updated": "Son güncelleme: {date}",
-    "translation": "Bu sayfa İngilizcedir; bağlayıcı olan Almanca metindir.",
+    "translation": "Bu bir çeviridir; bağlayıcı olan Almanca metindir.",
     "german": "Almanca metin"
   },
   "Events": {
@@ -669,7 +669,7 @@
     }
   },
   "Guest": {
-    "privacy": "Yüklediklerini sadece ev sahibi görür. Fotoğrafların diğer misafirlere gösterilmez.",
+    "privacy": "Yüklediklerini sadece ev sahibi görür. Fotoğrafların diğer misafirlere gösterilmez. Fotoğraflar çekim zamanını ve telefonun kaydettiyse konumu içerir.",
     "pinTitle": "Etkinlik PIN'ini gir",
     "pinLabel": "PIN",
     "pinWrong": "PIN doğru değil.",

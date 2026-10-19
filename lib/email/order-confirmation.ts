@@ -85,17 +85,28 @@ export async function sendOrderConfirmation(o: {
     ? t("consent", { time: when(o.consentAt) })
     : null;
 
-  // The binding German texts as attachments (durable medium, § 312f BGB).
-  const attachments = [
-    {
-      filename: "AGB-EventRoll.txt",
-      content: legalText(getLegalDoc("terms", ctx, "de")),
+  // The binding German texts as attachments (durable medium, § 312f BGB),
+  // plus the buyer's language when that is not German.
+  const FILES: Record<Locale, [string, string]> = {
+    de: ["AGB-EventRoll.txt", "Widerrufsbelehrung-EventRoll.txt"],
+    en: ["Terms-EventRoll-EN.txt", "Withdrawal-EventRoll-EN.txt"],
+    tr: ["Kosullar-EventRoll-TR.txt", "Cayma-EventRoll-TR.txt"],
+  };
+  const attachments = (locale === "de" ? ["de"] : ["de", locale]).flatMap(
+    (l) => {
+      const [terms, withdrawal] = FILES[l as Locale];
+      return [
+        {
+          filename: terms,
+          content: legalText(getLegalDoc("terms", ctx, l)),
+        },
+        {
+          filename: withdrawal,
+          content: legalText(getLegalDoc("withdrawal", ctx, l)),
+        },
+      ];
     },
-    {
-      filename: "Widerrufsbelehrung-EventRoll.txt",
-      content: legalText(getLegalDoc("withdrawal", ctx, "de")),
-    },
-  ];
+  );
 
   const url = `${appUrl}/${locale}/dashboard/events/${o.eventId}`;
   const seller = `${SELLER.company}, ${SELLER.address}`;

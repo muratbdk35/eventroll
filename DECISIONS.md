@@ -1106,3 +1106,22 @@ The owner asked to cut what was more than a small app needs.
 - **Invoice footer** is one line, seller name and address. Our prices are
   under € 250 (Kleinbetragsrechnung), and Stripe prints the tax number.
 - **Trademark filing** is not a launch step; maybe later.
+
+## 70. Phone number and Turkish legal texts back (owner decision, 2026-10-19)
+
+A second review (Gemini, then checked) found two real gaps in #69:
+
+- **Phone number**: since 28 May 2022 the statutory model withdrawal
+  instructions (Anlage 1 Art. 246a EGBGB) require a phone number, not only
+  "where available". `SELLER.phone` (+49 176 61915459, from the owner) is in
+  the withdrawal instructions and the imprint.
+- **Turkish legal texts are back** (reverts that part of #69). The site and
+  checkout run in Turkish, so the terms and withdrawal instructions must be
+  understandable in that language. German stays binding. No KVKK wording: we
+  do not target Turkey (German company, EUR prices); naming KVKK would invite
+  VERBİS registration and transfer rules for nothing.
+- The order confirmation attaches the German texts plus the buyer's language.
+- The guest upload page says photos keep their capture time and, if saved, the
+  location (EXIF stays in the originals, see the privacy policy).
+- Not done: a ready-made DPA download. "On request" is enough until a business
+  customer asks.

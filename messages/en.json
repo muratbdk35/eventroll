@@ -100,7 +100,7 @@
       "consentTitle": "Your consent regarding the right of withdrawal",
       "consent": "On {time} you expressly requested that the service start immediately, before the withdrawal period ends, and confirmed that you know your right of withdrawal ends once the service has been fully provided.",
       "button": "Open your event",
-      "attachments": "The terms and conditions (AGB) and the withdrawal instructions are attached.",
+      "attachments": "The terms and conditions (AGB) and the withdrawal instructions are attached: the binding German text and an English translation.",
       "footer": "You received this email because you bought a plan on {appName}. Questions? Reply to this email or write to {email}.",
       "seller": "Seller: {seller}"
     }
@@ -666,7 +666,7 @@
     }
   },
   "Guest": {
-    "privacy": "Only the host sees what you upload. We never show your photos to other guests.",
+    "privacy": "Only the host sees what you upload. We never show your photos to other guests. Your photos keep their capture time and, if your phone saved it, the location.",
     "pinTitle": "Enter the event PIN",
     "pinLabel": "PIN",
     "pinWrong": "That PIN isn't right.",
