@@ -1036,3 +1036,7 @@ strict-origin-when-cross-origin` (event links don't leak to other sites),
   invoice. Above the threshold: get a USt-IdNr., register for OSS and set
   `STRIPE_TAX_ENABLED=true` (Stripe Tax, per-country rates). To be confirmed
   by the tax adviser. The restricted key also needs Tax Rates (write).
+- The company has no accounting software and invoices from Stripe. Since
+  its tax number can't be set as an account tax ID from our side, every
+  invoice carries the seller details in its footer (company, address,
+  managing director, register, Steuernummer) and shows the included VAT.

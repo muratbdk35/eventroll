@@ -52,6 +52,10 @@ function germanVat(): Promise<string | null> {
   return vatRate;
 }
 
+/** Printed at the bottom of every invoice (§ 14 UStG seller details). */
+const INVOICE_FOOTER =
+  "EventRoll ist ein Angebot der FeyaTech UG (haftungsbeschränkt), Pestalozzistraße 25, 22305 Hamburg. Geschäftsführerin: Feyza Barutcu. Amtsgericht Hamburg, HRB 186207. Steuernummer: 43/720/02102.";
+
 const CHECKOUT_LOCALES = new Set(["tr", "de", "en"]);
 
 export async function createCheckout(opts: {
@@ -126,6 +130,10 @@ export async function createCheckout(opts: {
       invoice_data: {
         description: `EventRoll ${plan}: ${event.name}`.slice(0, 1500),
         metadata,
+        // The seller's details, including the tax number (the company has
+        // no VAT ID), on every invoice (DECISIONS #66).
+        footer: INVOICE_FOOTER,
+        rendering_options: { amount_tax_display: "include_inclusive_tax" },
       },
     },
     // Stripe's minimum; an abandoned session expires and frees the order.
