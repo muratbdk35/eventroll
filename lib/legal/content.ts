@@ -298,7 +298,6 @@ export function getLegalDoc(
             address,
             "Represented by the managing director: Feyza Barutcu",
             "Commercial register: Amtsgericht Hamburg, HRB 186207",
-            "[VAT ID (USt-IdNr., DE…) if the company has one; the number on the company website, 43/720/02102, is a tax number and is not shown here.]",
             `Email: ${supportEmail}`,
             `Contact form: ${contactUrl}`,
           ],
