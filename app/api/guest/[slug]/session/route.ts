@@ -32,6 +32,13 @@ export async function POST(req: Request, { params }: Ctx) {
     return NextResponse.json({ error: "invalid" }, { status: 400 });
   }
 
+  // The bot check comes first, so every PIN guess costs a solved
+  // Turnstile (tokens are single-use) and nobody can burn through the
+  // event's attempts with a script to lock real guests out.
+  if (!(await verifyTurnstile(parsed.data.token, ip))) {
+    return NextResponse.json({ error: "captcha" }, { status: 403 });
+  }
+
   if (event.accessPinHash) {
     // Brute-force guard for the 4–8 digit PIN, keyed by IP and by event.
     const ok =
@@ -46,10 +53,6 @@ export async function POST(req: Request, { params }: Ctx) {
     if (!pinOk) {
       return NextResponse.json({ error: "wrong_pin" }, { status: 401 });
     }
-  }
-
-  if (!(await verifyTurnstile(parsed.data.token, ip))) {
-    return NextResponse.json({ error: "captcha" }, { status: 403 });
   }
 
   const guest = await issueGuestSession(event.id);

@@ -943,3 +943,24 @@ reminders planned in #23 were never built.
   can't be used" with a hint to save it as JPEG or HEIC.
 - Tested with synthetic RAW files (unit tests, and a 6 MB DNG uploaded
   through the guest page); not yet with real camera files.
+
+## 62. API hardening after a probe (2026-10-19)
+
+- Probed the test site as an outsider: every host route (QR, templates,
+  download list) refuses without a session or with a fake one; guest
+  presign/confirm refuse without a valid signed guest cookie; the cron
+  refuses without its secret; dev-login and dev-storage are off; sending a
+  sign-in code needs Turnstile; no CORS headers, so other sites can't read
+  our API. All 12 server actions check the owner (`getOwnedEvent`).
+- Fixed: the guest gate checked the PIN before Turnstile, so a script could
+  guess PINs (rate-limited, 8 per IP and 200 per event per 10 minutes) or
+  use up an event's 200 attempts to lock real guests out. Turnstile now
+  comes first; every guess needs a solved, single-use challenge. The page
+  already fetched a fresh challenge after each failure.
+- Fixed: uploads were only checked for declared type and size. Confirm now
+  reads the first bytes from storage and keeps the file only if it really
+  is the declared JPEG/PNG/WebP/GIF/HEIC (`looksLike`); the client-made
+  preview must be a JPEG. A renamed HTML page or program is discarded.
+- Known limit: a blocked phone can clear its cookies, solve Turnstile (and
+  the PIN) again and get a new device id. Blocking by IP/browser hash would
+  also block other guests on the venue Wi-Fi with the same phone model.

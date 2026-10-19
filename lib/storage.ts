@@ -112,6 +112,29 @@ export async function headObject(
   }
 }
 
+/** The first `n` bytes of an object (to check what a file really is). */
+export async function readHead(
+  key: string,
+  n = 32,
+): Promise<Uint8Array | null> {
+  if (!r2) {
+    const data = await localRead(key);
+    return data ? new Uint8Array(data.subarray(0, n)) : null;
+  }
+  try {
+    const res = await r2.client.send(
+      new GetObjectCommand({
+        Bucket: r2.bucket,
+        Key: key,
+        Range: `bytes=0-${n - 1}`,
+      }),
+    );
+    return res.Body ? await res.Body.transformToByteArray() : null;
+  } catch {
+    return null;
+  }
+}
+
 export async function deleteObjects(keys: string[]): Promise<void> {
   if (keys.length === 0) return;
   if (!r2) {

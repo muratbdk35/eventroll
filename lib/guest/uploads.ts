@@ -10,12 +10,14 @@ import {
   deleteObjects,
   headObject,
   presignPut,
+  readHead,
   type PresignedPut,
 } from "@/lib/storage";
 import {
   MAX_FILE_BYTES,
   MAX_THUMB_BYTES,
   originalKey,
+  looksLike,
   thumbKey,
   type AllowedMime,
 } from "@/lib/uploads";
@@ -145,7 +147,12 @@ export type ConfirmResult =
     }
   | {
       ok: false;
-      reason: "not_found" | "missing_file" | "device_limit" | "event_full";
+      reason:
+        | "not_found"
+        | "missing_file"
+        | "bad_file"
+        | "device_limit"
+        | "event_full";
     };
 
 /**
@@ -181,10 +188,23 @@ export async function confirmUpload(opts: {
     await discard(row);
     return { ok: false, reason: "missing_file" };
   }
+  // Only real photos are kept: the content must match the declared type.
+  const magic = await readHead(row.r2Key);
+  if (!magic || !looksLike(row.mime as AllowedMime, magic)) {
+    await discard(row);
+    return { ok: false, reason: "bad_file" };
+  }
   let thumb = row.thumbKey;
   if (thumb) {
     const th = await headObject(thumb);
-    if (!th || th.size === 0 || th.size > MAX_THUMB_BYTES) {
+    const thMagic = th && th.size > 0 ? await readHead(thumb) : null;
+    if (
+      !th ||
+      th.size === 0 ||
+      th.size > MAX_THUMB_BYTES ||
+      !thMagic ||
+      !looksLike("image/jpeg", thMagic)
+    ) {
       await deleteObjects([thumb]);
       thumb = null;
     }
