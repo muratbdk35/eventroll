@@ -74,6 +74,9 @@ export async function createCheckout(opts: {
     metadata,
     payment_intent_data: {
       metadata,
+      // Card statements read "<company>* EVENTROLL", so buyers recognise the
+      // charge (an unrecognised charge is the usual reason for disputes).
+      statement_descriptor_suffix: "EVENTROLL",
       description:
         `EventRoll ${plan}${event.plan ? ` (upgrade from ${event.plan})` : ""}: ${event.name}`.slice(
           0,
