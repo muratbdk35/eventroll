@@ -7,6 +7,8 @@ export type OutgoingEmail = {
   subject: string;
   html: string;
   text: string;
+  /** Where a reply goes (the contact form: the visitor's address). */
+  replyTo?: string;
 };
 
 const resend = env.RESEND_API_KEY ? new Resend(env.RESEND_API_KEY) : null;
@@ -30,6 +32,7 @@ export async function sendEmail(email: OutgoingEmail): Promise<string | null> {
     subject: email.subject,
     html: email.html,
     text: email.text,
+    ...(email.replyTo ? { replyTo: email.replyTo } : {}),
   });
   if (error) throw new Error(`Resend error: ${error.message}`);
   return data?.id ?? null;

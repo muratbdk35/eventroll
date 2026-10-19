@@ -326,7 +326,8 @@
         "cookies": "Çerezler",
         "imprint": "Künye",
         "dmca-report": "İçerik bildir",
-        "third-party": "Üçüncü taraf bildirimleri"
+        "third-party": "Üçüncü taraf bildirimleri",
+        "contact": "İletişim"
       }
     }
   },
@@ -845,5 +846,29 @@
     "body": "Sayfa yüklenirken bir hata oluştu. Tekrar dene; düzelmezse birkaç dakika sonra yeniden gel.",
     "retry": "Tekrar dene",
     "home": "Ana sayfa"
+  },
+  "Contact": {
+    "title": "İletişim",
+    "subtitle": "Sorun, öneri ya da iade isteği: yaz, en geç bir iş günü içinde e-postayla dönelim.",
+    "name": "Adın",
+    "email": "E-posta adresin",
+    "topic": "Konu",
+    "topics": {
+      "general": "Genel soru",
+      "payment": "Ödeme, fatura ya da iade",
+      "event": "Etkinliğimle ilgili yardım",
+      "legal": "Yasal bildirim ya da içerik şikâyeti"
+    },
+    "message": "Mesajın",
+    "send": "Gönder",
+    "privacy": "Mesajını sadece sana cevap vermek için kullanırız.",
+    "sentTitle": "Mesajın bize ulaştı",
+    "sentBody": "Cevabımızı {email} adresine göndereceğiz.",
+    "errors": {
+      "invalid": "Lütfen tüm alanları doldur; mesaj en az 10 karakter olmalı.",
+      "captcha": "Bot kontrolü tamamlanamadı, tekrar dene.",
+      "rate_limited": "Çok fazla mesaj gönderildi. Biraz sonra tekrar dene.",
+      "failed": "Mesaj gönderilemedi. Biraz sonra tekrar dene ya da hello@eventroll.eu adresine yaz."
+    }
   }
 }

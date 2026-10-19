@@ -323,7 +323,8 @@
         "cookies": "Cookies",
         "imprint": "Imprint",
         "dmca-report": "Report content",
-        "third-party": "Third-party notices"
+        "third-party": "Third-party notices",
+        "contact": "Contact"
       }
     }
   },
@@ -842,5 +843,29 @@
     "body": "An error occurred while loading the page. Try again; if it persists, come back in a few minutes.",
     "retry": "Try again",
     "home": "Home page"
+  },
+  "Contact": {
+    "title": "Contact",
+    "subtitle": "A problem, an idea or a refund request: write to us and we'll reply by email within one working day.",
+    "name": "Your name",
+    "email": "Your email",
+    "topic": "Topic",
+    "topics": {
+      "general": "General question",
+      "payment": "Payment, invoice or refund",
+      "event": "Help with my event",
+      "legal": "Legal notice or content complaint"
+    },
+    "message": "Your message",
+    "send": "Send",
+    "privacy": "We only use your message to reply to you.",
+    "sentTitle": "We got your message",
+    "sentBody": "We'll reply to {email}.",
+    "errors": {
+      "invalid": "Please fill in every field; the message needs at least 10 characters.",
+      "captcha": "The bot check didn't complete, please try again.",
+      "rate_limited": "Too many messages. Please try again later.",
+      "failed": "The message couldn't be sent. Try again later or write to hello@eventroll.eu."
+    }
   }
 }

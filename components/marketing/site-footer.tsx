@@ -57,6 +57,11 @@ export async function SiteFooter() {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link href="/contact" className={linkCls}>
+                {t("links.contact")}
+              </Link>
+            </li>
           </ul>
         </div>
       </div>

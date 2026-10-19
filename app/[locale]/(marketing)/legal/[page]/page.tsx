@@ -18,6 +18,7 @@ function doc(page: string) {
   return getLegalDoc(page, {
     appName: env.NEXT_PUBLIC_APP_NAME,
     supportEmail: env.SUPPORT_EMAIL ?? "[support email]",
+    appUrl: env.NEXT_PUBLIC_APP_URL.replace(/\/$/, ""),
   });
 }
 

@@ -34,9 +34,10 @@ const UPDATED = "18 October 2026";
 
 export function getLegalDoc(
   page: LegalPage,
-  ctx: { appName: string; supportEmail: string },
+  ctx: { appName: string; supportEmail: string; appUrl?: string },
 ): LegalDoc {
   const { appName, supportEmail } = ctx;
+  const contactUrl = `${ctx.appUrl ?? ""}/contact`;
   const company = "FeyaTech UG (haftungsbeschränkt)";
   const address = "Pestalozzistraße 25, 22305 Hamburg, Germany";
 
@@ -88,6 +89,7 @@ export function getLegalDoc(
         {
           heading: "4. Visiting our website",
           body: [
+            "Contact form: we use your name, email address and message only to answer you, and delete them when the matter is settled, at the latest after 12 months. The bot check uses Cloudflare Turnstile. Legal basis: Art. 6(1)(b) and (f) GDPR.",
             "When you load any page, our hosting provider processes technical data that your browser sends (IP address, date and time, page requested, browser and operating system) to deliver the page and keep it secure. Server logs are deleted after [14] days. Legal basis: Art. 6(1)(f) GDPR.",
             'Product analytics: if enabled, we use PostHog (EU Cloud) to count events such as "event created" or "upload completed". It runs without cookies or local storage, does not record sessions and respects the Do Not Track setting. Legal basis: Art. 6(1)(f) GDPR. [Lawyer: confirm whether consent under § 25 TDDDG is required; once a consent banner exists this will switch to Art. 6(1)(a) GDPR.]',
             "Error monitoring: if an error occurs we send a technical report to Sentry so we can fix it. Reports are configured to avoid personal data where possible. Legal basis: Art. 6(1)(f) GDPR.",
@@ -298,6 +300,7 @@ export function getLegalDoc(
             "Commercial register: Amtsgericht Hamburg, HRB 186207",
             "[VAT ID (USt-IdNr., DE…) if the company has one; the number on the company website, 43/720/02102, is a tax number and is not shown here.]",
             `Email: ${supportEmail}`,
+            `Contact form: ${contactUrl}`,
           ],
         },
         {

@@ -1004,3 +1004,20 @@ strict-origin-when-cross-origin` (event links don't leak to other sites),
 - Why: easy early refunds prevent chargebacks (fee and account risk); a
   refund costs only Stripe's kept fee when nothing was uploaded; no refund
   after the service was used.
+
+## 65. Contact form (2026-10-19)
+
+- The imprint needs a second fast way to reach us besides email; there is no
+  phone, so `/contact` (linked from the footer and the imprint) sends name,
+  email, topic and message to SUPPORT_EMAIL with the visitor as reply-to.
+- It never writes to the address typed in (no confirmation mail), so it
+  can't be used to send email to strangers. Turnstile, 5 messages per IP per
+  hour, and a hidden honeypot field (bots get a generic error). The privacy
+  policy (section 4) says what is kept and for how long.
+- Seller details in the legal pages: FeyaTech UG (haftungsbeschränkt),
+  Pestalozzistraße 25, 22305 Hamburg, managing director Feyza Barutcu,
+  Amtsgericht Hamburg HRB 186207. The company website lists 43/720/02102 as
+  "USt-ID", but it is a tax number and is not shown; the real USt-IdNr.
+  (DE…) is still to come. The company pays VAT, so EU sales to consumers in
+  other countries fall under OSS (Stripe Tax can apply the right rate; to be
+  confirmed with the tax adviser, `STRIPE_TAX_ENABLED`).

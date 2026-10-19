@@ -326,7 +326,8 @@
         "cookies": "Cookies",
         "imprint": "Impressum",
         "dmca-report": "Inhalt melden",
-        "third-party": "Hinweise zu Drittanbietern"
+        "third-party": "Hinweise zu Drittanbietern",
+        "contact": "Kontakt"
       }
     }
   },
@@ -845,5 +846,29 @@
     "body": "Beim Laden der Seite ist ein Fehler aufgetreten. Versuch es erneut; wenn es bleibt, komm in ein paar Minuten wieder.",
     "retry": "Erneut versuchen",
     "home": "Startseite"
+  },
+  "Contact": {
+    "title": "Kontakt",
+    "subtitle": "Ein Problem, eine Idee oder eine Erstattung: Schreib uns, wir antworten innerhalb eines Werktags per E-Mail.",
+    "name": "Dein Name",
+    "email": "Deine E-Mail",
+    "topic": "Thema",
+    "topics": {
+      "general": "Allgemeine Frage",
+      "payment": "Zahlung, Rechnung oder Erstattung",
+      "event": "Hilfe mit meinem Event",
+      "legal": "Rechtlicher Hinweis oder Inhaltsbeschwerde"
+    },
+    "message": "Deine Nachricht",
+    "send": "Senden",
+    "privacy": "Wir nutzen deine Nachricht nur, um dir zu antworten.",
+    "sentTitle": "Deine Nachricht ist angekommen",
+    "sentBody": "Wir antworten an {email}.",
+    "errors": {
+      "invalid": "Bitte füll alle Felder aus; die Nachricht braucht mindestens 10 Zeichen.",
+      "captcha": "Die Bot-Prüfung wurde nicht abgeschlossen, versuch es erneut.",
+      "rate_limited": "Zu viele Nachrichten. Versuch es später erneut.",
+      "failed": "Die Nachricht konnte nicht gesendet werden. Versuch es später oder schreib an hello@eventroll.eu."
+    }
   }
 }
