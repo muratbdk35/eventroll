@@ -1,0 +1,1 @@
+ALTER TABLE "media" ADD COLUMN "hold_until" timestamp with time zone;

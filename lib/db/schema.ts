@@ -173,6 +173,9 @@ export const media = pgTable(
     // whose photo was reported as CSAM.
     reportedAt: timestamp(tz),
     reportReason: text(),
+    // Reported photos are kept, locked, as evidence until this date (90 days,
+    // longer if the authorities ask), outside the normal deletion (#59).
+    holdUntil: timestamp(tz),
     status: mediaStatus().notNull().default("pending"),
     createdAt: createdAt(),
   },

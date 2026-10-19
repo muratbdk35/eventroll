@@ -894,3 +894,18 @@ reminders planned in #23 were never built.
   key. The production key lives in Vercel (sensitive) and in the owner's
   password manager; the test site has its own key. Without a key nothing is
   stored. The privacy policy says so (section 3 and 5).
+
+## 59. Reported photos kept 90 days as evidence (owner request, 2026-10-19)
+
+- A reported photo (and, for CSAM, the other photos of that phone) gets
+  `media.hold_until` = report + 90 days (migration 0012). Until then it is
+  outside every normal deletion: the purge after the download window, the
+  host deleting the event, a photo or a phone. It stays `hidden`, so no one
+  can see or download it, with the data about the upload (name, device,
+  encrypted IP, consent time) intact.
+- The daily job deletes it once the hold ends (`purgeHeld`): files gone,
+  guest data cleared; when and why it was reported stays on the row.
+- Longer only at the authorities' request: `npm run hold-report -- <media
+  id> <days>`. Keeping such material is lawful only to fulfil reporting and
+  evidence duties, hence a fixed, short default. Privacy policy updated.
+  Supersedes the "normal deletion still applies" line in #57.
