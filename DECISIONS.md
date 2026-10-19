@@ -909,3 +909,20 @@ reminders planned in #23 were never built.
   id> <days>`. Keeping such material is lawful only to fulfil reporting and
   evidence duties, hence a fixed, short default. Privacy policy updated.
   Supersedes the "normal deletion still applies" line in #57.
+
+## 60. Security headers (2026-10-19)
+
+- Every response carries a Content-Security-Policy, `X-Frame-Options: DENY`
+  (with `frame-ancestors 'none'`: no clickjacking of the dashboard),
+  `X-Content-Type-Options: nosniff`, `Referrer-Policy:
+  strict-origin-when-cross-origin` (event links don't leak to other sites),
+  a Permissions-Policy turning off camera, microphone, geolocation and USB
+  (photos are picked with the file input, which needs none of them), and
+  `Cross-Origin-Opener-Policy: same-origin-allow-popups` (Google sign-in).
+  HSTS comes from Vercel.
+- The CSP allows only our origin plus R2 (signed links, direct uploads),
+  Turnstile, and the optional Sentry and PostHog; `vercel.live` on preview
+  deployments only. Scripts keep `'unsafe-inline'` because Next.js inlines
+  its bootstrap; nonces would make every page dynamic. Checked with no
+  violations on the landing, login (Turnstile), create, guest and dashboard
+  pages.
