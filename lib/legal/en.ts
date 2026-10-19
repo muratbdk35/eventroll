@@ -3,7 +3,7 @@ import type { LegalCtx, LegalDocs } from "./types";
 /* English translation of de.ts, for information; the German text is
  * binding (DECISIONS #68). Keep both in step. */
 
-const UPDATED = "19 October 2026";
+const UPDATED = "20 October 2026";
 
 export function docsEn(c: LegalCtx): LegalDocs {
   const seller = `${c.company}, ${c.address}`;
@@ -57,6 +57,7 @@ export function docsEn(c: LegalCtx): LegalDocs {
           heading: "4. Visiting our website",
           body: [
             "When you load a page, our hosting provider processes technical data your browser sends (IP address, date and time, page requested, browser and operating system) to deliver and secure the page. These logs are deleted after 30 days at the latest. Legal basis: Art. 6(1)(f) GDPR.",
+            "Rate limiting: to prevent abuse we count requests per IP address (for example for uploads, the contact form and PIN entry). For this, the IP address is kept at Upstash for at most one hour and then deleted automatically. Legal basis: Art. 6(1)(f) GDPR.",
             "Contact form: we use your name, email address and message only to answer you and delete them when the matter is settled, at the latest after 12 months. The bot check uses Cloudflare Turnstile. Legal basis: Art. 6(1)(b) and (f) GDPR.",
             `Withdrawal function (${c.withdrawUrl}): we use your name, the order number and your email address to match the withdrawal, confirm its receipt and process it. Legal basis: legal obligation (Art. 6(1)(c) GDPR, § 356a BGB). We keep the details as proof for as long as claims under the contract can be made, at most three years.`,
             "Analytics and error monitoring: we currently use no analytics or error monitoring services. Should we use PostHog (EU Cloud, without cookies) or Sentry in future, we will update this policy first.",
@@ -87,6 +88,7 @@ export function docsEn(c: LegalCtx): LegalDocs {
               "Upstash Inc. – rate limiting (EU region);",
               "Sightengine SAS (Paris) – automatic check of previews for explicit content; images are not stored after the check;",
               'Google Ireland Ltd. – only if you choose "Sign in with Google".',
+              "Google Ireland Ltd. (Gmail) – the mailbox that email to our address is forwarded to (contact form, withdrawals, reports, requests).",
             ],
             "Some of these companies are based in the United States. Where data may be transferred there, we rely on the EU-US Data Privacy Framework or the EU Commission's Standard Contractual Clauses.",
             "We do not sell personal data and do not use your photos for advertising or to train AI models.",
@@ -303,6 +305,7 @@ export function docsEn(c: LegalCtx): LegalDocs {
               "Sign-in (hosts): keeps you signed in. Expires when you sign out or after 7 days without use.",
               "Language (NEXT_LOCALE): remembers the language you picked.",
               "Guest device (erg_…): one per event; holds a random device ID and proof that the bot check (and PIN, if any) was passed. The proof lasts 12 hours, the device ID one year or until the event is deleted.",
+              "Local storage in your browser: an event draft you start before signing in, and which photos you have already saved to your phone, stay only in your browser and are not sent to us. You can clear both in your browser settings.",
             ],
             "On Stripe's payment page, Stripe sets its own cookies needed for the payment and fraud prevention; Stripe's privacy policy applies to them.",
           ],

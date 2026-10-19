@@ -7,7 +7,7 @@ import type { LegalCtx, LegalDocs } from "./types";
  * launch. Change them together with the code.
  */
 
-const UPDATED = "19. Oktober 2026";
+const UPDATED = "20. Oktober 2026";
 
 export function docsDe(c: LegalCtx): LegalDocs {
   const seller = `${c.company}, ${c.address}`;
@@ -61,6 +61,7 @@ export function docsDe(c: LegalCtx): LegalDocs {
           heading: "4. Besuch unserer Website",
           body: [
             "Beim Aufruf einer Seite verarbeitet unser Hosting-Anbieter technische Daten, die Ihr Browser sendet (IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Browser und Betriebssystem), um die Seite auszuliefern und abzusichern. Diese Protokolle werden nach höchstens 30 Tagen gelöscht. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.",
+            "Begrenzung von Zugriffen: Um Missbrauch zu verhindern, zählen wir Anfragen pro IP-Adresse (zum Beispiel beim Hochladen, beim Kontaktformular und bei der PIN-Eingabe). Dafür wird die IP-Adresse bei Upstash höchstens eine Stunde gespeichert und dann automatisch gelöscht. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.",
             "Kontaktformular: Ihren Namen, Ihre E-Mail-Adresse und Ihre Nachricht nutzen wir nur, um Ihnen zu antworten, und löschen sie, wenn die Sache erledigt ist, spätestens nach 12 Monaten. Die Bot-Prüfung erfolgt mit Cloudflare Turnstile. Rechtsgrundlage: Art. 6 Abs. 1 lit. b und f DSGVO.",
             `Widerrufsfunktion (${c.withdrawUrl}): Ihren Namen, die Bestellnummer und Ihre E-Mail-Adresse nutzen wir, um den Widerruf zuzuordnen, Ihnen den Eingang zu bestätigen und ihn abzuwickeln. Rechtsgrundlage: rechtliche Verpflichtung (Art. 6 Abs. 1 lit. c DSGVO, § 356a BGB). Wir bewahren die Angaben als Nachweis auf, solange Ansprüche aus dem Vertrag geltend gemacht werden können, höchstens drei Jahre.`,
             "Produktanalyse und Fehlerüberwachung: Derzeit setzen wir keine Analyse- oder Fehlerüberwachungsdienste ein. Sollten wir künftig PostHog (EU Cloud, ohne Cookies) oder Sentry nutzen, ergänzen wir diese Erklärung vorher.",
@@ -91,6 +92,7 @@ export function docsDe(c: LegalCtx): LegalDocs {
               "Upstash Inc. – Begrenzung von Zugriffen (EU-Region);",
               "Sightengine SAS (Paris) – automatische Prüfung von Vorschaubildern auf explizite Inhalte; die Bilder werden nach der Prüfung nicht gespeichert;",
               "Google Ireland Ltd. – nur, wenn Sie „Mit Google anmelden“ wählen.",
+              "Google Ireland Ltd. (Gmail) – Postfach, an das E-Mails an unsere Adresse weitergeleitet werden (Kontaktformular, Widerrufe, Meldungen, Anfragen).",
             ],
             "Einige dieser Unternehmen haben ihren Sitz in den USA. Soweit Daten dorthin übermittelt werden können, stützen wir uns auf das EU-US Data Privacy Framework oder auf die Standardvertragsklauseln der EU-Kommission.",
             "Wir verkaufen keine personenbezogenen Daten und verwenden Ihre Fotos weder für Werbung noch zum Training von KI-Modellen.",
@@ -307,6 +309,7 @@ export function docsDe(c: LegalCtx): LegalDocs {
               "Anmeldung (Gastgeber): hält Sie angemeldet. Läuft ab, wenn Sie sich abmelden oder nach 7 Tagen ohne Nutzung.",
               "Sprache (NEXT_LOCALE): merkt sich die gewählte Sprache.",
               "Gastgerät (erg_…): eines pro Event; enthält eine zufällige Geräte-ID und den Nachweis, dass die Bot-Prüfung (und gegebenenfalls die PIN) bestanden wurde. Der Nachweis gilt 12 Stunden, die Geräte-ID ein Jahr oder bis das Event gelöscht wird.",
+              "Lokaler Speicher im Browser: Ein Event-Entwurf, den Sie vor der Anmeldung beginnen, und die Angabe, welche Fotos Sie schon auf Ihr Handy gespeichert haben, bleiben nur in Ihrem Browser und werden nicht an uns gesendet. Beides löschen Sie über die Browser-Einstellungen.",
             ],
             "Auf der Zahlungsseite von Stripe setzt Stripe eigene, für die Zahlung und Betrugsabwehr notwendige Cookies; dafür gilt die Datenschutzerklärung von Stripe.",
           ],

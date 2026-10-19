@@ -3,7 +3,7 @@ import type { LegalCtx, LegalDocs } from "./types";
 /* Turkish translation of de.ts, for information; the German text is
  * binding (DECISIONS #68). Keep both in step. */
 
-const UPDATED = "19 Ekim 2026";
+const UPDATED = "20 Ekim 2026";
 
 export function docsTr(c: LegalCtx): LegalDocs {
   const seller = `${c.company}, ${c.address}`;
@@ -57,6 +57,7 @@ export function docsTr(c: LegalCtx): LegalDocs {
           heading: "4. Sitemizin ziyareti",
           body: [
             "Bir sayfayı açtığınızda barındırma sağlayıcımız, sayfayı sunmak ve güvenliğini sağlamak için tarayıcınızın gönderdiği teknik verileri (IP adresi, tarih ve saat, açılan sayfa, tarayıcı ve işletim sistemi) işler. Bu kayıtlar en geç 30 gün sonra silinir. Hukuki dayanak: GDPR m. 6/1-f.",
+            "Erişim sınırlama: Kötüye kullanımı önlemek için IP adresi başına istekleri sayarız (örneğin yüklemede, iletişim formunda ve PIN girişinde). Bunun için IP adresi Upstash'te en fazla bir saat tutulur ve sonra otomatik olarak silinir. Hukuki dayanak: GDPR m. 6/1-f.",
             "İletişim formu: adınızı, e-posta adresinizi ve mesajınızı yalnızca size cevap vermek için kullanır, konu kapandığında, en geç 12 ay sonra sileriz. Bot kontrolü Cloudflare Turnstile ile yapılır. Hukuki dayanak: GDPR m. 6/1-b ve f.",
             `Cayma işlevi (${c.withdrawUrl}): adınızı, sipariş numarasını ve e-posta adresinizi caymayı siparişle eşleştirmek, alındığını teyit etmek ve işlemek için kullanırız. Hukuki dayanak: yasal yükümlülük (GDPR m. 6/1-c, BGB § 356a). Bu bilgileri sözleşmeden doğan talepler ileri sürülebildiği sürece, en fazla üç yıl kanıt olarak saklarız.`,
             "Analiz ve hata izleme: Şu anda hiçbir analiz veya hata izleme hizmeti kullanmıyoruz. İleride PostHog (AB bulutu, çerezsiz) ya da Sentry kullanırsak bu metni önceden güncelleriz.",
@@ -87,6 +88,7 @@ export function docsTr(c: LegalCtx): LegalDocs {
               "Upstash Inc. – erişim sınırlama (AB bölgesi);",
               "Sightengine SAS (Paris) – önizlemelerin müstehcen içeriğe karşı otomatik kontrolü; görüntüler kontrolden sonra saklanmaz;",
               "Google Ireland Ltd. – yalnızca „Google ile giriş“i seçerseniz.",
+              "Google Ireland Ltd. (Gmail) – adresimize gelen e-postaların yönlendirildiği posta kutusu (iletişim formu, cayma bildirimleri, içerik bildirimleri, talepler).",
             ],
             "Bu şirketlerden bazıları ABD'de bulunmaktadır. Verilerin oraya aktarılabildiği durumlarda AB-ABD Veri Gizliliği Çerçevesi'ne ya da AB Komisyonu'nun Standart Sözleşme Maddeleri'ne dayanırız.",
             "Kişisel verileri satmayız; fotoğraflarınızı reklam için veya yapay zekâ modellerini eğitmek için kullanmayız.",
@@ -303,6 +305,7 @@ export function docsTr(c: LegalCtx): LegalDocs {
               "Giriş (etkinlik sahipleri): oturumunuzu açık tutar. Çıkış yaptığınızda veya 7 gün kullanılmadığında sona erer.",
               "Dil (NEXT_LOCALE): seçtiğiniz dili hatırlar.",
               "Misafir cihazı (erg_…): her etkinlik için bir tane; rastgele bir cihaz kimliği ve bot kontrolünün (varsa PIN'in) geçildiğine dair kanıt içerir. Kanıt 12 saat, cihaz kimliği bir yıl veya etkinlik silinene kadar geçerlidir.",
+              "Tarayıcıdaki yerel depolama: Giriş yapmadan önce başladığınız etkinlik taslağı ve hangi fotoğrafları telefonunuza kaydettiğiniz bilgisi yalnızca tarayıcınızda kalır, bize gönderilmez. İkisini de tarayıcı ayarlarından silebilirsiniz.",
             ],
             "Stripe'ın ödeme sayfasında Stripe, ödeme ve dolandırıcılığı önleme için gerekli kendi çerezlerini kullanır; bunlar için Stripe'ın gizlilik politikası geçerlidir.",
           ],
