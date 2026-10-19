@@ -1,4 +1,4 @@
-import { planOrder, plans, type PlanId } from "@/lib/plans";
+import { CURRENCY, planOrder, plans, type PlanId } from "@/lib/plans";
 import type { ReceiptCardProps, Tier } from "./receipt-card";
 
 type T = (key: string, values?: Record<string, string | number>) => string;
@@ -32,10 +32,10 @@ export function receiptContent(
   const tier = planOrder.indexOf(id) as Tier;
   // Locale-aware so Turkish gets "İ" rather than "I".
   const upper = (s: string) => s.toLocaleUpperCase(locale);
-  const usd = (n: number, digits = 0) =>
+  const money = (n: number, digits = 0) =>
     number(n, {
       style: "currency",
-      currency: "USD",
+      currency: CURRENCY,
       minimumFractionDigits: digits,
       maximumFractionDigits: digits,
     });
@@ -76,9 +76,9 @@ export function receiptContent(
     billingLabel: t("billing"),
     billingValue: t("oneTime"),
     totalLabel: t("total"),
-    total: usd(p.priceUsd),
+    total: money(p.price),
     perGuest: t("perGuest", {
-      price: usd(p.priceUsd / p.guestsHint, 2),
+      price: money(p.price / p.guestsHint, 2),
       guests: number(p.guestsHint),
     }),
     thanks: t("thanks", { no: String(tier + 1).padStart(4, "0") }),

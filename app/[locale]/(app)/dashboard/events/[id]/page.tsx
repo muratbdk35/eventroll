@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
-import { Archive, ExternalLink, HardDrive, Settings } from "lucide-react";
+import {
+  Archive,
+  ExternalLink,
+  HardDrive,
+  Settings,
+  Sparkles,
+} from "lucide-react";
 import {
   getFormatter,
   getTranslations,
@@ -16,6 +22,11 @@ import { FlaggedBanner } from "@/components/host/flagged-banner";
 import { PhotoGrid } from "@/components/host/photo-grid";
 import { RefreshButton } from "@/components/host/refresh-button";
 import { PrintTemplates } from "@/components/host/print-templates";
+import { RefundCard } from "@/components/host/refund-card";
+import {
+  UpgradePanel,
+  type UpgradeOption,
+} from "@/components/host/upgrade-panel";
 import { ResumeSetup } from "@/components/host/resume-setup";
 import { SettingsForm } from "@/components/host/settings-form";
 import { TicketSettings } from "@/components/host/ticket-settings";
@@ -32,7 +43,9 @@ import {
   mediaByUploader,
 } from "@/lib/events/queries";
 import { pastWindow } from "@/lib/events/notices";
-import { nextPlan, plans } from "@/lib/plans";
+import { CURRENCY, nextPlan, planOrder, plans } from "@/lib/plans";
+import { fulfilSessionId, selfRefundable } from "@/lib/payments";
+import { amountFor } from "@/lib/pricing";
 import { cn } from "@/lib/utils";
 import { ticketColor } from "@/lib/events/ticket";
 import { guestUrl } from "@/lib/events/urls";
@@ -51,7 +64,7 @@ export async function generateMetadata({
   return { title: event?.name, robots: { index: false } };
 }
 
-type View = "main" | "photos" | "share" | "settings" | "print";
+type View = "main" | "photos" | "share" | "settings" | "print" | "upgrade";
 
 /** Newest photos on the event page; the rest under "See all". */
 const PREVIEW_PHOTOS = 12;
@@ -68,13 +81,34 @@ export default async function EventPage({
   // The layout already redirects signed-out visitors.
   const session = (await getSession())!;
 
+  // Back from Stripe after an upgrade: confirm with Stripe before reading.
+  const spEarly = await searchParams;
+  const paidSession = Array.isArray(spEarly.session_id)
+    ? spEarly.session_id[0]
+    : spEarly.session_id;
+  if (paidSession) {
+    await fulfilSessionId(paidSession, session.user.id).catch((e) =>
+      console.error("[checkout] return verification failed", e),
+    );
+    // Reload without the session id: the page metadata may already have
+    // read the event before the plan changed.
+    return redirect({
+      href: `/dashboard/events/${id}?upgraded=1`,
+      locale,
+    });
+  }
+
   const event = await getOwnedEvent(id, session.user.id);
   if (!event) return redirect({ href: "/dashboard", locale });
 
   const sp = await searchParams;
   const raw = sp.view ?? sp.tab;
   const view: View =
-    raw === "photos" || raw === "share" || raw === "settings" || raw === "print"
+    raw === "photos" ||
+    raw === "share" ||
+    raw === "settings" ||
+    raw === "print" ||
+    raw === "upgrade"
       ? raw
       : "main";
   const shown =
@@ -161,6 +195,34 @@ export default async function EventPage({
     </div>
   );
 
+  const upgradeOptions: UpgradeOption[] =
+    view === "upgrade"
+      ? planOrder.flatMap((id) => {
+          const cents = amountFor(event.plan, id);
+          if (cents === null) return [];
+          const p = plans[id];
+          return [
+            {
+              id,
+              name: tp(`plans.${id}.name`),
+              price: format.number(cents / 100, {
+                style: "currency",
+                currency: CURRENCY,
+                maximumFractionDigits: 0,
+              }),
+              details: t("upgrade.details", {
+                photos: format.number(p.maxItems),
+                gb: p.maxBytes / 1024 ** 3,
+                days: p.retentionDays,
+              }),
+              templates: p.printTemplates && !limits?.printTemplates,
+            },
+          ];
+        })
+      : [];
+  const refundable =
+    view === "settings" && !devMode && (await selfRefundable(event.id));
+
   if (!withPhotos) {
     return (
       <PageBody>
@@ -177,7 +239,31 @@ export default async function EventPage({
         )}
         {header}
         <div className="mt-8">
-          {view === "print" ? (
+          {view === "upgrade" ? (
+            upgradeOptions.length > 0 ? (
+              <>
+                <h2 className="font-heading text-xl font-semibold">
+                  {t("upgrade.title")}
+                </h2>
+                <p className="mt-1 mb-6 text-sm text-pretty text-muted-foreground">
+                  {event.plan
+                    ? t("upgrade.subtitle", {
+                        plan: tp(`plans.${event.plan}.name`),
+                      })
+                    : t("upgrade.subtitleNone")}
+                </p>
+                <UpgradePanel
+                  eventId={event.id}
+                  options={upgradeOptions}
+                  devMode={devMode}
+                />
+              </>
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                {t("upgrade.top")}
+              </p>
+            )
+          ) : view === "print" ? (
             published ? (
               <>
                 <h2 className="font-heading text-xl font-semibold">
@@ -192,7 +278,6 @@ export default async function EventPage({
                   hasPin={Boolean(event.accessPinHash)}
                   pin={event.accessPin}
                   included={templates}
-                  devMode={devMode}
                 />
               </>
             ) : (
@@ -247,6 +332,7 @@ export default async function EventPage({
                   }}
                 />
               </SettingsForm>
+              {refundable && <RefundCard eventId={event.id} />}
             </div>
           )}
         </div>
@@ -363,6 +449,16 @@ export default async function EventPage({
       <BackLink href="/dashboard">{t("back")}</BackLink>
       {header}
 
+      {sp.upgraded && event.plan && (
+        <p
+          role="status"
+          className="mt-6 flex items-center gap-2 rounded-2xl border border-success/30 bg-success/10 p-3.5 text-sm font-semibold"
+        >
+          <Sparkles className="size-4 text-success" aria-hidden />
+          {t("upgrade.done")} {tp(`plans.${event.plan}.name`)}
+        </p>
+      )}
+
       <div className="mt-8">
         {expired ? (
           <div className="flex items-start gap-4 rounded-2xl border border-border bg-card p-5 shadow-sm">
@@ -424,6 +520,14 @@ export default async function EventPage({
                   gb: plans[upgrade].maxBytes / 1024 ** 3,
                 })}`}
             </p>
+            {upgrade && (
+              <Link
+                href={`${eventPath}?view=upgrade`}
+                className="mt-2 inline-flex text-[13px] font-semibold text-primary underline-offset-2 hover:underline"
+              >
+                {t("upgrade.link")}
+              </Link>
+            )}
           </div>
         </div>
       )}

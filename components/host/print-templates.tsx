@@ -12,17 +12,16 @@ import {
   Tent,
 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { devActivate } from "@/lib/events/actions";
 import {
   TICKET_COLORS,
   ticketColors,
   type TicketColor,
 } from "@/lib/events/ticket";
-import { useRouter } from "@/lib/i18n/navigation";
+import { Link } from "@/lib/i18n/navigation";
 import type { TemplateId } from "@/lib/print/sheet";
 import { cn } from "@/lib/utils";
 
@@ -47,7 +46,6 @@ export function PrintTemplates({
   hasPin,
   pin,
   included,
-  devMode,
 }: {
   eventId: string;
   /** The guest ticket's colour, so the cards match the guest page. */
@@ -57,12 +55,10 @@ export function PrintTemplates({
   pin: string | null;
   /** The plan includes the print templates (Pro and VIP). */
   included: boolean;
-  devMode: boolean;
 }) {
   const t = useTranslations("Events.print");
   const tc = useTranslations("Events.ticket.colors");
   const locale = useLocale();
-  const router = useRouter();
   const [template, setTemplate] = useState<TemplateId>("cards");
   const [color, setColor] = useState<TicketColor>(initialColor);
   const [paper, setPaper] = useState(false);
@@ -72,7 +68,6 @@ export function PrintTemplates({
   const [showPin, setShowPin] = useState(Boolean(pin));
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [upgrading, startUpgrade] = useTransition();
 
   useEffect(() => {
     const id = setTimeout(() => setTyped(headline), 450);
@@ -335,25 +330,12 @@ export function PrintTemplates({
                 </a>
               </Button>
             </div>
-            {devMode && (
-              <Button
-                className="mt-2 h-9 w-full rounded-full"
-                disabled={upgrading}
-                onClick={() =>
-                  startUpgrade(async () => {
-                    await devActivate(eventId, "pro");
-                    router.refresh();
-                  })
-                }
-              >
-                {upgrading ? (
-                  <Loader2 className="animate-spin" aria-hidden />
-                ) : (
-                  <Sparkles aria-hidden />
-                )}
-                Pro (dev)
-              </Button>
-            )}
+            <Button asChild className="mt-2 h-9 w-full rounded-full">
+              <Link href={`/dashboard/events/${eventId}?view=upgrade`}>
+                <Sparkles aria-hidden />
+                {t("upgradeCta")}
+              </Link>
+            </Button>
           </div>
         )}
       </div>

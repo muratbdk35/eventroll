@@ -2,6 +2,7 @@
 
 import { and, eq, isNull, sql, type SQL } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
 import { after } from "next/server";
 import { getLocale } from "next-intl/server";
 import { getSession } from "@/lib/auth";
@@ -11,9 +12,11 @@ import { hashPin } from "@/lib/guest/session";
 import {
   computeExpiresAt,
   computeExpiresAtFromEnd,
+  isPlanId,
   type PlanId,
 } from "@/lib/plans";
 import { sendReportNotice } from "@/lib/email/report";
+import { createCheckout, refundEvent, selfRefundable } from "@/lib/payments";
 import { deleteObjects } from "@/lib/storage";
 import { getOwnedEvent } from "./queries";
 import {
@@ -32,7 +35,14 @@ export type ActionResult<T = object> =
   | {
       ok: false;
       error:
-        "unauthorized" | "invalid" | "not_found" | "forbidden" | "needs_plan";
+        | "unauthorized"
+        | "invalid"
+        | "not_found"
+        | "forbidden"
+        | "needs_plan"
+        | "unavailable"
+        | "failed"
+        | "not_refundable";
     };
 
 async function requireUser() {
@@ -373,6 +383,69 @@ async function removeMedia(eventId: string, where: SQL | undefined) {
         .where(eq(events.id, eventId));
     }
   });
+}
+
+/**
+ * Starts Stripe Checkout for a plan or an upgrade (DECISIONS #63). The host
+ * must have ticked the withdrawal waiver on our page; the time is stored on
+ * the order. Returns the Checkout URL to send the browser to.
+ */
+export async function startCheckout(
+  eventId: string,
+  plan: PlanId,
+  consent: boolean,
+  from: "create" | "dashboard",
+): Promise<ActionResult<{ url: string }>> {
+  if (!consent || !isPlanId(plan)) return { ok: false, error: "invalid" };
+  const user = await requireUser();
+  if (!user) return { ok: false, error: "unauthorized" };
+  const event = await getOwnedEvent(eventId, user.id);
+  if (!event) return { ok: false, error: "not_found" };
+  const locale = await getLocale();
+  const h = await headers();
+  const origin =
+    h.get("origin") ??
+    `https://${h.get("host") ?? new URL(env.NEXT_PUBLIC_APP_URL).host}`;
+  const base = `/${locale}`;
+  const res = await createCheckout({
+    event,
+    plan,
+    email: user.email,
+    ownerId: user.id,
+    locale,
+    origin,
+    successPath:
+      from === "create"
+        ? `${base}/create?step=review&event=${event.id}`
+        : `${base}/dashboard/events/${event.id}?upgraded=1`,
+    cancelPath:
+      from === "create"
+        ? `${base}/create?step=pay&plan=${plan}&event=${event.id}`
+        : `${base}/dashboard/events/${event.id}?view=upgrade`,
+    consentAt: new Date(),
+  });
+  return res.ok
+    ? { ok: true, url: res.url }
+    : { ok: false, error: res.error as "invalid" | "unavailable" | "failed" };
+}
+
+/**
+ * One-click refund (DECISIONS #64): only while no photo was ever uploaded and
+ * within 14 days of the first payment. Everything paid for the event is
+ * refunded in full and the event goes back to a draft without a plan.
+ */
+export async function refundPlan(eventId: string): Promise<ActionResult> {
+  const user = await requireUser();
+  if (!user) return { ok: false, error: "unauthorized" };
+  const event = await getOwnedEvent(eventId, user.id);
+  if (!event) return { ok: false, error: "not_found" };
+  if (!(await selfRefundable(event.id))) {
+    return { ok: false, error: "not_refundable" };
+  }
+  if (!(await refundEvent(event.id)))
+    return { ok: false, error: "unavailable" };
+  revalidatePath("/[locale]/dashboard", "layout");
+  return { ok: true };
 }
 
 /**

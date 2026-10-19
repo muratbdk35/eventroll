@@ -10,8 +10,8 @@
 export type PlanId = "mini" | "standard" | "pro" | "vip";
 
 export type PlanLimits = {
-  /** One-time price in USD (tax-inclusive, see DECISIONS.md #2). */
-  priceUsd: number;
+  /** One-time price in whole euros, VAT included (DECISIONS #2, #63). */
+  price: number;
   maxItems: number;
   maxBytes: number;
   /** Days after the event during which everything can be downloaded. */
@@ -26,7 +26,7 @@ const GB = 1024 ** 3;
 
 export const plans: Record<PlanId, PlanLimits> = {
   mini: {
-    priceUsd: 19,
+    price: 19,
     maxItems: 1000,
     maxBytes: 10 * GB,
     retentionDays: 7,
@@ -34,7 +34,7 @@ export const plans: Record<PlanId, PlanLimits> = {
     printTemplates: false,
   },
   standard: {
-    priceUsd: 29,
+    price: 29,
     maxItems: 2500,
     maxBytes: 25 * GB,
     retentionDays: 14,
@@ -42,7 +42,7 @@ export const plans: Record<PlanId, PlanLimits> = {
     printTemplates: false,
   },
   pro: {
-    priceUsd: 39,
+    price: 39,
     maxItems: 5000,
     maxBytes: 50 * GB,
     retentionDays: 21,
@@ -50,7 +50,7 @@ export const plans: Record<PlanId, PlanLimits> = {
     printTemplates: true,
   },
   vip: {
-    priceUsd: 49,
+    price: 49,
     maxItems: 7500,
     maxBytes: 75 * GB,
     retentionDays: 30,
@@ -58,6 +58,13 @@ export const plans: Record<PlanId, PlanLimits> = {
     printTemplates: true,
   },
 };
+
+/** Prices are in euros (DECISIONS #63): most buyers are in the EU, and a
+ *  USD price settled in EUR would cost an extra ~2% in Stripe FX fees. */
+export const CURRENCY = "EUR";
+
+/** Stripe amounts are in cents. */
+export const priceCents = (plan: PlanId) => plans[plan].price * 100;
 
 /** Cheapest first: the slider's order. */
 export const planOrder: PlanId[] = ["mini", "standard", "pro", "vip"];

@@ -4,6 +4,7 @@ import { getSession, googleAuthEnabled } from "@/lib/auth";
 import { devLoginEnabled } from "@/lib/dev";
 import { env, isProduction } from "@/lib/env";
 import { getOwnedEvent } from "@/lib/events/queries";
+import { fulfilSessionId } from "@/lib/payments";
 import { redirect } from "@/lib/i18n/navigation";
 import type { Locale } from "@/lib/i18n/routing";
 import { planOrder, type PlanId } from "@/lib/plans";
@@ -40,6 +41,20 @@ export default async function CreatePage({
   let step: FlowStep = STEPS.includes(rawStep as FlowStep)
     ? (rawStep as FlowStep)
     : "details";
+
+  // Back from Stripe: confirm the payment with Stripe before the review
+  // step reads the event (the webhook may not have arrived yet).
+  const paidSession = one(sp.session_id);
+  if (paidSession && session) {
+    await fulfilSessionId(paidSession, session.user.id).catch((e) =>
+      console.error("[checkout] return verification failed", e),
+    );
+    const ev = one(sp.event);
+    return redirect({
+      href: ev ? `/create?step=review&event=${ev}` : "/dashboard",
+      locale,
+    });
+  }
 
   const eventId = one(sp.event);
   const event =

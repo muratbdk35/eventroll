@@ -13,7 +13,7 @@ import { useTransition } from "react";
 import { toast } from "sonner";
 import { HaloButton } from "@/components/halo/halo-button";
 import { TicketSettings } from "@/components/host/ticket-settings";
-import { devActivate, publishEvent } from "@/lib/events/actions";
+import { publishEvent } from "@/lib/events/actions";
 import { Link, useRouter } from "@/lib/i18n/navigation";
 import type { EVENT_TYPES } from "@/lib/events/schemas";
 import { nextPlan, plans } from "@/lib/plans";
@@ -57,7 +57,7 @@ function Section({
 }
 
 /** Step 5: everything at a glance, fix what's wrong, then publish. */
-export function ReviewStep({ event, devPay }: FlowProps) {
+export function ReviewStep({ event }: FlowProps) {
   const t = useTranslations("Create");
   const te = useTranslations("Events");
   const ts = useTranslations("Events.settings");
@@ -67,7 +67,6 @@ export function ReviewStep({ event, devPay }: FlowProps) {
   const locale = useLocale();
   const router = useRouter();
   const [publishing, startPublish] = useTransition();
-  const [upgrading, startUpgrade] = useTransition();
   if (!event?.plan) return null;
   const ev = event;
   const planId = event.plan;
@@ -181,17 +180,11 @@ export function ReviewStep({ event, devPay }: FlowProps) {
             ],
           ]}
         >
-          {upgrade && devPay && (
+          {upgrade && (
             <HaloButton
               tone="secondary"
-              isLoading={upgrading}
+              href={`/dashboard/events/${ev.id}?view=upgrade`}
               leading={<Sparkles aria-hidden />}
-              onClick={() =>
-                startUpgrade(async () => {
-                  await devActivate(ev.id, upgrade);
-                  router.refresh();
-                })
-              }
             >
               {t("review.upgrade", { plan: tp(`plans.${upgrade}.name`) })}
             </HaloButton>

@@ -906,7 +906,7 @@ reminders planned in #23 were never built.
 - The daily job deletes it once the hold ends (`purgeHeld`): files gone,
   guest data cleared; when and why it was reported stays on the row.
 - Longer only at the authorities' request: `npm run hold-report -- <media
-  id> <days>`. Keeping such material is lawful only to fulfil reporting and
+id> <days>`. Keeping such material is lawful only to fulfil reporting and
   evidence duties, hence a fixed, short default. Privacy policy updated.
   Supersedes the "normal deletion still applies" line in #57.
 
@@ -915,7 +915,7 @@ reminders planned in #23 were never built.
 - Every response carries a Content-Security-Policy, `X-Frame-Options: DENY`
   (with `frame-ancestors 'none'`: no clickjacking of the dashboard),
   `X-Content-Type-Options: nosniff`, `Referrer-Policy:
-  strict-origin-when-cross-origin` (event links don't leak to other sites),
+strict-origin-when-cross-origin` (event links don't leak to other sites),
   a Permissions-Policy turning off camera, microphone, geolocation and USB
   (photos are picked with the file input, which needs none of them), and
   `Cross-Origin-Opener-Policy: same-origin-allow-popups` (Google sign-in).
@@ -965,3 +965,42 @@ reminders planned in #23 were never built.
 - Known limit: a blocked phone can clear its cookies, solve Turnstile (and
   the PIN) again and get a new device id. Blocking by IP/browser hash would
   also block other guests on the venue Wi-Fi with the same phone model.
+
+## 63. Stripe Checkout, prices in euros (2026-10-19)
+
+- Payments go through an existing company's Stripe account (the company is
+  the seller; legal pages must name it). The app uses a restricted key:
+  Products, Prices, Checkout Sessions, Charges and Refunds, Webhook
+  Endpoints (write); Payment Intents, Events (read). Test mode first.
+- Prices are in euros (19/29/39/49 €, VAT included): a USD price settled in
+  EUR costs an extra ~2% in Stripe FX fees. `lib/plans.ts` holds the amounts;
+  Stripe has one product per plan with a fixed id (`eventroll_<plan>`,
+  `npm run stripe:setup`), and checkout sends the amount with `price_data`,
+  so there are no price ids to keep in sync (STRIPE_PRICE_* removed).
+- Pay step: the host ticks the withdrawal waiver (start now, right of
+  withdrawal ends once fully provided, accept the terms); the time is stored
+  on the order. `startCheckout` writes a pending `orders` row and redirects
+  to Stripe Checkout (cards, Apple/Google Pay and local methods Stripe
+  offers), 30-minute expiry, Checkout in tr/de/en.
+- Paid is set by whichever comes first, the signed webhook
+  (`/api/stripe/webhook`) or the success return, which retrieves the session
+  from Stripe instead of trusting the URL and then redirects to a clean URL.
+  Both are idempotent. The event's plan is always the highest of its paid
+  orders, and the deletion date follows the plan.
+- Events of other apps on the same Stripe account are ignored
+  (`metadata.app`).
+
+## 64. Upgrades and refunds (owner decision, 2026-10-19)
+
+- Upgrade: event page `?view=upgrade` lists the bigger plans with only the
+  difference to pay; same waiver; reached from the capacity notice, the
+  locked print templates and the review step.
+- One-click refund in the event settings while no photo was ever uploaded
+  (deleted and hidden ones count) and the first payment is at most 14 days
+  old: every paid order is refunded in full, the plan is removed and a
+  published event goes back to draft. Otherwise refunds are manual from the
+  Stripe dashboard; the `charge.refunded` webhook recomputes the plan, so a
+  refund made anywhere is reflected. Partial refunds keep the plan.
+- Why: easy early refunds prevent chargebacks (fee and account risk); a
+  refund costs only Stripe's kept fee when nothing was uploaded; no refund
+  after the service was used.

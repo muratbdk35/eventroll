@@ -221,7 +221,7 @@
         "secure": "Sicher bezahlen mit Stripe"
       },
       "howToPay": "Richte dein Event kostenlos ein. Wähle einen Plan und veröffentliche, sobald deine Gäste hochladen sollen.",
-      "footnote": "Preise in USD, an der Kasse in deiner Landeswährung angezeigt, inkl. MwSt.",
+      "footnote": "Preise in Euro, inkl. MwSt.",
       "plans": {
         "mini": {
           "name": "Mini",
@@ -545,7 +545,8 @@
       "previewAlt": "Vorschau: {template}",
       "downloadPreparing": "Druckdatei wird erstellt…",
       "downloadFailed": "Download fehlgeschlagen. Versuch es erneut.",
-      "label": "Gästefotos"
+      "label": "Gästefotos",
+      "upgradeCta": "Auf Pro upgraden"
     },
     "backToReview": "Zurück zur Übersicht",
     "download": {
@@ -621,6 +622,29 @@
       "almost": "Dein Album ist zu {pct} % voll",
       "detail": "{count} von {max} Fotos.",
       "next": "Mit {plan} liegt das Limit bei {photos} Fotos und {gb} GB."
+    },
+    "upgrade": {
+      "title": "Plan upgraden",
+      "subtitle": "Du hast {plan}. Wechsle auf einen größeren Plan und zahl nur die Differenz.",
+      "subtitleNone": "Wähle einen Plan.",
+      "details": "{photos} Fotos, {gb} GB, {days} Tage Download-Zeitraum",
+      "templates": "Druckvorlagen",
+      "pay": "Zu {plan} wechseln ({price})",
+      "note": "Sicher bezahlen mit Stripe. Alles bisher Hochgeladene bleibt, wie es ist.",
+      "top": "Du hast schon den größten Plan.",
+      "link": "Plan upgraden",
+      "done": "Dein Plan wurde upgegradet."
+    },
+    "refund": {
+      "title": "Plan stornieren und Geld zurück",
+      "body": "Es wurden noch keine Fotos hochgeladen, du bekommst den vollen Betrag zurück. Das Event wird wieder ein Entwurf.",
+      "confirm": "Sicher? Der volle Betrag geht zurück auf deine Karte (je nach Bank 5–10 Tage) und das Event wird wieder ein Entwurf.",
+      "yes": "Ja, erstatten",
+      "cancel": "Abbrechen",
+      "button": "Geld zurück",
+      "done": "Erstattung gestartet. Der Betrag ist in ein paar Tagen wieder auf deiner Karte.",
+      "notRefundable": "Dieses Event lässt sich nicht mehr mit einem Klick erstatten: Es wurden Fotos hochgeladen oder 14 Tage sind vorbei. Schreib an hello@eventroll.eu.",
+      "failed": "Die Erstattung konnte nicht gestartet werden. Versuch es gleich noch einmal."
     }
   },
   "Guest": {
@@ -762,12 +786,14 @@
       "plan": "{plan}-Plan",
       "includes": "{photos} Fotos, {gb} GB, {days} Tage ZIP",
       "tax": "MwSt.",
-      "taxValue": "wird an der Kasse berechnet",
+      "taxValue": "inklusive",
       "total": "Gesamt",
       "button": "{price} bezahlen",
       "secure": "Sichere Zahlung mit Stripe",
       "devNote": "Lokale Entwicklung: Zahlungen sind noch nicht angebunden, dieser Button aktiviert den Plan kostenlos.",
-      "changePlan": "Plan ändern"
+      "changePlan": "Plan ändern",
+      "consent": "Ich möchte, dass die Leistung sofort beginnt. Mir ist bekannt, dass mein 14-tägiges Widerrufsrecht erlischt, sobald die Leistung vollständig erbracht ist, und ich akzeptiere die <terms>AGB</terms>.",
+      "failed": "Die Zahlungsseite konnte nicht geöffnet werden. Versuch es gleich noch einmal."
     },
     "review": {
       "title": "Letzte Prüfung",

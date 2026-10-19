@@ -10,7 +10,7 @@ export function LogoMark({ className }: { className?: string }) {
     <svg
       viewBox="0 0 64 64"
       aria-hidden="true"
-      className={cn("size-7 sm:size-8 shrink-0", className)}
+      className={cn("size-7 shrink-0 sm:size-8", className)}
     >
       <path fill="currentColor" fillRule="evenodd" d={MARK_PATH} />
     </svg>
@@ -26,7 +26,9 @@ function splitName(name: string): [string, string] {
 export function Logo({ className }: { className?: string }) {
   const [first, second] = splitName(publicEnv.appName);
   return (
-    <span className={cn("inline-flex items-center gap-2 sm:gap-2.5", className)}>
+    <span
+      className={cn("inline-flex items-center gap-2 sm:gap-2.5", className)}
+    >
       <LogoMark />
       <span className="font-heading text-lg font-extrabold tracking-tight sm:text-xl">
         {first}

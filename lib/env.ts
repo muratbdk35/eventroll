@@ -61,10 +61,6 @@ const schema = z.object({
   STRIPE_SECRET_KEY: optional,
   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: optional,
   STRIPE_WEBHOOK_SECRET: optional,
-  STRIPE_PRICE_MINI: optional,
-  STRIPE_PRICE_STANDARD: optional,
-  STRIPE_PRICE_PRO: optional,
-  STRIPE_PRICE_VIP: optional,
   STRIPE_TAX_ENABLED: bool,
 
   // Email
@@ -112,10 +108,6 @@ const requiredInProduction = [
   "TURNSTILE_SECRET_KEY",
   "STRIPE_SECRET_KEY",
   "STRIPE_WEBHOOK_SECRET",
-  "STRIPE_PRICE_MINI",
-  "STRIPE_PRICE_STANDARD",
-  "STRIPE_PRICE_PRO",
-  "STRIPE_PRICE_VIP",
   "RESEND_API_KEY",
   "EMAIL_FROM",
   "SUPPORT_EMAIL",

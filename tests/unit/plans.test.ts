@@ -11,7 +11,7 @@ import {
 
 describe("plans", () => {
   it("has the owner-approved prices", () => {
-    expect(planOrder.map((id) => plans[id].priceUsd)).toEqual([19, 29, 39, 49]);
+    expect(planOrder.map((id) => plans[id].price)).toEqual([19, 29, 39, 49]);
   });
 
   it("every tier is strictly larger than the one below", () => {

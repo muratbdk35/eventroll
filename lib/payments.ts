@@ -1,0 +1,256 @@
+import "server-only";
+import { randomUUID } from "node:crypto";
+import { and, count, desc, eq, ne } from "drizzle-orm";
+import type Stripe from "stripe";
+import { db, schema } from "@/lib/db";
+import { env } from "@/lib/env";
+import {
+  computeExpiresAt,
+  computeExpiresAtFromEnd,
+  CURRENCY,
+  type PlanId,
+} from "@/lib/plans";
+import { amountFor, canSelfRefund, planFromOrders } from "@/lib/pricing";
+import { stripe } from "@/lib/stripe";
+import { productId } from "@/lib/stripe-ids";
+
+/*
+ * Payments (DECISIONS #63). One Checkout Session per purchase or upgrade;
+ * an `orders` row is written before redirecting and marked paid by whichever
+ * comes first, the webhook or the host returning to the success page (both
+ * verify the session with Stripe). The event's plan is always derived from
+ * its paid orders, so refunds made anywhere, in the app or in the Stripe
+ * dashboard, put it back to what is still paid for.
+ */
+
+const { events, orders } = schema;
+type EventRow = typeof events.$inferSelect;
+
+const CHECKOUT_LOCALES = new Set(["tr", "de", "en"]);
+
+export async function createCheckout(opts: {
+  event: EventRow;
+  plan: PlanId;
+  email: string;
+  ownerId: string;
+  locale: string;
+  origin: string;
+  successPath: string;
+  cancelPath: string;
+  /** The withdrawal-waiver box was ticked on our page. */
+  consentAt: Date;
+}): Promise<
+  | { ok: true; url: string }
+  | { ok: false; error: "invalid" | "unavailable" | "failed" }
+> {
+  if (!stripe) return { ok: false, error: "unavailable" };
+  const { event, plan } = opts;
+  const amount = amountFor(event.plan, plan);
+  if (amount === null) return { ok: false, error: "invalid" };
+
+  const orderId = randomUUID();
+  const metadata = {
+    app: "eventroll",
+    orderId,
+    eventId: event.id,
+    ownerId: opts.ownerId,
+    plan,
+    from: event.plan ?? "",
+  };
+  const session = await stripe.checkout.sessions.create({
+    mode: "payment",
+    line_items: [
+      {
+        quantity: 1,
+        price_data: {
+          currency: CURRENCY.toLowerCase(),
+          unit_amount: amount,
+          product: productId(plan),
+        },
+      },
+    ],
+    customer_email: opts.email,
+    client_reference_id: event.id,
+    metadata,
+    payment_intent_data: {
+      metadata,
+      description:
+        `EventRoll ${plan}${event.plan ? ` (upgrade from ${event.plan})` : ""}: ${event.name}`.slice(
+          0,
+          1000,
+        ),
+    },
+    locale: (CHECKOUT_LOCALES.has(opts.locale) ? opts.locale : "auto") as
+      "tr" | "de" | "en" | "auto",
+    success_url: `${opts.origin}${opts.successPath}${opts.successPath.includes("?") ? "&" : "?"}session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${opts.origin}${opts.cancelPath}`,
+    // Stripe's minimum; an abandoned session expires and frees the order.
+    expires_at: Math.floor(Date.now() / 1000) + 30 * 60,
+    ...(env.STRIPE_TAX_ENABLED ? { automatic_tax: { enabled: true } } : {}),
+  });
+  if (!session.url) return { ok: false, error: "failed" };
+
+  await db.insert(orders).values({
+    id: orderId,
+    eventId: event.id,
+    ownerId: opts.ownerId,
+    stripeSessionId: session.id,
+    plan,
+    amountTotal: amount,
+    currency: CURRENCY,
+    status: "pending",
+    withdrawalWaiverAt: opts.consentAt,
+  });
+  return { ok: true, url: session.url };
+}
+
+/** Sets the event's plan (and deletion date) from its paid orders. */
+export async function syncPlan(eventId: string) {
+  const paid = await db
+    .select({ plan: orders.plan })
+    .from(orders)
+    .where(and(eq(orders.eventId, eventId), eq(orders.status, "paid")));
+  const plan = planFromOrders(paid);
+  const [event] = await db
+    .select({ endsAt: events.endsAt, eventDate: events.eventDate })
+    .from(events)
+    .where(eq(events.id, eventId))
+    .limit(1);
+  if (!event) return;
+  await db
+    .update(events)
+    .set({
+      plan,
+      expiresAt: event.endsAt
+        ? computeExpiresAtFromEnd(event.endsAt, plan)
+        : computeExpiresAt(event.eventDate, plan),
+    })
+    .where(eq(events.id, eventId));
+}
+
+/**
+ * Marks the order of a completed, paid session as paid and applies the plan.
+ * Idempotent; called from the webhook and from the success page.
+ */
+export async function fulfilSession(session: Stripe.Checkout.Session) {
+  if (session.metadata?.app !== "eventroll") return "ignored" as const;
+  if (session.status !== "complete" || session.payment_status !== "paid") {
+    return "unpaid" as const;
+  }
+  const [order] = await db
+    .update(orders)
+    .set({
+      status: "paid",
+      paidAt: new Date(),
+      amountTotal: session.amount_total,
+      currency: session.currency?.toUpperCase() ?? CURRENCY,
+      stripePaymentIntentId:
+        typeof session.payment_intent === "string"
+          ? session.payment_intent
+          : (session.payment_intent?.id ?? null),
+    })
+    .where(
+      and(eq(orders.stripeSessionId, session.id), eq(orders.status, "pending")),
+    )
+    .returning({ eventId: orders.eventId });
+  if (order) await syncPlan(order.eventId);
+  return order ? ("fulfilled" as const) : ("already" as const);
+}
+
+/** The success page: verify with Stripe instead of trusting the URL. */
+export async function fulfilSessionId(sessionId: string, ownerId: string) {
+  if (!stripe || !/^cs_[A-Za-z0-9_]+$/.test(sessionId)) return null;
+  const session = await stripe.checkout.sessions.retrieve(sessionId);
+  if (session.metadata?.ownerId !== ownerId) return null;
+  return fulfilSession(session);
+}
+
+export async function expireSession(session: Stripe.Checkout.Session) {
+  await db
+    .update(orders)
+    .set({ status: "failed" })
+    .where(
+      and(eq(orders.stripeSessionId, session.id), eq(orders.status, "pending")),
+    );
+}
+
+/** A charge was refunded (in the app or in Stripe): un-pay the order. */
+export async function applyRefund(charge: Stripe.Charge) {
+  // Partial refunds keep the plan; only a full refund takes it away.
+  if (!charge.refunded) return;
+  const pi =
+    typeof charge.payment_intent === "string"
+      ? charge.payment_intent
+      : charge.payment_intent?.id;
+  if (!pi) return;
+  const [order] = await db
+    .update(orders)
+    .set({ status: "refunded" })
+    .where(eq(orders.stripePaymentIntentId, pi))
+    .returning({ eventId: orders.eventId });
+  if (order) await syncPlan(order.eventId);
+}
+
+/** Paid orders of an event, newest first (for refunds). */
+export async function paidOrders(eventId: string) {
+  return db
+    .select()
+    .from(orders)
+    .where(and(eq(orders.eventId, eventId), eq(orders.status, "paid")))
+    .orderBy(desc(orders.paidAt));
+}
+
+/** Photos ever confirmed for an event, deleted and hidden ones included. */
+export async function photosEver(eventId: string) {
+  const [row] = await db
+    .select({ n: count() })
+    .from(schema.media)
+    .where(
+      and(
+        eq(schema.media.eventId, eventId),
+        ne(schema.media.status, "pending"),
+      ),
+    );
+  return row?.n ?? 0;
+}
+
+/** Whether the host may refund in one click right now (DECISIONS #64). */
+export async function selfRefundable(eventId: string) {
+  const paid = await paidOrders(eventId);
+  if (paid.length === 0) return false;
+  const firstPaidAt = paid.reduce<Date | null>(
+    (min, o) => (o.paidAt && (!min || o.paidAt < min) ? o.paidAt : min),
+    null,
+  );
+  return canSelfRefund({ firstPaidAt, photosEver: await photosEver(eventId) });
+}
+
+/**
+ * Refunds every paid order of an event in full and takes the plan away; a
+ * published event goes back to draft. The webhook's charge.refunded later
+ * finds the orders already refunded and changes nothing.
+ */
+export async function refundEvent(eventId: string) {
+  if (!stripe) return false;
+  for (const o of await paidOrders(eventId)) {
+    if (!o.stripePaymentIntentId) continue;
+    await stripe.refunds.create(
+      {
+        payment_intent: o.stripePaymentIntentId,
+        reason: "requested_by_customer",
+        metadata: { app: "eventroll", orderId: o.id, eventId },
+      },
+      { idempotencyKey: `refund-${o.id}` },
+    );
+    await db
+      .update(orders)
+      .set({ status: "refunded" })
+      .where(eq(orders.id, o.id));
+  }
+  await syncPlan(eventId);
+  await db
+    .update(events)
+    .set({ status: "draft" })
+    .where(and(eq(events.id, eventId), eq(events.status, "active")));
+  return true;
+}

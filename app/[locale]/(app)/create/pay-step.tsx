@@ -4,9 +4,14 @@ import { ArrowLeft, Loader2, Lock, Receipt } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 import { useEffect, useRef, useState, useTransition } from "react";
 import { HaloButton } from "@/components/halo/halo-button";
-import { createEventFromDraft, devActivate } from "@/lib/events/actions";
-import { useRouter } from "@/lib/i18n/navigation";
-import { plans } from "@/lib/plans";
+import {
+  createEventFromDraft,
+  devActivate,
+  startCheckout,
+} from "@/lib/events/actions";
+import { Link, useRouter } from "@/lib/i18n/navigation";
+import { CURRENCY, plans } from "@/lib/plans";
+import { cn } from "@/lib/utils";
 import { StepFooter, StepHeading } from "./create-flow";
 import { type FlowProps, flowHref } from "./flow";
 import { clearDraft, draftOk, draftPayload, loadDraft } from "./draft";
@@ -23,6 +28,10 @@ export function PayStep({ plan, event, devPay }: FlowProps) {
   const router = useRouter();
   const [paying, startPay] = useTransition();
   const [saveError, setSaveError] = useState<"missing" | "failed" | null>(null);
+  // EU law: consent to start at once and lose the withdrawal right once the
+  // service is fully provided (terms, section 4). Stored on the order.
+  const [consent, setConsent] = useState(false);
+  const [payError, setPayError] = useState(false);
   const started = useRef(false);
 
   // Coming back from sign-in: turn the browser draft into a real event once.
@@ -78,22 +87,29 @@ export function PayStep({ plan, event, devPay }: FlowProps) {
   }
 
   const p = plans[plan];
-  const usd = (n: number) =>
+  const money = (n: number) =>
     format.number(n, {
       style: "currency",
-      currency: "USD",
+      currency: CURRENCY,
       maximumFractionDigits: 0,
     });
   const lines: [string, string][] = [
     [t("pay.event"), event.name],
-    [t("pay.plan", { plan: tp(`plans.${plan}.name`) }), usd(p.priceUsd)],
+    [t("pay.plan", { plan: tp(`plans.${plan}.name`) }), money(p.price)],
   ];
 
   function pay() {
+    setPayError(false);
     startPay(async () => {
-      // Stripe Checkout replaces this in phase 1C; until then dev only.
-      const res = await devActivate(event!.id, plan!);
-      if (res.ok) router.push(flowHref("review", { event: event!.id }));
+      if (devPay) {
+        // Local development without Stripe: the plan is simply switched on.
+        const res = await devActivate(event!.id, plan!);
+        if (res.ok) router.push(flowHref("review", { event: event!.id }));
+        return;
+      }
+      const res = await startCheckout(event!.id, plan!, consent, "create");
+      if (res.ok) window.location.assign(res.url);
+      else setPayError(true);
     });
   }
 
@@ -137,23 +153,56 @@ export function PayStep({ plan, event, devPay }: FlowProps) {
         <div className="mt-4 flex items-baseline justify-between border-t border-border pt-4">
           <span className="font-semibold">{t("pay.total")}</span>
           <span className="font-heading text-3xl font-extrabold tracking-tight">
-            {usd(p.priceUsd)}
+            {money(p.price)}
           </span>
         </div>
       </div>
+      {!devPay && (
+        <label className="mt-5 flex cursor-pointer items-start gap-3 rounded-2xl border border-border/80 bg-card/70 p-3.5 text-[13px] leading-snug text-pretty">
+          <input
+            type="checkbox"
+            checked={consent}
+            onChange={(e) => setConsent(e.target.checked)}
+            className="mt-0.5 size-4.5 shrink-0 accent-primary"
+          />
+          <span>
+            {t.rich("pay.consent", {
+              terms: (c) => (
+                <Link
+                  href="/legal/terms"
+                  target="_blank"
+                  className="font-medium text-primary underline underline-offset-2"
+                >
+                  {c}
+                </Link>
+              ),
+            })}
+          </span>
+        </label>
+      )}
       <HaloButton
         size="lg"
         fullWidth
-        className="mt-6"
-        disabled={!devPay}
+        className="mt-5"
+        disabled={!devPay && !consent}
         isLoading={paying}
         leading={<Lock aria-hidden />}
         onClick={pay}
       >
-        {t("pay.button", { price: usd(p.priceUsd) })}
+        {t("pay.button", { price: money(p.price) })}
       </HaloButton>
-      <p className="mt-3 text-center text-xs text-pretty text-muted-foreground">
-        {devPay ? t("pay.devNote") : t("pay.secure")}
+      <p
+        role={payError ? "alert" : undefined}
+        className={cn(
+          "mt-3 text-center text-xs text-pretty",
+          payError ? "text-destructive" : "text-muted-foreground",
+        )}
+      >
+        {payError
+          ? t("pay.failed")
+          : devPay
+            ? t("pay.devNote")
+            : t("pay.secure")}
       </p>
 
       <StepFooter

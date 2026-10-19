@@ -176,7 +176,8 @@ export function getLegalDoc(
           heading: "3. Plans, prices and payment",
           body: [
             [
-              "Plans (Standard and Premium) are a one-time payment per event. There is no subscription and nothing renews automatically.",
+              "Plans (Mini, Standard, Pro and VIP) are a one-time payment per event, in euros. There is no subscription and nothing renews automatically.",
+              "You can move an event to a bigger plan at any time and pay only the difference to the plan you already paid for.",
               "The plan limits (number of photos, storage, features) are shown on the pricing page at the time of purchase.",
               "Prices include statutory VAT. Payment is processed by Stripe; an invoice is issued for every purchase.",
             ],
@@ -186,6 +187,7 @@ export function getLegalDoc(
           heading: "4. Right of withdrawal for consumers",
           body: [
             "If you are a consumer in the EU you generally have a 14-day right to withdraw from a contract concluded online. Because a plan is a digital service that starts immediately, at checkout we ask you to expressly agree that we begin before the withdrawal period ends and to confirm that you know you lose your right of withdrawal once the service has been fully provided.",
+            "Refunds: as long as no photo has been uploaded to the event and the first payment is at most 14 days old, you can cancel the plan in the event settings and get the full amount back; the event goes back to a draft. After photos have been uploaded the service has been provided and there is no automatic refund. If something went wrong on our side, write to us and we will refund in full or in part.",
             "[Lawyer: insert the statutory withdrawal instructions (Widerrufsbelehrung) and model withdrawal form, and confirm the wording at checkout.]",
           ],
         },

@@ -218,7 +218,7 @@
         "secure": "Secure checkout with Stripe"
       },
       "howToPay": "Set up your event for free. Pick a plan and publish when you're ready for guests to upload.",
-      "footnote": "Prices in USD, shown in your local currency at checkout, VAT included.",
+      "footnote": "Prices in euros, VAT included.",
       "plans": {
         "mini": {
           "name": "Mini",
@@ -542,7 +542,8 @@
       "previewAlt": "Preview of the {template}",
       "downloadPreparing": "Preparing the print file…",
       "downloadFailed": "Download failed. Try again.",
-      "label": "Guest photos"
+      "label": "Guest photos",
+      "upgradeCta": "Upgrade to Pro"
     },
     "backToReview": "Back to review",
     "download": {
@@ -618,6 +619,29 @@
       "almost": "Your album is {pct}% full",
       "detail": "{count} of {max} photos.",
       "next": "{plan} raises the limit to {photos} photos and {gb} GB."
+    },
+    "upgrade": {
+      "title": "Upgrade your plan",
+      "subtitle": "You're on {plan}. Move to a bigger plan and pay only the difference.",
+      "subtitleNone": "Pick a plan.",
+      "details": "{photos} photos, {gb} GB, {days}-day download window",
+      "templates": "print templates",
+      "pay": "Switch to {plan} ({price})",
+      "note": "Secure checkout with Stripe. Everything uploaded so far stays as it is.",
+      "top": "You're already on the biggest plan.",
+      "link": "Upgrade plan",
+      "done": "Your plan was upgraded."
+    },
+    "refund": {
+      "title": "Cancel your plan and get a refund",
+      "body": "No photos have been uploaded yet, so you can get your full payment back. The event goes back to a draft.",
+      "confirm": "Are you sure? The full amount goes back to your card (5–10 days depending on your bank) and the event goes back to a draft.",
+      "yes": "Yes, refund",
+      "cancel": "Cancel",
+      "button": "Get a refund",
+      "done": "Refund started. The amount will be back on your card within a few days.",
+      "notRefundable": "This event can no longer be refunded in one click: photos were uploaded or 14 days have passed. Write to hello@eventroll.eu.",
+      "failed": "The refund couldn't be started. Please try again in a moment."
     }
   },
   "Guest": {
@@ -759,12 +783,14 @@
       "plan": "{plan} plan",
       "includes": "{photos} photos, {gb} GB, {days}-day ZIP",
       "tax": "VAT",
-      "taxValue": "calculated at checkout",
+      "taxValue": "included",
       "total": "Total",
       "button": "Pay {price}",
       "secure": "Secure payment with Stripe",
       "devNote": "Local development: payments aren't connected yet, this button activates the plan for free.",
-      "changePlan": "Change plan"
+      "changePlan": "Change plan",
+      "consent": "I want the service to start right away. I know my 14-day right of withdrawal ends once the service has been fully provided, and I accept the <terms>terms</terms>.",
+      "failed": "The payment page couldn't be opened. Please try again in a moment."
     },
     "review": {
       "title": "Final check",

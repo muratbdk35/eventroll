@@ -221,7 +221,7 @@
         "secure": "Stripe ile güvenli ödeme"
       },
       "howToPay": "Etkinliğini ücretsiz hazırla. Misafirler yüklemeye başlamadan önce planını seç ve yayınla.",
-      "footnote": "Fiyatlar USD cinsindendir; ödeme sırasında yerel para biriminde, KDV dahil gösterilir.",
+      "footnote": "Fiyatlar euro cinsindendir ve KDV dahildir.",
       "plans": {
         "mini": {
           "name": "Mini",
@@ -545,7 +545,8 @@
       "previewAlt": "{template} önizlemesi",
       "downloadPreparing": "Baskı dosyası hazırlanıyor…",
       "downloadFailed": "İndirilemedi. Tekrar dene.",
-      "label": "Misafir fotoğrafları"
+      "label": "Misafir fotoğrafları",
+      "upgradeCta": "Pro'ya yükselt"
     },
     "backToReview": "Son kontrole dön",
     "download": {
@@ -621,6 +622,29 @@
       "almost": "Albüm neredeyse dolu (%{pct})",
       "detail": "{count} / {max} fotoğraf.",
       "next": "{plan} planında sınır {photos} fotoğraf ve {gb} GB."
+    },
+    "upgrade": {
+      "title": "Planı yükselt",
+      "subtitle": "Şu an {plan} planındasın. Daha büyük bir plana geçersen sadece aradaki farkı ödersin.",
+      "subtitleNone": "Bir plan seç.",
+      "details": "{photos} fotoğraf, {gb} GB, {days} gün indirme süresi",
+      "templates": "baskı şablonları",
+      "pay": "{plan} planına geç ({price})",
+      "note": "Stripe ile güvenli ödeme. Şimdiye kadar yüklenen her şey aynen kalır.",
+      "top": "Zaten en büyük plandasın.",
+      "link": "Planı yükselt",
+      "done": "Planın yükseltildi."
+    },
+    "refund": {
+      "title": "Planı iptal et ve iade al",
+      "body": "Henüz hiç fotoğraf yüklenmedi, ödemenin tamamını iade alabilirsin. Etkinlik taslağa döner.",
+      "confirm": "Emin misin? Ödemenin tamamı kartına iade edilir (bankana göre 5–10 gün sürebilir) ve etkinlik taslağa döner.",
+      "yes": "Evet, iade et",
+      "cancel": "Vazgeç",
+      "button": "İade al",
+      "done": "İade başlatıldı. Tutar birkaç gün içinde kartına yansır.",
+      "notRefundable": "Bu etkinlik artık tek tıkla iade edilemiyor: fotoğraf yüklendi ya da 14 gün geçti. hello@eventroll.eu adresine yazabilirsin.",
+      "failed": "İade başlatılamadı. Biraz sonra tekrar dene."
     }
   },
   "Guest": {
@@ -762,12 +786,14 @@
       "plan": "{plan} planı",
       "includes": "{photos} fotoğraf, {gb} GB, {days} gün ZIP",
       "tax": "KDV",
-      "taxValue": "ödemede hesaplanır",
+      "taxValue": "dahil",
       "total": "Toplam",
       "button": "{price} öde",
       "secure": "Stripe ile güvenli ödeme",
       "devNote": "Yerel geliştirme: ödeme henüz bağlı değil, bu buton planı ücretsiz aktifleştirir.",
-      "changePlan": "Planı değiştir"
+      "changePlan": "Planı değiştir",
+      "consent": "Hizmetin hemen başlamasını istiyorum. Hizmet tamamen sağlandığında 14 günlük cayma hakkımın sona ereceğini biliyorum ve <terms>kullanım şartlarını</terms> kabul ediyorum.",
+      "failed": "Ödeme sayfası açılamadı. Biraz sonra tekrar dene."
     },
     "review": {
       "title": "Son kontrol",
