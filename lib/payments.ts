@@ -87,6 +87,14 @@ export async function createCheckout(opts: {
       "tr" | "de" | "en" | "auto",
     success_url: `${opts.origin}${opts.successPath}${opts.successPath.includes("?") ? "&" : "?"}session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${opts.origin}${opts.cancelPath}`,
+    // A Stripe invoice (PDF, emailed) for every purchase (DECISIONS #66).
+    invoice_creation: {
+      enabled: true,
+      invoice_data: {
+        description: `EventRoll ${plan}: ${event.name}`.slice(0, 1500),
+        metadata,
+      },
+    },
     // Stripe's minimum; an abandoned session expires and frees the order.
     expires_at: Math.floor(Date.now() / 1000) + 30 * 60,
     ...(env.STRIPE_TAX_ENABLED ? { automatic_tax: { enabled: true } } : {}),

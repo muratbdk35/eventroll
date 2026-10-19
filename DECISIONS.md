@@ -1021,3 +1021,14 @@ strict-origin-when-cross-origin` (event links don't leak to other sites),
   (DE…) is still to come. The company pays VAT, so EU sales to consumers in
   other countries fall under OSS (Stripe Tax can apply the right rate; to be
   confirmed with the tax adviser, `STRIPE_TAX_ENABLED`).
+
+## 66. Stripe invoices (owner decision, 2026-10-19)
+
+- Every Checkout purchase gets a Stripe invoice (`invoice_creation`), PDF,
+  emailed to the buyer and listed in the Stripe dashboard; about 0.4% per
+  paid invoice. Seller name, address and tax ID on it come from the Stripe
+  account settings, not from the app.
+- Open: VAT on the invoice. Invoices up to 250 € may be simplified
+  (Kleinbetragsrechnung), but must show the VAT rate. Either Stripe Tax
+  (`STRIPE_TAX_ENABLED`, per-country rate under OSS, ~0.5% per payment) or
+  a fixed 19% rate, as the company's tax adviser decides.
