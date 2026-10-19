@@ -11,7 +11,6 @@ local file that `scripts/launch-env.mjs` pushes to Vercel without printing.
 | -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
 | Legal texts (written by Claude, German binding) checked by a lawyer or a legal-text service; then remove the DRAFT banner and the noindex on legal pages | Owner + Claude |
 | Tax adviser confirmed: flat 19% VAT (no OSS yet)                                                                                                         | Owner          |
-| Two-factor authentication on Vercel, Neon, Cloudflare, Resend, Upstash, Stripe, Google Cloud                                                             | Owner          |
 | Vercel Pro plan (commercial use)                                                                                                                         | Owner          |
 
 ## 1. Accounts and keys (owner, ~30 min)
