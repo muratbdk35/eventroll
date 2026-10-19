@@ -941,8 +941,9 @@ reminders planned in #23 were never built.
 - So the photo previews, passes the explicit-image check and is a few MB
   instead of up to 80. A RAW without a big enough JPEG still gets "RAW
   can't be used" with a hint to save it as JPEG or HEIC.
-- Tested with synthetic RAW files (unit tests, and a 6 MB DNG uploaded
-  through the guest page); not yet with real camera files.
+- Tested with synthetic RAW files (unit tests, a 6 MB DNG through the guest
+  page) and, on 2026-10-19, by the owner with real camera RAWs: an 81 MB
+  landscape file became an 8.1 MB JPEG, a portrait one 10.8 MB and upright.
 
 ## 62. API hardening after a probe (2026-10-19)
 
