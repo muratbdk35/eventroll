@@ -93,6 +93,10 @@ export function PhotoGrid({
   const selection = usePhotoSelection();
   const selecting = selection?.selecting ?? false;
   const [open, setOpen] = useState<number | null>(null);
+  // The photo opened from the grid morphs in (shared layoutId); the ones
+  // reached by swiping or the arrows slide in from the side instead.
+  const [entry, setEntry] = useState<string | null>(null);
+  const [dir, setDir] = useState(0);
   const current = open === null ? null : photos[open];
   // Flagged photos the host chose to look at in the viewer.
   const [revealed, setRevealed] = useState<Set<string>>(() => new Set());
@@ -107,10 +111,13 @@ export function PhotoGrid({
     setReason(null);
   }, []);
   const step = useCallback(
-    (d: number) =>
+    (d: number) => {
+      setDir(d);
+      setReporting(false);
       setOpen((i) =>
         i === null ? i : (i + d + photos.length) % photos.length,
-      ),
+      );
+    },
     [photos.length],
   );
 
@@ -261,9 +268,28 @@ export function PhotoGrid({
 
           <div className="relative flex min-h-0 flex-1 items-center justify-center px-3 pb-8 sm:px-20">
             <motion.div
-              layoutId={`photo-${current.id}`}
+              key={current.id}
+              layoutId={
+                current.id === entry ? `photo-${current.id}` : undefined
+              }
+              initial={
+                current.id === entry || reduce
+                  ? false
+                  : { opacity: 0, x: dir * 80 }
+              }
+              animate={{ opacity: 1, x: 0 }}
+              // Swipe left or right for the next or previous photo.
+              drag={photos.length > 1 && !reporting ? "x" : false}
+              dragSnapToOrigin
+              dragElastic={0.5}
+              dragConstraints={{ left: 0, right: 0 }}
+              onDragEnd={(_, info) => {
+                const swipe = info.offset.x + info.velocity.x * 0.2;
+                if (swipe < -70) step(1);
+                else if (swipe > 70) step(-1);
+              }}
               className={cn(
-                "clip-round relative overflow-hidden rounded-2xl bg-neutral-900 shadow-2xl",
+                "clip-round relative touch-pan-y overflow-hidden rounded-2xl bg-neutral-900 shadow-2xl",
                 // Room for the "show" prompt even before the image arrives.
                 hidden(current) && "min-h-64 min-w-72",
               )}
@@ -273,6 +299,7 @@ export function PhotoGrid({
               {/* eslint-disable-next-line @next/next/no-img-element -- signed storage URL */}
               <img
                 src={current.full}
+                draggable={false}
                 onError={(e) => {
                   // Browsers that can't show HEIC fall back to the thumbnail.
                   if (e.currentTarget.src !== current.src)
@@ -451,11 +478,15 @@ export function PhotoGrid({
                   key={p.id}
                   type="button"
                   layoutId={`photo-${p.id}`}
-                  onClick={() =>
-                    selecting
-                      ? selection?.toggle({ id: p.id, bytes: p.bytes })
-                      : setOpen(i)
-                  }
+                  onClick={() => {
+                    if (selecting) {
+                      selection?.toggle({ id: p.id, bytes: p.bytes });
+                      return;
+                    }
+                    setEntry(p.id);
+                    setDir(0);
+                    setOpen(i);
+                  }}
                   aria-label={
                     selecting
                       ? `${t("select")} · ${who(p)}`

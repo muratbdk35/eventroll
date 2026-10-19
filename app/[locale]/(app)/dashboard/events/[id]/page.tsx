@@ -1,11 +1,5 @@
 import type { Metadata } from "next";
-import {
-  Archive,
-  ChevronRight,
-  ExternalLink,
-  HardDrive,
-  Settings,
-} from "lucide-react";
+import { Archive, ExternalLink, HardDrive, Settings } from "lucide-react";
 import {
   getFormatter,
   getTranslations,
@@ -154,6 +148,16 @@ export default async function EventPage({
           </li>
         </ul>
       </div>
+      {/* Settings up here, not under a long gallery. */}
+      {view === "main" && !expired && (
+        <Link
+          href={`${eventPath}?view=settings`}
+          className="inline-flex h-10 shrink-0 items-center gap-2 rounded-full border border-border bg-card px-3.5 text-sm font-semibold shadow-xs transition-colors hover:border-primary/30 hover:bg-accent/40"
+        >
+          <Settings className="size-4 text-muted-foreground" aria-hidden />
+          <span>{t("tabs.settings")}</span>
+        </Link>
+      )}
     </div>
   );
 
@@ -425,31 +429,6 @@ export default async function EventPage({
       )}
 
       {!purged && photosSection}
-
-      {!expired && (
-        <Link
-          href={`${eventPath}?view=settings`}
-          className="group mt-10 flex items-center gap-4 rounded-2xl border border-border bg-card p-4 shadow-sm transition-colors hover:border-primary/30 sm:p-5"
-        >
-          <span className="flex size-10 items-center justify-center rounded-full bg-muted">
-            <Settings className="size-5 text-muted-foreground" aria-hidden />
-          </span>
-          <span className="min-w-0 flex-1">
-            <span className="block font-semibold">{t("tabs.settings")}</span>
-            <span className="block truncate text-sm text-muted-foreground">
-              {[
-                t("settings.pinToggle"),
-                t("settings.hoursToggle"),
-                t("settings.perPhoneToggle"),
-              ].join(", ")}
-            </span>
-          </span>
-          <ChevronRight
-            className="size-5 text-muted-foreground transition-transform group-hover:translate-x-0.5 rtl:rotate-180"
-            aria-hidden
-          />
-        </Link>
-      )}
     </PageBody>
   );
 }

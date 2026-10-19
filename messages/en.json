@@ -690,7 +690,10 @@
     "metaTitle": "{name} · Share your photos",
     "metaDescription": "Upload the photos you took with your phone here. No app or account needed.",
     "ogCta": "Share your photos",
-    "albumFull": "Album is full"
+    "albumFull": "Album is full",
+    "raw": "RAW not supported",
+    "rawHint": "RAW files can't be uploaded; save the photo as JPEG or HEIC and pick it again.",
+    "tooBigHint": "A photo can be at most {mb} MB."
   },
   "App": {
     "events": "Events",

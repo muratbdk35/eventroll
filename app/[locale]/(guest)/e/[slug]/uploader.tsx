@@ -44,7 +44,8 @@ type Item = {
   status: "selected" | "uploading" | "done" | "error";
   /** 0–1 while uploading. */
   progress: number;
-  error?: "tooBig" | "badType" | "failed" | "limitReached" | "albumFull";
+  error?:
+    "tooBig" | "badType" | "raw" | "failed" | "limitReached" | "albumFull";
 };
 
 const EXT_MIME: Record<string, AllowedMime> = {
@@ -56,6 +57,35 @@ const EXT_MIME: Record<string, AllowedMime> = {
   heif: "image/heif",
   gif: "image/gif",
 };
+
+/**
+ * Camera RAW files: browsers can't show them, the explicit-image check can't
+ * read them and they run to 25–80 MB, so they get their own clear message.
+ */
+const RAW_EXT = new Set([
+  "dng",
+  "cr2",
+  "cr3",
+  "nef",
+  "nrw",
+  "arw",
+  "srf",
+  "sr2",
+  "raf",
+  "orf",
+  "rw2",
+  "pef",
+  "srw",
+  "3fr",
+  "iiq",
+  "x3f",
+  "raw",
+]);
+const isRaw = (file: File) =>
+  RAW_EXT.has(file.name.split(".").pop()?.toLowerCase() ?? "") ||
+  /x-adobe-dng|x-canon|x-nikon|x-sony|x-fuji|x-olympus|x-panasonic|x-raw/i.test(
+    file.type,
+  );
 
 function mimeOf(file: File): AllowedMime | null {
   if (isAllowedMime(file.type)) return file.type;
@@ -361,7 +391,7 @@ export function Uploader(props: Props) {
           ...base,
           mime: "image/jpeg",
           status: "error",
-          error: "badType",
+          error: isRaw(file) ? "raw" : "badType",
         };
       }
       if (file.size > MAX_FILE_BYTES) {
@@ -653,6 +683,13 @@ export function Uploader(props: Props) {
               </li>
             ))}
           </ul>
+          {items.some((i) => i.error === "raw" || i.error === "tooBig") && (
+            <p className="mt-3 text-[13px] text-pretty text-muted-foreground">
+              {items.some((i) => i.error === "raw") && t("rawHint")}{" "}
+              {items.some((i) => i.error === "tooBig") &&
+                t("tooBigHint", { mb: MAX_FILE_BYTES / 1024 ** 2 })}
+            </p>
+          )}
         </section>
       )}
 

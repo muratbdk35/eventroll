@@ -693,7 +693,10 @@
     "metaTitle": "{name} · Teile deine Fotos",
     "metaDescription": "Lade hier die Fotos hoch, die du mit dem Handy gemacht hast. Keine App, kein Konto nötig.",
     "ogCta": "Teile deine Fotos",
-    "albumFull": "Album ist voll"
+    "albumFull": "Album ist voll",
+    "raw": "RAW nicht möglich",
+    "rawHint": "RAW-Dateien können nicht hochgeladen werden; speichere das Foto als JPEG oder HEIC und wähle es erneut.",
+    "tooBigHint": "Ein Foto darf höchstens {mb} MB groß sein."
   },
   "App": {
     "events": "Events",
