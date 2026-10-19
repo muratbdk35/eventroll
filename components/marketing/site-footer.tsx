@@ -1,6 +1,7 @@
 import { MapPin } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Logo } from "@/components/brand/logo";
+import { WithdrawButton } from "@/components/legal/withdraw-button";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { Link } from "@/lib/i18n/navigation";
 import { publicEnv } from "@/lib/public-env";
@@ -70,6 +71,7 @@ export async function SiteFooter() {
         <p>
           © {new Date().getFullYear()} {publicEnv.appName}
         </p>
+        <WithdrawButton />
         <p className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1">
           <MapPin className="size-3.5 text-primary" aria-hidden />
           {t("hosting")}

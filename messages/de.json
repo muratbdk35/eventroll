@@ -890,5 +890,39 @@
       "rate_limited": "Zu viele Nachrichten. Versuch es später erneut.",
       "failed": "Die Nachricht konnte nicht gesendet werden. Versuch es später oder schreib an hello@eventroll.eu."
     }
+  },
+  "Withdraw": {
+    "button": "Vertrag widerrufen",
+    "title": "Vertrag widerrufen",
+    "subtitle": "Hier können Sie einen Vertrag mit uns innerhalb der Widerrufsfrist widerrufen. Ein Konto brauchen Sie dafür nicht. Einzelheiten stehen in der <link>Widerrufsbelehrung</link>.",
+    "name": "Ihr Name",
+    "orderNo": "Bestellnummer",
+    "orderHint": "Steht in der Bestellbestätigung per E-Mail, z. B. 3F9A12BC.",
+    "emailLabel": "E-Mail-Adresse für die Eingangsbestätigung",
+    "email": {
+      "subject": "Eingangsbestätigung Ihres Widerrufs – {appName}",
+      "intro": "Wir bestätigen den Eingang Ihres Widerrufs über die Widerrufsfunktion von {appName}. Diese E-Mail bestätigt nur den Eingang.",
+      "statement": "Inhalt Ihrer Erklärung: Hiermit widerrufe ich den mit mir geschlossenen Vertrag über {appName}, Bestellnummer {orderNo}.",
+      "name": "Name",
+      "orderNo": "Bestellnummer",
+      "email": "E-Mail",
+      "received": "Eingegangen am",
+      "next": "Wir bearbeiten den Widerruf und melden uns zur Rückzahlung.",
+      "footer": "{appName} · Fragen? {email}"
+    },
+    "next": "Weiter",
+    "privacy": "Wir nutzen Ihre Angaben nur, um den Widerruf zuzuordnen und abzuwickeln.",
+    "reviewTitle": "Bitte prüfen Sie Ihre Erklärung",
+    "statement": "Hiermit widerrufe ich den mit mir geschlossenen Vertrag über EventRoll, Bestellnummer {orderNo}.",
+    "confirm": "Widerruf bestätigen",
+    "edit": "Angaben ändern",
+    "doneTitle": "Ihr Widerruf ist bei uns eingegangen",
+    "doneBody": "Eingegangen am {time}. Eine Bestätigung ist an {email} unterwegs. Wir melden uns zur Rückzahlung.",
+    "errors": {
+      "invalid": "Bitte prüfen Sie Ihre Angaben.",
+      "captcha": "Die Sicherheitsprüfung ist fehlgeschlagen. Bitte versuchen Sie es noch einmal.",
+      "rate_limited": "Zu viele Versuche. Bitte versuchen Sie es später noch einmal oder schreiben Sie uns eine E-Mail.",
+      "failed": "Das hat nicht geklappt. Bitte versuchen Sie es noch einmal oder schreiben Sie uns eine E-Mail."
+    }
   }
 }

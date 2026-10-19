@@ -890,5 +890,39 @@
       "rate_limited": "Çok fazla mesaj gönderildi. Biraz sonra tekrar dene.",
       "failed": "Mesaj gönderilemedi. Biraz sonra tekrar dene ya da hello@eventroll.eu adresine yaz."
     }
+  },
+  "Withdraw": {
+    "button": "Sözleşmeden cay",
+    "title": "Sözleşmeden cay",
+    "subtitle": "Bizimle yaptığın bir sözleşmeden cayma süresi içinde buradan cayabilirsin. Hesap gerekmez. Ayrıntılar <link>cayma bildiriminde</link>.",
+    "name": "Adın",
+    "orderNo": "Sipariş numarası",
+    "orderHint": "Sipariş onay e-postasında yazıyor, örneğin 3F9A12BC.",
+    "emailLabel": "Alındı teyidi için e-posta adresi",
+    "email": {
+      "subject": "Cayma bildiriminin alındı teyidi – {appName}",
+      "intro": "{appName} cayma işleviyle gönderdiğin cayma bildiriminin bize ulaştığını teyit ederiz. Bu e-posta yalnızca alındığını teyit eder.",
+      "statement": "Beyanının içeriği: {appName} için benimle yapılan sözleşmeden (sipariş numarası {orderNo}) cayıyorum.",
+      "name": "Ad",
+      "orderNo": "Sipariş numarası",
+      "email": "E-posta",
+      "received": "Alındığı zaman",
+      "next": "Caymayı işleme alıp iade için seninle iletişime geçeceğiz.",
+      "footer": "{appName} · Sorular? {email}"
+    },
+    "next": "Devam",
+    "privacy": "Bilgilerini yalnızca caymayı siparişle eşleştirmek ve işlemek için kullanırız.",
+    "reviewTitle": "Beyanını kontrol et",
+    "statement": "EventRoll için benimle yapılan sözleşmeden (sipariş numarası {orderNo}) cayıyorum.",
+    "confirm": "Caymayı onayla",
+    "edit": "Bilgileri değiştir",
+    "doneTitle": "Cayma bildirimin bize ulaştı",
+    "doneBody": "Alındı: {time}. {email} adresine bir teyit gönderiyoruz. İade için seninle iletişime geçeceğiz.",
+    "errors": {
+      "invalid": "Lütfen bilgilerini kontrol et.",
+      "captcha": "Güvenlik kontrolü başarısız oldu. Lütfen tekrar dene.",
+      "rate_limited": "Çok fazla deneme. Lütfen sonra tekrar dene ya da bize e-posta yaz.",
+      "failed": "Olmadı. Lütfen tekrar dene ya da bize e-posta yaz."
+    }
   }
 }

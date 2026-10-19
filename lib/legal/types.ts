@@ -24,6 +24,8 @@ export type LegalCtx = {
   supportEmail: string;
   phone: string;
   contactUrl: string;
+  /** The online withdrawal function (§ 356a BGB). */
+  withdrawUrl: string;
   company: string;
   address: string;
   managingDirector: string;

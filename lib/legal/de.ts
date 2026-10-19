@@ -62,6 +62,7 @@ export function docsDe(c: LegalCtx): LegalDocs {
           body: [
             "Beim Aufruf einer Seite verarbeitet unser Hosting-Anbieter technische Daten, die Ihr Browser sendet (IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Browser und Betriebssystem), um die Seite auszuliefern und abzusichern. Diese Protokolle werden nach höchstens 30 Tagen gelöscht. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.",
             "Kontaktformular: Ihren Namen, Ihre E-Mail-Adresse und Ihre Nachricht nutzen wir nur, um Ihnen zu antworten, und löschen sie, wenn die Sache erledigt ist, spätestens nach 12 Monaten. Die Bot-Prüfung erfolgt mit Cloudflare Turnstile. Rechtsgrundlage: Art. 6 Abs. 1 lit. b und f DSGVO.",
+            `Widerrufsfunktion (${c.withdrawUrl}): Ihren Namen, die Bestellnummer und Ihre E-Mail-Adresse nutzen wir, um den Widerruf zuzuordnen, Ihnen den Eingang zu bestätigen und ihn abzuwickeln. Rechtsgrundlage: rechtliche Verpflichtung (Art. 6 Abs. 1 lit. c DSGVO, § 356a BGB). Wir bewahren die Angaben als Nachweis auf, solange Ansprüche aus dem Vertrag geltend gemacht werden können, höchstens drei Jahre.`,
             "Produktanalyse und Fehlerüberwachung: Derzeit setzen wir keine Analyse- oder Fehlerüberwachungsdienste ein. Sollten wir künftig PostHog (EU Cloud, ohne Cookies) oder Sentry nutzen, ergänzen wir diese Erklärung vorher.",
             "Schriftarten werden von unserem eigenen Server geladen; es werden keine Daten an Google Fonts übertragen.",
           ],
@@ -257,6 +258,7 @@ export function docsDe(c: LegalCtx): LegalDocs {
             "Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen.",
             "Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag des Vertragsabschlusses.",
             `Um Ihr Widerrufsrecht auszuüben, müssen Sie uns (${reach}) mittels einer eindeutigen Erklärung (z. B. ein mit der Post versandter Brief oder E-Mail) über Ihren Entschluss, diesen Vertrag zu widerrufen, informieren. Sie können dafür das beigefügte Muster-Widerrufsformular verwenden, das jedoch nicht vorgeschrieben ist.`,
+            `Sie können Ihr Widerrufsrecht auch online unter ${c.withdrawUrl} ausüben. Wenn Sie diese Online-Funktion nutzen, übermitteln wir Ihnen auf einem dauerhaften Datenträger (z. B. durch eine E-Mail) unverzüglich eine Eingangsbestätigung mit Informationen zum Inhalt der Widerrufserklärung sowie dem Datum und der Uhrzeit ihres Eingangs.`,
             "Zur Wahrung der Widerrufsfrist reicht es aus, dass Sie die Mitteilung über die Ausübung des Widerrufsrechts vor Ablauf der Widerrufsfrist absenden.",
           ],
         },

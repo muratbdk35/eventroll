@@ -37,6 +37,7 @@ describe("legal pages", () => {
     expect(w).toContain(SELLER.company);
     expect(w).toContain("hello@eventroll.eu");
     expect(w).toContain(SELLER.phone);
+    expect(w).toContain("https://eventroll.eu/de/withdraw");
     expect(w).toContain("Muster-Widerrufsformular");
     const imprint = legalText(getLegalDoc("imprint", ctx, "de"));
     expect(imprint).toContain(SELLER.register);

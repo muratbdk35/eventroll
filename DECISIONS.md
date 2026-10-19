@@ -1125,3 +1125,25 @@ A second review (Gemini, then checked) found two real gaps in #69:
   location (EXIF stays in the originals, see the privacy policy).
 - Not done: a ready-made DPA download. "On request" is enough until a business
   customer asks.
+
+## 71. Online withdrawal function, "Vertrag widerrufen" (2026-10-19)
+
+§ 356a BGB (EU 2023/2673) has required it since 19 June 2026 for every B2C
+contract made through a website, services included, even where the right can
+expire early. Found by a second review (ChatGPT), checked against IHK and
+law-firm sources.
+
+- `/[locale]/withdraw`: name, order number, email, then a review step with
+  "Widerruf bestätigen". No account needed; Turnstile, a per-IP limit and a
+  honeypot. No reason field (it may only be optional, and we don't need it).
+- On confirm: an email to SUPPORT_EMAIL first (that is the record, with the
+  order looked up by its 8-character number), then an acknowledgement to the
+  consumer with the content and the date and time of receipt. No new table.
+- The button sits in the marketing footer and in a slim footer on every
+  dashboard, create and sign-in page, set apart from the legal links. Not on
+  guest pages: guests make no contract with us.
+- The withdrawal instructions carry the new model sentences (Anlage 1 Art.
+  246a EGBGB, Gestaltungshinweis 3) with the link; the privacy policy says what
+  the function stores and why.
+- The rest of that review was generic (DPA template, cookie banner, audit
+  files); our texts already cover it or it doesn't apply.

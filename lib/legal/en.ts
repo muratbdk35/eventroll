@@ -58,6 +58,7 @@ export function docsEn(c: LegalCtx): LegalDocs {
           body: [
             "When you load a page, our hosting provider processes technical data your browser sends (IP address, date and time, page requested, browser and operating system) to deliver and secure the page. These logs are deleted after 30 days at the latest. Legal basis: Art. 6(1)(f) GDPR.",
             "Contact form: we use your name, email address and message only to answer you and delete them when the matter is settled, at the latest after 12 months. The bot check uses Cloudflare Turnstile. Legal basis: Art. 6(1)(b) and (f) GDPR.",
+            `Withdrawal function (${c.withdrawUrl}): we use your name, the order number and your email address to match the withdrawal, confirm its receipt and process it. Legal basis: legal obligation (Art. 6(1)(c) GDPR, § 356a BGB). We keep the details as proof for as long as claims under the contract can be made, at most three years.`,
             "Analytics and error monitoring: we currently use no analytics or error monitoring services. Should we use PostHog (EU Cloud, without cookies) or Sentry in future, we will update this policy first.",
             "Fonts are served from our own server; no data is sent to Google Fonts.",
           ],
@@ -253,6 +254,7 @@ export function docsEn(c: LegalCtx): LegalDocs {
             "You have the right to withdraw from this contract within fourteen days without giving any reason.",
             "The withdrawal period is fourteen days from the day the contract is concluded.",
             `To exercise your right of withdrawal, you must inform us (${reach}) of your decision to withdraw from this contract by an unequivocal statement (for example a letter sent by post or an email). You may use the attached model withdrawal form, but it is not obligatory.`,
+            `You can also exercise your right of withdrawal online at ${c.withdrawUrl}. If you use this online function, we will send you, without undue delay, an acknowledgement of receipt on a durable medium (e.g. by email) with information on the content of the withdrawal and the date and time it was received.`,
             "To meet the withdrawal deadline, it is sufficient that you send your communication concerning the exercise of the right of withdrawal before the withdrawal period has expired.",
           ],
         },

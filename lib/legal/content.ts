@@ -50,6 +50,7 @@ export function getLegalDoc(
     appName: ctx.appName,
     supportEmail: ctx.supportEmail,
     contactUrl: `${ctx.appUrl ?? ""}/${l}/contact`,
+    withdrawUrl: `${ctx.appUrl ?? ""}/${l}/withdraw`,
   };
   return BUILDERS[l](full)[page];
 }

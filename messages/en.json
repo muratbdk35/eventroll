@@ -887,5 +887,39 @@
       "rate_limited": "Too many messages. Please try again later.",
       "failed": "The message couldn't be sent. Try again later or write to hello@eventroll.eu."
     }
+  },
+  "Withdraw": {
+    "button": "Withdraw from contract",
+    "title": "Withdraw from contract",
+    "subtitle": "Here you can withdraw from a contract with us within the withdrawal period. You don't need an account. Details are in the <link>withdrawal instructions</link>.",
+    "name": "Your name",
+    "orderNo": "Order number",
+    "orderHint": "It's in the order confirmation email, e.g. 3F9A12BC.",
+    "emailLabel": "Email address for the acknowledgement",
+    "email": {
+      "subject": "Acknowledgement of your withdrawal – {appName}",
+      "intro": "We confirm receipt of your withdrawal through the {appName} withdrawal function. This email only confirms receipt.",
+      "statement": "Content of your statement: I hereby withdraw from the contract concluded with me for {appName}, order number {orderNo}.",
+      "name": "Name",
+      "orderNo": "Order number",
+      "email": "Email",
+      "received": "Received on",
+      "next": "We'll process the withdrawal and get in touch about the refund.",
+      "footer": "{appName} · Questions? {email}"
+    },
+    "next": "Continue",
+    "privacy": "We only use your details to match and process the withdrawal.",
+    "reviewTitle": "Please check your statement",
+    "statement": "I hereby withdraw from the contract concluded with me for EventRoll, order number {orderNo}.",
+    "confirm": "Confirm withdrawal",
+    "edit": "Change details",
+    "doneTitle": "We have received your withdrawal",
+    "doneBody": "Received on {time}. An acknowledgement is on its way to {email}. We'll be in touch about the refund.",
+    "errors": {
+      "invalid": "Please check your details.",
+      "captcha": "The security check failed. Please try again.",
+      "rate_limited": "Too many attempts. Please try again later or email us.",
+      "failed": "That didn't work. Please try again or email us."
+    }
   }
 }

@@ -58,6 +58,7 @@ export function docsTr(c: LegalCtx): LegalDocs {
           body: [
             "Bir sayfayı açtığınızda barındırma sağlayıcımız, sayfayı sunmak ve güvenliğini sağlamak için tarayıcınızın gönderdiği teknik verileri (IP adresi, tarih ve saat, açılan sayfa, tarayıcı ve işletim sistemi) işler. Bu kayıtlar en geç 30 gün sonra silinir. Hukuki dayanak: GDPR m. 6/1-f.",
             "İletişim formu: adınızı, e-posta adresinizi ve mesajınızı yalnızca size cevap vermek için kullanır, konu kapandığında, en geç 12 ay sonra sileriz. Bot kontrolü Cloudflare Turnstile ile yapılır. Hukuki dayanak: GDPR m. 6/1-b ve f.",
+            `Cayma işlevi (${c.withdrawUrl}): adınızı, sipariş numarasını ve e-posta adresinizi caymayı siparişle eşleştirmek, alındığını teyit etmek ve işlemek için kullanırız. Hukuki dayanak: yasal yükümlülük (GDPR m. 6/1-c, BGB § 356a). Bu bilgileri sözleşmeden doğan talepler ileri sürülebildiği sürece, en fazla üç yıl kanıt olarak saklarız.`,
             "Analiz ve hata izleme: Şu anda hiçbir analiz veya hata izleme hizmeti kullanmıyoruz. İleride PostHog (AB bulutu, çerezsiz) ya da Sentry kullanırsak bu metni önceden güncelleriz.",
             "Yazı tipleri kendi sunucumuzdan yüklenir; Google Fonts'a veri aktarılmaz.",
           ],
@@ -253,6 +254,7 @@ export function docsTr(c: LegalCtx): LegalDocs {
             "On dört gün içinde herhangi bir gerekçe göstermeksizin bu sözleşmeden cayma hakkına sahipsiniz.",
             "Cayma süresi, sözleşmenin kurulduğu günden itibaren on dört gündür.",
             `Cayma hakkınızı kullanmak için, bu sözleşmeden cayma kararınızı açık bir beyanla (örneğin postayla gönderilen bir mektup veya e-posta) bize (${reach}) bildirmeniz gerekir. Bunun için ekteki örnek cayma formunu kullanabilirsiniz, ancak bu zorunlu değildir.`,
+            `Cayma hakkınızı ${c.withdrawUrl} adresinden çevrim içi olarak da kullanabilirsiniz. Bu çevrim içi işlevi kullanırsanız, cayma beyanının içeriği ile alındığı tarih ve saati içeren bir alındı teyidini size gecikmeksizin kalıcı bir veri saklayıcısıyla (örneğin e-postayla) iletiriz.`,
             "Cayma süresine uymak için, cayma hakkını kullandığınıza ilişkin bildirimi cayma süresi dolmadan göndermeniz yeterlidir.",
           ],
         },

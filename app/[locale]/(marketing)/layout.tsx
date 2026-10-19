@@ -11,6 +11,7 @@ export default async function MarketingLayout({
     <NextIntlClientProvider
       messages={await clientMessages([
         "Contact",
+        "Withdraw",
         // The landing's mock screens are real app components.
         "Create.steps",
         "Create.details",
