@@ -23,6 +23,7 @@ import { HaloProgress } from "@/components/halo/halo-progress";
 import { Turnstile } from "@/components/turnstile";
 import { Link, useRouter } from "@/lib/i18n/navigation";
 import { cn } from "@/lib/utils";
+import { isRawFile, rawToJpeg } from "@/lib/raw";
 import { isAllowedMime, MAX_FILE_BYTES, type AllowedMime } from "@/lib/uploads";
 
 type Props = {
@@ -41,7 +42,8 @@ type Item = {
   file: File;
   mime: AllowedMime;
   preview: string;
-  status: "selected" | "uploading" | "done" | "error";
+  /** "converting": a RAW file whose own JPEG is being pulled out. */
+  status: "converting" | "selected" | "uploading" | "done" | "error";
   /** 0–1 while uploading. */
   progress: number;
   error?:
@@ -57,35 +59,6 @@ const EXT_MIME: Record<string, AllowedMime> = {
   heif: "image/heif",
   gif: "image/gif",
 };
-
-/**
- * Camera RAW files: browsers can't show them, the explicit-image check can't
- * read them and they run to 25–80 MB, so they get their own clear message.
- */
-const RAW_EXT = new Set([
-  "dng",
-  "cr2",
-  "cr3",
-  "nef",
-  "nrw",
-  "arw",
-  "srf",
-  "sr2",
-  "raf",
-  "orf",
-  "rw2",
-  "pef",
-  "srw",
-  "3fr",
-  "iiq",
-  "x3f",
-  "raw",
-]);
-const isRaw = (file: File) =>
-  RAW_EXT.has(file.name.split(".").pop()?.toLowerCase() ?? "") ||
-  /x-adobe-dng|x-canon|x-nikon|x-sony|x-fuji|x-olympus|x-panasonic|x-raw/i.test(
-    file.type,
-  );
 
 function mimeOf(file: File): AllowedMime | null {
   if (isAllowedMime(file.type)) return file.type;
@@ -378,20 +351,32 @@ export function Uploader(props: Props) {
   function addFiles(files: File[]) {
     if (files.length === 0) return;
     setSentNow(0);
+    const raws: Item[] = [];
     const next: Item[] = files.map((file) => {
       const mime = mimeOf(file);
+      const raw = !mime && isRawFile(file);
       const base = {
         key: crypto.randomUUID(),
         file,
-        preview: URL.createObjectURL(file),
+        // A RAW has no preview a browser can show until it's converted.
+        preview: raw ? "" : URL.createObjectURL(file),
         progress: 0,
       };
+      if (raw) {
+        const item: Item = {
+          ...base,
+          mime: "image/jpeg",
+          status: "converting",
+        };
+        raws.push(item);
+        return item;
+      }
       if (!mime) {
         return {
           ...base,
           mime: "image/jpeg",
           status: "error",
-          error: isRaw(file) ? "raw" : "badType",
+          error: "badType",
         };
       }
       if (file.size > MAX_FILE_BYTES) {
@@ -400,6 +385,24 @@ export function Uploader(props: Props) {
       return { ...base, mime, status: "selected" };
     });
     setItems((all) => [...next, ...all]);
+    if (raws.length) void convertRaws(raws);
+  }
+
+  /** One at a time: each RAW is read whole into memory (DECISIONS #61). */
+  async function convertRaws(raws: Item[]) {
+    for (const item of raws) {
+      const jpeg = await rawToJpeg(item.file).catch(() => null);
+      if (jpeg && jpeg.size <= MAX_FILE_BYTES) {
+        patch(item.key, {
+          file: jpeg,
+          mime: "image/jpeg",
+          preview: URL.createObjectURL(jpeg),
+          status: "selected",
+        });
+      } else {
+        patch(item.key, { status: "error", error: "raw" });
+      }
+    }
   }
 
   function remove(key: string) {
@@ -624,13 +627,21 @@ export function Uploader(props: Props) {
                 style={{ animationDelay: `${Math.min(i, 8) * 40}ms` }}
               >
                 <div className="relative aspect-square overflow-hidden rounded-[14px] bg-muted shadow-[0_1px_0_rgba(255,255,255,0.5)_inset,0_6px_16px_-6px_rgba(20,35,60,0.3)] ring-1 ring-black/10 ring-inset">
-                  {/* eslint-disable-next-line @next/next/no-img-element -- local blob preview */}
-                  <img
-                    src={item.preview}
-                    alt=""
-                    decoding="async"
-                    className="size-full object-cover"
-                  />
+                  {item.preview && (
+                    // eslint-disable-next-line @next/next/no-img-element -- local blob preview
+                    <img
+                      src={item.preview}
+                      alt=""
+                      decoding="async"
+                      className="size-full object-cover"
+                    />
+                  )}
+                  {item.status === "converting" && (
+                    <span className="absolute inset-0 flex flex-col items-center justify-center gap-1.5 p-1.5 text-center text-[11px] leading-tight font-medium text-muted-foreground">
+                      <Loader2 className="size-4 animate-spin" aria-hidden />
+                      {t("rawConverting")}
+                    </span>
+                  )}
                   {item.status === "uploading" && (
                     <span className="absolute inset-0 flex items-center justify-center bg-black/35">
                       <ProgressRing value={item.progress} />

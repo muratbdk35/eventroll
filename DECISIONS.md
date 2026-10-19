@@ -926,3 +926,20 @@ reminders planned in #23 were never built.
   its bootstrap; nonces would make every page dynamic. Checked with no
   violations on the landing, login (Turnstile), create, guest and dashboard
   pages.
+
+## 61. RAW photos: the camera's own JPEG is uploaded (owner request, 2026-10-19)
+
+- A guest who only shoots RAW couldn't upload at all. Nearly every RAW file
+  (DNG, CR2, NEF, ARW, RAF, ORF, RW2, PEF…) carries a JPEG the camera
+  rendered, often full size. The guest's browser now reads the RAW (up to
+  200 MB, one at a time), finds the embedded JPEGs by their markers, skips
+  lossless ones (DNG raw tiles) and thumbnails, checks the largest decodes
+  and is at least 1.5 MP, and uploads that as `image/jpeg` (`lib/raw.ts`).
+  The RAW's own date and rotation (TIFF IFD0 / Exif IFD) are written into
+  it when it has no EXIF; CR3/RAF without TIFF tags fall back to the file's
+  date. No decoder or library; the server never sees the RAW.
+- So the photo previews, passes the explicit-image check and is a few MB
+  instead of up to 80. A RAW without a big enough JPEG still gets "RAW
+  can't be used" with a hint to save it as JPEG or HEIC.
+- Tested with synthetic RAW files (unit tests, and a 6 MB DNG uploaded
+  through the guest page); not yet with real camera files.

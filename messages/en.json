@@ -691,9 +691,10 @@
     "metaDescription": "Upload the photos you took with your phone here. No app or account needed.",
     "ogCta": "Share your photos",
     "albumFull": "Album is full",
-    "raw": "RAW not supported",
-    "rawHint": "RAW files can't be uploaded; save the photo as JPEG or HEIC and pick it again.",
-    "tooBigHint": "A photo can be at most {mb} MB."
+    "raw": "RAW can't be used",
+    "rawHint": "This RAW file has no large enough photo inside; save it as JPEG or HEIC and pick it again.",
+    "tooBigHint": "A photo can be at most {mb} MB.",
+    "rawConverting": "Preparing RAW"
   },
   "App": {
     "events": "Events",

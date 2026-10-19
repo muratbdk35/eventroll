@@ -694,9 +694,10 @@
     "metaDescription": "Telefon kameranla çektiğin fotoğrafları buradan yükle. Uygulama ya da üyelik gerekmez.",
     "ogCta": "Fotoğraflarını paylaş",
     "albumFull": "Albüm doldu",
-    "raw": "RAW desteklenmez",
-    "rawHint": "RAW dosyaları yüklenemiyor; fotoğrafı JPEG ya da HEIC olarak kaydedip tekrar seç.",
-    "tooBigHint": "Bir fotoğraf en fazla {mb} MB olabilir."
+    "raw": "RAW açılamadı",
+    "rawHint": "Bu RAW dosyasının içinde yeterince büyük bir fotoğraf yok; fotoğrafı JPEG ya da HEIC olarak kaydedip tekrar seç.",
+    "tooBigHint": "Bir fotoğraf en fazla {mb} MB olabilir.",
+    "rawConverting": "RAW hazırlanıyor"
   },
   "App": {
     "events": "Etkinlikler",
