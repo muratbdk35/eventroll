@@ -164,7 +164,7 @@ export async function deleteEvent(eventId: string): Promise<ActionResult> {
   await db.transaction(async (tx) => {
     await tx
       .update(media)
-      .set({ status: "deleted" })
+      .set({ status: "deleted", uploaderIpEnc: null })
       .where(eq(media.eventId, event.id));
     await tx
       .update(events)
@@ -353,7 +353,7 @@ async function removeMedia(eventId: string, where: SQL | undefined) {
     for (const r of rows) {
       await tx
         .update(media)
-        .set({ status: "deleted" })
+        .set({ status: "deleted", uploaderIpEnc: null })
         .where(eq(media.id, r.id));
     }
     if (live.length > 0) {

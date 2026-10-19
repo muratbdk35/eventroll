@@ -154,6 +154,9 @@ export const media = pgTable(
     // Event-scoped random device id from the signed guest cookie.
     deviceId: text(),
     uploaderFingerprint: text(),
+    // The uploader's IP, encrypted (lib/guest/ip.ts, DECISIONS #58); only
+    // decrypted for a legal request. Cleared with the photo.
+    uploaderIpEnc: text(),
     // When the guest ticked "I accept the terms / I may share these photos".
     guestConsentAt: timestamp(tz),
     // Automatic check for explicit images (DECISIONS #52): null = not

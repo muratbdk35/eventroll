@@ -3,6 +3,7 @@ import { createHash, randomUUID } from "node:crypto";
 import { and, count, eq, inArray, sql } from "drizzle-orm";
 import { db, schema } from "@/lib/db";
 import { env } from "@/lib/env";
+import { encryptIp } from "./ip";
 import { getUploadState, type UploadState } from "@/lib/events/upload-state";
 import { plans } from "@/lib/plans";
 import {
@@ -60,6 +61,7 @@ export async function createPendingUploads(opts: {
   event: EventRow;
   deviceId: string;
   fingerprint: string;
+  ip: string;
   uploaderName: string | null;
   consentAt: Date;
   files: PresignFile[];
@@ -105,6 +107,7 @@ export async function createPendingUploads(opts: {
       guestConsentAt: opts.consentAt,
       deviceId: opts.deviceId,
       uploaderFingerprint: opts.fingerprint,
+      uploaderIpEnc: encryptIp(opts.ip, env.IP_ENCRYPTION_KEY),
     };
   });
   await db.insert(media).values(rows);
@@ -239,5 +242,8 @@ async function discard(row: {
   thumbKey: string | null;
 }) {
   await deleteObjects(row.thumbKey ? [row.r2Key, row.thumbKey] : [row.r2Key]);
-  await db.update(media).set({ status: "deleted" }).where(eq(media.id, row.id));
+  await db
+    .update(media)
+    .set({ status: "deleted", uploaderIpEnc: null })
+    .where(eq(media.id, row.id));
 }

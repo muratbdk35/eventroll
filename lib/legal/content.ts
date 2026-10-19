@@ -73,7 +73,8 @@ export function getLegalDoc(
               "The photos you choose to send, stored as original files together with a small preview image created in your browser. Original files are stored unchanged, which means embedded metadata (EXIF) such as the date, camera model and, if your phone recorded it, the location where the photo was taken stays in the file the host downloads. You can turn off location tagging in your camera settings before the event.",
               "Your name, only if you enter one.",
               "A random device ID stored in a cookie for this event, so the host's per-phone limit works and the host can block a phone that uploads unwanted content.",
-              "A salted, one-way hash of your IP address and browser identifier, used only to detect abuse. We cannot recover your IP address from it.",
+              "A salted, one-way hash of your IP address and browser identifier, used to detect abuse.",
+              "Your IP address at the time of the upload, stored encrypted with each photo. It is never shown to the host or used for anything else; we only decrypt it to answer a legal request from the authorities, for example after a report of illegal content. Legal basis: our legitimate interest in being able to help investigate crimes committed through the service, and legal obligations (Art. 6(1)(f) and (c) GDPR).",
               "A Cloudflare Turnstile check and, if the host set one, the PIN you entered (we never store what you type; wrong attempts are rate-limited).",
               "The time you confirmed that you accept the terms and are allowed to share the photos.",
             ],
@@ -97,7 +98,7 @@ export function getLegalDoc(
           body: [
             [
               "Photos and previews: permanently deleted at the end of the download window your plan includes, counted from the day the event ends (7, 14, 21 or 30 days for Mini, Standard, Pro or VIP; 7 days before a plan is chosen). Hosts can delete single photos, all photos from one phone, or the whole event earlier at any time.",
-              "Event settings and guest-related records (names, device IDs, hashes, consent times): deleted together with the photos.",
+              "Event settings and guest-related records (names, device IDs, hashes, encrypted IP addresses, consent times): deleted together with the photos.",
               "Account data: kept while your account exists and deleted within 30 days after you ask us to delete your account, except data we must keep by law (for example invoices).",
               "Sign-in codes: expire after 10 minutes and are stored only as a hash.",
             ],

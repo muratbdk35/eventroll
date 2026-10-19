@@ -98,7 +98,7 @@ export default async function Image({
           height: H,
         }}
       >
-        { }
+        {}
         <img
           src={ticketSvg(c.back, c.front, c.ink)}
           width={W}

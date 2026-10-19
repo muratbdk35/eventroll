@@ -59,6 +59,7 @@ export async function POST(req: Request, { params }: Ctx) {
     event,
     deviceId: guest.deviceId,
     fingerprint: fingerprint(ip, req.headers.get("user-agent") ?? ""),
+    ip,
     uploaderName: parsed.data.uploaderName || null,
     consentAt: new Date(),
     files: parsed.data.files,

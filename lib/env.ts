@@ -28,6 +28,8 @@ const schema = z.object({
         .filter(Boolean),
     ),
   FINGERPRINT_SALT: optional,
+  // 32 random bytes, base64: encrypts uploader IPs (lib/guest/ip.ts).
+  IP_ENCRYPTION_KEY: optional,
 
   // Database
   // postgres://… (Neon) or, for local dev/tests only, pglite:<dir> | pglite:memory
@@ -100,6 +102,7 @@ const schema = z.object({
 const requiredInProduction = [
   "CRON_SECRET",
   "FINGERPRINT_SALT",
+  "IP_ENCRYPTION_KEY",
   "R2_ACCOUNT_ID",
   "R2_ACCESS_KEY_ID",
   "R2_SECRET_ACCESS_KEY",

@@ -880,3 +880,17 @@ reminders planned in #23 were never built.
   get the event, time, name if given and the file's own metadata, not the
   uploader's IP. Storing IPs encrypted for the event's lifetime, disclosed
   only on legal request, is for the owner and the lawyer to decide.
+
+## 58. Uploader IPs kept encrypted for legal requests (owner decision, 2026-10-19)
+
+- Until now only a salted hash of IP + browser was kept (data minimisation:
+  per-phone limits use the device cookie, abuse checks only need "same IP?").
+  To help the authorities after a report (#57), each upload now also stores
+  the IP encrypted (`media.uploader_ip_enc`, migration 0011; AES-256-GCM,
+  `lib/guest/ip.ts`, key `IP_ENCRYPTION_KEY`). Never shown in the app; cleared
+  when the photo or event is deleted and by the purge after the window.
+- Decrypting is a deliberate, manual step for a legal request only:
+  `npm run reveal-ip -- <media id>` with the production DATABASE_URL and the
+  key. The production key lives in Vercel (sensitive) and in the owner's
+  password manager; the test site has its own key. Without a key nothing is
+  stored. The privacy policy says so (section 3 and 5).

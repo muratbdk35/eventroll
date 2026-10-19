@@ -1,0 +1,1 @@
+ALTER TABLE "media" ADD COLUMN "uploader_ip_enc" text;

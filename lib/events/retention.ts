@@ -87,6 +87,7 @@ export async function purgeExpired({
           uploaderName: null,
           deviceId: null,
           uploaderFingerprint: null,
+          uploaderIpEnc: null,
           guestConsentAt: null,
         })
         .where(eq(media.eventId, ev.id));

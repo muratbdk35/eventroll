@@ -586,7 +586,7 @@ export function Uploader(props: Props) {
               </button>
             )}
           </div>
-          <ul className="grid grid-cols-3 gap-2.5 max-h-[50vh] overflow-y-auto overscroll-contain p-2 -m-2">
+          <ul className="-m-2 grid max-h-[50vh] grid-cols-3 gap-2.5 overflow-y-auto overscroll-contain p-2">
             {items.map((item, i) => (
               <li
                 key={item.key}

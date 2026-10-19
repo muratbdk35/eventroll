@@ -35,6 +35,7 @@ export async function sendReportNotice(r: {
     `Fotoğraf kaydı: ${r.mediaId}`,
     `Yükleyen cihaz: ${r.deviceId ?? "bilinmiyor"}`,
     `Yüklenme zamanı: ${r.uploadedAt.toISOString()}`,
+    "Yükleyenin IP adresi şifreli kayıtlı. Yalnızca yetkililer resmi olarak isterse çıkar: npm run reveal-ip -- <fotoğraf kaydı> (canlı DATABASE_URL ve şifre yöneticindeki IP_ENCRYPTION_KEY ile).",
     "",
     csam
       ? "Yapılacaklar: Fotoğrafı açma, indirme, kimseye iletme. Şüpheyi yetkililere bildir (Almanya: polis, BKA ya da eco / jugendschutz.net şikâyet hattı) ve silme ya da saklama konusunda onların talimatına uy. Fotoğraf, etkinliğin indirme süresi bitince otomatik silinir; saklanması istenirse bundan önce bildirim yap."
