@@ -100,6 +100,8 @@ export function docsTr(c: LegalCtx): LegalDocs {
             "Erişim (GDPR m. 15), düzeltme (m. 16), silme (m. 17), işlemenin kısıtlanması (m. 18), veri taşınabilirliği (m. 20) ve meşru menfaate dayanan işlemeye itiraz (m. 21) haklarına sahipsiniz. Verdiğiniz bir onayı, ileriye dönük olarak her zaman geri alabilirsiniz.",
             `Bunun için ${c.supportEmail} adresine yazın. Misafir olarak bir fotoğrafın silinmesini doğrudan etkinlik sahibinden de isteyebilirsiniz; bulabilmemiz için lütfen etkinlik linkini bize iletin.`,
             "Ayrıca bir veri koruma denetim makamına, özellikle yaşadığınız veya çalıştığınız AB ülkesindekine şikâyette bulunma hakkınız vardır. Bizden sorumlu makam Hamburg Veri Koruma ve Bilgi Edinme Özgürlüğü Komiserliği'dir.",
+            "Veri verme zorunluluğu: Etkinlik sahibi hesabı için e-posta adresinize, sipariş için Stripe'ta ödeme bilgilerine ihtiyacımız var; bunlar olmadan sözleşmeyi yerine getiremeyiz. Misafirlerin yalnızca fotoğraf seçmesi yeterlidir; ad isteğe bağlıdır.",
+            "Otomatik kararlar: Size karşı hukuki sonuç doğuran ve yalnızca otomatik işlemeye dayanan kararlar vermeyiz (GDPR m. 22). Müstehcen içerik için otomatik kontrol yalnızca işaretler; fotoğrafın kalıp kalmayacağına etkinlik sahibi karar verir.",
           ],
         },
         {

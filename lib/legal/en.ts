@@ -100,6 +100,8 @@ export function docsEn(c: LegalCtx): LegalDocs {
             "You have the right of access (Art. 15 GDPR), rectification (Art. 16), erasure (Art. 17), restriction (Art. 18), data portability (Art. 20) and to object to processing based on legitimate interests (Art. 21). You can withdraw consent at any time with effect for the future.",
             `Write to ${c.supportEmail}. As a guest you can also ask the host directly to delete a photo; please give us the event link so we can find it.`,
             "You also have the right to complain to a data protection supervisory authority, in particular in the EU country where you live or work. Our authority is the Hamburg Commissioner for Data Protection and Freedom of Information.",
+            "Whether you must provide data: for a host account we need your email address, and for an order the payment details at Stripe; without them we cannot perform the contract. Guests only need to choose photos; the name is optional.",
+            "Automated decisions: we make no decisions based solely on automated processing that have legal effects on you (Art. 22 GDPR). The automatic check for explicit content only flags photos; the host decides whether a photo stays.",
           ],
         },
         {

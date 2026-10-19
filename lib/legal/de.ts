@@ -104,6 +104,8 @@ export function docsDe(c: LegalCtx): LegalDocs {
             "Sie haben das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) und Widerspruch gegen Verarbeitungen auf Grundlage berechtigter Interessen (Art. 21). Eine Einwilligung können Sie jederzeit mit Wirkung für die Zukunft widerrufen.",
             `Wenden Sie sich dafür an ${c.supportEmail}. Als Gast können Sie die Löschung eines Fotos auch direkt beim Gastgeber verlangen; nennen Sie uns bitte den Event-Link, damit wir es finden.`,
             "Sie haben außerdem das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren, insbesondere in dem EU-Staat, in dem Sie wohnen oder arbeiten. Für uns zuständig ist der Hamburgische Beauftragte für Datenschutz und Informationsfreiheit.",
+            "Pflicht zur Bereitstellung: Für ein Gastgeberkonto brauchen wir Ihre E-Mail-Adresse, für eine Bestellung die Zahlungsdaten bei Stripe; ohne sie können wir den Vertrag nicht erfüllen. Gäste müssen nur Fotos auswählen; der Name ist freiwillig.",
+            "Automatisierte Entscheidungen: Wir treffen keine Entscheidungen, die allein auf automatisierter Verarbeitung beruhen und Ihnen gegenüber rechtliche Wirkung entfalten (Art. 22 DSGVO). Die automatische Prüfung auf explizite Inhalte markiert nur; ob ein Foto bleibt, entscheidet der Gastgeber.",
           ],
         },
         {
