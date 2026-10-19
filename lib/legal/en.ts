@@ -163,6 +163,7 @@ export function docsEn(c: LegalCtx): LegalDocs {
           body: [
             "Consumers have a statutory right of withdrawal. The details and the model withdrawal form are in the withdrawal instructions.",
             "Because a plan can be used immediately, before payment we ask you to expressly request that we start before the withdrawal period ends and to confirm that you know your right of withdrawal ends once we have fully provided the service.",
+            "Withdrawal after the service has started: if you asked us to start before the withdrawal period ends and then withdraw, you pay a reasonable amount for the service provided up to that point (§ 357a(2) BGB). The core of the service is the event itself: your guests being able to upload photos to your album during the event period. The download window afterwards only serves to collect the photos. If you withdraw before the event starts, we refund the full amount. If you withdraw after the event has started, the essential part of the service has been provided and the refund is correspondingly small.",
             "Voluntary refund: as long as no photo has been uploaded to your event and the first payment is at most 14 days old, you can cancel the plan in the event settings with one click and get the full amount back; the event becomes a draft again. If something went wrong on our side, write to us and we refund in full or in part. Your statutory rights are not affected.",
           ],
         },

@@ -1147,3 +1147,13 @@ law-firm sources.
   the function stores and why.
 - The rest of that review was generic (DPA template, cookie banner, audit
   files); our texts already cover it or it doesn't apply.
+
+## 72. Withdrawal after the event has started (owner decision, 2026-10-20)
+
+The terms (§ 5) now say what § 357a(2) BGB's "reasonable amount" rests on:
+the core of the service is the event itself (guests uploading during the
+event period); the download window only serves to collect the photos.
+Withdrawal before the event starts: full refund. After it has started: the
+essential part is provided, so the refund is small. No fixed percentage (a
+flat rate could count as a deviation to the consumer's detriment, § 361 BGB);
+the lawyer should confirm the wording. The 14 days run from payment.

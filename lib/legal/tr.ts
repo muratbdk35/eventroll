@@ -163,6 +163,7 @@ export function docsTr(c: LegalCtx): LegalDocs {
           body: [
             "Tüketicilerin yasal bir cayma hakkı vardır. Ayrıntılar ve örnek cayma formu cayma bildiriminde yer alır.",
             "Plan hemen kullanılabildiği için ödemeden önce, cayma süresi dolmadan hizmete başlamamızı açıkça talep etmenizi ve hizmeti tamamen sağladığımızda cayma hakkınızın sona ereceğini bildiğinizi onaylamanızı isteriz.",
+            "Hizmet başladıktan sonra cayma: Cayma süresi dolmadan başlamamızı istediyseniz ve sonra cayarsanız, o ana kadar verilen hizmet için makul bir bedel ödersiniz (BGB § 357a/2). Hizmetin özü etkinliğin kendisidir: misafirlerinizin etkinlik süresi boyunca albümünüze fotoğraf yükleyebilmesi. Sonrasındaki indirme süresi yalnızca fotoğrafları almanız içindir. Etkinlik başlamadan cayarsanız tutarın tamamını iade ederiz. Etkinlik başladıktan sonra cayarsanız hizmetin esas kısmı verilmiş olur ve iade buna göre küçük kalır.",
             "Gönüllü iade: Etkinliğinize henüz hiç fotoğraf yüklenmediyse ve ilk ödemenin üzerinden en fazla 14 gün geçtiyse, planı etkinlik ayarlarından tek tıkla iptal edip tutarın tamamını geri alabilirsiniz; etkinlik yeniden taslak olur. Bizim tarafımızda bir sorun olduysa bize yazın; tamamen veya kısmen iade ederiz. Yasal haklarınız saklıdır.",
           ],
         },
