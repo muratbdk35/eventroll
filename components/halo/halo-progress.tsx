@@ -7,6 +7,7 @@
 
 import { Progress as ProgressPrimitive } from "@base-ui/react/progress";
 import { motion, useReducedMotion } from "framer-motion";
+import { useLocale } from "next-intl";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { haloSpring } from "./glow";
@@ -31,11 +32,15 @@ export function HaloProgress({
   "aria-label": ariaLabel,
 }: HaloProgressProps) {
   const reduce = useReducedMotion() ?? false;
+  const locale = useLocale();
   const pct = value === null ? 0 : Math.min(1, Math.max(0, value / 100));
 
   return (
     <ProgressPrimitive.Root
       value={value}
+      // The page's locale, not the device's: server and browser must agree
+      // ("20%" vs Turkish "%20" broke hydration).
+      locale={locale}
       aria-label={label ? undefined : ariaLabel}
       className={cn("flex w-full flex-col gap-2", className)}
     >

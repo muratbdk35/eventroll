@@ -767,7 +767,7 @@
     },
     "account": {
       "title": "Create your account",
-      "subtitle": "Let's save your event. Continue with Google in one click, or with a link sent to your email.",
+      "subtitle": "Let's save your event. Continue with Google in one click, or with a 6-digit code sent to your email.",
       "saved": "What you filled in stays in this browser and is saved to your account once you sign in.",
       "signedInAs": "Signed in as",
       "continue": "Continue with this account",

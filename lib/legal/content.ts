@@ -171,7 +171,7 @@ export function getLegalDoc(
         {
           heading: "2. Accounts",
           body: [
-            "You must be at least 18 years old to create a host account. Keep access to your email account secure, because sign-in links are sent there. You are responsible for activity in your account.",
+            "You must be at least 18 years old to create a host account. Keep access to your email account secure, because sign-in codes are sent there. You are responsible for activity in your account.",
           ],
         },
         {

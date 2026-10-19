@@ -770,7 +770,7 @@
     },
     "account": {
       "title": "Erstelle dein Konto",
-      "subtitle": "Lass uns dein Event speichern. Mit Google per Klick oder mit einem Link an deine E-Mail.",
+      "subtitle": "Lass uns dein Event speichern. Mit Google per Klick oder mit einem 6-stelligen Code an deine E-Mail.",
       "saved": "Deine Angaben bleiben in diesem Browser und werden nach der Anmeldung in deinem Konto gespeichert.",
       "signedInAs": "Angemeldet als",
       "continue": "Mit diesem Konto weiter",

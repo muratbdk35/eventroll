@@ -770,7 +770,7 @@
     },
     "account": {
       "title": "Hesabını oluştur",
-      "subtitle": "Etkinliğini kaydedelim. Google ile tek tıkla ya da e-postana gelen linkle devam et.",
+      "subtitle": "Etkinliğini kaydedelim. Google ile tek tıkla ya da e-postana gelen 6 haneli kodla devam et.",
       "saved": "Doldurduğun bilgiler bu tarayıcıda duruyor; giriş yapınca hesabına kaydedilir.",
       "signedInAs": "Giriş yaptın",
       "continue": "Bu hesapla devam et",
