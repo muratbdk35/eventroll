@@ -37,7 +37,7 @@ export function getLegalDoc(
   ctx: { appName: string; supportEmail: string },
 ): LegalDoc {
   const { appName, supportEmail } = ctx;
-  const company = "[Company name GmbH]";
+  const company = "FeyaTech UG (haftungsbeschränkt)";
   const address = "[street and number], [postcode] [city], Germany";
 
   const docs: Record<LegalPage, LegalDoc> = {
