@@ -1040,3 +1040,7 @@ strict-origin-when-cross-origin` (event links don't leak to other sites),
   its tax number can't be set as an account tax ID from our side, every
   invoice carries the seller details in its footer (company, address,
   managing director, register, Steuernummer) and shows the included VAT.
+- Stripe titles Checkout invoices "amount due" even when they are Paid (the
+  receipt says paid). The invoice description, right under the title, now
+  starts with "Paid: charged at checkout, nothing more to pay" in the
+  buyer's language (tr/de/en), so nobody thinks they owe more.

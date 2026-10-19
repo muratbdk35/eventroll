@@ -52,6 +52,13 @@ function germanVat(): Promise<string | null> {
   return vatRate;
 }
 
+/** Under the invoice title, in the buyer's language. */
+const PAID_NOTE: Record<string, string> = {
+  tr: "Ödendi: sipariş sırasında tahsil edildi, ayrıca ödeme gerekmez",
+  de: "Bezahlt: bei der Bestellung beglichen, keine weitere Zahlung nötig",
+  en: "Paid: charged at checkout, nothing more to pay",
+};
+
 /** Printed at the bottom of every invoice (§ 14 UStG seller details). */
 const INVOICE_FOOTER =
   "EventRoll ist ein Angebot der FeyaTech UG (haftungsbeschränkt), Pestalozzistraße 25, 22305 Hamburg. Geschäftsführerin: Feyza Barutcu. Amtsgericht Hamburg, HRB 186207. Steuernummer: 43/720/02102.";
@@ -128,7 +135,13 @@ export async function createCheckout(opts: {
     invoice_creation: {
       enabled: true,
       invoice_data: {
-        description: `EventRoll ${plan}: ${event.name}`.slice(0, 1500),
+        // Stripe titles these invoices "amount due"; the line under it
+        // makes clear the buyer already paid (DECISIONS #66).
+        description:
+          `${PAID_NOTE[opts.locale] ?? PAID_NOTE.en} · EventRoll ${plan}: ${event.name}`.slice(
+            0,
+            1500,
+          ),
         metadata,
         // The seller's details, including the tax number (the company has
         // no VAT ID), on every invoice (DECISIONS #66).
