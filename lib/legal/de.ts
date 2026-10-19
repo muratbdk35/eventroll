@@ -47,7 +47,6 @@ export function docsDe(c: LegalCtx): LegalDocs {
               "Ihren Namen, nur wenn Sie einen eingeben;",
               "eine zufällige Geräte-ID in einem Cookie für dieses Event, damit das Limit pro Handy funktioniert und der Gastgeber ein Handy sperren kann, das unerwünschte Inhalte hochlädt;",
               "einen gesalzenen, nicht umkehrbaren Hashwert aus IP-Adresse und Browserkennung, um Missbrauch zu erkennen;",
-              "Ihre IP-Adresse zum Zeitpunkt des Uploads, verschlüsselt gespeichert zu jedem Foto. Sie wird dem Gastgeber nie angezeigt und für nichts anderes verwendet; wir entschlüsseln sie nur, um eine rechtliche Anfrage von Behörden zu beantworten, zum Beispiel nach einer Meldung rechtswidriger Inhalte. Rechtsgrundlage: berechtigtes Interesse, bei der Aufklärung von über den Dienst begangenen Straftaten helfen zu können, und rechtliche Verpflichtungen (Art. 6 Abs. 1 lit. f und c DSGVO);",
               "die Prüfung durch Cloudflare Turnstile und, falls der Gastgeber eine PIN festgelegt hat, die eingegebene PIN (wir speichern Ihre Eingabe nicht; Fehlversuche sind begrenzt);",
               "den Zeitpunkt, zu dem Sie bestätigt haben, dass Sie die Bedingungen akzeptieren und die Fotos teilen dürfen.",
             ],
@@ -55,7 +54,7 @@ export function docsDe(c: LegalCtx): LegalDocs {
             "Wer Ihre Fotos sieht: nur der Gastgeber des Events. Andere Gäste sehen Ihre Fotos nie; Alben sind nicht öffentlich und werden nicht von Suchmaschinen erfasst.",
             "Wir sehen uns keine Fotos an. Speicherung, Vorschaubilder und die automatische Prüfung unten laufen, ohne dass ein Mensch die Fotos betrachtet. Eine Person in unserem Unternehmen öffnet ein Foto nur, wenn das Gesetz es verlangt, zum Beispiel um einer Meldung rechtswidriger Inhalte oder einer behördlichen Anfrage nachzugehen, oder wenn der Gastgeber uns ausdrücklich um Unterstützung bei bestimmten Fotos bittet. Ein solcher Zugriff beschränkt sich auf die betroffenen Fotos.",
             "Automatische Prüfung auf explizite Inhalte: Ein kleines Vorschaubild jedes Fotos wird automatisch auf explizite sexuelle Inhalte geprüft. Ein markiertes Foto wird nicht gelöscht; es wird aus Album und Downloads des Gastgebers herausgehalten, und der Gastgeber kann es unscharf anzeigen und entscheiden, ob er es behält. Die Prüfung identifiziert keine Personen; ihr Ergebnis wird zusammen mit dem Foto gelöscht. Rechtsgrundlage: unser berechtigtes Interesse und das des Gastgebers, Events frei von expliziten Inhalten zu halten (Art. 6 Abs. 1 lit. f DSGVO).",
-            "Meldungen: Meldet ein Gastgeber ein Foto als rechtswidrig, speichern wir Zeitpunkt und Grund, verbergen das Foto für alle und werden per E-Mail mit Event- und Fotonummer informiert, nie mit dem Bild. Das gemeldete Foto und die Daten zu seinem Upload werden dann gesperrt und außerhalb der normalen Löschung 90 Tage als mögliches Beweismittel aufbewahrt, länger nur auf Verlangen der Behörden, und anschließend gelöscht. Bei Verdacht auf eine Straftat, insbesondere Darstellungen sexuellen Kindesmissbrauchs, geben wir die Meldung und die Daten zum Upload an die zuständigen Behörden weiter. Rechtsgrundlage: rechtliche Verpflichtungen und berechtigtes Interesse am Vorgehen gegen rechtswidrige Inhalte (Art. 6 Abs. 1 lit. c und f DSGVO).",
+            "Meldungen: Meldet ein Gastgeber ein Foto als rechtswidrig, speichern wir Zeitpunkt und Grund, verbergen das Foto für alle und werden per E-Mail mit Event- und Fotonummer informiert, nie mit dem Bild. Das Foto wird mit den übrigen Fotos des Events am Ende des Download-Zeitraums gelöscht, sofern die Behörden nicht verlangen, es länger aufzubewahren. Bei Verdacht auf eine Straftat, insbesondere Darstellungen sexuellen Kindesmissbrauchs, geben wir die Meldung und die Daten zum Upload an die zuständigen Behörden weiter. Rechtsgrundlage: rechtliche Verpflichtungen und berechtigtes Interesse am Vorgehen gegen rechtswidrige Inhalte (Art. 6 Abs. 1 lit. c und f DSGVO).",
           ],
         },
         {
@@ -72,8 +71,7 @@ export function docsDe(c: LegalCtx): LegalDocs {
           body: [
             [
               "Fotos und Vorschaubilder: endgültig gelöscht am Ende des Download-Zeitraums Ihres Plans, gerechnet ab dem Tag, an dem das Event endet (7, 14, 21 oder 30 Tage bei Mini, Standard, Pro oder VIP; 7 Tage, solange kein Plan gewählt ist). Gastgeber können einzelne Fotos, alle Fotos eines Handys oder das ganze Event jederzeit früher löschen.",
-              "Eventeinstellungen und Daten zu Gästen (Namen, Geräte-IDs, Hashwerte, verschlüsselte IP-Adressen, Zustimmungszeitpunkte): gelöscht zusammen mit den Fotos.",
-              "Als rechtswidrig gemeldete Fotos und die Daten zu ihrem Upload: 90 Tage gesperrt aufbewahrt, länger nur auf Verlangen der Behörden, dann gelöscht.",
+              "Eventeinstellungen und Daten zu Gästen (Namen, Geräte-IDs, Hashwerte, Zustimmungszeitpunkte): gelöscht zusammen mit den Fotos.",
               "Kontodaten: solange Ihr Konto besteht; gelöscht innerhalb von 30 Tagen, nachdem Sie die Löschung verlangt haben, außer Daten, die wir gesetzlich aufbewahren müssen (zum Beispiel Rechnungen).",
               "Anmeldecodes: gültig 10 Minuten, nur als Hashwert gespeichert.",
             ],

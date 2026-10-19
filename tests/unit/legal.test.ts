@@ -13,19 +13,17 @@ const ctx = {
 };
 
 describe("legal pages", () => {
-  it("exist in German, English and Turkish with the same sections", () => {
+  it("exist in German and English with the same sections", () => {
     for (const page of legalPages) {
       const de = getLegalDoc(page, ctx, "de");
-      for (const l of ["en", "tr"]) {
-        const other = getLegalDoc(page, ctx, l);
-        expect(other.sections.length, `${page} ${l}`).toBe(de.sections.length);
-      }
+      const en = getLegalDoc(page, ctx, "en");
+      expect(en.sections.length, page).toBe(de.sections.length);
     }
   });
 
   it("have no unfilled placeholders left", () => {
     for (const page of legalPages)
-      for (const l of ["de", "en", "tr"]) {
+      for (const l of ["de", "en"]) {
         const text = legalText(getLegalDoc(page, ctx, l));
         expect(text, `${page} ${l}`).not.toMatch(/\[(?!\*)[^\]]*\]/);
         expect(text).not.toMatch(/Lawyer:/);
@@ -40,6 +38,12 @@ describe("legal pages", () => {
     const imprint = legalText(getLegalDoc("imprint", ctx, "de"));
     expect(imprint).toContain(SELLER.register);
     expect(imprint).toContain("https://eventroll.eu/de/contact");
+  });
+
+  it("shows Turkish visitors the English text", () => {
+    expect(getLegalDoc("terms", ctx, "tr").title).toBe(
+      getLegalDoc("terms", ctx, "en").title,
+    );
   });
 
   it("falls back to German for other locales", () => {

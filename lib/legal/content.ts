@@ -1,12 +1,11 @@
 /**
- * Legal pages (DECISIONS #68). German (de.ts) is the binding version; en.ts
- * and tr.ts are translations for information. The texts describe what the
+ * Legal pages (DECISIONS #68, #69). German (de.ts) is the binding version;
+ * en.ts is a translation for information and is also shown in Turkish. The texts describe what the
  * product actually does; change them together with the code, and have them
  * checked by a lawyer or a legal-text service before launch.
  */
 import { docsDe } from "./de";
 import { docsEn } from "./en";
-import { docsTr } from "./tr";
 import {
   legalPages,
   type LegalBlock,
@@ -31,12 +30,13 @@ export function isLegalPage(value: string): value is LegalPage {
   return (legalPages as readonly string[]).includes(value);
 }
 
-export type LegalLocale = "de" | "en" | "tr";
+export type LegalLocale = "de" | "en";
 
-const BUILDERS = { de: docsDe, en: docsEn, tr: docsTr };
+const BUILDERS = { de: docsDe, en: docsEn };
 
+/** Turkish visitors read the English translation. */
 const pick = (locale: string): LegalLocale =>
-  locale in BUILDERS ? (locale as LegalLocale) : "de";
+  locale === "en" || locale === "tr" ? "en" : "de";
 
 export function getLegalDoc(
   page: LegalPage,
@@ -48,7 +48,7 @@ export function getLegalDoc(
     ...SELLER,
     appName: ctx.appName,
     supportEmail: ctx.supportEmail,
-    contactUrl: `${ctx.appUrl ?? ""}/${l}/contact`,
+    contactUrl: `${ctx.appUrl ?? ""}/${locale === "tr" ? "tr" : l}/contact`,
   };
   return BUILDERS[l](full)[page];
 }

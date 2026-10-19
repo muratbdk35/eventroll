@@ -154,9 +154,6 @@ export const media = pgTable(
     // Event-scoped random device id from the signed guest cookie.
     deviceId: text(),
     uploaderFingerprint: text(),
-    // The uploader's IP, encrypted (lib/guest/ip.ts, DECISIONS #58); only
-    // decrypted for a legal request. Cleared with the photo.
-    uploaderIpEnc: text(),
     // When the guest ticked "I accept the terms / I may share these photos".
     guestConsentAt: timestamp(tz),
     // Automatic check for explicit images (DECISIONS #52): null = not
@@ -173,9 +170,6 @@ export const media = pgTable(
     // whose photo was reported as CSAM.
     reportedAt: timestamp(tz),
     reportReason: text(),
-    // Reported photos are kept, locked, as evidence until this date (90 days,
-    // longer if the authorities ask), outside the normal deletion (#59).
-    holdUntil: timestamp(tz),
     status: mediaStatus().notNull().default("pending"),
     createdAt: createdAt(),
   },

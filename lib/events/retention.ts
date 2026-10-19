@@ -47,15 +47,8 @@ async function keysFor(eventId: string, coverKey: string | null) {
   const rows = await db
     .select({ r2Key: media.r2Key, thumbKey: media.thumbKey })
     .from(media)
-    // Rows already "deleted" had their files removed at the time; reported
-    // photos on hold are kept until the hold ends (purgeHeld).
-    .where(
-      and(
-        eq(media.eventId, eventId),
-        ne(media.status, "deleted"),
-        isNull(media.holdUntil),
-      ),
-    );
+    // Rows already "deleted" had their files removed at the time.
+    .where(and(eq(media.eventId, eventId), ne(media.status, "deleted")));
   const keys = rows.flatMap((r) =>
     r.thumbKey ? [r.r2Key, r.thumbKey] : [r.r2Key],
   );
@@ -94,10 +87,9 @@ export async function purgeExpired({
           uploaderName: null,
           deviceId: null,
           uploaderFingerprint: null,
-          uploaderIpEnc: null,
           guestConsentAt: null,
         })
-        .where(and(eq(media.eventId, ev.id), isNull(media.holdUntil)));
+        .where(eq(media.eventId, ev.id));
       await tx
         .update(events)
         .set({
@@ -113,38 +105,4 @@ export async function purgeExpired({
     });
   }
   return plan;
-}
-
-/**
- * Reported photos (DECISIONS #57, #59) are kept, locked, until `holdUntil`,
- * then deleted like any other: files gone, guest data cleared. The report
- * itself (when, why) stays on the row as a record.
- */
-export async function purgeHeld({
-  now = new Date(),
-  dryRun = false,
-}: { now?: Date; dryRun?: boolean } = {}) {
-  const rows = await db
-    .select({ id: media.id, r2Key: media.r2Key, thumbKey: media.thumbKey })
-    .from(media)
-    .where(and(lte(media.holdUntil, now), ne(media.status, "deleted")));
-  if (dryRun || rows.length === 0) return rows.length;
-  await deleteObjects(
-    rows.flatMap((r) => (r.thumbKey ? [r.r2Key, r.thumbKey] : [r.r2Key])),
-  );
-  for (const r of rows) {
-    await db
-      .update(media)
-      .set({
-        status: "deleted",
-        holdUntil: null,
-        uploaderName: null,
-        deviceId: null,
-        uploaderFingerprint: null,
-        uploaderIpEnc: null,
-        guestConsentAt: null,
-      })
-      .where(eq(media.id, r.id));
-  }
-  return rows.length;
 }

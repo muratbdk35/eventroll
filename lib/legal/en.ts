@@ -43,7 +43,6 @@ export function docsEn(c: LegalCtx): LegalDocs {
               "your name, only if you enter one;",
               "a random device ID in a cookie for this event, so the per-phone limit works and the host can block a phone that uploads unwanted content;",
               "a salted, one-way hash of your IP address and browser identifier, to detect abuse;",
-              "your IP address at the time of the upload, stored encrypted with each photo. It is never shown to the host or used for anything else; we only decrypt it to answer a legal request from the authorities, for example after a report of illegal content. Legal basis: legitimate interest in being able to help investigate crimes committed through the service, and legal obligations (Art. 6(1)(f) and (c) GDPR);",
               "the Cloudflare Turnstile check and, if the host set one, the PIN you enter (we do not store what you type; wrong attempts are limited);",
               "the time you confirmed that you accept the terms and may share the photos.",
             ],
@@ -51,7 +50,7 @@ export function docsEn(c: LegalCtx): LegalDocs {
             "Who sees your photos: only the host of the event. Other guests never see your photos; albums are not public and are not indexed by search engines.",
             "We do not look at photos. Storage, previews and the automatic check below run without anyone viewing the photos. A person at our company opens a photo only where the law requires it, for example to act on a report of illegal content or a request from the authorities, or where the host explicitly asks us for support with specific photos. Any such access is limited to the photos concerned.",
             "Automatic check for explicit content: a small preview of each photo is checked automatically for explicit sexual content. A flagged photo is not deleted; it is kept out of the host's album and downloads, and the host can show it blurred and decide whether to keep it. The check does not identify people; its result is deleted with the photo. Legal basis: our and the host's legitimate interest in keeping events free of explicit content (Art. 6(1)(f) GDPR).",
-            "Reports: if a host reports a photo as illegal, we record when and why, hide the photo from everyone and are told by email with the event and photo reference, never the image. The reported photo and the data about its upload are then locked and kept outside the normal deletion for 90 days as possible evidence, longer only at the request of the authorities, and then deleted. Where we suspect a crime, in particular child sexual abuse material, we pass the report and the data about the upload to the competent authorities. Legal basis: legal obligations and legitimate interest in acting against illegal content (Art. 6(1)(c) and (f) GDPR).",
+            "Reports: if a host reports a photo as illegal, we record when and why, hide the photo from everyone and are told by email with the event and photo reference, never the image. The photo is deleted with the event's other photos at the end of the download window, unless the authorities require us to keep it longer. Where we suspect a crime, in particular child sexual abuse material, we pass the report and the data about the upload to the competent authorities. Legal basis: legal obligations and legitimate interest in acting against illegal content (Art. 6(1)(c) and (f) GDPR).",
           ],
         },
         {
@@ -68,8 +67,7 @@ export function docsEn(c: LegalCtx): LegalDocs {
           body: [
             [
               "Photos and previews: permanently deleted at the end of your plan's download window, counted from the day the event ends (7, 14, 21 or 30 days for Mini, Standard, Pro or VIP; 7 days while no plan is chosen). Hosts can delete single photos, all photos from one phone or the whole event earlier at any time.",
-              "Event settings and guest data (names, device IDs, hashes, encrypted IP addresses, consent times): deleted with the photos.",
-              "Photos reported as illegal and the data about their upload: kept locked for 90 days, longer only at the request of the authorities, then deleted.",
+              "Event settings and guest data (names, device IDs, hashes, consent times): deleted with the photos.",
               "Account data: while your account exists; deleted within 30 days after you ask, except data we must keep by law (for example invoices).",
               "Sign-in codes: valid for 10 minutes, stored only as a hash.",
             ],

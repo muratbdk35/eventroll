@@ -14,8 +14,6 @@
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
     "notices": "node scripts/third-party-libs.mjs",
-    "reveal-ip": "tsx scripts/reveal-upload-ip.mts",
-    "hold-report": "tsx scripts/hold-report.mts",
     "stripe:setup": "tsx scripts/stripe-setup.mts"
   },
   "dependencies": {

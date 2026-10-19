@@ -1087,3 +1087,22 @@ strict-origin-when-cross-origin` (event links don't leak to other sites),
   only "where available"). The confirmation email stays short: summary, the
   consent, and the German terms and withdrawal instructions as two
   attachments; nothing long in the body (owner, 2026-10-19).
+
+## 69. Simpler: no stored IPs, no evidence hold, two legal languages (owner decision, 2026-10-19)
+
+The owner asked to cut what was more than a small app needs.
+
+- **IP addresses are no longer stored** (supersedes #58). Upload rate limits
+  keep using a short-lived hash in Upstash; nothing about the uploader's IP
+  reaches the database. Migration 0013 drops `media.uploader_ip_enc`, and
+  `IP_ENCRYPTION_KEY` is gone from code and Vercel.
+- **No 90-day hold for reported photos** (supersedes #59). A report still hides
+  the photo from everyone and emails the operator; the photo goes with the
+  event's normal deletion. If authorities ask us to keep one, the operator
+  tells the developer before the download window ends. Migration 0013 drops
+  `media.hold_until`.
+- **Legal texts in German (binding) and English only** (amends #68). Turkish
+  visitors see the English text with a note that German is binding.
+- **Invoice footer** is one line, seller name and address. Our prices are
+  under € 250 (Kleinbetragsrechnung), and Stripe prints the tax number.
+- **Trademark filing** is not a launch step; maybe later.

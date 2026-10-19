@@ -62,8 +62,12 @@ const PAID_NOTE: Record<string, string> = {
   en: "Paid: charged at checkout, nothing more to pay",
 };
 
-/** Printed at the bottom of every invoice (§ 14 UStG seller details). */
-const INVOICE_FOOTER = `EventRoll ist ein Angebot der ${SELLER.company}, ${SELLER.address}. Geschäftsführerin: ${SELLER.managingDirector}. ${SELLER.register}. Steuernummer: ${SELLER.taxNumber}.`;
+/**
+ * Printed at the bottom of every invoice. Our prices stay under € 250, so a
+ * Kleinbetragsrechnung (§ 33 UStDV) only needs the seller's name and address;
+ * Stripe adds the tax number from the account settings.
+ */
+const INVOICE_FOOTER = `${SELLER.company}, ${SELLER.address}`;
 
 const CHECKOUT_LOCALES = new Set(["tr", "de", "en"]);
 

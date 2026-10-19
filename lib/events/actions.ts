@@ -1,6 +1,6 @@
 "use server";
 
-import { and, eq, isNull, sql, type SQL } from "drizzle-orm";
+import { and, eq, sql, type SQL } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import { after } from "next/server";
@@ -168,15 +168,15 @@ export async function deleteEvent(eventId: string): Promise<ActionResult> {
   const rows = await db
     .select({ r2Key: media.r2Key, thumbKey: media.thumbKey })
     .from(media)
-    .where(and(eq(media.eventId, event.id), isNull(media.holdUntil)));
+    .where(eq(media.eventId, event.id));
   await deleteObjects(
     rows.flatMap((r) => (r.thumbKey ? [r.r2Key, r.thumbKey] : [r.r2Key])),
   );
   await db.transaction(async (tx) => {
     await tx
       .update(media)
-      .set({ status: "deleted", uploaderIpEnc: null })
-      .where(and(eq(media.eventId, event.id), isNull(media.holdUntil)));
+      .set({ status: "deleted" })
+      .where(eq(media.eventId, event.id));
     await tx
       .update(events)
       .set({ status: "deleted", mediaCount: 0, storageBytes: 0 })
@@ -268,13 +268,9 @@ export async function blockDevice(
  * The host reports a photo as illegal (DECISIONS #57). It is hidden at once,
  * from everyone, the host included, and the operator is emailed (no image).
  * For suspected CSAM the uploading phone is also blocked and its other photos
- * hidden too. Nothing is deleted here: everything reported is kept, locked,
- * for REPORT_HOLD_DAYS as possible evidence, outside the normal deletion
- * (DECISIONS #59), then purged by the daily job.
+ * hidden too. Nothing is deleted here; reported photos go with the normal
+ * deletion after the download window (DECISIONS #69).
  */
-const DAY_MS = 24 * 60 * 60 * 1000;
-/** How long reported photos are kept as evidence (DECISIONS #59). */
-const REPORT_HOLD_DAYS = 90;
 
 export async function reportPhoto(
   eventId: string,
@@ -308,7 +304,6 @@ export async function reportPhoto(
       .set({
         status: "hidden",
         reportedAt: now,
-        holdUntil: new Date(now.getTime() + REPORT_HOLD_DAYS * DAY_MS),
         reportReason: sql`case when ${media.id} = ${row.id} then ${reason} else 'same_device' end`,
       })
       .where(
@@ -361,7 +356,7 @@ async function removeMedia(eventId: string, where: SQL | undefined) {
       status: media.status,
     })
     .from(media)
-    .where(and(eq(media.eventId, eventId), isNull(media.holdUntil), where));
+    .where(and(eq(media.eventId, eventId), where));
   const live = rows.filter((r) => r.status === "ready");
   await deleteObjects(
     rows.flatMap((r) => (r.thumbKey ? [r.r2Key, r.thumbKey] : [r.r2Key])),
@@ -370,7 +365,7 @@ async function removeMedia(eventId: string, where: SQL | undefined) {
     for (const r of rows) {
       await tx
         .update(media)
-        .set({ status: "deleted", uploaderIpEnc: null })
+        .set({ status: "deleted" })
         .where(eq(media.id, r.id));
     }
     if (live.length > 0) {

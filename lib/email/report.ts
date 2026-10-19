@@ -35,11 +35,10 @@ export async function sendReportNotice(r: {
     `Fotoğraf kaydı: ${r.mediaId}`,
     `Yükleyen cihaz: ${r.deviceId ?? "bilinmiyor"}`,
     `Yüklenme zamanı: ${r.uploadedAt.toISOString()}`,
-    "Yükleyenin IP adresi şifreli kayıtlı. Yalnızca yetkililer resmi olarak isterse çıkar: npm run reveal-ip -- <fotoğraf kaydı> (canlı DATABASE_URL ve şifre yöneticindeki IP_ENCRYPTION_KEY ile).",
     "",
     csam
-      ? "Yapılacaklar: Fotoğrafı açma, indirme, kimseye iletme. Şüpheyi yetkililere bildir (Almanya: polis, BKA ya da eco / jugendschutz.net şikâyet hattı) ve onların talimatına uy. Fotoğraf ve bilgileri delil olarak 90 gün kilitli saklanır, sonra otomatik silinir. Yetkililer daha uzun saklanmasını isterse: npm run hold-report -- <fotoğraf kaydı> <gün>"
-      : "Yapılacaklar: Bildirimin nedenini değerlendir; gerekiyorsa yetkililere bildir. Fotoğraf ve bilgileri 90 gün kilitli saklanır, sonra otomatik silinir. Daha uzun gerekirse: npm run hold-report -- <fotoğraf kaydı> <gün>",
+      ? "Yapılacaklar: Fotoğrafı açma, indirme, kimseye iletme. Şüpheyi yetkililere bildir (Almanya: polis, BKA ya da eco / jugendschutz.net şikâyet hattı) ve onların talimatına uy. Fotoğraf, etkinliğin indirme süresi bitince diğerleriyle birlikte silinir. Yetkililer delil olarak saklanmasını isterse, silinmeden önce geliştiriciye haber ver."
+      : "Yapılacaklar: Bildirimin nedenini değerlendir; gerekiyorsa yetkililere bildir. Fotoğraf, etkinliğin indirme süresi bitince otomatik silinir.",
   ].filter((l, i, a) => l !== "" || a[i - 1] !== "");
   const text = lines.join("\n");
   const subject = csam
