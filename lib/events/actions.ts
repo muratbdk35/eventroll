@@ -2,6 +2,7 @@
 
 import { and, eq, sql, type SQL } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { after } from "next/server";
 import { getLocale } from "next-intl/server";
 import { getSession } from "@/lib/auth";
 import { db, schema } from "@/lib/db";
@@ -12,6 +13,7 @@ import {
   computeExpiresAtFromEnd,
   type PlanId,
 } from "@/lib/plans";
+import { sendReportNotice } from "@/lib/email/report";
 import { deleteObjects } from "@/lib/storage";
 import { getOwnedEvent } from "./queries";
 import {
@@ -247,6 +249,87 @@ export async function blockDevice(
     })
     .where(eq(events.id, event.id));
   await removeMedia(event.id, eq(media.deviceId, row.deviceId));
+  revalidatePath("/[locale]/dashboard", "layout");
+  return { ok: true };
+}
+
+/**
+ * The host reports a photo as illegal (DECISIONS #57). It is hidden at once,
+ * from everyone, the host included, and the operator is emailed (no image).
+ * For suspected CSAM the uploading phone is also blocked and its other photos
+ * hidden too. Nothing is deleted here: the authorities may ask for it; the
+ * normal deletion after the download window still applies.
+ */
+export async function reportPhoto(
+  eventId: string,
+  mediaId: string,
+  reason: "csam" | "illegal",
+): Promise<ActionResult> {
+  if (reason !== "csam" && reason !== "illegal") {
+    return { ok: false, error: "invalid" };
+  }
+  const user = await requireUser();
+  if (!user) return { ok: false, error: "unauthorized" };
+  const event = await getOwnedEvent(eventId, user.id);
+  if (!event) return { ok: false, error: "not_found" };
+  const [row] = await db
+    .select({
+      id: media.id,
+      deviceId: media.deviceId,
+      status: media.status,
+      createdAt: media.createdAt,
+    })
+    .from(media)
+    .where(and(eq(media.id, mediaId), eq(media.eventId, event.id)))
+    .limit(1);
+  if (!row || row.status !== "ready") return { ok: false, error: "not_found" };
+
+  const now = new Date();
+  const sameDevice = reason === "csam" && row.deviceId;
+  const hidden = await db.transaction(async (tx) => {
+    const rows = await tx
+      .update(media)
+      .set({
+        status: "hidden",
+        reportedAt: now,
+        reportReason: sql`case when ${media.id} = ${row.id} then ${reason} else 'same_device' end`,
+      })
+      .where(
+        and(
+          eq(media.eventId, event.id),
+          eq(media.status, "ready"),
+          sameDevice ? eq(media.deviceId, row.deviceId!) : eq(media.id, row.id),
+        ),
+      )
+      .returning({ bytes: media.bytes });
+    await tx
+      .update(events)
+      .set({
+        mediaCount: sql`greatest(${events.mediaCount} - ${rows.length}, 0)`,
+        storageBytes: sql`greatest(${events.storageBytes} - ${rows.reduce((n, r) => n + r.bytes, 0)}, 0)`,
+        ...(sameDevice
+          ? {
+              blockedDeviceIds: sql`array_append(array_remove(${events.blockedDeviceIds}, ${row.deviceId}), ${row.deviceId})`,
+            }
+          : {}),
+      })
+      .where(eq(events.id, event.id));
+    return rows.length;
+  });
+
+  // After the response: the host sees the photo gone right away.
+  after(() =>
+    sendReportNotice({
+      reason,
+      eventId: event.id,
+      eventName: event.name,
+      ownerEmail: user.email,
+      mediaId: row.id,
+      deviceId: row.deviceId,
+      uploadedAt: row.createdAt,
+      alsoHidden: Math.max(hidden - 1, 0),
+    }).catch((e) => console.error("[report] email failed", e)),
+  );
   revalidatePath("/[locale]/dashboard", "layout");
   return { ok: true };
 }

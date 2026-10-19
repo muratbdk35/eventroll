@@ -406,7 +406,19 @@
       "flaggedHidden": "{count, plural, one {# photo hidden} other {# photos hidden}}",
       "flaggedHiddenHint": "The automatic check set these aside as possibly explicit. They don't appear in the album or in downloads.",
       "hideFlagged": "Hide",
-      "hideFailed": "Couldn't save the setting. Try again."
+      "hideFailed": "Couldn't save the setting. Try again.",
+      "report": "Report illegal content",
+      "reportTitle": "Report illegal content",
+      "reportReasons": {
+        "csam": "Child sexual abuse material",
+        "csamHint": "The photo and everything else from this phone are removed at once, and the phone is blocked.",
+        "illegal": "Other illegal content",
+        "illegalHint": "For example violence, hate speech or intimate images shared without consent. The photo is removed at once."
+      },
+      "reportNote": "No one, you included, can see or download the photo any more. We review the report and pass it on to the authorities where needed. Don't keep a copy of this photo or share it with anyone.",
+      "reportSend": "Report and remove",
+      "reported": "Reported. The photo is out of your album; we'll take it from here.",
+      "cancel": "Cancel"
     },
     "share": {
       "title": "Your QR code",

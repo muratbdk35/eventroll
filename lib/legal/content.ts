@@ -80,6 +80,7 @@ export function getLegalDoc(
             "Legal basis: providing the upload to the host you are sending photos to (Art. 6(1)(b) GDPR) and our legitimate interest in keeping the service safe (Art. 6(1)(f) GDPR).",
             "Who sees your photos: only the host of the event. Other guests never see your photos, and albums are not public or indexed by search engines.",
             "We do not look at photos. Storing them, creating previews and the automatic check below happen without anyone viewing them. A person at our company opens a photo only where the law requires it, for example to act on a report of illegal content or on a request from the authorities, or where the host explicitly asks us to for support with specific photos. Any such access is limited to the photos concerned.",
+            "Reports: if a host reports a photo as illegal, we record when and why, hide the photo from everyone and are told by email with the event and photo reference, never the image. Where we suspect a crime, in particular child sexual abuse material, we pass the report and the data we hold about the upload on to the competent authorities. Legal basis: our legal obligations and legitimate interest in acting against illegal content (Art. 6(1)(c) and (f) GDPR).",
             "Automatic check for explicit images: a small preview of each photo is checked automatically for explicit sexual content. A photo that is flagged is not deleted; it is kept out of the host's album and downloads, and the host can show it, blurred, to decide whether to keep it. The check does not identify people, and the result is deleted together with the photo. Legal basis: our legitimate interest and the host's in keeping events free of explicit material (Art. 6(1)(f) GDPR).",
           ],
         },
@@ -222,6 +223,7 @@ export function getLegalDoc(
           body: [
             "We only use photos to provide the service: to store them, create previews and deliver them to the host. We do not claim ownership, do not look at them or show them to anyone else, and do not use them for advertising or AI training. We open a photo only where the law requires it or where the host asks us to for support (see the privacy policy).",
             "We may remove content and suspend events or accounts that break these terms or the law, and we report content involving the sexual abuse of children to the competent authorities.",
+            `Reporting illegal content: hosts can report a photo in their album as illegal; it is then removed from view at once, for everyone, and we review the report. Anyone else can report illegal content to ${supportEmail}; please say which event and why. We handle reports promptly and inform the reporter of our decision where we can.`,
           ],
         },
         {

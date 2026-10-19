@@ -409,7 +409,19 @@
       "flaggedHidden": "{count, plural, one {# fotoğraf gizlendi} other {# fotoğraf gizlendi}}",
       "flaggedHiddenHint": "Otomatik kontrol bunları uygunsuz olabilir diye ayırdı. Albümde ve indirmelerde görünmezler.",
       "hideFlagged": "Gizle",
-      "hideFailed": "Ayar kaydedilemedi. Tekrar dene."
+      "hideFailed": "Ayar kaydedilemedi. Tekrar dene.",
+      "report": "Yasa dışı içerik bildir",
+      "reportTitle": "Yasa dışı içerik bildir",
+      "reportReasons": {
+        "csam": "Çocuk istismarı içeriği",
+        "csamHint": "Fotoğraf ve bu telefondan gelen diğerleri hemen kaldırılır, telefon engellenir.",
+        "illegal": "Başka yasa dışı içerik",
+        "illegalHint": "Örneğin şiddet, nefret söylemi ya da izinsiz paylaşılmış özel görüntü. Fotoğraf hemen kaldırılır."
+      },
+      "reportNote": "Fotoğraf kimseye, sana da görünmez ve indirilemez. Bildirimi biz inceler, gerekirse yetkililere iletiriz. Bu fotoğrafın kopyasını saklama ya da kimseyle paylaşma.",
+      "reportSend": "Bildir ve kaldır",
+      "reported": "Bildirildi. Fotoğraf albümden kaldırıldı; gerisini biz takip edeceğiz.",
+      "cancel": "Vazgeç"
     },
     "share": {
       "title": "QR kodun",

@@ -164,6 +164,12 @@ export const media = pgTable(
     moderationScore: real(),
     // Checks tried so far; capped so a photo is never retried endlessly.
     moderationAttempts: integer().notNull().default(0),
+    // Reported as illegal by the host (DECISIONS #57): the photo is then
+    // `hidden`, seen by no one, and the operator is told by email. Reason
+    // "csam", "illegal", or "same_device" for the other photos of a phone
+    // whose photo was reported as CSAM.
+    reportedAt: timestamp(tz),
+    reportReason: text(),
     status: mediaStatus().notNull().default("pending"),
     createdAt: createdAt(),
   },

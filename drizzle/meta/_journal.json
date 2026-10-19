@@ -71,6 +71,13 @@
       "when": 1792339290338,
       "tag": "0009_hide_flagged",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1792370316899,
+      "tag": "0010_media_reports",
+      "breakpoints": true
     }
   ]
 }

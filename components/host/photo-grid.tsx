@@ -8,6 +8,7 @@ import {
   ChevronRight,
   Download,
   Eye,
+  Flag,
   ImageIcon,
   QrCode,
   ShieldAlert,
@@ -26,7 +27,12 @@ import {
 import { createPortal } from "react-dom";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { approvePhoto, blockDevice, deletePhoto } from "@/lib/events/actions";
+import {
+  approvePhoto,
+  blockDevice,
+  deletePhoto,
+  reportPhoto,
+} from "@/lib/events/actions";
 import { Link, useRouter } from "@/lib/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { usePhotoSelection } from "./photo-downloads";
@@ -91,8 +97,15 @@ export function PhotoGrid({
   // Flagged photos the host chose to look at in the viewer.
   const [revealed, setRevealed] = useState<Set<string>>(() => new Set());
   const hidden = (p: GridPhoto) => Boolean(p.flagged) && !revealed.has(p.id);
+  // The "report illegal content" panel (DECISIONS #57).
+  const [reporting, setReporting] = useState(false);
+  const [reason, setReason] = useState<"csam" | "illegal" | null>(null);
 
-  const close = useCallback(() => setOpen(null), []);
+  const close = useCallback(() => {
+    setOpen(null);
+    setReporting(false);
+    setReason(null);
+  }, []);
   const step = useCallback(
     (d: number) =>
       setOpen((i) =>
@@ -104,7 +117,10 @@ export function PhotoGrid({
   useEffect(() => {
     if (open === null) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close();
+      if (e.key === "Escape") {
+        if (reporting) setReporting(false);
+        else close();
+      }
       if (e.key === "ArrowRight") step(1);
       if (e.key === "ArrowLeft") step(-1);
     };
@@ -115,7 +131,7 @@ export function PhotoGrid({
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = prev;
     };
-  }, [open, close, step]);
+  }, [open, close, step, reporting]);
 
   function run(
     confirmText: string | null,
@@ -125,7 +141,18 @@ export function PhotoGrid({
     start(async () => {
       const res = await fn();
       if (res.ok) {
-        setOpen(null);
+        close();
+        router.refresh();
+      } else toast.error(t("failed"));
+    });
+  }
+
+  function report(id: string, why: "csam" | "illegal") {
+    start(async () => {
+      const res = await reportPhoto(eventId, id, why);
+      if (res.ok) {
+        close();
+        toast.success(t("reported"), { duration: 8000 });
         router.refresh();
       } else toast.error(t("failed"));
     });
@@ -212,6 +239,13 @@ export function PhotoGrid({
               </ViewerButton>
             )}
             <ViewerButton
+              label={t("report")}
+              disabled={pending}
+              onClick={() => setReporting(true)}
+            >
+              <Flag className="size-5" />
+            </ViewerButton>
+            <ViewerButton
               label={t("delete")}
               disabled={pending}
               onClick={() =>
@@ -296,6 +330,94 @@ export function PhotoGrid({
                 </p>
               </motion.div>
             </motion.div>
+            {reporting && (
+              <div
+                className="absolute inset-0 z-10 flex items-center justify-center bg-black/60 p-4"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setReporting(false);
+                }}
+              >
+                <div
+                  role="dialog"
+                  aria-modal="true"
+                  aria-labelledby="report-title"
+                  className="w-full max-w-md rounded-3xl bg-card p-5 text-card-foreground shadow-2xl"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-destructive/10 text-destructive">
+                      <Flag className="size-5" aria-hidden />
+                    </span>
+                    <h2
+                      id="report-title"
+                      className="font-heading text-lg font-semibold"
+                    >
+                      {t("reportTitle")}
+                    </h2>
+                  </div>
+                  <div role="radiogroup" className="mt-4 space-y-2">
+                    {(["csam", "illegal"] as const).map((r) => (
+                      <button
+                        key={r}
+                        type="button"
+                        role="radio"
+                        aria-checked={reason === r}
+                        onClick={() => setReason(r)}
+                        className={cn(
+                          "flex w-full items-start gap-3 rounded-2xl border p-3.5 text-start transition-colors",
+                          reason === r
+                            ? "border-destructive/60 bg-destructive/5"
+                            : "border-border hover:bg-muted/60",
+                        )}
+                      >
+                        <span
+                          aria-hidden
+                          className={cn(
+                            "mt-0.5 flex size-4.5 shrink-0 items-center justify-center rounded-full border-2",
+                            reason === r
+                              ? "border-destructive"
+                              : "border-muted-foreground/50",
+                          )}
+                        >
+                          {reason === r && (
+                            <span className="size-2 rounded-full bg-destructive" />
+                          )}
+                        </span>
+                        <span>
+                          <span className="block text-sm font-semibold">
+                            {t(`reportReasons.${r}`)}
+                          </span>
+                          <span className="mt-0.5 block text-[13px] text-pretty text-muted-foreground">
+                            {t(`reportReasons.${r}Hint`)}
+                          </span>
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                  <p className="mt-3 text-[13px] text-pretty text-muted-foreground">
+                    {t("reportNote")}
+                  </p>
+                  <div className="mt-4 flex justify-end gap-2">
+                    <Button
+                      variant="ghost"
+                      className="h-10 rounded-full px-4"
+                      onClick={() => setReporting(false)}
+                    >
+                      {t("cancel")}
+                    </Button>
+                    <Button
+                      variant="destructive"
+                      className="h-10 rounded-full px-4"
+                      disabled={!reason || pending}
+                      onClick={() => reason && report(current.id, reason)}
+                    >
+                      {t("reportSend")}
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            )}
             {photos.length > 1 && (
               <>
                 <NavButton

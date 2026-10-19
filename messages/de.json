@@ -409,7 +409,19 @@
       "flaggedHidden": "{count, plural, one {# Foto ausgeblendet} other {# Fotos ausgeblendet}}",
       "flaggedHiddenHint": "Die automatische Prüfung hat diese als möglicherweise explizit aussortiert. Sie erscheinen nicht im Album und nicht in Downloads.",
       "hideFlagged": "Ausblenden",
-      "hideFailed": "Einstellung nicht gespeichert. Versuch es noch mal."
+      "hideFailed": "Einstellung nicht gespeichert. Versuch es noch mal.",
+      "report": "Rechtswidrige Inhalte melden",
+      "reportTitle": "Rechtswidrige Inhalte melden",
+      "reportReasons": {
+        "csam": "Darstellung sexuellen Kindesmissbrauchs",
+        "csamHint": "Das Foto und alles andere von diesem Handy wird sofort entfernt, das Handy gesperrt.",
+        "illegal": "Andere rechtswidrige Inhalte",
+        "illegalHint": "Zum Beispiel Gewalt, Hassrede oder ohne Einwilligung geteilte intime Bilder. Das Foto wird sofort entfernt."
+      },
+      "reportNote": "Niemand, auch du nicht, kann das Foto noch sehen oder laden. Wir prüfen die Meldung und geben sie bei Bedarf an die Behörden weiter. Bewahre keine Kopie auf und teile das Foto mit niemandem.",
+      "reportSend": "Melden und entfernen",
+      "reported": "Gemeldet. Das Foto ist aus deinem Album entfernt; wir kümmern uns um den Rest.",
+      "cancel": "Abbrechen"
     },
     "share": {
       "title": "Dein QR-Code",

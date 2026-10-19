@@ -853,3 +853,30 @@ reminders planned in #23 were never built.
   originals and ZIPs are not touched. Tested on an iPhone 2026-10-18: photos
   arrive in Photos; dates were the save day for EXIF-less pictures, hence this.
 - Still to do: measure on a real iPhone with a few hundred photos.
+
+## 57. Reporting illegal content (owner decision, 2026-10-19)
+
+- Proactive CSAM scanning is not a legal duty in the EU (DSA Art. 8); a
+  notice-and-action route is (Art. 16), with prompt removal once we know
+  (Art. 6) and a report to the authorities on suspicion of a crime (Art. 18).
+  Cloudflare's CSAM Scanning Tool only sees content served through a zone's
+  cache, not our signed R2 links; it comes with the media domain at launch
+  (a Worker checking our own signed links in front of R2). To be confirmed by
+  the lawyer.
+- The host, the only person who sees all photos, can report a photo in the
+  viewer: "Child sexual abuse material" or "Other illegal content". The
+  photo becomes `hidden` at once (out of grid, downloads, counts and covers,
+  for the host too), with `media.reported_at` / `report_reason` (migration
+  0010). For CSAM the uploading phone is blocked and its other photos hidden
+  as well (`same_device`). Nothing is deleted then; the normal deletion after
+  the download window still applies.
+- The operator gets an email at SUPPORT_EMAIL with event, owner, photo id,
+  device id and upload time, never the image or a link to it, plus what to
+  do: don't open or keep it, report to the police / BKA or the eco /
+  jugendschutz.net hotline, follow their instructions on keeping or deleting.
+- Anyone else reports by email (terms, section 8); the privacy policy
+  describes the report data.
+- Open: we keep no raw IP address (only a salted hash), so the authorities
+  get the event, time, name if given and the file's own metadata, not the
+  uploader's IP. Storing IPs encrypted for the event's lifetime, disclosed
+  only on legal request, is for the owner and the lawyer to decide.
