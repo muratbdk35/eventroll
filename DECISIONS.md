@@ -1083,5 +1083,7 @@ strict-origin-when-cross-origin` (event links don't leak to other sites),
   the time and wording of their consent, the withdrawal instructions and
   form, and the German terms and withdrawal instructions attached (plus the
   translations).
-- The withdrawal instructions give the company phone number, as the model
-  requires "where available"; it is already on Stripe invoices.
+- No phone number in the legal texts (owner's choice; the model asks for it
+  only "where available"). The confirmation email stays short: summary, the
+  consent, and the German terms and withdrawal instructions as two
+  attachments; nothing long in the body (owner, 2026-10-19).

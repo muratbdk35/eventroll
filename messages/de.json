@@ -103,7 +103,7 @@
       "consentTitle": "Ihre Erklärung zum Widerrufsrecht",
       "consent": "Am {time} haben Sie ausdrücklich verlangt, dass wir vor Ablauf der Widerrufsfrist mit der Leistung beginnen, und bestätigt, dass Ihnen bekannt ist, dass Ihr Widerrufsrecht erlischt, sobald die Leistung vollständig erbracht ist.",
       "button": "Event öffnen",
-      "attachments": "Im Anhang finden Sie die Allgemeinen Geschäftsbedingungen und die Widerrufsbelehrung. Die Widerrufsbelehrung mit dem Muster-Widerrufsformular steht außerdem unten in dieser E-Mail.",
+      "attachments": "Die AGB und die Widerrufsbelehrung finden Sie im Anhang.",
       "footer": "Sie erhalten diese E-Mail, weil Sie bei {appName} einen Plan gekauft haben. Fragen? Antworten Sie auf diese E-Mail oder schreiben Sie an {email}.",
       "seller": "Verkäufer: {seller}"
     }

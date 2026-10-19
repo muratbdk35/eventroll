@@ -100,7 +100,7 @@
       "consentTitle": "Your consent regarding the right of withdrawal",
       "consent": "On {time} you expressly requested that the service start immediately, before the withdrawal period ends, and confirmed that you know your right of withdrawal ends once the service has been fully provided.",
       "button": "Open your event",
-      "attachments": "Attached are the terms and conditions (AGB) and the withdrawal instructions; the German texts are binding. You'll also find the withdrawal instructions and the model form below.",
+      "attachments": "The terms and conditions (AGB) and the withdrawal instructions are attached.",
       "footer": "You received this email because you bought a plan on {appName}. Questions? Reply to this email or write to {email}.",
       "seller": "Seller: {seller}"
     }

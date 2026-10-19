@@ -7,7 +7,7 @@ const UPDATED = "19 Ekim 2026";
 
 export function docsTr(c: LegalCtx): LegalDocs {
   const seller = `${c.company}, ${c.address}`;
-  const reach = `${seller}, telefon: ${c.phone}, e-posta: ${c.supportEmail}`;
+  const reach = `${seller}, e-posta: ${c.supportEmail}`;
   return {
     privacy: {
       title: "Gizlilik politikası",

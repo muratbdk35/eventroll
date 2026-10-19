@@ -22,7 +22,6 @@ export type { LegalBlock, LegalDoc, LegalPage };
 export const SELLER = {
   company: "FeyaTech UG (haftungsbeschränkt)",
   address: "Pestalozzistraße 25, 22305 Hamburg, Deutschland",
-  phone: "+49 174 9306097",
   managingDirector: "Feyza Barutcu",
   register: "Amtsgericht Hamburg, HRB 186207",
   taxNumber: "43/720/02102",

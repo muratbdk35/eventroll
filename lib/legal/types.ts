@@ -25,7 +25,6 @@ export type LegalCtx = {
   contactUrl: string;
   company: string;
   address: string;
-  phone: string;
   managingDirector: string;
   register: string;
 };

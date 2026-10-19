@@ -85,26 +85,17 @@ export async function sendOrderConfirmation(o: {
     ? t("consent", { time: when(o.consentAt) })
     : null;
 
-  const withdrawalLocal = getLegalDoc("withdrawal", ctx, locale);
-  const withdrawalDe = getLegalDoc("withdrawal", ctx, "de");
-  const termsDe = getLegalDoc("terms", ctx, "de");
+  // The binding German texts as attachments (durable medium, § 312f BGB).
   const attachments = [
-    { filename: "AGB-EventRoll.txt", content: legalText(termsDe) },
+    {
+      filename: "AGB-EventRoll.txt",
+      content: legalText(getLegalDoc("terms", ctx, "de")),
+    },
     {
       filename: "Widerrufsbelehrung-EventRoll.txt",
-      content: legalText(withdrawalDe),
+      content: legalText(getLegalDoc("withdrawal", ctx, "de")),
     },
   ];
-  if (locale !== "de") {
-    const termsLocal = getLegalDoc("terms", ctx, locale);
-    attachments.push(
-      { filename: `Terms-${locale}.txt`, content: legalText(termsLocal) },
-      {
-        filename: `Withdrawal-${locale}.txt`,
-        content: legalText(withdrawalLocal),
-      },
-    );
-  }
 
   const url = `${appUrl}/${locale}/dashboard/events/${o.eventId}`;
   const seller = `${SELLER.company}, ${SELLER.address}`;
@@ -122,27 +113,9 @@ export async function sendOrderConfirmation(o: {
     "",
     t("attachments"),
     "",
-    "———",
-    legalText(withdrawalLocal),
-    "",
-    "———",
     t("seller", { seller }),
     footer,
   ].join("\n");
-
-  const legalHtml = withdrawalLocal.sections
-    .map(
-      (s) =>
-        `<h3 style="margin:18px 0 6px;font-size:14px">${esc(s.heading)}</h3>` +
-        s.body
-          .map((b) =>
-            typeof b === "string"
-              ? `<p style="margin:0 0 8px">${esc(b)}</p>`
-              : `<ul style="margin:0 0 8px;padding-left:18px">${b.map((i) => `<li>${esc(i)}</li>`).join("")}</ul>`,
-          )
-          .join(""),
-    )
-    .join("");
 
   const html = `<!doctype html><html lang="${locale}"><body style="margin:0;background:#f4f7fb;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#1f2630">
 <div style="max-width:560px;margin:0 auto;padding:28px 20px">
@@ -158,11 +131,6 @@ export async function sendOrderConfirmation(o: {
 ${consent ? `<h2 style="margin:22px 0 6px;font-size:15px">${esc(t("consentTitle"))}</h2><p style="margin:0;line-height:1.5;font-size:14px">${esc(consent)}</p>` : ""}
 <p style="margin:22px 0"><a href="${esc(url)}" style="display:inline-block;background:#457094;color:#fff;text-decoration:none;font-weight:600;padding:12px 20px;border-radius:999px">${esc(t("button"))}</a></p>
 <p style="margin:0;font-size:13px;line-height:1.5;color:#66707c">${esc(t("attachments"))}</p>
-</div>
-<div style="margin-top:18px;font-size:12.5px;line-height:1.5;color:#3d4652">
-<h2 style="margin:0 0 4px;font-size:15px">${esc(withdrawalLocal.title)}</h2>
-${withdrawalLocal.intro ? `<p style="margin:0 0 8px">${esc(withdrawalLocal.intro)}</p>` : ""}
-${legalHtml}
 </div>
 <p style="margin:20px 0 0;font-size:12px;line-height:1.5;color:#66707c">${esc(t("seller", { seller }))}<br>${esc(footer)}</p>
 </div></body></html>`;

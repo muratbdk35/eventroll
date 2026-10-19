@@ -103,7 +103,7 @@
       "consentTitle": "Cayma hakkına ilişkin onayın",
       "consent": "{time} tarihinde, hizmetin cayma süresi dolmadan hemen başlamasını açıkça istediğini ve hizmet tamamen sağlandığında cayma hakkının sona ereceğini bildiğini onayladın.",
       "button": "Etkinliğini aç",
-      "attachments": "Ekte kullanım şartları (AGB) ve cayma bildirimi yer alıyor; bağlayıcı olan Almanca metinlerdir. Aşağıda cayma bildirimini ve örnek formu da bulabilirsin.",
+      "attachments": "Kullanım şartları (AGB) ve cayma bildirimi ekte.",
       "footer": "Bu e-postayı {appName}'de bir plan satın aldığın için aldın. Sorun olursa bu e-postayı yanıtla ya da {email} adresine yaz.",
       "seller": "Satıcı: {seller}"
     }
