@@ -12,7 +12,10 @@
     "signOut": "Abmelden",
     "language": "Sprache",
     "account": "Konto",
-    "leaveWarning": "Beim Sprachwechsel gehen die ausgewählten Fotos verloren. Fortfahren?"
+    "leaveWarning": "Beim Sprachwechsel gehen die ausgewählten Fotos verloren. Fortfahren?",
+    "cancel": "Abbrechen",
+    "confirm": "Bestätigen",
+    "switchAnyway": "Trotzdem wechseln"
   },
   "Login": {
     "title": "Willkommen bei {appName}",
@@ -442,7 +445,8 @@
       "reportNote": "Niemand, auch du nicht, kann das Foto noch sehen oder laden. Wir prüfen die Meldung und geben sie bei Bedarf an die Behörden weiter. Bewahre keine Kopie auf und teile das Foto mit niemandem.",
       "reportSend": "Melden und entfernen",
       "reported": "Gemeldet. Das Foto ist aus deinem Album entfernt; wir kümmern uns um den Rest.",
-      "cancel": "Abbrechen"
+      "cancel": "Abbrechen",
+      "blockShort": "Löschen und sperren"
     },
     "share": {
       "title": "Dein QR-Code",

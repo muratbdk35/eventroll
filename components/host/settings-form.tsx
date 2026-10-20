@@ -9,6 +9,7 @@ import {
   UserRound,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { askConfirm } from "@/components/confirm-dialog";
 import { useMemo, useState, useTransition } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -107,6 +108,7 @@ export function SettingsForm({
 }) {
   const t = useTranslations("Events.settings");
   const tEvents = useTranslations("Events");
+  const tNav = useTranslations("Nav");
   const router = useRouter();
   const [pending, start] = useTransition();
   const [base, setBase] = useState(() => initialState(initial));
@@ -163,8 +165,14 @@ export function SettingsForm({
     });
   }
 
-  function onDelete() {
-    if (!window.confirm(t("deleteConfirm"))) return;
+  async function onDelete() {
+    const ok = await askConfirm({
+      message: t("deleteConfirm"),
+      confirm: t("delete"),
+      cancel: tNav("cancel"),
+      destructive: true,
+    });
+    if (!ok) return;
     start(async () => {
       const res = await deleteEvent(eventId);
       if (res.ok) router.push("/dashboard");

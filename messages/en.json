@@ -9,7 +9,10 @@
     "signOut": "Sign out",
     "language": "Language",
     "account": "Account",
-    "leaveWarning": "Changing the language clears the photos you picked. Continue?"
+    "leaveWarning": "Changing the language clears the photos you picked. Continue?",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "switchAnyway": "Switch anyway"
   },
   "Login": {
     "title": "Welcome to {appName}",
@@ -439,7 +442,8 @@
       "reportNote": "No one, you included, can see or download the photo any more. We review the report and pass it on to the authorities where needed. Don't keep a copy of this photo or share it with anyone.",
       "reportSend": "Report and remove",
       "reported": "Reported. The photo is out of your album; we'll take it from here.",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "blockShort": "Delete and block"
     },
     "share": {
       "title": "Your QR code",

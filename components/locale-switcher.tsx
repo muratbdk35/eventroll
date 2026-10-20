@@ -2,6 +2,7 @@
 
 import { Check, ChevronDown, Globe } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
+import { askConfirm } from "@/components/confirm-dialog";
 import { useTransition } from "react";
 import {
   DropdownMenu,
@@ -25,11 +26,15 @@ export function useSwitchLocale() {
   const router = useRouter();
   const pathname = usePathname();
   const [pending, start] = useTransition();
-  const switchTo = (next: Locale) => {
+  const switchTo = async (next: Locale) => {
     // Guest page: picked-but-unsent photos would be lost on navigation.
     if (
       document.documentElement.dataset.pendingPhotos &&
-      !window.confirm(t("leaveWarning"))
+      !(await askConfirm({
+        message: t("leaveWarning"),
+        confirm: t("switchAnyway"),
+        cancel: t("cancel"),
+      }))
     ) {
       return;
     }

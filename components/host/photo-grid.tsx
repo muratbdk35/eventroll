@@ -17,6 +17,7 @@ import {
   X,
 } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
+import { askConfirm } from "@/components/confirm-dialog";
 import {
   useCallback,
   useEffect,
@@ -78,6 +79,7 @@ export function PhotoGrid({
   published: boolean;
 }) {
   const t = useTranslations("Events.photos");
+  const tNav = useTranslations("Nav");
   const format = useFormatter();
   const router = useRouter();
   const reduce = useReducedMotion();
@@ -140,11 +142,19 @@ export function PhotoGrid({
     };
   }, [open, close, step, reporting]);
 
-  function run(
-    confirmText: string | null,
+  async function run(
+    ask: { message: string; confirm: string } | null,
     fn: () => ReturnType<typeof deletePhoto>,
   ) {
-    if (confirmText && !window.confirm(confirmText)) return;
+    if (
+      ask &&
+      !(await askConfirm({
+        ...ask,
+        cancel: tNav("cancel"),
+        destructive: true,
+      }))
+    )
+      return;
     start(async () => {
       const res = await fn();
       if (res.ok) {
@@ -239,7 +249,10 @@ export function PhotoGrid({
                 label={t("block")}
                 disabled={pending}
                 onClick={() =>
-                  run(t("blockConfirm"), () => blockDevice(eventId, current.id))
+                  run(
+                    { message: t("blockConfirm"), confirm: t("blockShort") },
+                    () => blockDevice(eventId, current.id),
+                  )
                 }
               >
                 <Ban className="size-5" />
@@ -256,7 +269,9 @@ export function PhotoGrid({
               label={t("delete")}
               disabled={pending}
               onClick={() =>
-                run(t("deleteConfirm"), () => deletePhoto(eventId, current.id))
+                run({ message: t("deleteConfirm"), confirm: t("delete") }, () =>
+                  deletePhoto(eventId, current.id),
+                )
               }
             >
               <Trash2 className="size-5" />

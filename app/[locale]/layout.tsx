@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { clientMessages } from "@/lib/i18n/client-messages";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { ConfirmHost } from "@/components/confirm-dialog";
 import { Toaster } from "@/components/ui/sonner";
 import { routing } from "@/lib/i18n/routing";
 import { publicEnv } from "@/lib/public-env";
@@ -67,6 +68,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={await clientMessages([])}>
           {children}
           <Toaster />
+          <ConfirmHost />
         </NextIntlClientProvider>
       </body>
     </html>

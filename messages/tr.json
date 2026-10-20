@@ -12,7 +12,10 @@
     "signOut": "Çıkış yap",
     "language": "Dil",
     "account": "Hesap",
-    "leaveWarning": "Dili değiştirirsen seçtiğin fotoğraflar silinir. Devam edilsin mi?"
+    "leaveWarning": "Dili değiştirirsen seçtiğin fotoğraflar silinir. Devam edilsin mi?",
+    "cancel": "Vazgeç",
+    "confirm": "Onayla",
+    "switchAnyway": "Yine de değiştir"
   },
   "Login": {
     "title": "{appName}'a hoş geldin",
@@ -442,7 +445,8 @@
       "reportNote": "Fotoğraf kimseye, sana da görünmez ve indirilemez. Bildirimi biz inceler, gerekirse yetkililere iletiriz. Bu fotoğrafın kopyasını saklama ya da kimseyle paylaşma.",
       "reportSend": "Bildir ve kaldır",
       "reported": "Bildirildi. Fotoğraf albümden kaldırıldı; gerisini biz takip edeceğiz.",
-      "cancel": "Vazgeç"
+      "cancel": "Vazgeç",
+      "blockShort": "Sil ve engelle"
     },
     "share": {
       "title": "QR kodun",
