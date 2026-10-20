@@ -21,8 +21,10 @@ export async function MarketingHeader() {
         >
           <Logo />
         </Link>
+        {/* From 1024 px: on a portrait tablet the four links and the
+            buttons don't fit one bar (German least of all). */}
         <nav
-          className="hidden items-center gap-1 text-sm md:flex"
+          className="hidden items-center gap-1 text-sm lg:flex"
           aria-label="Main"
         >
           {(["how-it-works", "features", "pricing", "faq"] as const).map(
@@ -30,7 +32,7 @@ export async function MarketingHeader() {
               <a
                 key={id}
                 href={`/${locale}#${id}`}
-                className="rounded-lg px-3 py-2 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                className="rounded-lg px-3 py-2 whitespace-nowrap text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
               >
                 {t(id)}
               </a>

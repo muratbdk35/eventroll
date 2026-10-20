@@ -22,7 +22,7 @@ export function SectionHeading({
       )}
     >
       {/* Long German words hyphenate instead of pushing the page sideways. */}
-      <h2 className="font-heading text-[2.4rem] leading-[1.05] font-semibold tracking-[-0.02em] text-balance hyphens-auto sm:text-6xl">
+      <h2 className="font-heading text-[2.4rem] leading-[1.05] font-semibold tracking-[-0.02em] text-balance hyphens-auto [hyphenate-limit-chars:10_4_4] sm:text-6xl">
         {title}
       </h2>
       {subtitle && (
