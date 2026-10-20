@@ -71,6 +71,37 @@ const INVOICE_FOOTER = `${SELLER.company}, ${SELLER.address}`;
 
 const CHECKOUT_LOCALES = new Set(["tr", "de", "en"]);
 
+/** Under the pay button on Stripe's page, in the buyer's language. */
+const SUBMIT_NOTE: Record<string, string> = {
+  tr: "Ödeme onaylanınca etkinliğin hemen açılır; faturan e-postana gelir.",
+  de: "Nach der Zahlung ist dein Event sofort freigeschaltet; die Rechnung kommt per E-Mail.",
+  en: "Your event unlocks as soon as the payment goes through; the invoice comes by email.",
+};
+
+/**
+ * Stripe's page in EventRoll's look, for this session only: the company's
+ * account-wide branding stays as it is (DECISIONS #75). Images need a public
+ * https URL, so local development keeps Stripe's default icon.
+ */
+function checkoutBranding(
+  origin: string,
+): Stripe.Checkout.SessionCreateParams.BrandingSettings {
+  const images = origin.startsWith("https://")
+    ? {
+        icon: { type: "url" as const, url: `${origin}/brand/stripe-icon.png` },
+        logo: { type: "url" as const, url: `${origin}/brand/stripe-logo.png` },
+      }
+    : {};
+  return {
+    display_name: "EventRoll",
+    button_color: "#457094",
+    background_color: "#f4f7fb",
+    border_style: "pill",
+    font_family: "inter",
+    ...images,
+  };
+}
+
 export async function createCheckout(opts: {
   event: EventRow;
   plan: PlanId;
@@ -132,6 +163,10 @@ export async function createCheckout(opts: {
           0,
           1000,
         ),
+    },
+    branding_settings: checkoutBranding(opts.origin),
+    custom_text: {
+      submit: { message: SUBMIT_NOTE[opts.locale] ?? SUBMIT_NOTE.en },
     },
     locale: (CHECKOUT_LOCALES.has(opts.locale) ? opts.locale : "auto") as
       "tr" | "de" | "en" | "auto",
