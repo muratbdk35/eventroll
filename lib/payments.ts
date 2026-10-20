@@ -57,9 +57,16 @@ function germanVat(): Promise<string | null> {
 
 /** Under the invoice title, in the buyer's language. */
 const PAID_NOTE: Record<string, string> = {
-  tr: "Ödendi: sipariş sırasında tahsil edildi, ayrıca ödeme gerekmez",
-  de: "Bezahlt: bei der Bestellung beglichen, keine weitere Zahlung nötig",
-  en: "Paid: charged at checkout, nothing more to pay",
+  tr: "Ödendi",
+  de: "Bezahlt",
+  en: "Paid",
+};
+
+const PLAN_NAMES: Record<string, string> = {
+  mini: "Mini",
+  standard: "Standard",
+  pro: "Pro",
+  vip: "VIP",
 };
 
 /**
@@ -179,7 +186,7 @@ export async function createCheckout(opts: {
         // Stripe titles these invoices "amount due"; the line under it
         // makes clear the buyer already paid (DECISIONS #66).
         description:
-          `${PAID_NOTE[opts.locale] ?? PAID_NOTE.en} · EventRoll ${plan}: ${event.name}`.slice(
+          `${PAID_NOTE[opts.locale] ?? PAID_NOTE.en} · EventRoll ${PLAN_NAMES[plan] ?? plan}: ${event.name}`.slice(
             0,
             1500,
           ),

@@ -108,7 +108,8 @@
       "button": "Event öffnen",
       "attachments": "Die AGB und die Widerrufsbelehrung finden Sie im Anhang.",
       "footer": "Sie erhalten diese E-Mail, weil Sie bei {appName} einen Plan gekauft haben. Fragen? Antworten Sie auf diese E-Mail oder schreiben Sie an {email}.",
-      "seller": "Verkäufer: {seller}"
+      "seller": "Verkäufer: {seller}",
+      "stripeNote": "Stripe schickt dir außerdem Rechnung und Zahlungsbeleg. Das „fällig“ auf der Rechnung ist nur Stripes Standardvorlage; deine Zahlung ist eingegangen."
     }
   },
   "Landing": {

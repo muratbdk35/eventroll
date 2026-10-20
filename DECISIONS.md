@@ -1199,3 +1199,9 @@ invoice comes by email. Products have no description any more: Stripe shows it
 in one language; the plan's details are on our pay step and the invoice line.
 Invoice PDFs and Stripe's emails use the account-wide branding (logo, colour),
 which only the owner can set in the dashboard.
+
+**#66 amended (2026-10-20):** the invoice's "due" wording is Stripe's design:
+the invoice PDF stays the document as issued, and the paid proof is the
+receipt (Zahlungsbeleg) sent with it. The invoice line now reads just
+"Bezahlt · EventRoll Standard: <event>", and our order email adds one sentence
+explaining the two Stripe PDFs.

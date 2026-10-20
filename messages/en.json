@@ -105,7 +105,8 @@
       "button": "Open your event",
       "attachments": "The terms and conditions (AGB) and the withdrawal instructions are attached: the binding German text and an English translation.",
       "footer": "You received this email because you bought a plan on {appName}. Questions? Reply to this email or write to {email}.",
-      "seller": "Seller: {seller}"
+      "seller": "Seller: {seller}",
+      "stripeNote": "Stripe also sends you an invoice and a receipt. The \"due\" on the invoice is just Stripe's standard template; your payment has been received."
     }
   },
   "Landing": {

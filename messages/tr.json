@@ -108,7 +108,8 @@
       "button": "Etkinliğini aç",
       "attachments": "Kullanım şartları (AGB) ve cayma bildirimi ekte: bağlayıcı Almanca metin ve Türkçe çevirisi.",
       "footer": "Bu e-postayı {appName}'de bir plan satın aldığın için aldın. Sorun olursa bu e-postayı yanıtla ya da {email} adresine yaz.",
-      "seller": "Satıcı: {seller}"
+      "seller": "Satıcı: {seller}",
+      "stripeNote": "Stripe'tan ayrıca fatura ve ödeme makbuzu gelecek. Faturadaki \"ödeme gerekiyor\" ifadesi Stripe'ın standart şablonu; ödemen alındı."
     }
   },
   "Landing": {

@@ -123,6 +123,7 @@ export async function sendOrderConfirmation(o: {
     url,
     "",
     t("attachments"),
+    t("stripeNote"),
     "",
     t("seller", { seller }),
     footer,
@@ -142,6 +143,7 @@ export async function sendOrderConfirmation(o: {
 ${consent ? `<h2 style="margin:22px 0 6px;font-size:15px">${esc(t("consentTitle"))}</h2><p style="margin:0;line-height:1.5;font-size:14px">${esc(consent)}</p>` : ""}
 <p style="margin:22px 0"><a href="${esc(url)}" style="display:inline-block;background:#457094;color:#fff;text-decoration:none;font-weight:600;padding:12px 20px;border-radius:999px">${esc(t("button"))}</a></p>
 <p style="margin:0;font-size:13px;line-height:1.5;color:#66707c">${esc(t("attachments"))}</p>
+<p style="margin:8px 0 0;font-size:13px;line-height:1.5;color:#66707c">${esc(t("stripeNote"))}</p>
 </div>
 <p style="margin:20px 0 0;font-size:12px;line-height:1.5;color:#66707c">${esc(t("seller", { seller }))}<br>${esc(footer)}</p>
 </div></body></html>`;
