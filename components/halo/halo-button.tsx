@@ -152,8 +152,10 @@ export function HaloButton(props: HaloButtonProps) {
     "relative flex min-w-0 items-center justify-center gap-2 rounded-full border font-semibold tracking-tight select-none antialiased outline-none",
     "transition-[transform,box-shadow,border-color,filter] duration-200 ease-out",
     "focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-    "active:scale-[0.97] motion-reduce:active:scale-100",
-    "aria-disabled:pointer-events-none aria-disabled:opacity-50 disabled:pointer-events-none disabled:opacity-50",
+    // Pressing and dimming happen on the wrapper below, so the rim and its
+    // glow move with the button instead of sticking out of it.
+    "disabled:pointer-events-none aria-disabled:pointer-events-none",
+    isLoading && "cursor-progress",
     size === "lg" ? "min-h-14 px-7 text-base" : "min-h-11 px-6 text-sm",
     fullWidth && "w-full",
     primary
@@ -215,14 +217,27 @@ export function HaloButton(props: HaloButtonProps) {
         className,
       )}
     >
-      <div className={cn("relative rounded-full p-px", fullWidth && "w-full")}>
+      <div
+        className={cn(
+          "relative rounded-full p-px transition-[transform,opacity] duration-200 ease-out",
+          // A loading button keeps its colour; only a disabled one fades.
+          disabled && !isLoading
+            ? "pointer-events-none opacity-50"
+            : !isLoading &&
+                "has-[>:active]:scale-[0.97] motion-reduce:has-[>:active]:scale-100",
+          fullWidth && "w-full",
+        )}
+      >
         <div
           className="pointer-events-none absolute inset-0 overflow-hidden rounded-full"
           style={roundClip("9999px")}
         >
           {/* Only the main action glows (DECISIONS #40). */}
           {primary && (
-            <HaloBlobs active={hot && !disabled} opacity={hot ? 0.9 : 0.6} />
+            <HaloBlobs
+              active={hot && !disabled && !isLoading}
+              opacity={hot && !isLoading ? 0.9 : 0.6}
+            />
           )}
         </div>
         {rest.href !== undefined ? (
