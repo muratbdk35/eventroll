@@ -169,10 +169,12 @@ export default async function EventPage({
         </div>
         <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-sm text-muted-foreground">
           <li>{date(event.eventDate)}</li>
+          {/* Counts stay together when the line wraps on a phone. */}
           <li className="text-foreground">
             {t("photoCount", { count: stats.photos })}
-          </li>
-          <li className="text-foreground">
+            <span aria-hidden className="mx-1.5 text-muted-foreground">
+              ·
+            </span>
             {t("guestsCount", { count: stats.guests })}
           </li>
           <li>

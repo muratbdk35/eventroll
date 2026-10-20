@@ -112,6 +112,9 @@ export function PlanReceipt({
               />
             ))}
             <Slider.Thumb
+              // The role="slider" element is the thumb; the root's label
+              // doesn't reach it.
+              aria-labelledby="plan-dial-label"
               aria-valuetext={dial.valueText[id]}
               className={cn(
                 "relative block size-5 cursor-grab rounded-full border-2 transition-[background-color,border-color,box-shadow] duration-500 outline-none active:cursor-grabbing",
