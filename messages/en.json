@@ -351,7 +351,6 @@
     }
   },
   "Legal": {
-    "draft": "DRAFT: this text will be legally checked before launch.",
     "updated": "Last updated: {date}",
     "translation": "This is a translation; the German text is binding.",
     "german": "German text"

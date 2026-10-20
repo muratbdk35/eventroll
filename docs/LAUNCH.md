@@ -7,11 +7,10 @@ local file that `scripts/launch-env.mjs` pushes to Vercel without printing.
 
 ## 0. Before the day
 
-| What                                                                                                               | Who    |
-| ------------------------------------------------------------------------------------------------------------------ | ------ |
-| Remove the DRAFT banner and the noindex on legal pages (owner, 2026-10-20: launch first, lawyer check right after) | Claude |
-| Tax adviser confirmed: flat 19% VAT (no OSS yet)                                                                   | Owner  |
-| Vercel Pro plan (commercial use)                                                                                   | Owner  |
+| What                                             | Who   |
+| ------------------------------------------------ | ----- |
+| Tax adviser confirmed: flat 19% VAT (no OSS yet) | Owner |
+| Vercel Pro plan (commercial use)                 | Owner |
 
 ## 1. Accounts and keys (owner, ~30 min)
 

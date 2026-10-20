@@ -31,8 +31,7 @@ export async function generateMetadata({
   params,
 }: PageProps<"/[locale]/legal/[page]">): Promise<Metadata> {
   const { page, locale } = await params;
-  // DRAFT pages stay out of search results until reviewed.
-  return { title: doc(page, locale).title, robots: { index: false } };
+  return { title: doc(page, locale).title };
 }
 
 export default async function LegalPage({
@@ -47,12 +46,9 @@ export default async function LegalPage({
     <>
       <MarketingHeader />
       <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-10 sm:py-16">
-        <p className="rounded-xl border border-dashed border-primary/40 bg-accent/60 px-4 py-3 text-sm text-accent-foreground">
-          {t("draft")}
-        </p>
         {/* Only the German text is binding (DECISIONS #68). */}
         {locale !== "de" && (
-          <p className="mt-3 text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground">
             {t("translation")}{" "}
             <Link
               href={`/legal/${page}`}
@@ -63,7 +59,7 @@ export default async function LegalPage({
             </Link>
           </p>
         )}
-        <h1 className="mt-10 font-heading text-3xl font-bold tracking-tight [overflow-wrap:anywhere] hyphens-auto [hyphenate-limit-chars:10_4_4] sm:text-4xl">
+        <h1 className="mt-8 font-heading text-3xl font-bold tracking-tight [overflow-wrap:anywhere] hyphens-auto [hyphenate-limit-chars:10_4_4] first:mt-0 sm:text-4xl">
           {content.title}
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">

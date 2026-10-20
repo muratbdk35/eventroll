@@ -1181,3 +1181,9 @@ languages, with axe and keyboard checks. Fixed:
 Not changed: the four preloaded font files (~195 KB) are what holds the
 landing page's first paint on slow mobile networks (Lighthouse ~76–80).
 Trimming them changes how headings look, so it waits for an owner decision.
+
+## 74. Legal pages live without the draft banner (owner decision, 2026-10-20)
+
+The owner launches first and has the texts checked by a lawyer right after.
+The DRAFT banner and the noindex on the legal pages are gone; the lawyer's
+changes go in as normal updates (DECISIONS #68).
