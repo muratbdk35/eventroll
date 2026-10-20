@@ -50,7 +50,7 @@ export function FilmStrip() {
               src={`/marketing/${f}`}
               alt=""
               fill
-              sizes="260px"
+              sizes="(min-width: 640px) 256px, 208px"
               className="object-cover"
             />
           </div>

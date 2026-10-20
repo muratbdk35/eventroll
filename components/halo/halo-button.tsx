@@ -222,9 +222,10 @@ export function HaloButton(props: HaloButtonProps) {
   };
 
   return (
-    <motion.div
-      layout={!reduce}
-      transition={{ layout: haloSpring }}
+    // No layout animation here: it scales the wrapper while the width
+    // changes (e.g. to the loading text), which stretched the pill's round
+    // ends and its glow for a moment. The label fades in instead.
+    <div
       className={cn(
         "relative inline-flex max-w-full",
         fullWidth && "flex w-full",
@@ -277,6 +278,6 @@ export function HaloButton(props: HaloButtonProps) {
           </button>
         )}
       </div>
-    </motion.div>
+    </div>
   );
 }
