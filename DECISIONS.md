@@ -1157,3 +1157,27 @@ Withdrawal before the event starts: full refund. After it has started: the
 essential part is provided, so the refund is small. No fixed percentage (a
 flat rate could count as a deviation to the consumer's detriment, § 361 BGB);
 the lawyer should confirm the wording. The 14 days run from payment.
+
+## 73. UI pass before launch (2026-10-20)
+
+A walk through every page at 320, 375, 768, 1024 and 1280 px in three
+languages, with axe and keyboard checks. Fixed:
+
+- Halo button: pressing scaled only the inner pill, so the glow rim stuck out
+  ("the blue button looks shifted"); a loading button went half transparent
+  and showed the drifting blobs through it. Press and dim now act on the whole
+  button; a loading button keeps its colour. The layout animation is gone: it
+  stretched the pill while the label changed width.
+- Long labels (German "Zahlungspflichtig auf Pro wechseln") wrap by word
+  instead of running off a 320 px screen; legal headings hyphenate; short
+  German words are no longer hyphenated ("de-nen").
+- Marketing header nav from 1024 px: on a portrait iPad it overflowed.
+- Event header on phones: settings as a round icon, counts on one line.
+- Create flow: each new question starts at the top of the page.
+- In-app confirm dialog instead of window.confirm() (delete event, delete or
+  block photos, language switch with unsent photos).
+- Plan slider thumb has an accessible name.
+
+Not changed: the four preloaded font files (~195 KB) are what holds the
+landing page's first paint on slow mobile networks (Lighthouse ~76–80).
+Trimming them changes how headings look, so it waits for an owner decision.
