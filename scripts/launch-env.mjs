@@ -50,8 +50,8 @@ const REQUIRED = [
   "STRIPE_WEBHOOK_SECRET",
   "RESEND_API_KEY",
   "EMAIL_FROM",
-  "SIGHTENGINE_API_USER",
-  "SIGHTENGINE_API_SECRET",
+  // SUPPORT_EMAIL, UPSTASH_* and SIGHTENGINE_* are already in Vercel
+  // Production (docs/LAUNCH.md step 1); add them here only to replace them.
 ];
 const missing = REQUIRED.filter((k) => !vals[k]);
 if (missing.length) {
