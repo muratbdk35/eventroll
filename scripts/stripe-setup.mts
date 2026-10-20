@@ -24,15 +24,14 @@ for (const plan of planOrder) {
   const id = productId(plan);
   const fields = {
     name: `EventRoll ${names[plan]}`,
-    // No description: Stripe shows it in one language to every buyer. The
-    // plan's details are on our pay step, in the buyer's language, and on the
-    // invoice line (DECISIONS #75).
-    description: "",
     metadata: { app: "eventroll", plan },
   };
   try {
     await stripe.products.retrieve(id);
-    await stripe.products.update(id, fields);
+    // No description: Stripe shows it in one language to every buyer. The
+    // plan's details are on our pay step, in the buyer's language, and on the
+    // invoice line (DECISIONS #75). "" clears an old one; create rejects it.
+    await stripe.products.update(id, { ...fields, description: "" });
     console.log(`updated ${id}`);
   } catch (e) {
     if ((e as { code?: string }).code !== "resource_missing") throw e;

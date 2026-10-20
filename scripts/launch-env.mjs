@@ -69,7 +69,19 @@ if (!vals.NEXT_PUBLIC_APP_URL.startsWith("https://")) {
 
 for (const [name, value] of Object.entries(vals)) {
   const sensitive = !name.startsWith("NEXT_PUBLIC_");
-  const args = ["-y", "vercel", "env", "add", name, "production", "--force"];
+  const args = [
+    "-y",
+    "vercel",
+    "env",
+    "add",
+    name,
+    "--environment",
+    "production",
+    "--force",
+    "--yes",
+  ];
+  // Public values (Turnstile site key) must be marked as such.
+  if (!sensitive) args.push("--type", "config");
   if (sensitive) args.push("--sensitive");
   if (dry) {
     console.log(`would add ${name}${sensitive ? " (sensitive)" : ""}`);
