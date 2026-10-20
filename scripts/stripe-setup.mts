@@ -9,7 +9,7 @@
  *   STRIPE_SECRET_KEY=rk_test_… npx tsx scripts/stripe-setup.mts
  */
 import Stripe from "stripe";
-import { planOrder, plans } from "../lib/plans.js";
+import { planOrder } from "../lib/plans.js";
 import { productId } from "../lib/stripe-ids.js";
 
 const key = process.env.STRIPE_SECRET_KEY;
@@ -22,10 +22,12 @@ const names = { mini: "Mini", standard: "Standard", pro: "Pro", vip: "VIP" };
 
 for (const plan of planOrder) {
   const id = productId(plan);
-  const p = plans[plan];
   const fields = {
     name: `EventRoll ${names[plan]}`,
-    description: `${p.maxItems.toLocaleString("en")} photos, ${p.maxBytes / 1024 ** 3} GB, ${p.retentionDays}-day download window`,
+    // No description: Stripe shows it in one language to every buyer. The
+    // plan's details are on our pay step, in the buyer's language, and on the
+    // invoice line (DECISIONS #75).
+    description: "",
     metadata: { app: "eventroll", plan },
   };
   try {

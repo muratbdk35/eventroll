@@ -1187,3 +1187,15 @@ Trimming them changes how headings look, so it waits for an owner decision.
 The owner launches first and has the texts checked by a lawyer right after.
 The DRAFT banner and the noindex on the legal pages are gone; the lawyer's
 changes go in as normal updates (DECISIONS #68).
+
+## 75. Stripe Checkout in EventRoll's look (2026-10-20)
+
+Each Checkout Session carries `branding_settings`: display name "EventRoll",
+our icon and logo (public/brand/stripe-icon.png, stripe-logo.png, served from
+the site, so only on https origins), button #457094, background #f4f7fb, pill
+shapes, Inter. The company's account-wide branding stays untouched. A short
+note under the pay button says the event unlocks right after payment and the
+invoice comes by email. Products have no description any more: Stripe shows it
+in one language; the plan's details are on our pay step and the invoice line.
+Invoice PDFs and Stripe's emails use the account-wide branding (logo, colour),
+which only the owner can set in the dashboard.
