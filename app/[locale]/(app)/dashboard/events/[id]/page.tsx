@@ -155,11 +155,11 @@ export default async function EventPage({
     });
 
   const header = (
-    <div className="flex items-start gap-4">
-      <EventIcon type={event.type} className="size-14" />
+    <div className="flex items-start gap-3 sm:gap-4">
+      <EventIcon type={event.type} className="size-12 sm:size-14" />
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
-          <h1 className="font-heading text-3xl leading-tight font-bold tracking-tight text-balance">
+          <h1 className="font-heading text-2xl leading-tight font-bold tracking-tight text-balance [overflow-wrap:anywhere] sm:text-3xl">
             {event.name}
           </h1>
           <StatusPill
@@ -186,10 +186,12 @@ export default async function EventPage({
       {view === "main" && !expired && (
         <Link
           href={`${eventPath}?view=settings`}
-          className="inline-flex h-10 shrink-0 items-center gap-2 rounded-full border border-border bg-card px-3.5 text-sm font-semibold shadow-xs transition-colors hover:border-primary/30 hover:bg-accent/40"
+          aria-label={t("tabs.settings")}
+          className="inline-flex size-10 shrink-0 items-center justify-center gap-2 rounded-full border border-border bg-card text-sm font-semibold shadow-xs transition-colors hover:border-primary/30 hover:bg-accent/40 sm:w-auto sm:px-3.5"
         >
           <Settings className="size-4 text-muted-foreground" aria-hidden />
-          <span>{t("tabs.settings")}</span>
+          {/* On phones the round icon alone leaves the name room. */}
+          <span className="hidden sm:inline">{t("tabs.settings")}</span>
         </Link>
       )}
     </div>

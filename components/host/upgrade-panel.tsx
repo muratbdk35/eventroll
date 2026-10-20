@@ -87,7 +87,7 @@ export function UpgradePanel({
               <span className="block font-semibold">{o.name}</span>
               <span className="mt-0.5 block text-[13px] text-pretty text-muted-foreground">
                 {o.details}
-                {o.templates && ` · ${t("templates")}`}
+                {o.templates && `\u00a0· ${t("templates")}`}
               </span>
             </span>
             <span className="shrink-0 text-end">

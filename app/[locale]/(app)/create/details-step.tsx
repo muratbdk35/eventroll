@@ -2,7 +2,7 @@
 
 import { Clock, KeyRound, Smartphone, UserRound } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { HaloInput } from "@/components/halo/halo-input";
 import { HaloSwitch } from "@/components/halo/halo-switch";
 import {
@@ -44,6 +44,17 @@ export function DetailsStep({ plan }: FlowProps) {
 
   // Every change is kept in this browser, so nothing is lost on sign-in.
   useEffect(() => saveDraft(d), [d]);
+
+  // A new question starts at the top, not where the last one was scrolled to
+  // (the type list is long on phones, the next question is short).
+  const firstItem = useRef(true);
+  useEffect(() => {
+    if (firstItem.current) {
+      firstItem.current = false;
+      return;
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [item]);
 
   return (
     <DetailsQuestions

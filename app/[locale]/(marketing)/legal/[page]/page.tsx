@@ -63,7 +63,7 @@ export default async function LegalPage({
             </Link>
           </p>
         )}
-        <h1 className="mt-10 font-heading text-3xl font-bold tracking-tight sm:text-4xl">
+        <h1 className="mt-10 font-heading text-3xl font-bold tracking-tight [overflow-wrap:anywhere] hyphens-auto sm:text-4xl">
           {content.title}
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
@@ -80,7 +80,7 @@ export default async function LegalPage({
               <h2 className="font-heading text-xl font-semibold">
                 {s.heading}
               </h2>
-              <div className="mt-3 space-y-3 leading-relaxed text-pretty text-muted-foreground">
+              <div className="mt-3 space-y-3 leading-relaxed text-pretty [overflow-wrap:anywhere] hyphens-auto text-muted-foreground">
                 {s.body.map((block, i) =>
                   typeof block === "string" ? (
                     <p key={i}>{block}</p>

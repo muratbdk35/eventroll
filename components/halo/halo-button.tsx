@@ -58,13 +58,18 @@ export function StaggeredText({
 }) {
   const reduce = useReducedMotion() ?? false;
   const [firstText] = useState(text);
-  const chars = useMemo(() => {
+  // Words stay whole and may wrap onto a second line (long German labels on
+  // narrow phones); the glyphs inside a word fade in one by one.
+  const words = useMemo(() => {
     const seen = new Map<string, number>();
-    return Array.from(text, (char) => {
-      const n = seen.get(char) ?? 0;
-      seen.set(char, n + 1);
-      return { char, key: `${char}-${n}` };
-    });
+    return text.split(" ").map((word, w) => ({
+      key: `${word}-${w}`,
+      chars: Array.from(word, (char) => {
+        const n = seen.get(char) ?? 0;
+        seen.set(char, n + 1);
+        return { char, key: `${char}-${n}` };
+      }),
+    }));
   }, [text]);
   return (
     <>
@@ -74,24 +79,31 @@ export function StaggeredText({
         initial={text === firstText ? false : "hidden"}
         animate="visible"
         aria-hidden
-        className="inline-flex items-center"
+        className="inline-flex flex-wrap items-center justify-center gap-x-[0.25em] text-center"
         variants={{
           hidden: {},
           visible: { transition: { staggerChildren: reduce ? 0 : stagger } },
         }}
       >
-        {chars.map((g) => (
-          <motion.span
-            key={g.key}
-            className="inline-block whitespace-pre"
-            transition={{ duration: reduce ? 0 : duration, ease: "easeOut" }}
-            variants={{
-              hidden: { opacity: reduce ? 1 : 0 },
-              visible: { opacity: 1 },
-            }}
-          >
-            {g.char}
-          </motion.span>
+        {words.map((w) => (
+          <span key={w.key} className="inline-flex whitespace-nowrap">
+            {w.chars.map((g) => (
+              <motion.span
+                key={g.key}
+                className="inline-block whitespace-pre"
+                transition={{
+                  duration: reduce ? 0 : duration,
+                  ease: "easeOut",
+                }}
+                variants={{
+                  hidden: { opacity: reduce ? 1 : 0 },
+                  visible: { opacity: 1 },
+                }}
+              >
+                {g.char}
+              </motion.span>
+            ))}
+          </span>
         ))}
       </motion.span>
     </>
@@ -156,7 +168,9 @@ export function HaloButton(props: HaloButtonProps) {
     // glow move with the button instead of sticking out of it.
     "disabled:pointer-events-none aria-disabled:pointer-events-none",
     isLoading && "cursor-progress",
-    size === "lg" ? "min-h-14 px-7 text-base" : "min-h-11 px-6 text-sm",
+    size === "lg"
+      ? "min-h-14 px-7 py-2 text-base"
+      : "min-h-11 px-6 py-1.5 text-sm",
     fullWidth && "w-full",
     primary
       ? "border-[color-mix(in_oklch,var(--primary),black_6%)] text-primary-foreground shadow-[0_1px_0_rgba(255,255,255,0.28)_inset,0_-1px_0_rgba(0,0,0,0.12)_inset,0_10px_24px_-10px_var(--primary)] fine-hover:hover:brightness-[1.06]"
