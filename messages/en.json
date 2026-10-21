@@ -495,7 +495,12 @@
       "pinFormat": "Enter 4 to 8 digits.",
       "hoursError": "The upload window must close after it opens (it can run past midnight).",
       "saveShort": "Save",
-      "allSaved": "All changes saved"
+      "allSaved": "All changes saved",
+      "pause": "Stop uploads",
+      "pauseOffHint": "Off: guests can upload photos during the event.",
+      "pauseOnHint": "Uploads are stopped. Guests can't add new photos; you can reopen them any time.",
+      "pausedOn": "Uploads stopped",
+      "pausedOff": "Uploads reopened"
     },
     "openGuest": "Guest page",
     "copyLink": "Copy link",
@@ -719,6 +724,10 @@
       "blocked": {
         "title": "Uploads off for this phone",
         "body": "The host has turned off uploads from this device."
+      },
+      "paused": {
+        "title": "Uploads are paused",
+        "body": "The host has paused photo uploads for now."
       }
     },
     "notFoundTitle": "Event not found",

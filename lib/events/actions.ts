@@ -244,6 +244,24 @@ export async function setHideFlagged(
   return { ok: true };
 }
 
+/** Stops or reopens guest uploads at once (settings, #78). */
+export async function setUploadsPaused(
+  eventId: string,
+  paused: boolean,
+): Promise<ActionResult> {
+  const user = await requireUser();
+  if (!user) return { ok: false, error: "unauthorized" };
+  const event = await getOwnedEvent(eventId, user.id);
+  if (!event) return { ok: false, error: "not_found" };
+  await db
+    .update(events)
+    .set({ uploadsPaused: paused })
+    .where(eq(events.id, event.id));
+  revalidatePath("/[locale]/dashboard", "layout");
+  revalidatePath("/[locale]/e/[slug]", "page");
+  return { ok: true };
+}
+
 /** Deletes everything a device uploaded and blocks it from uploading again. */
 export async function blockDevice(
   eventId: string,

@@ -1,0 +1,1 @@
+ALTER TABLE "events" ADD COLUMN "uploads_paused" boolean DEFAULT false NOT NULL;

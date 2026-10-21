@@ -1,13 +1,21 @@
 import type { PlanId } from "@/lib/plans";
 
 export type UploadState =
-  "open" | "needs_plan" | "not_open_yet" | "closed" | "expired" | "unavailable";
+  | "open"
+  | "needs_plan"
+  | "not_open_yet"
+  | "closed"
+  | "paused"
+  | "expired"
+  | "unavailable";
 
 type EventForState = {
   status: "draft" | "active" | "expired" | "deleted" | "suspended";
   plan: PlanId | null;
   startsAt: Date | null;
   endsAt: Date | null;
+  /** The host stopped uploads (#78). */
+  uploadsPaused?: boolean;
   expiresAt: Date;
 };
 
@@ -24,5 +32,6 @@ export function getUploadState(
   // Guests upload only during the event itself (#77).
   if (event.startsAt && now < event.startsAt) return "not_open_yet";
   if (event.endsAt && now >= event.endsAt) return "closed";
+  if (event.uploadsPaused) return "paused";
   return "open";
 }

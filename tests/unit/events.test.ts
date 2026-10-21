@@ -134,6 +134,11 @@ describe("getUploadState", () => {
     ).toBe("not_open_yet");
     expect(getUploadState({ ...during, endsAt: now }, now)).toBe("closed");
   });
+  it("stays shut while the host has paused uploads (#78)", () => {
+    expect(getUploadState({ ...base, uploadsPaused: true }, now)).toBe(
+      "paused",
+    );
+  });
   it("handles expiry and takedowns", () => {
     expect(
       getUploadState({ ...base, expiresAt: new Date("2026-06-10Z") }, now),

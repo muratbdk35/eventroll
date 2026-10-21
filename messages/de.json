@@ -498,7 +498,12 @@
       "pinFormat": "Gib 4 bis 8 Ziffern ein.",
       "hoursError": "Das Upload-Fenster muss nach dem Öffnen schließen (auch nach Mitternacht).",
       "saveShort": "Speichern",
-      "allSaved": "Alle Änderungen gespeichert"
+      "allSaved": "Alle Änderungen gespeichert",
+      "pause": "Uploads stoppen",
+      "pauseOffHint": "Aus: Gäste können während des Events Fotos hochladen.",
+      "pauseOnHint": "Uploads sind gestoppt. Gäste können keine neuen Fotos hinzufügen; du kannst sie jederzeit wieder öffnen.",
+      "pausedOn": "Uploads gestoppt",
+      "pausedOff": "Uploads wieder geöffnet"
     },
     "openGuest": "Gästeseite",
     "copyLink": "Link kopieren",
@@ -722,6 +727,10 @@
       "blocked": {
         "title": "Uploads für dieses Handy aus",
         "body": "Die Gastgeber haben Uploads von diesem Gerät deaktiviert."
+      },
+      "paused": {
+        "title": "Uploads pausiert",
+        "body": "Die Gastgeber haben das Hochladen vorerst pausiert."
       }
     },
     "notFoundTitle": "Event nicht gefunden",

@@ -498,7 +498,12 @@
       "pinFormat": "4 ile 8 arası rakam gir.",
       "hoursError": "Kapanış açılıştan sonra olmalı (gece yarısını geçebilir).",
       "saveShort": "Kaydet",
-      "allSaved": "Tüm değişiklikler kaydedildi"
+      "allSaved": "Tüm değişiklikler kaydedildi",
+      "pause": "Yüklemeyi durdur",
+      "pauseOffHint": "Kapalı: misafirler etkinlik saatleri içinde fotoğraf yükleyebilir.",
+      "pauseOnHint": "Yükleme durduruldu. Misafirler yeni fotoğraf ekleyemez; istediğin zaman tekrar açabilirsin.",
+      "pausedOn": "Yükleme durduruldu",
+      "pausedOff": "Yükleme yeniden açıldı"
     },
     "openGuest": "Misafir sayfası",
     "copyLink": "Bağlantıyı kopyala",
@@ -722,6 +727,10 @@
       "blocked": {
         "title": "Bu telefon için yükleme kapalı",
         "body": "Ev sahibi bu cihazdan yüklemeyi kapattı."
+      },
+      "paused": {
+        "title": "Yükleme durduruldu",
+        "body": "Ev sahibi fotoğraf yüklemeyi şimdilik durdurdu."
       }
     },
     "notFoundTitle": "Etkinlik bulunamadı",

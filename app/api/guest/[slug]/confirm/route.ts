@@ -30,9 +30,10 @@ export async function POST(req: Request, { params }: Ctx) {
     return NextResponse.json({ error: "invalid" }, { status: 400 });
   }
   // The upload window is checked at presign; a confirm that straddles the close
-  // time is still honoured, but a blocked/suspended/expired event is not.
+  // time or a pause (#78) is still honoured, but a blocked/suspended/expired
+  // event is not.
   const denial = uploadDenial(event, guest.deviceId);
-  if (denial && denial !== "closed") {
+  if (denial && denial !== "closed" && denial !== "paused") {
     return NextResponse.json({ error: denial }, { status: 403 });
   }
 

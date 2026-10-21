@@ -30,6 +30,9 @@ export default async function MarketingLayout({
         "Events.startLabel",
         "Events.endLabel",
         "Events.timeLabel",
+        "Events.uploadWindowHint",
+        "Events.vipLonger",
+        "Events.dateRangeError",
       ])}
     >
       {children}

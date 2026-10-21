@@ -1217,3 +1217,11 @@ the end in the settings). New events default to 24 hours from 19:00, because
 many guests send their photos the next day. The receipt card shows the upload
 window as a fourth key row. `upload_opens_at` / `upload_closes_at` stay in the
 database, always null now.
+
+## 78. Stop uploads switch (owner decision, 2026-10-22)
+
+The top of the settings has a "Stop uploads" switch that works at once, without
+the form's save button (`events.uploads_paused`, migration 0014). While it is
+on, guests see "Uploads are paused"; uploads already in flight still confirm.
+The end of the event wins: an event that is over shows "The event is over"
+whether paused or not.

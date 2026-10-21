@@ -98,6 +98,8 @@ export const events = pgTable(
     // Photos the explicit-image check flagged stay out of the host's grid and
     // downloads until approved; the host can show them (DECISIONS #56).
     hideFlagged: boolean().notNull().default(true),
+    // The host stopped uploads from the settings (#78); reopen any time.
+    uploadsPaused: boolean().notNull().default(false),
     // Guest access controls (DECISIONS #21): optional PIN, upload window above,
     // and a per-device photo cap (null = unlimited).
     accessPinHash: text(),

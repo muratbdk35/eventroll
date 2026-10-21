@@ -29,6 +29,7 @@ import {
 } from "@/components/host/upgrade-panel";
 import { ResumeSetup } from "@/components/host/resume-setup";
 import { SettingsForm } from "@/components/host/settings-form";
+import { UploadPause } from "@/components/host/upload-pause";
 import { TicketSettings } from "@/components/host/ticket-settings";
 import { SharePanel } from "@/components/host/share-panel";
 import { StatusPill } from "@/components/host/status-pill";
@@ -305,6 +306,7 @@ export default async function EventPage({
             />
           ) : (
             <div className="space-y-6">
+              <UploadPause eventId={event.id} paused={event.uploadsPaused} />
               <SettingsForm
                 eventId={event.id}
                 maxHours={plans[event.plan ?? "mini"].maxEventHours}

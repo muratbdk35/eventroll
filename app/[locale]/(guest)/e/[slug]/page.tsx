@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import {
   Archive,
+  CirclePause,
   Ban,
   Clock,
   Hourglass,
@@ -59,6 +60,7 @@ const stateIcon = {
   needs_plan: Hourglass,
   not_open_yet: Clock,
   closed: Lock,
+  paused: CirclePause,
   expired: Archive,
   unavailable: Ban,
   blocked: Ban,
