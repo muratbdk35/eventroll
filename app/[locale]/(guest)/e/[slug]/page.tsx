@@ -102,6 +102,7 @@ export default async function GuestPage({
           </div>
           <h1 className="sr-only">{event.name}</h1>
           <EventTicket
+            gyro
             className="mt-6"
             presenter={publicEnv.appName}
             event={te(`types.${event.type}`)}

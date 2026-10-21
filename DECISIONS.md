@@ -1205,3 +1205,13 @@ the invoice PDF stays the document as issued, and the paid proof is the
 receipt (Zahlungsbeleg) sent with it. The invoice line now reads just
 "Bezahlt · EventRoll Standard: <event>", and our order email adds one sentence
 explaining the two Stripe PDFs.
+
+## 76. The guest ticket follows the phone's tilt (2026-10-21)
+
+On the guest page the ticket tilts with the motion sensor, like the mouse tilt
+on desktop. The first reading counts as level; the card eases toward the
+target and only redraws while it moves and is on screen. Where the browser
+asks for permission (iOS, newer Chrome) the request follows the first tap on
+the ticket; a refusal is remembered for the visit. Off with reduced motion.
+Readings stay in the browser, nothing is sent. The ticket design is unchanged
+(#41).
