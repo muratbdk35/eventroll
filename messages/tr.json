@@ -137,7 +137,8 @@
       "notifyBody": "Doğrudan çifte ulaştı",
       "privacy": "Fotoğraflarını sadece Elif & Can görebilir.",
       "pin": "PIN 2468",
-      "ticketDate": "14 Haziran 2026"
+      "ticketDate": "14 Haziran 2026",
+      "localeCode": "TR"
     },
     "steps": {
       "eyebrow": "Nasıl çalışır",

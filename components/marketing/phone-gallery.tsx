@@ -1,5 +1,4 @@
-import { Check, Send, UserRound } from "lucide-react";
-import Image from "next/image";
+import { Check, ChevronDown, Globe, Send, UserRound } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { LogoMark } from "@/components/brand/logo";
 import { EventTicket } from "@/components/ui/event-ticket";
@@ -10,10 +9,10 @@ import { MockAddMore, MockThumb } from "./mock";
 
 function StatusBar() {
   return (
-    <div className="absolute inset-x-0 top-0 z-10 flex h-11 items-center justify-between px-6 pt-1 text-[12px] font-semibold text-white">
+    <div className="absolute inset-x-0 top-0 z-10 flex h-11 items-center justify-between px-6 pt-1 text-[12px] font-semibold text-foreground">
       <span>9:41</span>
       <span className="flex items-center gap-1">
-        <svg viewBox="0 0 18 12" className="h-2.5 w-4 fill-white">
+        <svg viewBox="0 0 18 12" className="h-2.5 w-4 fill-current">
           <rect x="0" y="8" width="3" height="4" rx="1" />
           <rect x="5" y="5.5" width="3" height="6.5" rx="1" />
           <rect x="10" y="3" width="3" height="9" rx="1" />
@@ -27,17 +26,24 @@ function StatusBar() {
             height="11"
             rx="3"
             fill="none"
-            stroke="white"
+            stroke="currentColor"
             strokeOpacity=".5"
           />
-          <rect x="2" y="2" width="17" height="8" rx="1.8" fill="white" />
+          <rect
+            x="2"
+            y="2"
+            width="17"
+            height="8"
+            rx="1.8"
+            fill="currentColor"
+          />
           <rect
             x="23.5"
             y="4"
             width="1.8"
             height="4"
             rx=".9"
-            fill="white"
+            fill="currentColor"
             fillOpacity=".5"
           />
         </svg>
@@ -66,25 +72,20 @@ export async function PhoneGallery() {
         <div className="absolute start-1/2 top-[11px] z-20 h-[24px] w-[78px] -translate-x-1/2 rounded-full bg-black rtl:translate-x-1/2" />
         <StatusBar />
 
-        {/* Cover, as on the real guest page */}
-        <div className="relative h-[24%] shrink-0">
-          <Image
-            src="/marketing/couple-ribbons.jpg"
-            alt=""
-            fill
-            priority
-            sizes="272px"
-            className="object-cover object-[center_30%]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/0 to-black/25" />
-          <span className="absolute start-4 top-11 flex size-7 items-center justify-center rounded-full border border-white/25 bg-white/15 text-white backdrop-blur-md">
-            <LogoMark className="size-4" />
-          </span>
-        </div>
-
-        {/* Sheet over the cover */}
-        <div className="relative -mt-4 flex flex-1 flex-col rounded-t-[1.5rem] bg-[oklch(0.975_0.012_244)] px-3.5 pt-3">
-          <div className="relative z-10 -mt-[3.4rem] mb-3">
+        {/* The real guest page: logo and language at the top, then the
+            ticket on the plain ground (no cover photo). */}
+        <div className="relative flex flex-1 flex-col px-3.5 pt-11">
+          <div className="flex items-center justify-between">
+            <span className="flex size-7 items-center justify-center rounded-full border border-border bg-white shadow-sm">
+              <LogoMark className="size-4" />
+            </span>
+            <span className="flex h-6 items-center gap-1 rounded-full border border-border bg-white px-2 text-[9px] font-semibold shadow-sm">
+              <Globe className="size-2.5" />
+              {t("localeCode")}
+              <ChevronDown className="size-2.5 text-muted-foreground" />
+            </span>
+          </div>
+          <div className="relative z-10 mt-3 mb-3">
             <EventTicket
               presenter="EventRoll"
               event={te("types.wedding")}

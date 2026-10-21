@@ -134,7 +134,8 @@
       "notifyBody": "Sent straight to the couple",
       "privacy": "Only Elif & Can can see your photos.",
       "pin": "PIN 2468",
-      "ticketDate": "14 June 2026"
+      "ticketDate": "14 June 2026",
+      "localeCode": "EN"
     },
     "steps": {
       "eyebrow": "How it works",

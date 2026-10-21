@@ -137,7 +137,8 @@
       "notifyBody": "Direkt an das Brautpaar",
       "privacy": "Nur Elif & Can sehen deine Fotos.",
       "pin": "PIN 2468",
-      "ticketDate": "14. Juni 2026"
+      "ticketDate": "14. Juni 2026",
+      "localeCode": "DE"
     },
     "steps": {
       "eyebrow": "So funktioniert's",
