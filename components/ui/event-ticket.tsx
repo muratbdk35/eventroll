@@ -10,7 +10,7 @@
 // shutter sound.
 
 import { Dithering } from "@paper-design/shaders-react";
-import { useCallback, useEffect, useRef, useSyncExternalStore } from "react";
+import { useCallback, useRef, useSyncExternalStore } from "react";
 import {
   DEFAULT_TICKET_COLOR,
   TICKET_COLORS,
@@ -139,11 +139,6 @@ export type EventTicketProps = {
   maxWidth?: number;
   /** Colour id (lib/events/ticket.ts); powder blue by default. */
   color?: TicketColor;
-  /**
-   * Tilt with the phone's motion sensor (guest page). Android starts at
-   * once; iOS asks for permission on the first tap on the ticket.
-   */
-  gyro?: boolean;
   className?: string;
 };
 
@@ -156,7 +151,6 @@ export function EventTicket({
   watermark,
   maxWidth = 560,
   color = DEFAULT_TICKET_COLOR,
-  gyro = false,
   className,
 }: EventTicketProps) {
   const COLORS = TICKET_COLORS[color];
@@ -174,112 +168,18 @@ export function EventTicket({
     () => false,
   );
 
-  /** dx, dy in -0.5…0.5: where the light falls, as a share of the card. */
-  const tilt = useCallback((dx: number, dy: number, lift = 1.02) => {
+  const onMove = useCallback((e: React.PointerEvent) => {
     const el = card.current;
     if (!el) return;
+    const r = el.getBoundingClientRect();
+    const dx = (e.clientX - r.left) / r.width - 0.5;
+    const dy = (e.clientY - r.top) / r.height - 0.5;
     el.style.transition = "none";
-    el.style.transform = `perspective(1200px) rotateX(${-dy * 14}deg) rotateY(${dx * 14}deg) scale(${lift})`;
+    el.style.transform = `perspective(1200px) rotateX(${-dy * 14}deg) rotateY(${dx * 14}deg) scale(1.02)`;
     if (glare.current) {
       glare.current.style.background = `radial-gradient(38% 55% at ${(dx + 0.5) * 100}% ${(dy + 0.5) * 100}%, rgba(255,255,255,0.18), rgba(255,255,255,0) 70%)`;
     }
   }, []);
-  const onMove = useCallback(
-    (e: React.PointerEvent) => {
-      const el = card.current;
-      if (!el) return;
-      const r = el.getBoundingClientRect();
-      tilt(
-        (e.clientX - r.left) / r.width - 0.5,
-        (e.clientY - r.top) / r.height - 0.5,
-      );
-    },
-    [tilt],
-  );
-
-  // Phones: follow the motion sensor. The first reading is "level", so the
-  // ticket rests flat however the guest holds the phone; it eases toward the
-  // target each frame and only works while the ticket is on screen.
-  const startGyro = useRef<(() => void) | null>(null);
-  useEffect(() => {
-    if (!gyro || finePointer || reducedMotion) return;
-    if (typeof window === "undefined" || !("DeviceOrientationEvent" in window))
-      return;
-    const el = card.current;
-    if (!el) return;
-    let base: { beta: number; gamma: number } | null = null;
-    let target = { x: 0, y: 0 };
-    const now = { x: 0, y: 0 };
-    let visible = true;
-    let frame = 0;
-    let listening = false;
-    const clamp = (v: number) => Math.max(-0.5, Math.min(0.5, v));
-    const onOrientation = (e: DeviceOrientationEvent) => {
-      if (e.beta == null || e.gamma == null) return;
-      base ??= { beta: e.beta, gamma: e.gamma };
-      target = {
-        x: clamp((e.gamma - base.gamma) / 40),
-        y: clamp((e.beta - base.beta) / 40),
-      };
-    };
-    const loop = () => {
-      frame = requestAnimationFrame(loop);
-      if (!visible) return;
-      const ex = target.x - now.x;
-      const ey = target.y - now.y;
-      // Settled: no style writes while the phone is still.
-      if (Math.abs(ex) < 0.0005 && Math.abs(ey) < 0.0005) return;
-      now.x += ex * 0.12;
-      now.y += ey * 0.12;
-      tilt(now.x, now.y, 1);
-    };
-    const start = () => {
-      if (listening) return;
-      listening = true;
-      window.addEventListener("deviceorientation", onOrientation);
-      frame = requestAnimationFrame(loop);
-    };
-    const io = new IntersectionObserver(([entry]) => {
-      visible = entry.isIntersecting;
-    });
-    io.observe(el);
-
-    const Orientation = DeviceOrientationEvent as unknown as {
-      requestPermission?: () => Promise<"granted" | "denied">;
-    };
-    const KEY = "ticket-motion";
-    let asked = "";
-    try {
-      asked = sessionStorage.getItem(KEY) ?? "";
-    } catch {}
-    // Listen at once: where no permission is needed (most Android phones)
-    // readings simply start arriving. Where it is (iOS), ask on the first
-    // tap on the ticket; a "no" is remembered for the visit.
-    start();
-    if (
-      typeof Orientation.requestPermission === "function" &&
-      asked !== "denied"
-    ) {
-      startGyro.current = () => {
-        startGyro.current = null;
-        Orientation.requestPermission?.()
-          .then((state) => {
-            if (state === "denied") {
-              try {
-                sessionStorage.setItem(KEY, state);
-              } catch {}
-            }
-          })
-          .catch(() => {});
-      };
-    }
-    return () => {
-      startGyro.current = null;
-      io.disconnect();
-      cancelAnimationFrame(frame);
-      window.removeEventListener("deviceorientation", onOrientation);
-    };
-  }, [gyro, finePointer, reducedMotion, tilt]);
   const onLeave = useCallback(() => {
     if (card.current) {
       card.current.style.transition =
@@ -312,7 +212,6 @@ export function EventTicket({
         aria-label={`${name}. ${event}. ${footer}`}
         className="[container-type:inline-size] relative mx-auto w-full drop-shadow-[0_24px_30px_rgb(20_35_60/0.28)] select-none"
         style={{ maxWidth, aspectRatio: `${GEOMETRY.aspect}` }}
-        onPointerUp={() => startGyro.current?.()}
         onPointerMove={canTilt ? onMove : undefined}
         onPointerLeave={canTilt ? onLeave : undefined}
       >
