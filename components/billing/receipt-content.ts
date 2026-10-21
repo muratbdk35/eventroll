@@ -39,13 +39,20 @@ export function receiptContent(
       minimumFractionDigits: digits,
       maximumFractionDigits: digits,
     });
-  // The first three change from plan to plan and are printed larger.
+  // The first four change from plan to plan and are printed larger.
   const rows: [string, string, boolean?, boolean?][] = [
     [t("rows.photos"), number(p.maxItems), false, true],
     [t("rows.storage"), `${p.maxBytes / 1024 ** 3} GB`, false, true],
     [
       t("rows.retention"),
       t("values.days", { days: p.retentionDays }),
+      false,
+      true,
+    ],
+    // 24 hours, 48 on VIP (#77): guests upload only during the event.
+    [
+      t("rows.uploadWindow"),
+      t("values.hours", { hours: p.maxEventHours }),
       false,
       true,
     ],

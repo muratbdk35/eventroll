@@ -10,8 +10,10 @@ export const EVENT_TYPES = [
   "other",
 ] as const;
 
-/** Longest event we accept (owner decision: one day). */
+/** Longest event on any plan but VIP (owner decision: one day, #77). */
 export const MAX_EVENT_HOURS = 24;
+/** VIP events may run two days; the settings action checks the plan. */
+export const MAX_EVENT_HOURS_ANY = 48;
 
 const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
 const isoDateTime = z.iso.datetime();
@@ -23,10 +25,20 @@ const timesShape = {
   eventDate: isoDate,
 };
 
+export function eventHours(v: { startsAt: string; endsAt: string }): number {
+  return (
+    (new Date(v.endsAt).getTime() - new Date(v.startsAt).getTime()) / 3_600_000
+  );
+}
+
 function validTimes(v: { startsAt: string; endsAt: string }): boolean {
-  const start = new Date(v.startsAt).getTime();
-  const end = new Date(v.endsAt).getTime();
-  return end > start && end - start <= MAX_EVENT_HOURS * 3_600_000;
+  const h = eventHours(v);
+  return h > 0 && h <= MAX_EVENT_HOURS;
+}
+
+function validTimesAny(v: { startsAt: string; endsAt: string }): boolean {
+  const h = eventHours(v);
+  return h > 0 && h <= MAX_EVENT_HOURS_ANY;
 }
 
 const timesError = { path: ["endsAt"], message: "invalid range" };
@@ -46,18 +58,9 @@ export const settingsSchema = z
     ...timesShape,
     /** undefined = keep, null = remove, string = set */
     pin: z.union([z.string().regex(/^\d{4,8}$/), z.null()]).optional(),
-    uploadOpensAt: isoDateTime.nullable(),
-    uploadClosesAt: isoDateTime.nullable(),
     maxUploadsPerDevice: z.number().int().min(1).max(5000).nullable(),
   })
-  .refine(validTimes, timesError)
-  .refine(
-    (v) =>
-      !v.uploadOpensAt ||
-      !v.uploadClosesAt ||
-      new Date(v.uploadOpensAt) < new Date(v.uploadClosesAt),
-    { path: ["uploadClosesAt"], message: "closes before it opens" },
-  );
+  .refine(validTimesAny, timesError);
 
 export type CreateEventInput = z.infer<typeof createEventSchema>;
 export type SettingsInput = z.infer<typeof settingsSchema>;

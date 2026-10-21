@@ -184,7 +184,7 @@
       },
       "control": {
         "title": "You stay in control",
-        "body": "Protect uploads with a PIN, set when uploads open and close, and cap how many photos each phone can add."
+        "body": "Protect uploads with a PIN and cap how many photos each phone can add. Guests can upload only during your event."
       },
       "moderation": {
         "title": "Content moderation",
@@ -278,14 +278,16 @@
         "zip": "ZIP download",
         "qr": "QR code & link",
         "pin": "PIN protection",
-        "uploadRules": "Upload hours & limits",
+        "uploadRules": "Per-phone limit",
         "moderation": "Content moderation",
-        "templates": "Print templates"
+        "templates": "Print templates",
+        "uploadWindow": "Upload window"
       },
       "values": {
         "original": "Original",
         "days": "{days} days",
-        "notIncluded": "Not included"
+        "notIncluded": "Not included",
+        "hours": "{hours} hours"
       }
     },
     "faq": {
@@ -325,7 +327,7 @@
         },
         "misuse": {
           "q": "What if my QR code ends up in the wrong hands?",
-          "a": "Add a PIN that only your guests know (print it on the table card), limit uploads to the hours of your event, and cap how many photos each phone can add. Combined with our bot protection, a leaked QR code is useless to strangers."
+          "a": "Add a PIN that only your guests know (print it on the table card) and cap how many photos each phone can add. Uploads are open only during your event anyway. Combined with our bot protection, a leaked QR code is useless to strangers."
         }
       }
     },
@@ -527,7 +529,7 @@
     },
     "startLabel": "Starts",
     "endLabel": "Ends",
-    "dateRangeError": "The end must be after the start, at most 24 hours later.",
+    "dateRangeError": "The end must be after the start and within {hours} hours.",
     "timeLabel": "Time",
     "done": "Done",
     "live": {
@@ -668,7 +670,9 @@
       "done": "Refund started. The amount will be back on your card within a few days.",
       "notRefundable": "This event can no longer be refunded in one click: photos were uploaded or 14 days have passed. Write to hello@eventroll.eu.",
       "failed": "The refund couldn't be started. Please try again in a moment."
-    }
+    },
+    "uploadWindowHint": "Guests can upload photos only between these times. An event can last up to {hours} hours.",
+    "vipLonger": "With VIP you can extend it to 48 hours."
   },
   "Guest": {
     "privacy": "Only the host sees what you upload. We never show your photos to other guests. Your photos keep their capture time and, if your phone saved it, the location.",
@@ -697,12 +701,12 @@
         "body": "The host hasn't opened this album yet. Check back soon."
       },
       "not_open_yet": {
-        "title": "Uploads open later",
-        "body": "The host set upload hours for this event. Come back when it starts."
+        "title": "Uploads aren't open yet",
+        "body": "You can upload your photos once the event starts."
       },
       "closed": {
-        "title": "Uploads have closed",
-        "body": "The upload window for this event is over."
+        "title": "The event is over",
+        "body": "The time for uploading photos to this event has ended."
       },
       "expired": {
         "title": "This album has ended",

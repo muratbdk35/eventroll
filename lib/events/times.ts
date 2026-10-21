@@ -8,18 +8,20 @@ export function toLocalValue(d: Date): string {
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
 
-/** Latest allowed end for a start (start + MAX_EVENT_HOURS). */
-export function maxEnd(start: string): string {
-  return toLocalValue(
-    new Date(new Date(start).getTime() + MAX_EVENT_HOURS * HOUR),
-  );
+/** Latest allowed end for a start (24 hours, 48 on VIP). */
+export function maxEnd(start: string, hours = MAX_EVENT_HOURS): string {
+  return toLocalValue(new Date(new Date(start).getTime() + hours * HOUR));
 }
 
 /** When the start moves, keep the end valid: after the start, within 24 hours. */
-export function adjustEnd(start: string, end: string): string {
+export function adjustEnd(
+  start: string,
+  end: string,
+  hours = MAX_EVENT_HOURS,
+): string {
   const s = new Date(start).getTime();
   const e = new Date(end).getTime();
-  if (e > s && e - s <= MAX_EVENT_HOURS * HOUR) return end;
+  if (e > s && e - s <= hours * HOUR) return end;
   return toLocalValue(new Date(s + 5 * HOUR));
 }
 
@@ -39,8 +41,12 @@ export function endAfter(start: string, end: string): string {
  * The end the host picked, rolled past the start if needed (`endAfter`) and
  * capped at start + 24 hours.
  */
-export function clampEnd(start: string, end: string): string {
-  const latest = maxEnd(start);
+export function clampEnd(
+  start: string,
+  end: string,
+  hours = MAX_EVENT_HOURS,
+): string {
+  const latest = maxEnd(start, hours);
   const next = endAfter(start, end);
   return next > latest ? latest : next;
 }

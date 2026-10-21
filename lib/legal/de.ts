@@ -7,7 +7,7 @@ import type { LegalCtx, LegalDocs } from "./types";
  * launch. Change them together with the code.
  */
 
-const UPDATED = "20. Oktober 2026";
+const UPDATED = "22. Oktober 2026";
 
 export function docsDe(c: LegalCtx): LegalDocs {
   const seller = `${c.company}, ${c.address}`;
@@ -31,7 +31,7 @@ export function docsDe(c: LegalCtx): LegalDocs {
           body: [
             [
               "Kontodaten: Ihre E-Mail-Adresse und, wenn Sie sich mit Google anmelden, Ihr Name und Profilbild. Wir nutzen sie, um Ihr Konto anzulegen und Sie mit einem einmaligen Code per E-Mail oder über Google anzumelden. Rechtsgrundlage: Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO).",
-              "Eventdaten: Name, Art, Datum und Uhrzeit des Events sowie Ihre Einstellungen (zum Beispiel PIN, Upload-Zeiten, Limit pro Handy, Farbe der Einladungskarte). Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO.",
+              "Eventdaten: Name, Art, Datum und Uhrzeit des Events sowie Ihre Einstellungen (zum Beispiel PIN, Limit pro Handy, Farbe der Einladungskarte). Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO.",
               "Zahlungsdaten: Zahlungen wickelt Stripe ab. Wir erhalten Zahlungsstatus, Betrag, Plan, Rechnungsland und Rechnungsdaten, nie Ihre vollständige Kartennummer. Rechnungen bewahren wir für die handels- und steuerrechtlichen Fristen auf (in der Regel 8 bis 10 Jahre). Rechtsgrundlage: Art. 6 Abs. 1 lit. b und c DSGVO.",
               "Bestell- und Servicemails: Bestellbestätigung, Rechnung, Hinweise zu Ihrem Event (zum Beispiel „Album fertig“ und Erinnerungen vor der Löschung). Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO.",
               "Schutz vor Missbrauch bei der Anmeldung: Cloudflare Turnstile prüft Ihren Browser auf Anzeichen automatisierter Zugriffe. Rechtsgrundlage: berechtigtes Interesse an der Abwehr von Missbrauch (Art. 6 Abs. 1 lit. f DSGVO).",
@@ -178,7 +178,7 @@ export function docsDe(c: LegalCtx): LegalDocs {
         {
           heading: "6. Event-Zeitraum und Löschung",
           body: [
-            "Ein Event dauert höchstens 24 Stunden. Alle Fotos werden bis zum Ende des Download-Zeitraums des gewählten Plans aufbewahrt (7, 14, 21 oder 30 Tage nach Eventende bei Mini, Standard, Pro oder VIP) und danach endgültig gelöscht. Es liegt beim Gastgeber, das Album in dieser Zeit herunterzuladen. Wir erinnern vor der Löschung per E-Mail, können gelöschte Fotos aber nicht wiederherstellen.",
+            "Ein Event dauert höchstens 24 Stunden, mit dem Plan VIP höchstens 48 Stunden. Gäste können nur zwischen Beginn und Ende des Events Fotos hochladen. Alle Fotos werden bis zum Ende des Download-Zeitraums des gewählten Plans aufbewahrt (7, 14, 21 oder 30 Tage nach Eventende bei Mini, Standard, Pro oder VIP) und danach endgültig gelöscht. Es liegt beim Gastgeber, das Album in dieser Zeit herunterzuladen. Wir erinnern vor der Löschung per E-Mail, können gelöschte Fotos aber nicht wiederherstellen.",
           ],
         },
         {
@@ -189,7 +189,7 @@ export function docsDe(c: LegalCtx): LegalDocs {
               "den Dienst nur für echte Events zu nutzen und den Link nicht so zu veröffentlichen, dass Fremde zum Hochladen eingeladen werden;",
               "Ihre Gäste in geeigneter Weise darauf hinzuweisen, dass Fotos für Sie gesammelt werden (zum Beispiel auf der gedruckten Karte);",
               "mit den erhaltenen Fotos datenschutzkonform und unter Wahrung der Rechte der abgebildeten Personen umzugehen, insbesondere bevor Sie sie anderswo veröffentlichen;",
-              "die bereitgestellten Werkzeuge (Löschen, Handy sperren, PIN, Upload-Zeiten, Melden) zu nutzen, wenn unerwünschte Inhalte hochgeladen werden.",
+              "die bereitgestellten Werkzeuge (Löschen, Handy sperren, PIN, Melden) zu nutzen, wenn unerwünschte Inhalte hochgeladen werden.",
             ],
           ],
         },

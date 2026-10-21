@@ -6,8 +6,8 @@ export type UploadState =
 type EventForState = {
   status: "draft" | "active" | "expired" | "deleted" | "suspended";
   plan: PlanId | null;
-  uploadOpensAt: Date | null;
-  uploadClosesAt: Date | null;
+  startsAt: Date | null;
+  endsAt: Date | null;
   expiresAt: Date;
 };
 
@@ -21,7 +21,8 @@ export function getUploadState(
   }
   if (event.status === "expired" || event.expiresAt <= now) return "expired";
   if (!event.plan || event.status === "draft") return "needs_plan";
-  if (event.uploadOpensAt && now < event.uploadOpensAt) return "not_open_yet";
-  if (event.uploadClosesAt && now >= event.uploadClosesAt) return "closed";
+  // Guests upload only during the event itself (#77).
+  if (event.startsAt && now < event.startsAt) return "not_open_yet";
+  if (event.endsAt && now >= event.endsAt) return "closed";
   return "open";
 }

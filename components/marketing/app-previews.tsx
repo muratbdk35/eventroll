@@ -1,6 +1,6 @@
 "use client";
 
-import { Clock, KeyRound, Smartphone } from "lucide-react";
+import { KeyRound, Smartphone, UserRound } from "lucide-react";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { FlowShell } from "@/app/[locale]/(app)/create/create-flow";
@@ -97,10 +97,10 @@ export function ControlPreview() {
           />
         </Row>
         <Row
-          icon={Clock}
-          title={t("hoursToggle")}
-          description={t("hoursHint")}
-          control={<Switch checked aria-label={t("hoursToggle")} />}
+          icon={UserRound}
+          title={t("requireName")}
+          description={t("requireNameHint")}
+          control={<Switch checked aria-label={t("requireName")} />}
         />
         <Row
           icon={Smartphone}

@@ -20,6 +20,8 @@ export type PlanLimits = {
   guestsHint: number;
   /** Printable QR templates (table cards, tent card, poster). Pro and VIP. */
   printTemplates: boolean;
+  /** Longest event: guests upload only between its start and end (#77). */
+  maxEventHours: number;
 };
 
 const GB = 1024 ** 3;
@@ -32,6 +34,7 @@ export const plans: Record<PlanId, PlanLimits> = {
     retentionDays: 7,
     guestsHint: 50,
     printTemplates: false,
+    maxEventHours: 24,
   },
   standard: {
     price: 29,
@@ -40,6 +43,7 @@ export const plans: Record<PlanId, PlanLimits> = {
     retentionDays: 14,
     guestsHint: 150,
     printTemplates: false,
+    maxEventHours: 24,
   },
   pro: {
     price: 39,
@@ -48,6 +52,7 @@ export const plans: Record<PlanId, PlanLimits> = {
     retentionDays: 21,
     guestsHint: 300,
     printTemplates: true,
+    maxEventHours: 24,
   },
   vip: {
     price: 49,
@@ -56,6 +61,7 @@ export const plans: Record<PlanId, PlanLimits> = {
     retentionDays: 30,
     guestsHint: 500,
     printTemplates: true,
+    maxEventHours: 48,
   },
 };
 

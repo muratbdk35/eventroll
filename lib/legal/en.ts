@@ -3,7 +3,7 @@ import type { LegalCtx, LegalDocs } from "./types";
 /* English translation of de.ts, for information; the German text is
  * binding (DECISIONS #68). Keep both in step. */
 
-const UPDATED = "20 October 2026";
+const UPDATED = "22 October 2026";
 
 export function docsEn(c: LegalCtx): LegalDocs {
   const seller = `${c.company}, ${c.address}`;
@@ -27,7 +27,7 @@ export function docsEn(c: LegalCtx): LegalDocs {
           body: [
             [
               "Account data: your email address and, if you sign in with Google, your name and profile picture. We use them to create your account and to sign you in with a one-time code by email or with Google. Legal basis: performance of a contract (Art. 6(1)(b) GDPR).",
-              "Event data: name, type, date and time of the event and your settings (for example PIN, upload hours, per-phone limit, colour of the invitation card). Legal basis: Art. 6(1)(b) GDPR.",
+              "Event data: name, type, date and time of the event and your settings (for example PIN, per-phone limit, colour of the invitation card). Legal basis: Art. 6(1)(b) GDPR.",
               "Payment data: payments are handled by Stripe. We receive the payment status, amount, plan, billing country and invoice details, never your full card number. We keep invoices for the periods required by German commercial and tax law (usually 8 to 10 years). Legal basis: Art. 6(1)(b) and (c) GDPR.",
               'Order and service emails: order confirmation, invoice, notices about your event (for example "album ready" and reminders before deletion). Legal basis: Art. 6(1)(b) GDPR.',
               "Protection against abuse at sign-in: Cloudflare Turnstile checks your browser for signs of automated access. Legal basis: legitimate interest in preventing abuse (Art. 6(1)(f) GDPR).",
@@ -174,7 +174,7 @@ export function docsEn(c: LegalCtx): LegalDocs {
         {
           heading: "6. Event window and deletion",
           body: [
-            "An event lasts at most 24 hours. All photos are kept until the end of the download window of the chosen plan (7, 14, 21 or 30 days after the event ends for Mini, Standard, Pro or VIP) and then permanently deleted. It is up to the host to download the album in that time. We send reminders before deletion but cannot restore deleted photos.",
+            "An event lasts at most 24 hours, 48 hours on the VIP plan. Guests can upload photos only between the start and the end of the event. All photos are kept until the end of the download window of the chosen plan (7, 14, 21 or 30 days after the event ends for Mini, Standard, Pro or VIP) and then permanently deleted. It is up to the host to download the album in that time. We send reminders before deletion but cannot restore deleted photos.",
           ],
         },
         {
@@ -185,7 +185,7 @@ export function docsEn(c: LegalCtx): LegalDocs {
               "use the service only for real events and not to publish the link in a way that invites strangers to upload;",
               "tell your guests in a suitable way that photos are being collected for you (for example on the printed card);",
               "handle the photos you receive in line with data protection law and the rights of the people shown, in particular before publishing them anywhere else;",
-              "use the tools provided (delete, block a phone, PIN, upload hours, report) if unwanted content is uploaded.",
+              "use the tools provided (delete, block a phone, PIN, report) if unwanted content is uploaded.",
             ],
           ],
         },

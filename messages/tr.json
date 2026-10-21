@@ -187,7 +187,7 @@
       },
       "control": {
         "title": "Kontrol sende",
-        "body": "Yüklemeleri PIN ile koru, yüklemenin ne zaman açılıp kapanacağını belirle ve her telefonun ekleyebileceği fotoğraf sayısını sınırla."
+        "body": "Yüklemeleri PIN ile koru, her telefonun ekleyebileceği fotoğraf sayısını sınırla. Misafirler sadece etkinlik saatlerinde yükleyebilir."
       },
       "moderation": {
         "title": "İçerik moderasyonu",
@@ -281,14 +281,16 @@
         "zip": "ZIP indirme",
         "qr": "QR kod ve link",
         "pin": "PIN koruması",
-        "uploadRules": "Yükleme saati ve limit",
+        "uploadRules": "Telefon başına limit",
         "moderation": "İçerik moderasyonu",
-        "templates": "Baskı şablonları"
+        "templates": "Baskı şablonları",
+        "uploadWindow": "Yükleme süresi"
       },
       "values": {
         "original": "Orijinal",
         "days": "{days} gün",
-        "notIncluded": "Dahil değil"
+        "notIncluded": "Dahil değil",
+        "hours": "{hours} saat"
       }
     },
     "faq": {
@@ -328,7 +330,7 @@
         },
         "misuse": {
           "q": "QR kodum yanlış ellere geçerse ne olur?",
-          "a": "Sadece misafirlerinin bildiği bir PIN ekle (masa kartına yazdırabilirsin), yüklemeyi etkinlik saatleriyle sınırla ve her telefonun ekleyebileceği fotoğraf sayısına limit koy. Bot korumamızla birlikte, dışarı sızan bir QR kod yabancıların işine yaramaz."
+          "a": "Sadece misafirlerinin bildiği bir PIN ekle (masa kartına yazdırabilirsin) ve her telefonun ekleyebileceği fotoğraf sayısına limit koy. Yükleme zaten sadece etkinlik saatlerinde açık. Bot korumamızla birlikte, dışarı sızan bir QR kod yabancıların işine yaramaz."
         }
       }
     },
@@ -530,7 +532,7 @@
     },
     "startLabel": "Başlangıç",
     "endLabel": "Bitiş",
-    "dateRangeError": "Bitiş, başlangıçtan sonra ve en fazla 24 saat içinde olmalı.",
+    "dateRangeError": "Bitiş, başlangıçtan sonra ve en fazla {hours} saat içinde olmalı.",
     "timeLabel": "Saat",
     "done": "Tamam",
     "live": {
@@ -671,7 +673,9 @@
       "done": "İade başlatıldı. Tutar birkaç gün içinde kartına yansır.",
       "notRefundable": "Bu etkinlik artık tek tıkla iade edilemiyor: fotoğraf yüklendi ya da 14 gün geçti. hello@eventroll.eu adresine yazabilirsin.",
       "failed": "İade başlatılamadı. Biraz sonra tekrar dene."
-    }
+    },
+    "uploadWindowHint": "Misafirler sadece bu saatler arasında fotoğraf yükleyebilir. Etkinlik en fazla {hours} saat sürebilir.",
+    "vipLonger": "VIP planla 48 saate kadar uzatabilirsin."
   },
   "Guest": {
     "privacy": "Yüklediklerini sadece ev sahibi görür. Fotoğrafların diğer misafirlere gösterilmez. Fotoğraflar çekim zamanını ve telefonun kaydettiyse konumu içerir.",
@@ -700,12 +704,12 @@
         "body": "Ev sahibi albümü henüz açmadı. Biraz sonra tekrar bak."
       },
       "not_open_yet": {
-        "title": "Yükleme daha sonra açılacak",
-        "body": "Ev sahibi yükleme saati belirlemiş. Başladığında tekrar gel."
+        "title": "Yükleme henüz açılmadı",
+        "body": "Fotoğraflarını etkinlik başlayınca yükleyebilirsin."
       },
       "closed": {
-        "title": "Yükleme kapandı",
-        "body": "Bu etkinliğin yükleme süresi sona erdi."
+        "title": "Etkinlik sona erdi",
+        "body": "Bu etkinlik için fotoğraf yükleme süresi doldu."
       },
       "expired": {
         "title": "Bu albüm sona erdi",

@@ -75,13 +75,11 @@ describe("schemas", () => {
     ).toBe(true);
   });
 
-  it("rejects bad pins and inverted windows", () => {
+  it("rejects bad pins and events that are too long", () => {
     const base = {
       name: "x",
       requireName: false,
       ...times,
-      uploadOpensAt: null,
-      uploadClosesAt: null,
       maxUploadsPerDevice: null,
     };
     expect(settingsSchema.safeParse({ ...base, pin: "12" }).success).toBe(
@@ -90,13 +88,17 @@ describe("schemas", () => {
     expect(settingsSchema.safeParse({ ...base, pin: "1234" }).success).toBe(
       true,
     );
-    expect(
-      settingsSchema.safeParse({
-        ...base,
-        uploadOpensAt: "2026-06-14T20:00:00.000Z",
-        uploadClosesAt: "2026-06-14T10:00:00.000Z",
-      }).success,
-    ).toBe(false);
+    const at = (h: number) =>
+      new Date(
+        new Date(times.startsAt).getTime() + h * 3_600_000,
+      ).toISOString();
+    // Settings allow up to 48 hours (VIP); the action checks the plan.
+    expect(settingsSchema.safeParse({ ...base, endsAt: at(48) }).success).toBe(
+      true,
+    );
+    expect(settingsSchema.safeParse({ ...base, endsAt: at(49) }).success).toBe(
+      false,
+    );
   });
 });
 
@@ -105,8 +107,8 @@ describe("getUploadState", () => {
   const base = {
     status: "active" as const,
     plan: "standard" as const,
-    uploadOpensAt: null,
-    uploadClosesAt: null,
+    startsAt: null as Date | null,
+    endsAt: null as Date | null,
     expiresAt: new Date("2026-06-21T23:59:59Z"),
   };
   it("is open for a paid, active event", () => {
@@ -117,19 +119,20 @@ describe("getUploadState", () => {
       "needs_plan",
     );
   });
-  it("honours the upload window", () => {
+  it("opens only during the event (#77)", () => {
+    const during = {
+      ...base,
+      startsAt: new Date(now.getTime() - 3_600_000),
+      endsAt: new Date(now.getTime() + 3_600_000),
+    };
+    expect(getUploadState(during, now)).toBe("open");
     expect(
       getUploadState(
-        { ...base, uploadOpensAt: new Date("2026-06-14T18:00:00Z") },
+        { ...during, startsAt: new Date(now.getTime() + 60_000) },
         now,
       ),
     ).toBe("not_open_yet");
-    expect(
-      getUploadState(
-        { ...base, uploadClosesAt: new Date("2026-06-14T11:00:00Z") },
-        now,
-      ),
-    ).toBe("closed");
+    expect(getUploadState({ ...during, endsAt: now }, now)).toBe("closed");
   });
   it("handles expiry and takedowns", () => {
     expect(

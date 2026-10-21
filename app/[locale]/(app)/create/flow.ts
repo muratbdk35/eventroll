@@ -15,8 +15,6 @@ export type FlowEvent = {
   endsAt: string | null;
   requireName: boolean;
   hasPin: boolean;
-  uploadOpensAt: string | null;
-  uploadClosesAt: string | null;
   maxUploadsPerDevice: number | null;
   plan: PlanId | null;
   ticketColor: TicketColor;

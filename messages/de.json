@@ -187,7 +187,7 @@
       },
       "control": {
         "title": "Du behältst die Kontrolle",
-        "body": "Schütze Uploads mit einer PIN, lege fest, wann Uploads möglich sind, und begrenze, wie viele Fotos jedes Handy hinzufügen kann."
+        "body": "Schütze Uploads mit einer PIN und begrenze, wie viele Fotos jedes Handy hinzufügen kann. Gäste können nur während deines Events hochladen."
       },
       "moderation": {
         "title": "Inhaltsmoderation",
@@ -281,14 +281,16 @@
         "zip": "ZIP-Download",
         "qr": "QR-Code & Link",
         "pin": "PIN-Schutz",
-        "uploadRules": "Upload-Zeiten & Limits",
+        "uploadRules": "Limit pro Handy",
         "moderation": "Inhaltsmoderation",
-        "templates": "Druckvorlagen"
+        "templates": "Druckvorlagen",
+        "uploadWindow": "Upload-Zeitraum"
       },
       "values": {
         "original": "Original",
         "days": "{days} Tage",
-        "notIncluded": "Nicht dabei"
+        "notIncluded": "Nicht dabei",
+        "hours": "{hours} Stunden"
       }
     },
     "faq": {
@@ -328,7 +330,7 @@
         },
         "misuse": {
           "q": "Was, wenn mein QR-Code in falsche Hände gerät?",
-          "a": "Füge eine PIN hinzu, die nur deine Gäste kennen (z. B. auf der Tischkarte), beschränke Uploads auf die Zeit deines Events und begrenze die Fotos pro Handy. Zusammen mit unserem Bot-Schutz nützt ein geleakter QR-Code Fremden nichts."
+          "a": "Füge eine PIN hinzu, die nur deine Gäste kennen (z. B. auf der Tischkarte), und begrenze die Fotos pro Handy. Hochladen ist ohnehin nur während deines Events möglich. Zusammen mit unserem Bot-Schutz nützt ein geleakter QR-Code Fremden nichts."
         }
       }
     },
@@ -530,7 +532,7 @@
     },
     "startLabel": "Beginn",
     "endLabel": "Ende",
-    "dateRangeError": "Das Ende muss nach dem Beginn liegen, höchstens 24 Stunden später.",
+    "dateRangeError": "Das Ende muss nach dem Beginn und höchstens {hours} Stunden später liegen.",
     "timeLabel": "Uhrzeit",
     "done": "Fertig",
     "live": {
@@ -671,7 +673,9 @@
       "done": "Erstattung gestartet. Der Betrag ist in ein paar Tagen wieder auf deiner Karte.",
       "notRefundable": "Dieses Event lässt sich nicht mehr mit einem Klick erstatten: Es wurden Fotos hochgeladen oder 14 Tage sind vorbei. Schreib an hello@eventroll.eu.",
       "failed": "Die Erstattung konnte nicht gestartet werden. Versuch es gleich noch einmal."
-    }
+    },
+    "uploadWindowHint": "Gäste können nur in diesem Zeitraum Fotos hochladen. Ein Event dauert höchstens {hours} Stunden.",
+    "vipLonger": "Mit VIP kannst du es auf 48 Stunden verlängern."
   },
   "Guest": {
     "privacy": "Nur die Gastgeber sehen, was du hochlädst. Wir zeigen deine Fotos nie anderen Gästen. Deine Fotos behalten Aufnahmezeit und, falls dein Handy ihn gespeichert hat, den Ort.",
@@ -700,12 +704,12 @@
         "body": "Die Gastgeber haben das Album noch nicht geöffnet. Schau bald wieder vorbei."
       },
       "not_open_yet": {
-        "title": "Uploads öffnen später",
-        "body": "Die Gastgeber haben Upload-Zeiten festgelegt. Komm wieder, wenn es losgeht."
+        "title": "Uploads sind noch nicht offen",
+        "body": "Du kannst deine Fotos hochladen, sobald das Event beginnt."
       },
       "closed": {
-        "title": "Uploads sind geschlossen",
-        "body": "Das Upload-Fenster für dieses Event ist vorbei."
+        "title": "Das Event ist vorbei",
+        "body": "Die Zeit zum Hochladen für dieses Event ist abgelaufen."
       },
       "expired": {
         "title": "Dieses Album ist beendet",

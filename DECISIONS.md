@@ -1205,3 +1205,15 @@ the invoice PDF stays the document as issued, and the paid proof is the
 receipt (Zahlungsbeleg) sent with it. The invoice line now reads just
 "Bezahlt · EventRoll Standard: <event>", and our order email adds one sentence
 explaining the two Stripe PDFs.
+
+## 77. Guests upload only during the event (owner decision, 2026-10-22)
+
+The optional "upload hours" setting is gone. Guests can upload only between
+the event's start and end as the host entered them; before the start the
+guest page says uploads open when the event begins, after the end that the
+event is over. An event lasts at most 24 hours, 48 on VIP (`maxEventHours` in
+lib/plans.ts; the settings action checks the plan, so a VIP host can stretch
+the end in the settings). New events default to 24 hours from 19:00, because
+many guests send their photos the next day. The receipt card shows the upload
+window as a fourth key row. `upload_opens_at` / `upload_closes_at` stay in the
+database, always null now.

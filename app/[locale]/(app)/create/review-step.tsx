@@ -155,12 +155,6 @@ export function ReviewStep({ event }: FlowProps) {
             [ts("requireName"), ev.requireName ? yes : no],
             [ts("pinToggle"), ev.hasPin ? yes : no],
             [
-              ts("hoursToggle"),
-              ev.uploadOpensAt
-                ? `${when(ev.uploadOpensAt)} – ${when(ev.uploadClosesAt)}`
-                : no,
-            ],
-            [
               ts("perPhoneToggle"),
               ev.maxUploadsPerDevice ? String(ev.maxUploadsPerDevice) : no,
             ],

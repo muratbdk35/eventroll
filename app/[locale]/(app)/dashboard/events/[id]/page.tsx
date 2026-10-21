@@ -307,6 +307,7 @@ export default async function EventPage({
             <div className="space-y-6">
               <SettingsForm
                 eventId={event.id}
+                maxHours={plans[event.plan ?? "mini"].maxEventHours}
                 initial={{
                   name: event.name,
                   requireName: event.requireName,
@@ -318,8 +319,6 @@ export default async function EventPage({
                     event.endsAt ?? new Date(`${event.eventDate}T23:00:00Z`)
                   ).toISOString(),
                   hasPin: Boolean(event.accessPinHash),
-                  uploadOpensAt: event.uploadOpensAt?.toISOString() ?? null,
-                  uploadClosesAt: event.uploadClosesAt?.toISOString() ?? null,
                   maxUploadsPerDevice: event.maxUploadsPerDevice,
                 }}
               >

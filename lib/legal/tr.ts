@@ -3,7 +3,7 @@ import type { LegalCtx, LegalDocs } from "./types";
 /* Turkish translation of de.ts, for information; the German text is
  * binding (DECISIONS #68). Keep both in step. */
 
-const UPDATED = "20 Ekim 2026";
+const UPDATED = "22 Ekim 2026";
 
 export function docsTr(c: LegalCtx): LegalDocs {
   const seller = `${c.company}, ${c.address}`;
@@ -27,7 +27,7 @@ export function docsTr(c: LegalCtx): LegalDocs {
           body: [
             [
               "Hesap verileri: e-posta adresiniz ve Google ile giriş yaparsanız adınız ve profil fotoğrafınız. Bunları hesabınızı oluşturmak ve sizi e-postayla gelen tek kullanımlık bir kodla ya da Google ile giriş yaptırmak için kullanırız. Hukuki dayanak: sözleşmenin ifası (GDPR m. 6/1-b).",
-              "Etkinlik verileri: etkinliğin adı, türü, tarihi ve saati ile ayarlarınız (örneğin PIN, yükleme saatleri, telefon başına sınır, davetiye kartının rengi). Hukuki dayanak: GDPR m. 6/1-b.",
+              "Etkinlik verileri: etkinliğin adı, türü, tarihi ve saati ile ayarlarınız (örneğin PIN, telefon başına sınır, davetiye kartının rengi). Hukuki dayanak: GDPR m. 6/1-b.",
               "Ödeme verileri: ödemeleri Stripe yürütür. Biz ödeme durumunu, tutarı, planı, fatura ülkesini ve fatura bilgilerini alırız; kart numaranızın tamamını hiçbir zaman görmeyiz. Faturaları Alman ticaret ve vergi hukukunun öngördüğü süre boyunca saklarız (genellikle 8–10 yıl). Hukuki dayanak: GDPR m. 6/1-b ve c.",
               "Sipariş ve hizmet e-postaları: sipariş onayı, fatura, etkinliğinizle ilgili bildirimler (örneğin „albüm hazır“ ve silinmeden önceki hatırlatmalar). Hukuki dayanak: GDPR m. 6/1-b.",
               "Girişte kötüye kullanıma karşı koruma: Cloudflare Turnstile tarayıcınızı otomatik erişim belirtilerine karşı kontrol eder. Hukuki dayanak: kötüye kullanımı önlemedeki meşru menfaat (GDPR m. 6/1-f).",
@@ -174,7 +174,7 @@ export function docsTr(c: LegalCtx): LegalDocs {
         {
           heading: "6. Etkinlik süresi ve silme",
           body: [
-            "Bir etkinlik en fazla 24 saat sürer. Tüm fotoğraflar seçilen planın indirme süresinin sonuna kadar saklanır (Mini, Standart, Pro ve VIP için etkinlik bittikten sonra 7, 14, 21 veya 30 gün) ve sonra kalıcı olarak silinir. Albümü bu süre içinde indirmek etkinlik sahibinin sorumluluğundadır. Silmeden önce e-postayla hatırlatırız, ancak silinen fotoğrafları geri getiremeyiz.",
+            "Bir etkinlik en fazla 24 saat, VIP planda en fazla 48 saat sürer. Misafirler yalnızca etkinliğin başlangıcı ile bitişi arasında fotoğraf yükleyebilir. Tüm fotoğraflar seçilen planın indirme süresinin sonuna kadar saklanır (Mini, Standart, Pro ve VIP için etkinlik bittikten sonra 7, 14, 21 veya 30 gün) ve sonra kalıcı olarak silinir. Albümü bu süre içinde indirmek etkinlik sahibinin sorumluluğundadır. Silmeden önce e-postayla hatırlatırız, ancak silinen fotoğrafları geri getiremeyiz.",
           ],
         },
         {
@@ -185,7 +185,7 @@ export function docsTr(c: LegalCtx): LegalDocs {
               "hizmeti yalnızca gerçek etkinlikler için kullanmak ve linki yabancıları yüklemeye davet edecek şekilde yayınlamamak;",
               "misafirlerinize fotoğrafların sizin için toplandığını uygun bir şekilde bildirmek (örneğin basılı kartta);",
               "aldığınız fotoğrafları veri koruma hukukuna ve fotoğraftaki kişilerin haklarına uygun şekilde kullanmak, özellikle başka bir yerde yayınlamadan önce;",
-              "istenmeyen içerik yüklenirse sağlanan araçları (silme, telefonu engelleme, PIN, yükleme saatleri, bildirme) kullanmak.",
+              "istenmeyen içerik yüklenirse sağlanan araçları (silme, telefonu engelleme, PIN, bildirme) kullanmak.",
             ],
           ],
         },

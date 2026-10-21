@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  Clock,
-  KeyRound,
-  Loader2,
-  Smartphone,
-  Trash2,
-  UserRound,
-} from "lucide-react";
+import { KeyRound, Loader2, Smartphone, Trash2, UserRound } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { askConfirm } from "@/components/confirm-dialog";
 import { useMemo, useState, useTransition } from "react";
@@ -18,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { deleteEvent, updateSettings } from "@/lib/events/actions";
-import { adjustEnd, clampEnd, endAfter, maxEnd } from "@/lib/events/times";
+import { adjustEnd, clampEnd, maxEnd } from "@/lib/events/times";
 import { useRouter } from "@/lib/i18n/navigation";
 import { cn } from "@/lib/utils";
 
@@ -29,8 +22,6 @@ type Initial = {
   endsAt: string;
   eventDate: string;
   hasPin: boolean;
-  uploadOpensAt: string | null;
-  uploadClosesAt: string | null;
   maxUploadsPerDevice: number | null;
 };
 
@@ -42,10 +33,6 @@ function toLocalInput(iso: string | null): string {
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
 
-function toIso(local: string): string | null {
-  return local ? new Date(local).toISOString() : null;
-}
-
 function initialState(i: Initial) {
   return {
     name: i.name,
@@ -54,9 +41,6 @@ function initialState(i: Initial) {
     requireName: i.requireName,
     pinOn: i.hasPin,
     pin: "",
-    hoursOn: Boolean(i.uploadOpensAt || i.uploadClosesAt),
-    opens: toLocalInput(i.uploadOpensAt),
-    closes: toLocalInput(i.uploadClosesAt),
     perPhoneOn: i.maxUploadsPerDevice !== null,
     perPhone: i.maxUploadsPerDevice?.toString() ?? "50",
   };
@@ -99,10 +83,13 @@ export function Row({
 export function SettingsForm({
   eventId,
   initial,
+  maxHours,
   children,
 }: {
   eventId: string;
   initial: Initial;
+  /** Longest event on this plan: 24 hours, 48 on VIP (#77). */
+  maxHours: number;
   /** Shown between the form and the danger zone (the ticket colour card). */
   children?: React.ReactNode;
 }) {
@@ -125,17 +112,13 @@ export function SettingsForm({
     s.pinOn &&
     (s.pin.length > 0 || !initial.hasPin) &&
     !/^\d{4,8}$/.test(s.pin);
-  const rangeOk = new Date(s.ends) > new Date(s.starts);
-  // Upload hours: both set and the close after the open (e.g. 20:00 -> 02:00 next day).
-  const hoursOk =
-    !s.hoursOn ||
-    (Boolean(s.opens) &&
-      Boolean(s.closes) &&
-      new Date(s.closes) > new Date(s.opens));
-
+  const rangeOk =
+    new Date(s.ends) > new Date(s.starts) &&
+    new Date(s.ends).getTime() - new Date(s.starts).getTime() <=
+      maxHours * 3_600_000;
   function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (pinInvalid || !rangeOk || !hoursOk) return;
+    if (pinInvalid || !rangeOk) return;
     start(async () => {
       const res = await updateSettings(eventId, {
         name: s.name,
@@ -148,8 +131,6 @@ export function SettingsForm({
             ? null
             : undefined
           : s.pin || undefined,
-        uploadOpensAt: s.hoursOn ? toIso(s.opens) : null,
-        uploadClosesAt: s.hoursOn ? toIso(s.closes) : null,
         maxUploadsPerDevice:
           s.perPhoneOn && s.perPhone ? Number(s.perPhone) : null,
       });
@@ -181,12 +162,7 @@ export function SettingsForm({
   }
 
   const canSave =
-    dirty &&
-    !pending &&
-    !pinInvalid &&
-    rangeOk &&
-    hoursOk &&
-    Boolean(s.name.trim());
+    dirty && !pending && !pinInvalid && rangeOk && Boolean(s.name.trim());
 
   return (
     <div className="space-y-4">
@@ -238,7 +214,7 @@ export function SettingsForm({
                   setS((prev) => ({
                     ...prev,
                     starts: v,
-                    ends: adjustEnd(v, prev.ends),
+                    ends: adjustEnd(v, prev.ends, maxHours),
                   }))
                 }
               />
@@ -249,17 +225,21 @@ export function SettingsForm({
                 id="s-ends"
                 value={s.ends}
                 min={s.starts}
-                max={maxEnd(s.starts)}
-                onChange={(v) => set("ends", clampEnd(s.starts, v))}
+                max={maxEnd(s.starts, maxHours)}
+                onChange={(v) => set("ends", clampEnd(s.starts, v, maxHours))}
                 invalid={!rangeOk}
               />
             </div>
-            {!rangeOk && (
+            {rangeOk ? (
+              <p className="text-xs text-muted-foreground sm:col-span-2">
+                {tEvents("uploadWindowHint", { hours: maxHours })}
+              </p>
+            ) : (
               <p
                 className="text-sm text-destructive sm:col-span-2"
                 role="alert"
               >
-                {tEvents("dateRangeError")}
+                {tEvents("dateRangeError", { hours: maxHours })}
               </p>
             )}
           </div>
@@ -330,68 +310,6 @@ export function SettingsForm({
                         ? t("pinSet")
                         : null}
                   </p>
-                </div>
-              )}
-            </Row>
-
-            <Row
-              icon={Clock}
-              title={t("hoursToggle")}
-              description={t("hoursHint")}
-              htmlFor="s-hours-on"
-              control={
-                <Switch
-                  id="s-hours-on"
-                  checked={s.hoursOn}
-                  onCheckedChange={(v) =>
-                    setS((prev) => ({
-                      ...prev,
-                      hoursOn: v,
-                      opens: prev.opens || prev.starts,
-                      closes: prev.closes || prev.ends,
-                    }))
-                  }
-                />
-              }
-            >
-              {s.hoursOn && (
-                <div className="grid gap-3 sm:grid-cols-2">
-                  <div className="space-y-1.5">
-                    <Label
-                      htmlFor="s-opens"
-                      className="text-xs text-muted-foreground"
-                    >
-                      {t("opens")}
-                    </Label>
-                    <DateTimeField
-                      id="s-opens"
-                      value={s.opens}
-                      onChange={(v) => set("opens", v)}
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label
-                      htmlFor="s-closes"
-                      className="text-xs text-muted-foreground"
-                    >
-                      {t("closes")}
-                    </Label>
-                    <DateTimeField
-                      id="s-closes"
-                      value={s.closes}
-                      min={s.opens}
-                      onChange={(v) => set("closes", endAfter(s.opens, v))}
-                      invalid={!hoursOk}
-                    />
-                  </div>
-                  {!hoursOk && (
-                    <p
-                      className="text-sm text-destructive sm:col-span-2"
-                      role="alert"
-                    >
-                      {t("hoursError")}
-                    </p>
-                  )}
                 </div>
               )}
             </Row>

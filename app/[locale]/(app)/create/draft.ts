@@ -13,9 +13,6 @@ export type Draft = {
   requireName: boolean;
   pinOn: boolean;
   pin: string;
-  hoursOn: boolean;
-  opens: string;
-  closes: string;
   perPhoneOn: boolean;
   perPhone: string;
 };
@@ -27,13 +24,17 @@ export function localInput(d: Date): string {
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
 
-/** Default: today 19:00 (or the next full hour if later) for five hours. */
+/**
+ * Default: today 19:00 (or the next full hour if later) for 24 hours, the
+ * longest an event may run. Guests upload only within the event (#77), and
+ * many send their photos the next day, so the default leaves them that time.
+ */
 export function emptyDraft(): Draft {
   const start = new Date();
   start.setMinutes(0, 0, 0);
   if (start.getHours() < 19) start.setHours(19);
   else start.setHours(start.getHours() + 1);
-  const end = new Date(start.getTime() + 5 * 3_600_000);
+  const end = new Date(start.getTime() + 24 * 3_600_000);
   return {
     name: "",
     type: "wedding",
@@ -42,9 +43,6 @@ export function emptyDraft(): Draft {
     requireName: false,
     pinOn: false,
     pin: "",
-    hoursOn: false,
-    opens: "",
-    closes: "",
     perPhoneOn: false,
     perPhone: "50",
   };
@@ -79,11 +77,12 @@ export function clearDraft() {
 export function draftProblems(d: Draft) {
   return {
     name: !d.name.trim(),
-    range: !(new Date(d.ends) > new Date(d.starts)),
+    range: !(
+      new Date(d.ends) > new Date(d.starts) &&
+      new Date(d.ends).getTime() - new Date(d.starts).getTime() <=
+        24 * 3_600_000
+    ),
     pin: d.pinOn && !/^\d{4,8}$/.test(d.pin),
-    hours:
-      d.hoursOn &&
-      !(d.opens && d.closes && new Date(d.closes) > new Date(d.opens)),
   };
 }
 
@@ -105,8 +104,6 @@ export function draftPayload(d: Draft) {
     {
       requireName: d.requireName,
       pin: d.pinOn ? d.pin : undefined,
-      uploadOpensAt: d.hoursOn && d.opens ? iso(d.opens) : null,
-      uploadClosesAt: d.hoursOn && d.closes ? iso(d.closes) : null,
       maxUploadsPerDevice:
         d.perPhoneOn && d.perPhone ? Number(d.perPhone) : null,
     },

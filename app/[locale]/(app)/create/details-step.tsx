@@ -1,6 +1,6 @@
 "use client";
 
-import { Clock, KeyRound, Smartphone, UserRound } from "lucide-react";
+import { KeyRound, Smartphone, UserRound } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { HaloInput } from "@/components/halo/halo-input";
@@ -23,7 +23,8 @@ import { Row } from "@/components/host/settings-form";
 import { DateTimeField } from "@/components/ui/date-time-field";
 import { Label } from "@/components/ui/label";
 import { EVENT_TYPES } from "@/lib/events/schemas";
-import { adjustEnd, clampEnd, endAfter, maxEnd } from "@/lib/events/times";
+import { MAX_EVENT_HOURS } from "@/lib/events/schemas";
+import { adjustEnd, clampEnd, maxEnd } from "@/lib/events/times";
 import { useRouter } from "@/lib/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { type FlowProps, flowHref } from "./flow";
@@ -100,7 +101,7 @@ export function DetailsQuestions({
     name: problems.name,
     type: false,
     when: problems.range,
-    guests: problems.pin || problems.hours,
+    guests: problems.pin,
   };
   const show = (q: Question, p: boolean) => Boolean(p && tried[q]);
   // Navigation is ours: the primitive only counts its own inputs as answers,
@@ -255,12 +256,17 @@ export function DetailsQuestions({
               invalid={problems.range}
             />
           </div>
-          {problems.range && (
+          {problems.range ? (
             <p
               className="text-sm font-medium text-destructive sm:col-span-2"
               role="alert"
             >
-              {tEvents("dateRangeError")}
+              {tEvents("dateRangeError", { hours: MAX_EVENT_HOURS })}
+            </p>
+          ) : (
+            <p className="text-xs text-pretty text-muted-foreground sm:col-span-2">
+              {tEvents("uploadWindowHint", { hours: MAX_EVENT_HOURS })}{" "}
+              {tEvents("vipLonger")}
             </p>
           )}
         </QuestionnaireBody>
@@ -332,67 +338,6 @@ export function DetailsQuestions({
                 >
                   {ts("pinFormat")}
                 </p>
-              </div>
-            )}
-          </Row>
-          <Row
-            icon={Clock}
-            title={ts("hoursToggle")}
-            description={ts("hoursHint")}
-            htmlFor="d-hours-on"
-            control={
-              <HaloSwitch
-                id="d-hours-on"
-                checked={d.hoursOn}
-                onCheckedChange={(v) =>
-                  setD((prev) => ({
-                    ...prev,
-                    hoursOn: v,
-                    opens: prev.opens || prev.starts,
-                    closes: prev.closes || prev.ends,
-                  }))
-                }
-              />
-            }
-          >
-            {d.hoursOn && (
-              <div className="grid gap-3 sm:grid-cols-2">
-                <div className="space-y-1.5">
-                  <Label
-                    htmlFor="d-opens"
-                    className="text-xs text-muted-foreground"
-                  >
-                    {ts("opens")}
-                  </Label>
-                  <DateTimeField
-                    id="d-opens"
-                    value={d.opens}
-                    onChange={(v) => set("opens", v)}
-                  />
-                </div>
-                <div className="space-y-1.5">
-                  <Label
-                    htmlFor="d-closes"
-                    className="text-xs text-muted-foreground"
-                  >
-                    {ts("closes")}
-                  </Label>
-                  <DateTimeField
-                    id="d-closes"
-                    value={d.closes}
-                    min={d.opens}
-                    onChange={(v) => set("closes", endAfter(d.opens, v))}
-                    invalid={problems.hours}
-                  />
-                </div>
-                {problems.hours && (
-                  <p
-                    className="text-sm font-medium text-destructive sm:col-span-2"
-                    role="alert"
-                  >
-                    {ts("hoursError")}
-                  </p>
-                )}
               </div>
             )}
           </Row>

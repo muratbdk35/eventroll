@@ -13,6 +13,7 @@ import {
   computeExpiresAt,
   computeExpiresAtFromEnd,
   isPlanId,
+  plans,
   type PlanId,
 } from "@/lib/plans";
 import { sendReportNotice } from "@/lib/email/report";
@@ -21,6 +22,7 @@ import { deleteObjects } from "@/lib/storage";
 import { getOwnedEvent } from "./queries";
 import {
   createEventSchema,
+  eventHours,
   settingsSchema,
   type CreateEventInput,
   type SettingsInput,
@@ -116,6 +118,10 @@ export async function updateSettings(
   if (!event) return { ok: false, error: "not_found" };
 
   const d = parsed.data;
+  // 24 hours, 48 on VIP (#77); a draft without a plan gets the shorter one.
+  if (eventHours(d) > plans[event.plan ?? "mini"].maxEventHours) {
+    return { ok: false, error: "invalid" };
+  }
   await db
     .update(events)
     .set({
@@ -125,8 +131,9 @@ export async function updateSettings(
       startsAt: new Date(d.startsAt),
       endsAt: new Date(d.endsAt),
       expiresAt: computeExpiresAtFromEnd(new Date(d.endsAt), event.plan),
-      uploadOpensAt: d.uploadOpensAt ? new Date(d.uploadOpensAt) : null,
-      uploadClosesAt: d.uploadClosesAt ? new Date(d.uploadClosesAt) : null,
+      // Upload hours are gone (#77): the event's own times decide.
+      uploadOpensAt: null,
+      uploadClosesAt: null,
       maxUploadsPerDevice: d.maxUploadsPerDevice,
       ...(d.pin === undefined
         ? {}

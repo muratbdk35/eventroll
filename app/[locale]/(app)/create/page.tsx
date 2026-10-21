@@ -97,8 +97,6 @@ export default async function CreatePage({
                   endsAt: event.endsAt?.toISOString() ?? null,
                   requireName: event.requireName,
                   hasPin: Boolean(event.accessPinHash),
-                  uploadOpensAt: event.uploadOpensAt?.toISOString() ?? null,
-                  uploadClosesAt: event.uploadClosesAt?.toISOString() ?? null,
                   maxUploadsPerDevice: event.maxUploadsPerDevice,
                   plan: event.plan,
                   ticketColor: ticketColor(event.ticketColor),
