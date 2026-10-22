@@ -829,7 +829,15 @@
       "devNote": "Local development: payments aren't connected yet, this button activates the plan for free.",
       "changePlan": "Change plan",
       "consent": "I want the service to start right away. I know my 14-day right of withdrawal ends once the service has been fully provided. I have read and accept the <terms>terms</terms> and the <withdrawal>withdrawal instructions</withdrawal>.",
-      "failed": "The payment page couldn't be opened. Please try again in a moment."
+      "failed": "The payment page couldn't be opened. Please try again in a moment.",
+      "codeToggle": "Have a discount code?",
+      "codePlaceholder": "Discount code",
+      "codeApply": "Apply",
+      "codeRemove": "Remove",
+      "codeInvalid": "This code isn't valid or has expired.",
+      "codeTooMany": "Too many tries. Please try again later.",
+      "discount": "Discount ({code}, {percent}%)",
+      "buttonFree": "Activate for free"
     },
     "review": {
       "title": "Final check",

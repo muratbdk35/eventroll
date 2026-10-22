@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { amountFor, canSelfRefund, planFromOrders } from "@/lib/pricing";
+import {
+  amountFor,
+  canSelfRefund,
+  discounted,
+  planFromOrders,
+} from "@/lib/pricing";
 
 describe("amountFor", () => {
   it("charges the full price for a first plan", () => {
@@ -50,5 +55,17 @@ describe("canSelfRefund", () => {
     expect(canSelfRefund({ firstPaidAt: null, photosEver: 0, now })).toBe(
       false,
     );
+  });
+});
+
+describe("discounted (#79)", () => {
+  it("takes the percentage off, rounded to the cent", () => {
+    expect(discounted(2900, 50)).toBe(1450);
+    expect(discounted(1900, 25)).toBe(1425);
+    expect(discounted(4900, 0)).toBe(4900);
+  });
+  it("is free at 100% and under Stripe's minimum", () => {
+    expect(discounted(2900, 100)).toBe(0);
+    expect(discounted(1900, 99)).toBe(0);
   });
 });

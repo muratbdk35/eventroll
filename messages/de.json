@@ -832,7 +832,15 @@
       "devNote": "Lokale Entwicklung: Zahlungen sind noch nicht angebunden, dieser Button aktiviert den Plan kostenlos.",
       "changePlan": "Plan ändern",
       "consent": "Ich verlange ausdrücklich, dass die Leistung sofort beginnt. Mir ist bekannt, dass mein 14-tägiges Widerrufsrecht erlischt, sobald die Leistung vollständig erbracht ist. Ich habe die <terms>AGB</terms> und die <withdrawal>Widerrufsbelehrung</withdrawal> gelesen und akzeptiere sie.",
-      "failed": "Die Zahlungsseite konnte nicht geöffnet werden. Versuch es gleich noch einmal."
+      "failed": "Die Zahlungsseite konnte nicht geöffnet werden. Versuch es gleich noch einmal.",
+      "codeToggle": "Hast du einen Rabattcode?",
+      "codePlaceholder": "Rabattcode",
+      "codeApply": "Einlösen",
+      "codeRemove": "Entfernen",
+      "codeInvalid": "Dieser Code ist ungültig oder abgelaufen.",
+      "codeTooMany": "Zu viele Versuche. Bitte versuche es später noch einmal.",
+      "discount": "Rabatt ({code}, {percent} %)",
+      "buttonFree": "Kostenlos freischalten"
     },
     "review": {
       "title": "Letzte Prüfung",

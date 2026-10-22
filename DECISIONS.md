@@ -1225,3 +1225,21 @@ the form's save button (`events.uploads_paused`, migration 0014). While it is
 on, guests see "Uploads are paused"; uploads already in flight still confirm.
 The end of the event wins: an event that is over shows "The event is over"
 whether paused or not.
+
+## 79. Discount codes (owner decision, 2026-10-22)
+
+Our own codes, not Stripe's, because Stripe Checkout can't open for a 0 €
+total. Table `promo_codes` (percent off, optional use limit and end date,
+active flag); orders keep `promo_code` and `discount_cents` (migration 0015).
+
+- The pay step has "Have a discount code?". `checkPromo` previews the new
+  price (20 tries per account per hour); `startCheckout` checks the code
+  again before charging.
+- Under 100%: Stripe charges the reduced price; the invoice line names the code.
+- 100% (or a price under Stripe's 0.50 € minimum): the plan is switched on
+  without Stripe, recorded as a paid order of 0 €, confirmed by email; no
+  invoice because nothing is charged. A one-click refund just cancels it.
+- A use is counted when the order is paid, never above the limit.
+- Codes are made with `npm run promo -- create CODE PERCENT [--uses N]
+[--until YYYY-MM-DD] [--note …]`; `list` and `disable` as well. Codes only
+  on the create flow's pay step for now, not on upgrades.

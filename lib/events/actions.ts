@@ -18,6 +18,9 @@ import {
 } from "@/lib/plans";
 import { sendReportNotice } from "@/lib/email/report";
 import { createCheckout, refundEvent, selfRefundable } from "@/lib/payments";
+import { amountFor, discounted } from "@/lib/pricing";
+import { findPromo } from "@/lib/promo";
+import { rateLimit } from "@/lib/ratelimit";
 import { deleteObjects } from "@/lib/storage";
 import { getOwnedEvent } from "./queries";
 import {
@@ -44,7 +47,8 @@ export type ActionResult<T = object> =
         | "needs_plan"
         | "unavailable"
         | "failed"
-        | "not_refundable";
+        | "not_refundable"
+        | "rate_limited";
     };
 
 async function requireUser() {
@@ -410,17 +414,49 @@ async function removeMedia(eventId: string, where: SQL | undefined) {
  * must have ticked the withdrawal waiver on our page; the time is stored on
  * the order. Returns the Checkout URL to send the browser to.
  */
+/**
+ * Checks a discount code on the pay step (#79) and returns the new price in
+ * cents. Limited per account, so codes can't be guessed by trying.
+ */
+export async function checkPromo(
+  eventId: string,
+  plan: PlanId,
+  code: string,
+): Promise<ActionResult<{ code: string; percentOff: number; amount: number }>> {
+  if (!isPlanId(plan)) return { ok: false, error: "invalid" };
+  const user = await requireUser();
+  if (!user) return { ok: false, error: "unauthorized" };
+  if (!(await rateLimit("promo", user.id, 20, "1 h"))) {
+    return { ok: false, error: "rate_limited" };
+  }
+  const event = await getOwnedEvent(eventId, user.id);
+  if (!event) return { ok: false, error: "not_found" };
+  const full = amountFor(event.plan, plan);
+  const promo = await findPromo(code);
+  if (full === null || !promo) return { ok: false, error: "invalid" };
+  return {
+    ok: true,
+    code: promo.code,
+    percentOff: promo.percentOff,
+    amount: discounted(full, promo.percentOff),
+  };
+}
+
 export async function startCheckout(
   eventId: string,
   plan: PlanId,
   consent: boolean,
   from: "create" | "dashboard",
+  code?: string,
 ): Promise<ActionResult<{ url: string }>> {
   if (!consent || !isPlanId(plan)) return { ok: false, error: "invalid" };
   const user = await requireUser();
   if (!user) return { ok: false, error: "unauthorized" };
   const event = await getOwnedEvent(eventId, user.id);
   if (!event) return { ok: false, error: "not_found" };
+  // Checked again here: the pay step's answer is only a preview.
+  const promo = code ? await findPromo(code) : null;
+  if (code && !promo) return { ok: false, error: "invalid" };
   const locale = await getLocale();
   const h = await headers();
   const origin =
@@ -443,6 +479,7 @@ export async function startCheckout(
         ? `${base}/create?step=pay&plan=${plan}&event=${event.id}`
         : `${base}/dashboard/events/${event.id}?view=upgrade`,
     consentAt: new Date(),
+    promo,
   });
   return res.ok
     ? { ok: true, url: res.url }

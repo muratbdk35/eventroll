@@ -11,7 +11,13 @@ import {
   isPlanId,
   type PlanId,
 } from "@/lib/plans";
-import { amountFor, canSelfRefund, planFromOrders } from "@/lib/pricing";
+import {
+  amountFor,
+  canSelfRefund,
+  discounted,
+  planFromOrders,
+} from "@/lib/pricing";
+import { type Promo, countPromoUse } from "@/lib/promo";
 import { sendOrderConfirmation } from "@/lib/email/order-confirmation";
 import { SELLER } from "@/lib/legal/content";
 import { stripe } from "@/lib/stripe";
@@ -120,14 +126,18 @@ export async function createCheckout(opts: {
   cancelPath: string;
   /** The withdrawal-waiver box was ticked on our page. */
   consentAt: Date;
+  /** A valid discount code (#79), checked by the caller. */
+  promo?: Promo | null;
 }): Promise<
   | { ok: true; url: string }
   | { ok: false; error: "invalid" | "unavailable" | "failed" }
 > {
+  const { event, plan, promo } = opts;
+  const full = amountFor(event.plan, plan);
+  if (full === null) return { ok: false, error: "invalid" };
+  const amount = promo ? discounted(full, promo.percentOff) : full;
+  if (amount === 0 && promo) return activateFree({ ...opts, promo, full });
   if (!stripe) return { ok: false, error: "unavailable" };
-  const { event, plan } = opts;
-  const amount = amountFor(event.plan, plan);
-  if (amount === null) return { ok: false, error: "invalid" };
 
   // VAT: Stripe Tax per country once the company is in OSS, until then the
   // German 19% for everyone (DECISIONS #66).
@@ -143,7 +153,9 @@ export async function createCheckout(opts: {
     ownerId: opts.ownerId,
     plan,
     from: event.plan ?? "",
+    promo: promo?.code ?? "",
   };
+  const promoNote = promo ? ` · ${promo.code} (−${promo.percentOff} %)` : "";
   const session = await stripe.checkout.sessions.create({
     mode: "payment",
     line_items: [
@@ -186,7 +198,7 @@ export async function createCheckout(opts: {
         // Stripe titles these invoices "amount due"; the line under it
         // makes clear the buyer already paid (DECISIONS #66).
         description:
-          `${PAID_NOTE[opts.locale] ?? PAID_NOTE.en} · EventRoll ${PLAN_NAMES[plan] ?? plan}: ${event.name}`.slice(
+          `${PAID_NOTE[opts.locale] ?? PAID_NOTE.en} · EventRoll ${PLAN_NAMES[plan] ?? plan}: ${event.name}${promoNote}`.slice(
             0,
             1500,
           ),
@@ -213,8 +225,62 @@ export async function createCheckout(opts: {
     currency: CURRENCY,
     status: "pending",
     withdrawalWaiverAt: opts.consentAt,
+    promoCode: promo?.code ?? null,
+    discountCents: full - amount,
   });
   return { ok: true, url: session.url };
+}
+
+/**
+ * A 100% discount code (#79): the plan is switched on without Stripe. The
+ * order is recorded as paid with a total of 0 and confirmed by email like a
+ * bought one; there is no invoice because nothing is charged.
+ */
+async function activateFree(opts: {
+  event: EventRow;
+  plan: PlanId;
+  email: string;
+  ownerId: string;
+  locale: string;
+  origin: string;
+  successPath: string;
+  consentAt: Date;
+  promo: Promo;
+  full: number;
+}): Promise<{ ok: true; url: string }> {
+  const orderId = randomUUID();
+  const paidAt = new Date();
+  await db.insert(orders).values({
+    id: orderId,
+    eventId: opts.event.id,
+    ownerId: opts.ownerId,
+    stripeSessionId: `free_${orderId}`,
+    plan: opts.plan,
+    amountTotal: 0,
+    currency: CURRENCY,
+    status: "paid",
+    paidAt,
+    withdrawalWaiverAt: opts.consentAt,
+    promoCode: opts.promo.code,
+    discountCents: opts.full,
+  });
+  await syncPlan(opts.event.id);
+  await countPromoUse(opts.promo.code);
+  await sendOrderConfirmation({
+    to: opts.email,
+    locale: opts.locale,
+    orderId,
+    eventId: opts.event.id,
+    eventName: opts.event.name,
+    plan: opts.plan,
+    from: opts.event.plan,
+    amountCents: 0,
+    taxCents: 0,
+    currency: CURRENCY,
+    paidAt,
+    consentAt: opts.consentAt,
+  }).catch((e) => console.error("[order] confirmation email failed", e));
+  return { ok: true, url: `${opts.origin}${opts.successPath}` };
 }
 
 /** Sets the event's plan (and deletion date) from its paid orders. */
@@ -271,9 +337,11 @@ export async function fulfilSession(session: Stripe.Checkout.Session) {
       plan: orders.plan,
       paidAt: orders.paidAt,
       withdrawalWaiverAt: orders.withdrawalWaiverAt,
+      promoCode: orders.promoCode,
     });
   if (!order) return "already" as const;
   await syncPlan(order.eventId);
+  if (order.promoCode) await countPromoUse(order.promoCode);
   // The confirmation on a durable medium (§ 312f BGB). Only the request
   // that turned the order paid gets here, so it is sent once.
   const to = session.customer_details?.email ?? session.customer_email;
@@ -376,9 +444,20 @@ export async function selfRefundable(eventId: string) {
  * finds the orders already refunded and changes nothing.
  */
 export async function refundEvent(eventId: string) {
-  if (!stripe) return false;
-  for (const o of await paidOrders(eventId)) {
-    if (!o.stripePaymentIntentId) continue;
+  const paid = await paidOrders(eventId);
+  if (!stripe && paid.some((o) => o.stripePaymentIntentId)) return false;
+  for (const o of paid) {
+    if (!o.stripePaymentIntentId) {
+      // A plan switched on with a 100% code (#79): nothing to pay back.
+      if (o.amountTotal === 0) {
+        await db
+          .update(orders)
+          .set({ status: "refunded" })
+          .where(eq(orders.id, o.id));
+      }
+      continue;
+    }
+    if (!stripe) return false;
     await stripe.refunds.create(
       {
         payment_intent: o.stripePaymentIntentId,

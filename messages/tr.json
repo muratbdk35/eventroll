@@ -832,7 +832,15 @@
       "devNote": "Yerel geliştirme: ödeme henüz bağlı değil, bu buton planı ücretsiz aktifleştirir.",
       "changePlan": "Planı değiştir",
       "consent": "Hizmetin hemen başlamasını istiyorum. Hizmet tamamen sağlandığında 14 günlük cayma hakkımın sona ereceğini biliyorum. <terms>Kullanım şartlarını</terms> ve <withdrawal>cayma bildirimini</withdrawal> okudum ve kabul ediyorum.",
-      "failed": "Ödeme sayfası açılamadı. Biraz sonra tekrar dene."
+      "failed": "Ödeme sayfası açılamadı. Biraz sonra tekrar dene.",
+      "codeToggle": "İndirim kodun var mı?",
+      "codePlaceholder": "İndirim kodu",
+      "codeApply": "Uygula",
+      "codeRemove": "Kaldır",
+      "codeInvalid": "Bu kod geçerli değil ya da süresi dolmuş.",
+      "codeTooMany": "Çok fazla deneme. Biraz sonra tekrar dene.",
+      "discount": "İndirim ({code}, %{percent})",
+      "buttonFree": "Ücretsiz etkinleştir"
     },
     "review": {
       "title": "Son kontrol",

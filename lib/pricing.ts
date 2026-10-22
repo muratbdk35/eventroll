@@ -38,3 +38,16 @@ export function canSelfRefund(opts: {
   if (!firstPaidAt || photosEver > 0) return false;
   return now.getTime() - firstPaidAt.getTime() <= REFUND_DAYS * 864e5;
 }
+
+/** Stripe's smallest charge in euros; a cheaper discounted plan is free. */
+export const MIN_CHARGE_CENTS = 50;
+
+/**
+ * The price after a discount code (#79), in cents: rounded to the cent, and
+ * free when it would fall under Stripe's minimum charge.
+ */
+export function discounted(amountCents: number, percentOff: number) {
+  const pct = Math.min(100, Math.max(0, Math.round(percentOff)));
+  const left = Math.round((amountCents * (100 - pct)) / 100);
+  return left < MIN_CHARGE_CENTS ? 0 : left;
+}

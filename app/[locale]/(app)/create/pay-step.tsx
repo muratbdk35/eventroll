@@ -1,10 +1,19 @@
 "use client";
 
-import { ArrowLeft, Loader2, Lock, Receipt } from "lucide-react";
+import {
+  ArrowLeft,
+  Loader2,
+  Lock,
+  Receipt,
+  Sparkles,
+  Tag,
+  X,
+} from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 import { useEffect, useRef, useState, useTransition } from "react";
 import { HaloButton } from "@/components/halo/halo-button";
 import {
+  checkPromo,
   createEventFromDraft,
   devActivate,
   startCheckout,
@@ -33,6 +42,18 @@ export function PayStep({ plan, event, devPay }: FlowProps) {
   const [consent, setConsent] = useState(false);
   const [payError, setPayError] = useState(false);
   const started = useRef(false);
+  // Discount code (#79): checked on the server, applied again at checkout.
+  const [codeOpen, setCodeOpen] = useState(false);
+  const [codeInput, setCodeInput] = useState("");
+  const [promo, setPromo] = useState<{
+    code: string;
+    percentOff: number;
+    amount: number;
+  } | null>(null);
+  const [codeError, setCodeError] = useState<"invalid" | "rate_limited" | null>(
+    null,
+  );
+  const [checking, startCheck] = useTransition();
 
   // Coming back from sign-in: turn the browser draft into a real event once.
   useEffect(() => {
@@ -91,12 +112,42 @@ export function PayStep({ plan, event, devPay }: FlowProps) {
     format.number(n, {
       style: "currency",
       currency: CURRENCY,
-      maximumFractionDigits: 0,
+      minimumFractionDigits: Number.isInteger(n) ? 0 : 2,
+      maximumFractionDigits: 2,
     });
+  const total = promo ? promo.amount / 100 : p.price;
+  const free = promo !== null && promo.amount === 0;
   const lines: [string, string][] = [
     [t("pay.event"), event.name],
     [t("pay.plan", { plan: tp(`plans.${plan}.name`) }), money(p.price)],
+    ...(promo
+      ? ([
+          [
+            t("pay.discount", { code: promo.code, percent: promo.percentOff }),
+            `−${money(p.price - total)}`,
+          ],
+        ] as [string, string][])
+      : []),
   ];
+
+  function applyCode(e: React.FormEvent) {
+    e.preventDefault();
+    if (!codeInput.trim()) return;
+    setCodeError(null);
+    startCheck(async () => {
+      const res = await checkPromo(event!.id, plan!, codeInput);
+      if (res.ok) {
+        setPromo({
+          code: res.code,
+          percentOff: res.percentOff,
+          amount: res.amount,
+        });
+        setCodeOpen(false);
+      } else {
+        setCodeError(res.error === "rate_limited" ? "rate_limited" : "invalid");
+      }
+    });
+  }
 
   function pay() {
     setPayError(false);
@@ -107,7 +158,13 @@ export function PayStep({ plan, event, devPay }: FlowProps) {
         if (res.ok) router.push(flowHref("review", { event: event!.id }));
         return;
       }
-      const res = await startCheckout(event!.id, plan!, consent, "create");
+      const res = await startCheckout(
+        event!.id,
+        plan!,
+        consent,
+        "create",
+        promo?.code,
+      );
       if (res.ok) window.location.assign(res.url);
       else setPayError(true);
     });
@@ -153,9 +210,73 @@ export function PayStep({ plan, event, devPay }: FlowProps) {
         <div className="mt-4 flex items-baseline justify-between border-t border-border pt-4">
           <span className="font-semibold">{t("pay.total")}</span>
           <span className="font-heading text-3xl font-extrabold tracking-tight">
-            {money(p.price)}
+            {money(total)}
           </span>
         </div>
+        {!devPay && (
+          <div className="mt-3 border-t border-dashed border-border pt-3">
+            {promo ? (
+              <p className="flex items-center gap-2 text-[13px] text-success">
+                <Tag className="size-4" aria-hidden />
+                <span className="font-semibold">{promo.code}</span>
+                <span className="text-muted-foreground">
+                  −%{promo.percentOff}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setPromo(null)}
+                  className="ms-auto inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
+                >
+                  <X className="size-3.5" aria-hidden />
+                  {t("pay.codeRemove")}
+                </button>
+              </p>
+            ) : codeOpen ? (
+              <form onSubmit={applyCode} className="flex gap-2">
+                <input
+                  autoFocus
+                  value={codeInput}
+                  onChange={(e) => setCodeInput(e.target.value)}
+                  placeholder={t("pay.codePlaceholder")}
+                  aria-label={t("pay.codePlaceholder")}
+                  autoCapitalize="characters"
+                  autoComplete="off"
+                  maxLength={40}
+                  className="h-10 min-w-0 flex-1 rounded-xl border border-input bg-card px-3 text-sm uppercase outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
+                />
+                <button
+                  type="submit"
+                  disabled={checking || !codeInput.trim()}
+                  className="h-10 shrink-0 rounded-xl bg-secondary px-4 text-sm font-semibold disabled:opacity-50"
+                >
+                  {checking ? (
+                    <Loader2 className="size-4 animate-spin" aria-hidden />
+                  ) : (
+                    t("pay.codeApply")
+                  )}
+                </button>
+              </form>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setCodeOpen(true)}
+                className="inline-flex items-center gap-1.5 text-[13px] font-medium text-primary hover:underline"
+              >
+                <Tag className="size-3.5" aria-hidden />
+                {t("pay.codeToggle")}
+              </button>
+            )}
+            {codeError && (
+              <p role="alert" className="mt-2 text-xs text-destructive">
+                {t(
+                  codeError === "rate_limited"
+                    ? "pay.codeTooMany"
+                    : "pay.codeInvalid",
+                )}
+              </p>
+            )}
+          </div>
+        )}
       </div>
       {!devPay && (
         <label className="mt-5 flex cursor-pointer items-start gap-3 rounded-2xl border border-border/80 bg-card/70 p-3.5 text-[13px] leading-snug text-pretty">
@@ -195,10 +316,10 @@ export function PayStep({ plan, event, devPay }: FlowProps) {
         className="mt-5"
         disabled={!devPay && !consent}
         isLoading={paying}
-        leading={<Lock aria-hidden />}
+        leading={free ? <Sparkles aria-hidden /> : <Lock aria-hidden />}
         onClick={pay}
       >
-        {t("pay.button", { price: money(p.price) })}
+        {free ? t("pay.buttonFree") : t("pay.button", { price: money(total) })}
       </HaloButton>
       <p
         role={payError ? "alert" : undefined}

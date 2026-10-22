@@ -182,6 +182,23 @@ export const media = pgTable(
   ],
 );
 
+/**
+ * Discount codes (#79): a percentage off the plan price, optionally limited in
+ * uses and time. 100% switches the plan on without Stripe. Created with
+ * `npm run promo`; codes are stored upper-case.
+ */
+export const promoCodes = pgTable("promo_codes", {
+  id: id(),
+  code: text().notNull().unique(),
+  percentOff: integer().notNull(),
+  maxUses: integer(),
+  uses: integer().notNull().default(0),
+  expiresAt: timestamp(tz),
+  active: boolean().notNull().default(true),
+  note: text(),
+  createdAt: createdAt(),
+});
+
 export const orders = pgTable(
   "orders",
   {
@@ -201,6 +218,9 @@ export const orders = pgTable(
     // EU consumer law: buyer's consent to immediate performance + waiver of
     // the 14-day withdrawal right, captured at checkout (DECISIONS.md #2).
     withdrawalWaiverAt: timestamp(tz),
+    // Discount code used for this order and what it took off (#79).
+    promoCode: text(),
+    discountCents: integer().notNull().default(0),
     // gclid / UTM captured on first touch, for ad attribution.
     attribution: jsonb().$type<Record<string, string>>(),
     createdAt: createdAt(),
