@@ -1,3 +1,4 @@
+import { Tag } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // Receipt layout adapted from 21st.dev "Receipt Tiers" (arihantcodes, Spectrum
@@ -294,20 +295,28 @@ export function ReceiptCard({
           <span>{billingValue}</span>
         </div>
         {offerLabel && offerValue && (
-          <div className="mt-1 flex items-baseline justify-between text-[11.5px] font-bold text-[oklch(0.5_0.13_25)]">
-            <Printed>{offerLabel}</Printed>
-            <Printed>{offerValue}</Printed>
+          // A cut-out coupon in red, so the offer is seen at a glance.
+          <div className="mt-3 flex items-center justify-between gap-3 rounded-md border-2 border-dashed border-[oklch(0.56_0.18_25)] bg-[oklch(0.96_0.035_25)] px-3 py-2 text-[oklch(0.5_0.18_25)]">
+            <span className="flex items-center gap-2 text-[12.5px] font-bold tracking-[0.12em]">
+              <Tag className="size-4 shrink-0" aria-hidden />
+              <Printed>{offerLabel}</Printed>
+            </span>
+            <span className="font-heading text-2xl font-extrabold tracking-tight">
+              <Printed>{offerValue}</Printed>
+            </span>
           </div>
         )}
-        <div className="mt-1 flex items-baseline justify-between gap-3">
+        <div className="mt-2 flex items-baseline justify-between gap-3">
           <span className="text-lg font-bold">{totalLabel}</span>
           {wasTotal && (
-            <span className="ms-auto text-lg font-semibold text-[oklch(0.52_0.02_241)]">
-              {/* On the inline-block itself: a parent's line-through skips it. */}
-              <Printed className="line-through decoration-2">
-                {wasTotal}
-              </Printed>
-            </span>
+            // A red pen stroke across the list price; <s> keeps the meaning.
+            <s className="relative ms-auto text-2xl font-semibold text-[oklch(0.52_0.02_241)] no-underline">
+              <Printed>{wasTotal}</Printed>
+              <span
+                aria-hidden
+                className="strike-in pointer-events-none absolute inset-x-[-4px] top-1/2 h-[2.5px] -translate-y-1/2 -rotate-12 rounded-full bg-[oklch(0.56_0.18_25)]"
+              />
+            </s>
           )}
           <span className="font-heading text-5xl font-extrabold tracking-tight">
             <Printed
