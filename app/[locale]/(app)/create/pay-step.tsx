@@ -24,6 +24,7 @@ import { cn } from "@/lib/utils";
 import { StepFooter, StepHeading } from "./create-flow";
 import { type FlowProps, flowHref } from "./flow";
 import { clearDraft, draftOk, draftPayload, loadDraft } from "./draft";
+import { LocalPrice } from "@/components/billing/local-price";
 
 // Summary layout from the 21st.dev "Checkout Summary" (astralyxdev): line
 // items, then charges not known yet shown as "calculated at checkout" rather
@@ -233,6 +234,10 @@ export function PayStep({ plan, event, devPay }: FlowProps) {
             {money(total)}
           </span>
         </div>
+        <LocalPrice
+          eur={total}
+          className="block text-end text-sm text-muted-foreground"
+        />
         {!devPay && (
           <div className="mt-3 border-t border-dashed border-border pt-3">
             {promo ? (

@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { LocalPrice } from "./local-price";
 
 // Receipt layout adapted from 21st.dev "Receipt Tiers" (arihantcodes, Spectrum
 // UI, Apache-2.0, https://github.com/arihantcodes/spectrum-ui). Modified by
@@ -128,6 +129,8 @@ export type ReceiptCardProps = {
   offerLabel?: string;
   offerValue?: string;
   perGuest?: string;
+  /** The total in euros, for the "≈ $22" hint abroad (#82). */
+  amount?: number;
   thanks: string;
   /** Rubber stamp next to the plan name. */
   stamp?: string;
@@ -152,6 +155,7 @@ export function ReceiptCard({
   offerLabel,
   offerValue,
   perGuest,
+  amount,
   thanks,
   stamp,
   tier = 0,
@@ -328,6 +332,12 @@ export function ReceiptCard({
             </Printed>
           </span>
         </div>
+        {amount !== undefined && (
+          <LocalPrice
+            eur={amount}
+            className="mt-0.5 block text-end text-[12.5px] font-semibold text-[oklch(0.45_0.02_241)]"
+          />
+        )}
         {perGuest && (
           <p className="mt-1 text-end text-[11px] text-[oklch(0.52_0.02_241)]">
             <Printed>{perGuest}</Printed>

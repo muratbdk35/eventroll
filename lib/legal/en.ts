@@ -57,6 +57,7 @@ export function docsEn(c: LegalCtx): LegalDocs {
           heading: "4. Visiting our website",
           body: [
             "When you load a page, our hosting provider processes technical data your browser sends (IP address, date and time, page requested, browser and operating system) to deliver and secure the page. These logs are deleted after 30 days at the latest. Legal basis: Art. 6(1)(f) GDPR.",
+            "Local prices: to show an approximate amount in your currency next to our prices, our hosting provider derives only your country from your IP address. The country is not stored or passed on; prices are always charged in euros. Legal basis: Art. 6(1)(f) GDPR.",
             "Rate limiting: to prevent abuse we count requests per IP address (for example for uploads, the contact form and PIN entry). For this, the IP address is kept at Upstash for at most one hour and then deleted automatically. Legal basis: Art. 6(1)(f) GDPR.",
             "Contact form: we use your name, email address and message only to answer you and delete them when the matter is settled, at the latest after 12 months. The bot check uses Cloudflare Turnstile. Legal basis: Art. 6(1)(b) and (f) GDPR.",
             `Withdrawal function (${c.withdrawUrl}): we use your name, the order number and your email address to match the withdrawal, confirm its receipt and process it. Legal basis: legal obligation (Art. 6(1)(c) GDPR, § 356a BGB). We keep the details as proof for as long as claims under the contract can be made, at most three years.`,

@@ -1260,3 +1260,15 @@ active flag); orders keep `promo_code` and `discount_cents` (migration 0015).
 - Price law (PAngV): the list price was never charged since launch
   (2026-10-21); before ending the offer, set `LAUNCH_OFF = 0` instead of
   keeping a struck price that was never real.
+
+## 82. Approximate local prices (2026-10-23)
+
+- Prices stay in euros and are charged in euros. Visitors from 30 non-euro
+  countries see "≈ $22" / "≈ ₺1.090" under the total on the receipt and the
+  pay step (`components/billing/local-price.tsx`).
+- `/api/local-price` reads Vercel's `x-vercel-ip-country` header (country
+  only, not stored) and the ECB reference rates via Frankfurter (cached 6 h,
+  no key, nothing about the visitor sent). The client fetches it after load,
+  so the landing stays static. Rounded up with +3% for card/Stripe FX fees.
+- Stripe's Adaptive Pricing (dashboard setting) can additionally let them
+  pay in their own currency at Checkout; Stripe only shows it there.

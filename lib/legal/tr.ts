@@ -57,6 +57,7 @@ export function docsTr(c: LegalCtx): LegalDocs {
           heading: "4. Sitemizin ziyareti",
           body: [
             "Bir sayfayı açtığınızda barındırma sağlayıcımız, sayfayı sunmak ve güvenliğini sağlamak için tarayıcınızın gönderdiği teknik verileri (IP adresi, tarih ve saat, açılan sayfa, tarayıcı ve işletim sistemi) işler. Bu kayıtlar en geç 30 gün sonra silinir. Hukuki dayanak: GDPR m. 6/1-f.",
+            "Yerel fiyat: Fiyatların yanında kendi para biriminizde yaklaşık tutarı gösterebilmek için barındırma sağlayıcımız IP adresinizden yalnızca ülkenizi belirler. Ülke kaydedilmez ve kimseye iletilmez; ödeme her zaman euro olarak alınır. Hukuki dayanak: GDPR m. 6/1-f.",
             "Erişim sınırlama: Kötüye kullanımı önlemek için IP adresi başına istekleri sayarız (örneğin yüklemede, iletişim formunda ve PIN girişinde). Bunun için IP adresi Upstash'te en fazla bir saat tutulur ve sonra otomatik olarak silinir. Hukuki dayanak: GDPR m. 6/1-f.",
             "İletişim formu: adınızı, e-posta adresinizi ve mesajınızı yalnızca size cevap vermek için kullanır, konu kapandığında, en geç 12 ay sonra sileriz. Bot kontrolü Cloudflare Turnstile ile yapılır. Hukuki dayanak: GDPR m. 6/1-b ve f.",
             `Cayma işlevi (${c.withdrawUrl}): adınızı, sipariş numarasını ve e-posta adresinizi caymayı siparişle eşleştirmek, alındığını teyit etmek ve işlemek için kullanırız. Hukuki dayanak: yasal yükümlülük (GDPR m. 6/1-c, BGB § 356a). Bu bilgileri sözleşmeden doğan talepler ileri sürülebildiği sürece, en fazla üç yıl kanıt olarak saklarız.`,

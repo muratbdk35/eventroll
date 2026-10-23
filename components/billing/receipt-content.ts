@@ -92,6 +92,7 @@ export function receiptContent(
     billingValue: t("oneTime"),
     totalLabel: t("total"),
     total: money(salePrice(id)),
+    amount: salePrice(id),
     ...(LAUNCH_OFF > 0
       ? {
           wasTotal: money(p.price),
