@@ -1243,3 +1243,20 @@ active flag); orders keep `promo_code` and `discount_cents` (migration 0015).
 - Codes are made with `npm run promo -- create CODE PERCENT [--uses N]
 [--until YYYY-MM-DD] [--note …]`; `list` and `disable` as well. Codes only
   on the create flow's pay step for now, not on upgrades.
+
+## 80. Content moderation off until it is ready (2026-10-23)
+
+- Sightengine checks run only when `MODERATION_ENABLED=true` and the keys
+  are set; the variable is not set in production, so nothing is sent.
+- Landing tile, receipt row, pricing list and legal texts say "coming soon" /
+  "in preparation". Switch on together with the Freepik prefilter later.
+
+## 81. Launch offer: 10 € off every plan (2026-10-23)
+
+- `LAUNCH_OFF = 10` in `lib/plans.ts`; `salePrice` is what Stripe charges
+  (9 / 19 / 29 / 39 €). `price` stays the list price.
+- Receipt and pay step show the struck list price and an "Launch offer −€10"
+  line. Upgrades charge the difference, which is unchanged.
+- Price law (PAngV): the list price was never charged since launch
+  (2026-10-21); before ending the offer, set `LAUNCH_OFF = 0` instead of
+  keeping a struck price that was never real.

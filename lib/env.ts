@@ -76,6 +76,8 @@ const schema = z.object({
   // Explicit-image check for guest uploads (DECISIONS #52); off without keys.
   SIGHTENGINE_API_USER: optional,
   SIGHTENGINE_API_SECRET: optional,
+  /** "true" switches the explicit-image check on (#80); off until then. */
+  MODERATION_ENABLED: optional,
   SENTRY_DSN: optional,
   NEXT_PUBLIC_SENTRY_DSN: optional,
   SENTRY_AUTH_TOKEN: optional,

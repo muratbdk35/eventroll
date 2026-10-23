@@ -122,6 +122,11 @@ export type ReceiptCardProps = {
   billingValue: string;
   totalLabel: string;
   total: string;
+  /** The list price, struck through next to the total (launch offer, #81). */
+  wasTotal?: string;
+  /** The offer line above the total, e.g. "LAUNCH OFFER ... −€10". */
+  offerLabel?: string;
+  offerValue?: string;
   perGuest?: string;
   thanks: string;
   /** Rubber stamp next to the plan name. */
@@ -143,6 +148,9 @@ export function ReceiptCard({
   billingValue,
   totalLabel,
   total,
+  wasTotal,
+  offerLabel,
+  offerValue,
   perGuest,
   thanks,
   stamp,
@@ -285,8 +293,22 @@ export function ReceiptCard({
           <span>{billingLabel}</span>
           <span>{billingValue}</span>
         </div>
-        <div className="mt-1 flex items-baseline justify-between">
+        {offerLabel && offerValue && (
+          <div className="mt-1 flex items-baseline justify-between text-[11.5px] font-bold text-[oklch(0.5_0.13_25)]">
+            <Printed>{offerLabel}</Printed>
+            <Printed>{offerValue}</Printed>
+          </div>
+        )}
+        <div className="mt-1 flex items-baseline justify-between gap-3">
           <span className="text-lg font-bold">{totalLabel}</span>
+          {wasTotal && (
+            <span className="ms-auto text-lg font-semibold text-[oklch(0.52_0.02_241)]">
+              {/* On the inline-block itself: a parent's line-through skips it. */}
+              <Printed className="line-through decoration-2">
+                {wasTotal}
+              </Printed>
+            </span>
+          )}
           <span className="font-heading text-5xl font-extrabold tracking-tight">
             <Printed
               className={cn(

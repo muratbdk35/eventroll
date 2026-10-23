@@ -189,7 +189,8 @@
       "moderation": {
         "title": "Content moderation",
         "body": "Photos that may be explicit are detected automatically, blurred and put to you. Take a look and decide: keep them, delete them or block the sender. Kisses, dancing and evening dresses are fine; only explicit content gets flagged."
-      }
+      },
+      "soon": "Coming soon"
     },
     "eventTypes": {
       "title": "Made for the moments people gather",
@@ -236,7 +237,7 @@
         "guests": "Unlimited guests, no app or sign-up",
         "original": "Original quality, never compressed",
         "zip": "One-click ZIP download",
-        "moderation": "Automatic filter for explicit images",
+        "moderation": "Automatic filter for explicit images (coming soon)",
         "oneTime": "One payment, no subscription",
         "secure": "Secure checkout with Stripe"
       },
@@ -287,8 +288,10 @@
         "original": "Original",
         "days": "{days} days",
         "notIncluded": "Not included",
-        "hours": "{hours} hours"
-      }
+        "hours": "{hours} hours",
+        "soon": "Coming soon"
+      },
+      "launchLabel": "Launch offer"
     },
     "faq": {
       "title": "Questions, answered",

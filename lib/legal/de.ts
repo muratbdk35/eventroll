@@ -7,7 +7,7 @@ import type { LegalCtx, LegalDocs } from "./types";
  * launch. Change them together with the code.
  */
 
-const UPDATED = "22. Oktober 2026";
+const UPDATED = "23. Oktober 2026";
 
 export function docsDe(c: LegalCtx): LegalDocs {
   const seller = `${c.company}, ${c.address}`;
@@ -53,7 +53,7 @@ export function docsDe(c: LegalCtx): LegalDocs {
             "Rechtsgrundlage: Bereitstellung des Uploads an den Gastgeber, an den Sie Fotos senden (Art. 6 Abs. 1 lit. b DSGVO), und unser berechtigtes Interesse an einem sicheren Dienst (Art. 6 Abs. 1 lit. f DSGVO).",
             "Wer Ihre Fotos sieht: nur der Gastgeber des Events. Andere Gäste sehen Ihre Fotos nie; Alben sind nicht öffentlich und werden nicht von Suchmaschinen erfasst.",
             "Wir sehen uns keine Fotos an. Speicherung, Vorschaubilder und die automatische Prüfung unten laufen, ohne dass ein Mensch die Fotos betrachtet. Eine Person in unserem Unternehmen öffnet ein Foto nur, wenn das Gesetz es verlangt, zum Beispiel um einer Meldung rechtswidriger Inhalte oder einer behördlichen Anfrage nachzugehen, oder wenn der Gastgeber uns ausdrücklich um Unterstützung bei bestimmten Fotos bittet. Ein solcher Zugriff beschränkt sich auf die betroffenen Fotos.",
-            "Automatische Prüfung auf explizite Inhalte: Ein kleines Vorschaubild jedes Fotos wird automatisch auf explizite sexuelle Inhalte geprüft. Ein markiertes Foto wird nicht gelöscht; es wird aus Album und Downloads des Gastgebers herausgehalten, und der Gastgeber kann es unscharf anzeigen und entscheiden, ob er es behält. Die Prüfung identifiziert keine Personen; ihr Ergebnis wird zusammen mit dem Foto gelöscht. Rechtsgrundlage: unser berechtigtes Interesse und das des Gastgebers, Events frei von expliziten Inhalten zu halten (Art. 6 Abs. 1 lit. f DSGVO).",
+            "Automatische Prüfung auf explizite Inhalte (in Vorbereitung, derzeit nicht aktiv; sobald sie startet, gilt Folgendes): Ein kleines Vorschaubild jedes Fotos wird automatisch auf explizite sexuelle Inhalte geprüft. Ein markiertes Foto wird nicht gelöscht; es wird aus Album und Downloads des Gastgebers herausgehalten, und der Gastgeber kann es unscharf anzeigen und entscheiden, ob er es behält. Die Prüfung identifiziert keine Personen; ihr Ergebnis wird zusammen mit dem Foto gelöscht. Rechtsgrundlage: unser berechtigtes Interesse und das des Gastgebers, Events frei von expliziten Inhalten zu halten (Art. 6 Abs. 1 lit. f DSGVO).",
             "Meldungen: Meldet ein Gastgeber ein Foto als rechtswidrig, speichern wir Zeitpunkt und Grund, verbergen das Foto für alle und werden per E-Mail mit Event- und Fotonummer informiert, nie mit dem Bild. Das Foto wird mit den übrigen Fotos des Events am Ende des Download-Zeitraums gelöscht, sofern die Behörden nicht verlangen, es länger aufzubewahren. Bei Verdacht auf eine Straftat, insbesondere Darstellungen sexuellen Kindesmissbrauchs, geben wir die Meldung und die Daten zum Upload an die zuständigen Behörden weiter. Rechtsgrundlage: rechtliche Verpflichtungen und berechtigtes Interesse am Vorgehen gegen rechtswidrige Inhalte (Art. 6 Abs. 1 lit. c und f DSGVO).",
           ],
         },
@@ -90,7 +90,7 @@ export function docsDe(c: LegalCtx): LegalDocs {
               "Stripe Payments Europe Ltd. (Irland) – Zahlungen und Rechnungen;",
               "Resend Inc. – Versand von Anmelde-, Bestell- und Servicemails;",
               "Upstash Inc. – Begrenzung von Zugriffen (EU-Region);",
-              "Sightengine SAS (Paris) – automatische Prüfung von Vorschaubildern auf explizite Inhalte; die Bilder werden nach der Prüfung nicht gespeichert;",
+              "Sightengine SAS (Paris) – erst sobald die automatische Prüfung aktiv ist: automatische Prüfung von Vorschaubildern auf explizite Inhalte; die Bilder werden nach der Prüfung nicht gespeichert;",
               "Google Ireland Ltd. – nur, wenn Sie „Mit Google anmelden“ wählen.",
               "Google Ireland Ltd. (Gmail) – Postfach, an das E-Mails an unsere Adresse weitergeleitet werden (Kontaktformular, Widerrufe, Meldungen, Anfragen).",
             ],
@@ -209,7 +209,7 @@ export function docsDe(c: LegalCtx): LegalDocs {
         {
           heading: "9. Moderation und Meldungen",
           body: [
-            "Jedes hochgeladene Foto wird automatisch auf explizite sexuelle Inhalte geprüft (Sightengine). Markierte Fotos werden nicht gelöscht, sondern aus Album und Downloads herausgehalten; der Gastgeber entscheidet, ob er sie anzeigt und behält. Die Prüfung kann sich irren; sie entscheidet nicht über Sperren oder Löschungen.",
+            "Eine automatische Prüfung auf explizite sexuelle Inhalte ist in Vorbereitung und derzeit nicht aktiv. Sobald sie startet, wird jedes hochgeladene Foto geprüft (Sightengine). Markierte Fotos werden nicht gelöscht, sondern aus Album und Downloads herausgehalten; der Gastgeber entscheidet, ob er sie anzeigt und behält. Die Prüfung kann sich irren; sie entscheidet nicht über Sperren oder Löschungen.",
             `Gastgeber können ein Foto im Album als rechtswidrig melden; es ist dann sofort für alle verborgen, und wir prüfen die Meldung. Jede andere Person kann rechtswidrige Inhalte über ${c.contactUrl} oder an ${c.supportEmail} melden (siehe „Inhalte melden“). Wir bearbeiten Meldungen zügig, informieren die meldende Person über unsere Entscheidung und begründen Einschränkungen gegenüber dem betroffenen Gastgeber, soweit das rechtlich zulässig ist.`,
             "Bei Verstößen gegen diese AGB oder das Gesetz können wir Inhalte entfernen und Events oder Konten sperren. Darstellungen sexuellen Kindesmissbrauchs melden wir den zuständigen Behörden.",
           ],

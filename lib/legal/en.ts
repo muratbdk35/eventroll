@@ -3,7 +3,7 @@ import type { LegalCtx, LegalDocs } from "./types";
 /* English translation of de.ts, for information; the German text is
  * binding (DECISIONS #68). Keep both in step. */
 
-const UPDATED = "22 October 2026";
+const UPDATED = "23 October 2026";
 
 export function docsEn(c: LegalCtx): LegalDocs {
   const seller = `${c.company}, ${c.address}`;
@@ -49,7 +49,7 @@ export function docsEn(c: LegalCtx): LegalDocs {
             "Legal basis: providing the upload to the host you send photos to (Art. 6(1)(b) GDPR) and our legitimate interest in a safe service (Art. 6(1)(f) GDPR).",
             "Who sees your photos: only the host of the event. Other guests never see your photos; albums are not public and are not indexed by search engines.",
             "We do not look at photos. Storage, previews and the automatic check below run without anyone viewing the photos. A person at our company opens a photo only where the law requires it, for example to act on a report of illegal content or a request from the authorities, or where the host explicitly asks us for support with specific photos. Any such access is limited to the photos concerned.",
-            "Automatic check for explicit content: a small preview of each photo is checked automatically for explicit sexual content. A flagged photo is not deleted; it is kept out of the host's album and downloads, and the host can show it blurred and decide whether to keep it. The check does not identify people; its result is deleted with the photo. Legal basis: our and the host's legitimate interest in keeping events free of explicit content (Art. 6(1)(f) GDPR).",
+            "Automatic check for explicit content (in preparation, not active yet; once it starts, the following applies): a small preview of each photo is checked automatically for explicit sexual content. A flagged photo is not deleted; it is kept out of the host's album and downloads, and the host can show it blurred and decide whether to keep it. The check does not identify people; its result is deleted with the photo. Legal basis: our and the host's legitimate interest in keeping events free of explicit content (Art. 6(1)(f) GDPR).",
             "Reports: if a host reports a photo as illegal, we record when and why, hide the photo from everyone and are told by email with the event and photo reference, never the image. The photo is deleted with the event's other photos at the end of the download window, unless the authorities require us to keep it longer. Where we suspect a crime, in particular child sexual abuse material, we pass the report and the data about the upload to the competent authorities. Legal basis: legal obligations and legitimate interest in acting against illegal content (Art. 6(1)(c) and (f) GDPR).",
           ],
         },
@@ -86,7 +86,7 @@ export function docsEn(c: LegalCtx): LegalDocs {
               "Stripe Payments Europe Ltd. (Ireland) – payments and invoices;",
               "Resend Inc. – sign-in, order and service emails;",
               "Upstash Inc. – rate limiting (EU region);",
-              "Sightengine SAS (Paris) – automatic check of previews for explicit content; images are not stored after the check;",
+              "Sightengine SAS (Paris) – only once the automatic check is active: automatic check of previews for explicit content; images are not stored after the check;",
               'Google Ireland Ltd. – only if you choose "Sign in with Google".',
               "Google Ireland Ltd. (Gmail) – the mailbox that email to our address is forwarded to (contact form, withdrawals, reports, requests).",
             ],
@@ -205,7 +205,7 @@ export function docsEn(c: LegalCtx): LegalDocs {
         {
           heading: "9. Moderation and reports",
           body: [
-            "Every uploaded photo is checked automatically for explicit sexual content (Sightengine). Flagged photos are not deleted but kept out of the album and downloads; the host decides whether to show and keep them. The check can be wrong; it does not decide on blocking or deletion.",
+            "An automatic check for explicit sexual content is in preparation and not active yet. Once it starts, every uploaded photo is checked (Sightengine). Flagged photos are not deleted but kept out of the album and downloads; the host decides whether to show and keep them. The check can be wrong; it does not decide on blocking or deletion.",
             `Hosts can report a photo in the album as illegal; it is then hidden from everyone at once and we review the report. Anyone else can report illegal content through ${c.contactUrl} or to ${c.supportEmail} (see "Report content"). We handle reports promptly, tell the reporter our decision and give the affected host the reasons for any restriction, where the law allows.`,
             "If these terms or the law are broken we may remove content and suspend events or accounts. We report child sexual abuse material to the competent authorities.",
           ],

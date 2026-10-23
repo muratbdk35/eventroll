@@ -1,4 +1,11 @@
-import { CURRENCY, planOrder, plans, type PlanId } from "@/lib/plans";
+import {
+  CURRENCY,
+  LAUNCH_OFF,
+  planOrder,
+  plans,
+  salePrice,
+  type PlanId,
+} from "@/lib/plans";
 import type { ReceiptCardProps, Tier } from "./receipt-card";
 
 type T = (key: string, values?: Record<string, string | number>) => string;
@@ -61,7 +68,8 @@ export function receiptContent(
     [t("rows.qr"), "✓"],
     [t("rows.pin"), "✓"],
     [t("rows.uploadRules"), "✓"],
-    [t("rows.moderation"), "✓"],
+    // Off until it is switched on (#80).
+    [t("rows.moderation"), t("values.soon")],
     p.printTemplates
       ? [t("rows.templates"), "✓"]
       : [t("rows.templates"), t("values.notIncluded"), true],
@@ -83,9 +91,16 @@ export function receiptContent(
     billingLabel: t("billing"),
     billingValue: t("oneTime"),
     totalLabel: t("total"),
-    total: money(p.price),
+    total: money(salePrice(id)),
+    ...(LAUNCH_OFF > 0
+      ? {
+          wasTotal: money(p.price),
+          offerLabel: upper(t("launchLabel")),
+          offerValue: `−${money(LAUNCH_OFF)}`,
+        }
+      : {}),
     perGuest: t("perGuest", {
-      price: money(p.price / p.guestsHint, 2),
+      price: money(salePrice(id) / p.guestsHint, 2),
       guests: number(p.guestsHint),
     }),
     thanks: t("thanks", { no: String(tier + 1).padStart(4, "0") }),

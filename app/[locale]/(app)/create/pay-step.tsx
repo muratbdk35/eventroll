@@ -19,7 +19,7 @@ import {
   startCheckout,
 } from "@/lib/events/actions";
 import { Link, useRouter } from "@/lib/i18n/navigation";
-import { CURRENCY, plans } from "@/lib/plans";
+import { CURRENCY, LAUNCH_OFF, plans, salePrice } from "@/lib/plans";
 import { cn } from "@/lib/utils";
 import { StepFooter, StepHeading } from "./create-flow";
 import { type FlowProps, flowHref } from "./flow";
@@ -115,18 +115,29 @@ export function PayStep({ plan, event, devPay }: FlowProps) {
       minimumFractionDigits: Number.isInteger(n) ? 0 : 2,
       maximumFractionDigits: 2,
     });
-  const total = promo ? promo.amount / 100 : p.price;
+  // The launch offer (#81) comes off the list price; a code then comes off
+  // what is left.
+  const sale = salePrice(plan);
+  const total = promo ? promo.amount / 100 : sale;
   const free = promo !== null && promo.amount === 0;
-  const lines: [string, string][] = [
+  const lines: [string, string, boolean?][] = [
     [t("pay.event"), event.name],
     [t("pay.plan", { plan: tp(`plans.${plan}.name`) }), money(p.price)],
+    ...(LAUNCH_OFF > 0
+      ? ([[tp("launchLabel"), `−${money(LAUNCH_OFF)}`, true]] as [
+          string,
+          string,
+          boolean,
+        ][])
+      : []),
     ...(promo
       ? ([
           [
             t("pay.discount", { code: promo.code, percent: promo.percentOff }),
-            `−${money(p.price - total)}`,
+            `−${money(sale - total)}`,
+            true,
           ],
-        ] as [string, string][])
+        ] as [string, string, boolean][])
       : []),
   ];
 
@@ -194,10 +205,19 @@ export function PayStep({ plan, event, devPay }: FlowProps) {
         </div>
 
         <dl className="mt-5 space-y-2.5 border-t border-border pt-4 text-sm">
-          {lines.map(([k, v]) => (
+          {lines.map(([k, v, off]) => (
             <div key={k} className="flex justify-between gap-4">
-              <dt className="text-muted-foreground">{k}</dt>
-              <dd className="min-w-0 truncate text-end font-medium">{v}</dd>
+              <dt className={off ? "text-success" : "text-muted-foreground"}>
+                {k}
+              </dt>
+              <dd
+                className={cn(
+                  "min-w-0 truncate text-end font-medium",
+                  off && "text-success",
+                )}
+              >
+                {v}
+              </dd>
             </div>
           ))}
           <div className="flex justify-between gap-4">

@@ -331,6 +331,10 @@ export async function FeaturesBento() {
 
         {/* Content moderation (#52): wide, between the tiles and languages. */}
         <Tile className="md:col-span-6 md:flex-row md:items-center md:gap-10">
+          {/* Not switched on yet (#80). */}
+          <span className="absolute end-5 top-5 z-10 rounded-full bg-foreground px-2.5 py-1 text-[11px] font-semibold text-background">
+            {t("soon")}
+          </span>
           <div className="flex justify-center md:w-1/2">
             <ModerationMock
               badge={tp("flagged")}

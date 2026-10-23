@@ -69,8 +69,18 @@ export const plans: Record<PlanId, PlanLimits> = {
  *  USD price settled in EUR would cost an extra ~2% in Stripe FX fees. */
 export const CURRENCY = "EUR";
 
+/**
+ * Launch offer (DECISIONS #81): every plan 10 € below its list price. The
+ * receipt shows the list price struck through; checkout charges the offer.
+ * Set to 0 to end it.
+ */
+export const LAUNCH_OFF = 10;
+
+/** What a plan costs now, in euros: the list price minus the launch offer. */
+export const salePrice = (plan: PlanId) => plans[plan].price - LAUNCH_OFF;
+
 /** Stripe amounts are in cents. */
-export const priceCents = (plan: PlanId) => plans[plan].price * 100;
+export const priceCents = (plan: PlanId) => salePrice(plan) * 100;
 
 /** Cheapest first: the slider's order. */
 export const planOrder: PlanId[] = ["mini", "standard", "pro", "vip"];

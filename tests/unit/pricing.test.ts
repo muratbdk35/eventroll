@@ -5,11 +5,12 @@ import {
   discounted,
   planFromOrders,
 } from "@/lib/pricing";
+import { LAUNCH_OFF, plans } from "@/lib/plans";
 
 describe("amountFor", () => {
-  it("charges the full price for a first plan", () => {
-    expect(amountFor(null, "mini")).toBe(1900);
-    expect(amountFor(null, "vip")).toBe(4900);
+  it("charges the price for a first plan, launch offer included (#81)", () => {
+    expect(amountFor(null, "mini")).toBe((plans.mini.price - LAUNCH_OFF) * 100);
+    expect(amountFor(null, "vip")).toBe((plans.vip.price - LAUNCH_OFF) * 100);
   });
   it("charges only the difference for an upgrade", () => {
     expect(amountFor("standard", "vip")).toBe(2000);

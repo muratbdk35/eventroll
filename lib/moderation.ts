@@ -25,9 +25,13 @@ const READABLE = new Set([
   "image/gif",
 ]);
 
-export const moderationEnabled = Boolean(
-  env.SIGHTENGINE_API_USER && env.SIGHTENGINE_API_SECRET,
-);
+/**
+ * Off until the owner switches it on (DECISIONS #80): the site says "coming
+ * soon" meanwhile. MODERATION_ENABLED=true plus the keys turn it on.
+ */
+export const moderationEnabled =
+  env.MODERATION_ENABLED === "true" &&
+  Boolean(env.SIGHTENGINE_API_USER && env.SIGHTENGINE_API_SECRET);
 
 type NudityScores = { sexual_activity?: number; sexual_display?: number };
 

@@ -192,7 +192,8 @@
       "moderation": {
         "title": "Inhaltsmoderation",
         "body": "Möglicherweise anstößige Fotos werden automatisch erkannt, unscharf gemacht und dir vorgelegt. Sieh sie dir an und entscheide: behalten, löschen oder den Absender sperren. Küsse, Tanzen und Abendkleider sind kein Problem; markiert werden nur explizite Inhalte."
-      }
+      },
+      "soon": "Demnächst"
     },
     "eventTypes": {
       "title": "Gemacht für Momente, in denen Menschen zusammenkommen",
@@ -239,7 +240,7 @@
         "guests": "Unbegrenzt Gäste, ohne App oder Anmeldung",
         "original": "Originalqualität, nie komprimiert",
         "zip": "ZIP-Download mit einem Klick",
-        "moderation": "Automatischer Filter für explizite Bilder",
+        "moderation": "Automatischer Filter für explizite Bilder (demnächst)",
         "oneTime": "Eine Zahlung, kein Abo",
         "secure": "Sicher bezahlen mit Stripe"
       },
@@ -290,8 +291,10 @@
         "original": "Original",
         "days": "{days} Tage",
         "notIncluded": "Nicht dabei",
-        "hours": "{hours} Stunden"
-      }
+        "hours": "{hours} Stunden",
+        "soon": "Demnächst"
+      },
+      "launchLabel": "Eröffnungsangebot"
     },
     "faq": {
       "title": "Fragen und Antworten",

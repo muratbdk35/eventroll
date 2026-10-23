@@ -192,7 +192,8 @@
       "moderation": {
         "title": "İçerik moderasyonu",
         "body": "Uygunsuz olabilecek fotoğraflar otomatik olarak tespit edilip bulanıklaştırılır ve sana sorulur. Açıp bakarsın; tutmak, silmek ya da göndereni engellemek senin kararın. Öpücükler, danslar ve abiye elbiseler rahat; sadece açık içerik işaretlenir."
-      }
+      },
+      "soon": "Yakında"
     },
     "eventTypes": {
       "title": "İnsanların bir araya geldiği anlar için",
@@ -239,7 +240,7 @@
         "guests": "Sınırsız misafir, uygulama ya da üyelik yok",
         "original": "Orijinal kalite, asla sıkıştırılmaz",
         "zip": "Tek tıkla ZIP indirme",
-        "moderation": "Uygunsuz görsellere otomatik filtre",
+        "moderation": "Uygunsuz görsellere otomatik filtre (yakında)",
         "oneTime": "Tek ödeme, abonelik yok",
         "secure": "Stripe ile güvenli ödeme"
       },
@@ -290,8 +291,10 @@
         "original": "Orijinal",
         "days": "{days} gün",
         "notIncluded": "Dahil değil",
-        "hours": "{hours} saat"
-      }
+        "hours": "{hours} saat",
+        "soon": "Yakında"
+      },
+      "launchLabel": "Açılışa özel"
     },
     "faq": {
       "title": "Sorular ve cevaplar",

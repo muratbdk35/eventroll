@@ -3,7 +3,7 @@ import type { LegalCtx, LegalDocs } from "./types";
 /* Turkish translation of de.ts, for information; the German text is
  * binding (DECISIONS #68). Keep both in step. */
 
-const UPDATED = "22 Ekim 2026";
+const UPDATED = "23 Ekim 2026";
 
 export function docsTr(c: LegalCtx): LegalDocs {
   const seller = `${c.company}, ${c.address}`;
@@ -49,7 +49,7 @@ export function docsTr(c: LegalCtx): LegalDocs {
             "Hukuki dayanak: fotoğraf gönderdiğiniz etkinlik sahibine yüklemenin sağlanması (GDPR m. 6/1-b) ve güvenli bir hizmetteki meşru menfaatimiz (GDPR m. 6/1-f).",
             "Fotoğraflarınızı kim görür: yalnızca etkinlik sahibi. Diğer misafirler fotoğraflarınızı hiçbir zaman görmez; albümler herkese açık değildir ve arama motorlarında listelenmez.",
             "Fotoğraflara bakmayız. Saklama, önizleme ve aşağıdaki otomatik kontrol, hiç kimse fotoğrafları görmeden yürür. Şirketimizde bir kişi bir fotoğrafı yalnızca yasa gerektirdiğinde, örneğin yasa dışı içerik bildirimi ya da resmi makam talebi üzerine, veya etkinlik sahibi belirli fotoğraflarla ilgili açıkça destek istediğinde açar. Bu erişim ilgili fotoğraflarla sınırlıdır.",
-            "Müstehcen içerik için otomatik kontrol: her fotoğrafın küçük önizlemesi açık cinsel içeriğe karşı otomatik olarak kontrol edilir. İşaretlenen fotoğraf silinmez; etkinlik sahibinin albümünden ve indirmelerinden uzak tutulur, etkinlik sahibi onu bulanık görüntüleyip tutup tutmayacağına karar verebilir. Kontrol kişileri tanımlamaz; sonucu fotoğrafla birlikte silinir. Hukuki dayanak: etkinlikleri müstehcen içerikten uzak tutmada bizim ve etkinlik sahibinin meşru menfaati (GDPR m. 6/1-f).",
+            "Müstehcen içerik için otomatik kontrol (hazırlanıyor, henüz etkin değil; başladığında şu kurallar geçerli olur): her fotoğrafın küçük önizlemesi açık cinsel içeriğe karşı otomatik olarak kontrol edilir. İşaretlenen fotoğraf silinmez; etkinlik sahibinin albümünden ve indirmelerinden uzak tutulur, etkinlik sahibi onu bulanık görüntüleyip tutup tutmayacağına karar verebilir. Kontrol kişileri tanımlamaz; sonucu fotoğrafla birlikte silinir. Hukuki dayanak: etkinlikleri müstehcen içerikten uzak tutmada bizim ve etkinlik sahibinin meşru menfaati (GDPR m. 6/1-f).",
             "Bildirimler: Etkinlik sahibi bir fotoğrafı yasa dışı olarak bildirirse, ne zaman ve neden bildirildiğini kaydeder, fotoğrafı herkesten gizleriz ve bize resim değil, etkinlik ve fotoğraf numarasıyla e-posta gelir. Fotoğraf, yetkililer daha uzun saklanmasını istemedikçe, etkinliğin diğer fotoğraflarıyla birlikte indirme süresinin sonunda silinir. Suç şüphesi olduğunda, özellikle çocuk cinsel istismarı içeriklerinde, bildirimi ve yüklemeye ait verileri yetkili makamlara iletiriz. Hukuki dayanak: yasal yükümlülükler ve yasa dışı içeriğe karşı harekete geçmedeki meşru menfaat (GDPR m. 6/1-c ve f).",
           ],
         },
@@ -86,7 +86,7 @@ export function docsTr(c: LegalCtx): LegalDocs {
               "Stripe Payments Europe Ltd. (İrlanda) – ödemeler ve faturalar;",
               "Resend Inc. – giriş, sipariş ve hizmet e-postaları;",
               "Upstash Inc. – erişim sınırlama (AB bölgesi);",
-              "Sightengine SAS (Paris) – önizlemelerin müstehcen içeriğe karşı otomatik kontrolü; görüntüler kontrolden sonra saklanmaz;",
+              "Sightengine SAS (Paris) – yalnızca otomatik kontrol etkinleştiğinde: önizlemelerin müstehcen içeriğe karşı otomatik kontrolü; görüntüler kontrolden sonra saklanmaz;",
               "Google Ireland Ltd. – yalnızca „Google ile giriş“i seçerseniz.",
               "Google Ireland Ltd. (Gmail) – adresimize gelen e-postaların yönlendirildiği posta kutusu (iletişim formu, cayma bildirimleri, içerik bildirimleri, talepler).",
             ],
@@ -205,7 +205,7 @@ export function docsTr(c: LegalCtx): LegalDocs {
         {
           heading: "9. Moderasyon ve bildirimler",
           body: [
-            "Yüklenen her fotoğraf açık cinsel içeriğe karşı otomatik olarak kontrol edilir (Sightengine). İşaretlenen fotoğraflar silinmez; albümden ve indirmelerden uzak tutulur, etkinlik sahibi bunları gösterip tutmaya karar verir. Kontrol yanılabilir; engelleme veya silme kararı vermez.",
+            "Açık cinsel içerik için otomatik kontrol hazırlanıyor ve henüz etkin değil. Başladığında yüklenen her fotoğraf kontrol edilir (Sightengine). İşaretlenen fotoğraflar silinmez; albümden ve indirmelerden uzak tutulur, etkinlik sahibi bunları gösterip tutmaya karar verir. Kontrol yanılabilir; engelleme veya silme kararı vermez.",
             `Etkinlik sahipleri albümdeki bir fotoğrafı yasa dışı olarak bildirebilir; fotoğraf hemen herkesten gizlenir ve bildirimi inceleriz. Diğer herkes yasa dışı içeriği ${c.contactUrl} üzerinden ya da ${c.supportEmail} adresine bildirebilir (bkz. „İçerik bildir“). Bildirimleri hızla ele alır, bildirim yapan kişiye kararımızı iletir ve yasanın izin verdiği ölçüde etkilenen etkinlik sahibine kısıtlamaların gerekçesini bildiririz.`,
             "Bu koşulların veya yasaların ihlali halinde içeriği kaldırabilir, etkinlikleri veya hesapları askıya alabiliriz. Çocuk istismarı içeriğini yetkili makamlara bildiririz.",
           ],
