@@ -1,4 +1,3 @@
-import { LogIn } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Logo } from "@/components/brand/logo";
 import { LocaleSwitcher } from "@/components/locale-switcher";
@@ -40,24 +39,18 @@ export async function MarketingHeader() {
           )}
         </nav>
         <div className="flex items-center gap-1.5 sm:gap-2">
-          <LocaleSwitcher className="h-8 px-2 text-xs sm:h-9 sm:px-3 sm:text-[13px]" />
+          <LocaleSwitcher
+            variant="plain"
+            className="h-8 text-xs sm:h-9 sm:text-[13px]"
+          />
+          {/* A word, not an icon: returning hosts must find it at a glance. */}
           <Button
             asChild
             variant="ghost"
             size="sm"
-            className="hidden h-9 rounded-full px-3 text-sm sm:inline-flex"
+            className="h-8 shrink-0 rounded-lg px-2 text-xs font-semibold text-foreground sm:h-9 sm:rounded-xl sm:px-3 sm:text-sm"
           >
             <Link href="/login">{nav("login")}</Link>
-          </Button>
-          <Button
-            asChild
-            variant="ghost"
-            size="icon"
-            className="size-8 shrink-0 rounded-lg text-muted-foreground hover:text-foreground sm:hidden"
-          >
-            <Link href="/login" aria-label={nav("login")} title={nav("login")}>
-              <LogIn className="size-4" aria-hidden />
-            </Link>
           </Button>
           <Button
             asChild

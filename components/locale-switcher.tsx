@@ -45,13 +45,14 @@ export function useSwitchLocale() {
 
 /**
  * Compact language menu (globe + code), small enough for phone headers.
- * `glass` is the frosted variant used over the guest page cover.
+ * `glass` is the frosted variant used over the guest page cover; `plain` is
+ * just the code with a small globe, no outline (marketing header).
  */
 export function LocaleSwitcher({
   variant = "default",
   className,
 }: {
-  variant?: "default" | "glass";
+  variant?: "default" | "glass" | "plain";
   className?: string;
 }) {
   const t = useTranslations("Nav");
@@ -67,13 +68,20 @@ export function LocaleSwitcher({
           "inline-flex h-9 items-center gap-1.5 rounded-full px-3 text-[13px] font-medium transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring/50 disabled:opacity-60",
           variant === "glass"
             ? "border border-white/25 bg-white/15 text-white backdrop-blur-md hover:bg-white/25"
-            : "border border-border bg-card text-foreground hover:bg-accent",
+            : variant === "plain"
+              ? "gap-1 px-2 text-muted-foreground hover:bg-accent hover:text-foreground"
+              : "border border-border bg-card text-foreground hover:bg-accent",
           className,
         )}
       >
-        <Globe className="size-4 opacity-80" aria-hidden />
+        <Globe
+          className={variant === "plain" ? "size-3.5" : "size-4 opacity-80"}
+          aria-hidden
+        />
         <span className="uppercase">{locale}</span>
-        <ChevronDown className="size-3.5 opacity-60" aria-hidden />
+        {variant !== "plain" && (
+          <ChevronDown className="size-3.5 opacity-60" aria-hidden />
+        )}
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-44 rounded-xl p-1.5">
         {routing.locales.map((l) => (
