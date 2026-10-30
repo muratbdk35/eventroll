@@ -1272,3 +1272,13 @@ active flag); orders keep `promo_code` and `discount_cents` (migration 0015).
   so the landing stays static. Rounded up with +3% for card/Stripe FX fees.
 - Stripe's Adaptive Pricing (dashboard setting) can additionally let them
   pay in their own currency at Checkout; Stripe only shows it there.
+
+## 83. Vercel Web Analytics (2026-10-30)
+
+- Cookieless page views, referrers, countries, devices and `utm_*`
+  campaigns, to see which ads and videos bring visitors. No consent banner
+  needed; mentioned in the privacy policy.
+- `components/site-analytics.tsx` masks event links (`/e/[slug]`,
+  `/dashboard/events/[id]`) and drops every query parameter except `utm_*`
+  before sending.
+- Ad links: `?utm_source=instagram&utm_medium=paid&utm_campaign=…&utm_content=video1`.

@@ -7,7 +7,7 @@ import type { LegalCtx, LegalDocs } from "./types";
  * launch. Change them together with the code.
  */
 
-const UPDATED = "23. Oktober 2026";
+const UPDATED = "30. Oktober 2026";
 
 export function docsDe(c: LegalCtx): LegalDocs {
   const seller = `${c.company}, ${c.address}`;
@@ -61,6 +61,7 @@ export function docsDe(c: LegalCtx): LegalDocs {
           heading: "4. Besuch unserer Website",
           body: [
             "Beim Aufruf einer Seite verarbeitet unser Hosting-Anbieter technische Daten, die Ihr Browser sendet (IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Browser und Betriebssystem), um die Seite auszuliefern und abzusichern. Diese Protokolle werden nach höchstens 30 Tagen gelöscht. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.",
+            "Besuchsstatistik: Um zu sehen, wie oft Seiten aufgerufen werden und woher Besucher kommen (z. B. über eine Anzeige oder einen Social-Media-Link), nutzen wir Vercel Web Analytics. Es werden keine Cookies gesetzt; Besucher werden über einen täglich wechselnden Einweg-Hash gezählt, IP-Adressen werden nicht gespeichert. Event-Links werden vor dem Senden unkenntlich gemacht. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.",
             "Lokale Preise: Um neben unseren Preisen einen ungefähren Betrag in Ihrer Währung anzuzeigen, ermittelt unser Hosting-Anbieter aus Ihrer IP-Adresse nur Ihr Land. Das Land wird weder gespeichert noch weitergegeben; abgerechnet wird immer in Euro. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.",
             "Begrenzung von Zugriffen: Um Missbrauch zu verhindern, zählen wir Anfragen pro IP-Adresse (zum Beispiel beim Hochladen, beim Kontaktformular und bei der PIN-Eingabe). Dafür wird die IP-Adresse bei Upstash höchstens eine Stunde gespeichert und dann automatisch gelöscht. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.",
             "Kontaktformular: Ihren Namen, Ihre E-Mail-Adresse und Ihre Nachricht nutzen wir nur, um Ihnen zu antworten, und löschen sie, wenn die Sache erledigt ist, spätestens nach 12 Monaten. Die Bot-Prüfung erfolgt mit Cloudflare Turnstile. Rechtsgrundlage: Art. 6 Abs. 1 lit. b und f DSGVO.",
