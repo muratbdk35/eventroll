@@ -126,7 +126,13 @@
       "line2": "Bitti.",
       "subhead": "QR kodu davetlilerle paylaş; misafirlerin tüm fotoğrafları senin özel albümüne düşer. Uygulama yok, hesap yok, doğrudan telefonun tarayıcısından.",
       "cta": "Etkinliğini oluştur",
-      "secondary": "Nasıl çalışır?"
+      "secondary": "Nasıl çalışır?",
+      "offer": "Açılışa özel: {price}'dan başlayan fiyatlar",
+      "points": {
+        "app": "Misafire uygulama yok",
+        "quality": "Orijinal kalite",
+        "once": "Abonelik yok"
+      }
     },
     "demo": {
       "date": "Cmt, 14 Haziran",

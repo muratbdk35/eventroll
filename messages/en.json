@@ -123,7 +123,13 @@
       "line2": "Done.",
       "subhead": "Share one QR code with your guests and every photo they take lands in your private album. No app, no account, straight from the phone's browser.",
       "cta": "Create your event",
-      "secondary": "See how it works"
+      "secondary": "See how it works",
+      "offer": "Launch offer: from {price}",
+      "points": {
+        "app": "No app for guests",
+        "quality": "Original quality",
+        "once": "No subscription"
+      }
     },
     "demo": {
       "date": "Sat, 14 June",

@@ -126,7 +126,13 @@
       "line2": "Fertig.",
       "subhead": "Teile einen QR-Code mit deinen Gästen, und jedes Foto landet in deinem privaten Album. Keine App, kein Konto, direkt im Handy-Browser.",
       "cta": "Event erstellen",
-      "secondary": "So funktioniert's"
+      "secondary": "So funktioniert's",
+      "offer": "Eröffnungsangebot: ab {price}",
+      "points": {
+        "app": "Keine App für Gäste",
+        "quality": "Originalqualität",
+        "once": "Kein Abo"
+      }
     },
     "demo": {
       "date": "Sa, 14. Juni",
