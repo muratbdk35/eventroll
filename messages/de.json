@@ -305,7 +305,9 @@
         "hours": "{hours} Stunden",
         "soon": "Demnächst"
       },
-      "launchLabel": "Eröffnungsangebot"
+      "launchLabel": "Eröffnungsangebot",
+      "more": "+ {count} weitere Funktionen",
+      "less": "Weniger anzeigen"
     },
     "faq": {
       "title": "Fragen und Antworten",

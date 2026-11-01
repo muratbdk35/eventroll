@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { LocalPrice } from "./local-price";
 
@@ -119,6 +122,9 @@ export type ReceiptCardProps = {
    * highlighter swept under it each time it changes.
    */
   rows: [string, string, boolean?, boolean?][];
+  /** Phones show only the four key rows until this is tapped. */
+  moreLabel?: string;
+  lessLabel?: string;
   billingLabel: string;
   billingValue: string;
   totalLabel: string;
@@ -147,6 +153,8 @@ export function ReceiptCard({
   name,
   tagline,
   rows,
+  moreLabel,
+  lessLabel,
   billingLabel,
   billingValue,
   totalLabel,
@@ -165,11 +173,13 @@ export function ReceiptCard({
 }: ReceiptCardProps) {
   const gold = tier === 3;
   const silver = tier === 2;
+  // Phones: the other rows fold away so dial, total and button fit one screen.
+  const [allRows, setAllRows] = useState(false);
   return (
     <div className="relative">
       <div
         className={cn(
-          "relative px-6 pt-8 pb-8 font-mono text-[12.5px] leading-relaxed text-[oklch(0.23_0.02_240)] transition-[background-color,box-shadow] duration-500",
+          "relative px-6 pt-6 pb-6 font-mono text-[12.5px] leading-relaxed text-[oklch(0.23_0.02_240)] transition-[background-color,box-shadow] duration-500 sm:pt-8 sm:pb-8",
           TORN_EDGE,
           PAPER[tier],
           gold
@@ -195,7 +205,7 @@ export function ReceiptCard({
         <p className="text-center text-[13.5px] font-bold tracking-[0.1em]">
           {merchant}
         </p>
-        <p className="mt-1 text-center text-[10.5px] tracking-[0.06em] text-[oklch(0.52_0.02_241)]">
+        <p className="mt-1 text-center text-[10.5px] tracking-[0.06em] text-[oklch(0.52_0.02_241)] max-sm:hidden">
           {merchantLine}
         </p>
         <Rule tier={tier} />
@@ -247,6 +257,7 @@ export function ReceiptCard({
               key={label}
               className={cn(
                 "relative flex items-baseline gap-2",
+                !key && !allRows && "max-sm:hidden",
                 out && "text-[oklch(0.55_0.02_241)]",
                 key && "font-semibold",
               )}
@@ -292,6 +303,16 @@ export function ReceiptCard({
             </li>
           ))}
         </ul>
+        {moreLabel && (
+          <button
+            type="button"
+            onClick={() => setAllRows((v) => !v)}
+            aria-expanded={allRows}
+            className="mt-2 text-[11px] font-bold tracking-[0.08em] text-[oklch(0.45_0.02_241)] underline decoration-dotted underline-offset-4 sm:hidden"
+          >
+            {allRows ? lessLabel : moreLabel}
+          </button>
+        )}
         <Rule tier={tier} />
         <div className="flex items-baseline justify-between text-[11.5px] text-[oklch(0.52_0.02_241)]">
           <span>{billingLabel}</span>
@@ -348,12 +369,12 @@ export function ReceiptCard({
         <div
           aria-hidden
           className={cn(
-            "mx-auto mt-5 h-9 w-4/5 [background-image:repeating-linear-gradient(90deg,currentColor_0,currentColor_2px,transparent_2px,transparent_5px,currentColor_5px,currentColor_6px,transparent_6px,transparent_9px)] opacity-70 transition-colors duration-500",
+            "mx-auto mt-5 h-9 w-4/5 [background-image:repeating-linear-gradient(90deg,currentColor_0,currentColor_2px,transparent_2px,transparent_5px,currentColor_5px,currentColor_6px,transparent_6px,transparent_9px)] opacity-70 transition-colors duration-500 max-sm:hidden",
             gold && "text-[#9a7424]",
             silver && "text-[#4a5563]",
           )}
         />
-        <p className="mt-2 text-center text-[10px] tracking-[0.2em] text-[oklch(0.52_0.02_241)]">
+        <p className="mt-2 text-center text-[10px] tracking-[0.2em] text-[oklch(0.52_0.02_241)] max-sm:hidden">
           {thanks}
         </p>
       </div>

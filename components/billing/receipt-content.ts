@@ -88,6 +88,8 @@ export function receiptContent(
     name: upper(t(`plans.${id}.name`)),
     tagline: t(`plans.${id}.tagline`),
     rows: rows.map(([l, v, out, key]) => [upper(l), upper(v), out, key]),
+    moreLabel: upper(t("more", { count: rows.filter((r) => !r[3]).length })),
+    lessLabel: upper(t("less")),
     billingLabel: t("billing"),
     billingValue: t("oneTime"),
     totalLabel: t("total"),

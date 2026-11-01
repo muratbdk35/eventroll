@@ -302,7 +302,9 @@
         "hours": "{hours} hours",
         "soon": "Coming soon"
       },
-      "launchLabel": "Launch offer"
+      "launchLabel": "Launch offer",
+      "more": "+ {count} more features",
+      "less": "Show less"
     },
     "faq": {
       "title": "Questions, answered",

@@ -305,7 +305,9 @@
         "hours": "{hours} saat",
         "soon": "Yakında"
       },
-      "launchLabel": "Açılışa özel"
+      "launchLabel": "Açılışa özel",
+      "more": "+ {count} özellik daha",
+      "less": "Daha az göster"
     },
     "faq": {
       "title": "Sorular ve cevaplar",
