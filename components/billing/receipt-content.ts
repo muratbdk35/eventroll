@@ -88,10 +88,13 @@ export function receiptContent(
     name: upper(t(`plans.${id}.name`)),
     tagline: t(`plans.${id}.tagline`),
     rows: rows.map(([l, v, out, key]) => [upper(l), upper(v), out, key]),
-    // Counts what the plan includes; a struck "not included" row is no feature.
+    // Counts what the plan includes today: no struck "not included" row and
+    // no "coming soon" one (moderation, #80).
     moreLabel: upper(
       t("more", {
-        count: rows.filter(([, , out, key]) => !key && !out).length,
+        count: rows.filter(
+          ([, value, out, key]) => !key && !out && value !== t("values.soon"),
+        ).length,
       }),
     ),
     lessLabel: upper(t("less")),

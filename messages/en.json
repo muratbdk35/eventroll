@@ -194,7 +194,7 @@
       },
       "moderation": {
         "title": "Content moderation",
-        "body": "Photos that may be explicit are detected automatically, blurred and put to you. Take a look and decide: keep them, delete them or block the sender. Kisses, dancing and evening dresses are fine; only explicit content gets flagged."
+        "body": "Not active yet, in preparation. Once live, photos that may be explicit will be detected automatically, blurred and put to you to keep, delete or block the sender. For now every photo goes straight into the album; you can delete any of them or block a sender in one tap."
       },
       "soon": "Coming soon"
     },
@@ -295,7 +295,7 @@
         "days": "{days} days",
         "notIncluded": "Not included",
         "hours": "{hours} hours",
-        "soon": "Coming soon"
+        "soon": "Soon · not yet"
       },
       "launchLabel": "Launch offer",
       "more": "+ {count} more features",

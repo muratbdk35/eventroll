@@ -197,7 +197,7 @@
       },
       "moderation": {
         "title": "Inhaltsmoderation",
-        "body": "Möglicherweise anstößige Fotos werden automatisch erkannt, unscharf gemacht und dir vorgelegt. Sieh sie dir an und entscheide: behalten, löschen oder den Absender sperren. Küsse, Tanzen und Abendkleider sind kein Problem; markiert werden nur explizite Inhalte."
+        "body": "Noch nicht aktiv, in Vorbereitung. Danach werden möglicherweise anstößige Fotos automatisch erkannt, unscharf gemacht und dir vorgelegt: behalten, löschen oder den Absender sperren. Bis dahin landet jedes Foto direkt im Album; du kannst jedes Foto löschen oder einen Absender mit einem Tipp sperren."
       },
       "soon": "Demnächst"
     },
@@ -298,7 +298,7 @@
         "days": "{days} Tage",
         "notIncluded": "Nicht dabei",
         "hours": "{hours} Stunden",
-        "soon": "Demnächst"
+        "soon": "Bald · noch nicht"
       },
       "launchLabel": "Eröffnungsangebot",
       "more": "+ {count} weitere Funktionen",

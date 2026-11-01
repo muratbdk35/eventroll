@@ -197,7 +197,7 @@
       },
       "moderation": {
         "title": "İçerik moderasyonu",
-        "body": "Uygunsuz olabilecek fotoğraflar otomatik olarak tespit edilip bulanıklaştırılır ve sana sorulur. Açıp bakarsın; tutmak, silmek ya da göndereni engellemek senin kararın. Öpücükler, danslar ve abiye elbiseler rahat; sadece açık içerik işaretlenir."
+        "body": "Henüz aktif değil, hazırlanıyor. Açıldığında uygunsuz olabilecek fotoğraflar otomatik olarak tespit edilip bulanıklaştırılacak ve sana sorulacak; tutmak, silmek ya da göndereni engellemek senin kararın olacak. Şu an tüm fotoğraflar doğrudan albüme düşüyor; istemediğini tek tıkla silebilir, göndereni engelleyebilirsin."
       },
       "soon": "Yakında"
     },
@@ -298,7 +298,7 @@
         "days": "{days} gün",
         "notIncluded": "Dahil değil",
         "hours": "{hours} saat",
-        "soon": "Yakında"
+        "soon": "Yakında · henüz yok"
       },
       "launchLabel": "Açılışa özel",
       "more": "+ {count} özellik daha",
