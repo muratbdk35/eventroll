@@ -129,12 +129,7 @@
         "once": "No subscription"
       },
       "title1": "Every guest's photos.",
-      "title2": "One album.",
-      "card": {
-        "name": "Ayşe",
-        "added": "{name} added {count} photos",
-        "album": "{count} photos in the album"
-      }
+      "title2": "One album."
     },
     "demo": {
       "date": "Sat, 14 June",

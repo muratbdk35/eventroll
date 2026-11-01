@@ -132,12 +132,7 @@
         "once": "Kein Abo"
       },
       "title1": "Alle Gästefotos.",
-      "title2": "Ein Album.",
-      "card": {
-        "name": "Ayşe",
-        "added": "{name} hat {count} Fotos hinzugefügt",
-        "album": "{count} Fotos im Album"
-      }
+      "title2": "Ein Album."
     },
     "demo": {
       "date": "Sa, 14. Juni",

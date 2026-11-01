@@ -40,6 +40,14 @@ export const adaptedComponents: Notice[] = [
       "Event folders on the dashboard. Modified: paper and powder blue instead of glass, the event's photos as the files, no generated art or menu, CSS only.",
   },
   {
+    name: "Background Paths (Kokonut UI)",
+    author: "Dorian Baffier (kokonutui)",
+    license: "MIT",
+    url: "https://github.com/kokonut-labs/kokonutui",
+    usedFor:
+      "Flowing lines behind the landing page opening. Modified: bare background in our powder blue, no own content.",
+  },
+  {
     name: "Questionnaire (uiable)",
     author: "CodedThemes",
     license: "MIT",

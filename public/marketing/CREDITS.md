@@ -17,4 +17,3 @@ All photos are from Unsplash under the Unsplash License
 | birthday-candles.jpg | https://unsplash.com/photos/ETGJjk9o-48 |
 | graduation.jpg | https://unsplash.com/photos/_kd5cxwZOK4 |
 | baby-balloons.jpg | https://unsplash.com/photos/JW9BZXx5-sI |
-| hero-guests.jpg | https://unsplash.com/photos/1HiSyieWYS8 |

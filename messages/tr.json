@@ -132,12 +132,7 @@
         "once": "Abonelik yok"
       },
       "title1": "Tüm misafirlerin fotoğrafları.",
-      "title2": "Tek albümde.",
-      "card": {
-        "name": "Ayşe",
-        "added": "{name} {count} fotoğraf ekledi",
-        "album": "Albümde {count} fotoğraf"
-      }
+      "title2": "Tek albümde."
     },
     "demo": {
       "date": "Cmt, 14 Haziran",

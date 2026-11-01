@@ -1283,15 +1283,14 @@ active flag); orders keep `promo_code` and `discount_cents` (migration 0015).
   before sending.
 - Ad links: `?utm_source=instagram&utm_medium=paid&utm_campaign=…&utm_content=video1`.
 
-## 84. Landing hero: a real wedding photo (2026-11-01)
+## 84. Landing hero: flowing lines, new headline (2026-11-01)
 
-- Owner: redesign the opening on phones and desktop. Chosen: a photo of
-  guests holding up their phones as the couple walks through, edge to edge,
-  with the headline "Every guest's photos. One album.", the launch price
-  pill, the main action and three short points over a dark gradient.
-- Art direction: a portrait crop with the faces at the top on phones, a wide
-  crop with the couple on the right from 1024 px (`public/marketing/
-hero-guests*.jpg`, Unsplash, listed in CREDITS.md).
-- From 1280 px a small glass "Ayşe added 12 photos" card hints at the
-  product; the phone mockup and the film strip left the hero (the phone is
-  still shown in How it works).
+- Owner first chose a full-bleed wedding photo, then asked for a theme from
+  21st.dev instead. Now: Kokonut UI "Background Paths" (MIT, from the public
+  repo, listed on 21st.dev and in the third-party notices), a ribbon of
+  canvas lines in our powder blue, behind the old layout: text left, the
+  real guest screen right.
+- Headline "Every guest's photos. One album.", the launch price pill, the
+  main action and three short points. The film strip left the hero.
+- The lines pause off screen and in background tabs, stay still with
+  reduced motion, and only part around a mouse pointer.
