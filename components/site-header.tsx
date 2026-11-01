@@ -3,6 +3,7 @@ import { Logo } from "@/components/brand/logo";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/lib/i18n/navigation";
+import { publicEnv } from "@/lib/public-env";
 
 export async function SiteHeader({ children }: { children?: React.ReactNode }) {
   const t = await getTranslations("Nav");
@@ -11,7 +12,7 @@ export async function SiteHeader({ children }: { children?: React.ReactNode }) {
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4">
         <Link
           href="/"
-          aria-label="Home"
+          aria-label={publicEnv.appName}
           className="shrink-0 max-[359px]:[&>span>span]:hidden"
         >
           <Logo />

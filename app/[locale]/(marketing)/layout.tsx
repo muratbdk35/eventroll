@@ -1,12 +1,17 @@
 import { NextIntlClientProvider } from "next-intl";
+import { setRequestLocale } from "next-intl/server";
 import { clientMessages } from "@/lib/i18n/client-messages";
+import type { Locale } from "@/lib/i18n/routing";
 
 /** Landing, legal and contact pages: only their client texts (#67). */
 export default async function MarketingLayout({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+  params,
+}: LayoutProps<"/[locale]">) {
+  // Layouts render in parallel: each sets the locale itself, or next-intl
+  // reads it from the request headers and every page here turns dynamic.
+  const { locale } = await params;
+  setRequestLocale(locale as Locale);
   return (
     <NextIntlClientProvider
       messages={await clientMessages([

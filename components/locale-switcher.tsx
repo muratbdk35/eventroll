@@ -63,7 +63,8 @@ export function LocaleSwitcher({
     <DropdownMenu>
       <DropdownMenuTrigger
         disabled={pending}
-        aria-label={`${t("language")}: ${localeLabels[locale]}`}
+        // Starts with the visible code, so voice control can say "EN".
+        aria-label={`${locale.toUpperCase()}, ${t("language")}: ${localeLabels[locale]}`}
         className={cn(
           "inline-flex h-9 items-center gap-1.5 rounded-full px-3 text-[13px] font-medium transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring/50 disabled:opacity-60",
           variant === "glass"

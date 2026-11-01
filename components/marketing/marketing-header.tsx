@@ -3,6 +3,7 @@ import { Logo } from "@/components/brand/logo";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/lib/i18n/navigation";
+import { publicEnv } from "@/lib/public-env";
 
 export async function MarketingHeader() {
   const t = await getTranslations("Landing.nav");
@@ -15,7 +16,7 @@ export async function MarketingHeader() {
         {/* Under 360 px only the mark: the bar must fit the narrowest phones. */}
         <Link
           href="/"
-          aria-label="Home"
+          aria-label={publicEnv.appName}
           className="shrink-0 max-[359px]:[&>span>span]:hidden"
         >
           <Logo />

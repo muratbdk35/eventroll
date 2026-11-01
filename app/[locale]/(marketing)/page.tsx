@@ -10,6 +10,10 @@ import { PricingReceipts } from "@/components/marketing/pricing-receipts";
 import { SiteFooter } from "@/components/marketing/site-footer";
 import type { Locale } from "@/lib/i18n/routing";
 
+// Served prerendered from the CDN; the build fails instead of quietly turning
+// the landing dynamic again (something reading headers or cookies).
+export const dynamic = "error";
+
 export default async function HomePage({ params }: PageProps<"/[locale]">) {
   const { locale } = await params;
   setRequestLocale(locale as Locale);
