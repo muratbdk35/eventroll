@@ -394,24 +394,6 @@
   isolation: isolate;
 }
 
-/* Film frames develop like prints in a darkroom tray (landing hero). */
-@keyframes develop {
-  from {
-    opacity: 0.35;
-    filter: grayscale(1) brightness(1.9) contrast(0.45);
-  }
-  60% {
-    opacity: 1;
-  }
-  to {
-    opacity: 1;
-    filter: none;
-  }
-}
-.develop {
-  animation: develop 1.6s cubic-bezier(0.3, 0.6, 0.2, 1) both;
-}
-
 /* The next question of the create flow slides in. */
 @keyframes question-in {
   from {
@@ -449,7 +431,6 @@
   .stamp-in,
   .strike-in,
   .mark-in,
-  .develop,
   .question-in,
   .thumb-in {
     animation: none;

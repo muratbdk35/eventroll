@@ -122,8 +122,6 @@
       "ctaShort": "Oluştur"
     },
     "hero": {
-      "line1": "Okut. Yükle.",
-      "line2": "Bitti.",
       "subhead": "QR kodu davetlilerle paylaş; misafirlerin tüm fotoğrafları senin özel albümüne düşer. Uygulama yok, hesap yok, doğrudan telefonun tarayıcısından.",
       "cta": "Etkinliğini oluştur",
       "secondary": "Nasıl çalışır?",
@@ -132,6 +130,13 @@
         "app": "Misafire uygulama yok",
         "quality": "Orijinal kalite",
         "once": "Abonelik yok"
+      },
+      "title1": "Tüm misafirlerin fotoğrafları.",
+      "title2": "Tek albümde.",
+      "card": {
+        "name": "Ayşe",
+        "added": "{name} {count} fotoğraf ekledi",
+        "album": "Albümde {count} fotoğraf"
       }
     },
     "demo": {

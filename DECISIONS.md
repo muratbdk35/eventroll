@@ -1282,3 +1282,16 @@ active flag); orders keep `promo_code` and `discount_cents` (migration 0015).
   `/dashboard/events/[id]`) and drops every query parameter except `utm_*`
   before sending.
 - Ad links: `?utm_source=instagram&utm_medium=paid&utm_campaign=…&utm_content=video1`.
+
+## 84. Landing hero: a real wedding photo (2026-11-01)
+
+- Owner: redesign the opening on phones and desktop. Chosen: a photo of
+  guests holding up their phones as the couple walks through, edge to edge,
+  with the headline "Every guest's photos. One album.", the launch price
+  pill, the main action and three short points over a dark gradient.
+- Art direction: a portrait crop with the faces at the top on phones, a wide
+  crop with the couple on the right from 1024 px (`public/marketing/
+hero-guests*.jpg`, Unsplash, listed in CREDITS.md).
+- From 1280 px a small glass "Ayşe added 12 photos" card hints at the
+  product; the phone mockup and the film strip left the hero (the phone is
+  still shown in How it works).

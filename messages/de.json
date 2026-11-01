@@ -122,8 +122,6 @@
       "ctaShort": "Erstellen"
     },
     "hero": {
-      "line1": "Scannen. Hochladen.",
-      "line2": "Fertig.",
       "subhead": "Teile einen QR-Code mit deinen Gästen, und jedes Foto landet in deinem privaten Album. Keine App, kein Konto, direkt im Handy-Browser.",
       "cta": "Event erstellen",
       "secondary": "So funktioniert's",
@@ -132,6 +130,13 @@
         "app": "Keine App für Gäste",
         "quality": "Originalqualität",
         "once": "Kein Abo"
+      },
+      "title1": "Alle Gästefotos.",
+      "title2": "Ein Album.",
+      "card": {
+        "name": "Ayşe",
+        "added": "{name} hat {count} Fotos hinzugefügt",
+        "album": "{count} Fotos im Album"
       }
     },
     "demo": {

@@ -119,8 +119,6 @@
       "ctaShort": "Create"
     },
     "hero": {
-      "line1": "Scan. Upload.",
-      "line2": "Done.",
       "subhead": "Share one QR code with your guests and every photo they take lands in your private album. No app, no account, straight from the phone's browser.",
       "cta": "Create your event",
       "secondary": "See how it works",
@@ -129,6 +127,13 @@
         "app": "No app for guests",
         "quality": "Original quality",
         "once": "No subscription"
+      },
+      "title1": "Every guest's photos.",
+      "title2": "One album.",
+      "card": {
+        "name": "Ayşe",
+        "added": "{name} added {count} photos",
+        "album": "{count} photos in the album"
       }
     },
     "demo": {
