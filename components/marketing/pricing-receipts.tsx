@@ -3,7 +3,6 @@ import {
   Download,
   Lock,
   QrCode,
-  ShieldCheck,
   Sparkles,
   Users,
 } from "lucide-react";
@@ -19,7 +18,6 @@ const EVERY_PLAN = [
   ["guests", Users],
   ["original", Sparkles],
   ["zip", Download],
-  ["moderation", ShieldCheck],
   ["oneTime", BadgeCheck],
   ["secure", Lock],
 ] as const;

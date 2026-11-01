@@ -1251,6 +1251,10 @@ active flag); orders keep `promo_code` and `discount_cents` (migration 0015).
 - Landing tile, receipt row, pricing list and legal texts say "coming soon" /
   "in preparation". Switch on together with the Freepik prefilter later.
 
+- 2026-11-01 (owner): until it is switched on, moderation is not mentioned
+  in sales at all: no features tile, no receipt row, no "every plan" item.
+  The legal texts keep "in preparation". Bring all three back when it ships.
+
 ## 81. Launch offer: 10 € off every plan (2026-10-23)
 
 - `LAUNCH_OFF = 10` in `lib/plans.ts`; `salePrice` is what Stripe charges

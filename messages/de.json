@@ -194,12 +194,7 @@
       "control": {
         "title": "Du behältst die Kontrolle",
         "body": "Schütze Uploads mit einer PIN und begrenze, wie viele Fotos jedes Handy hinzufügen kann. Gäste können nur während deines Events hochladen."
-      },
-      "moderation": {
-        "title": "Inhaltsmoderation",
-        "body": "Noch nicht aktiv, in Vorbereitung. Danach werden möglicherweise anstößige Fotos automatisch erkannt, unscharf gemacht und dir vorgelegt: behalten, löschen oder den Absender sperren. Bis dahin landet jedes Foto direkt im Album; du kannst jedes Foto löschen oder einen Absender mit einem Tipp sperren."
-      },
-      "soon": "Demnächst"
+      }
     },
     "eventTypes": {
       "title": "Gemacht für Momente, in denen Menschen zusammenkommen",
@@ -246,7 +241,6 @@
         "guests": "Unbegrenzt Gäste, ohne App oder Anmeldung",
         "original": "Originalqualität, nie komprimiert",
         "zip": "ZIP-Download mit einem Klick",
-        "moderation": "Automatischer Filter für explizite Bilder (demnächst)",
         "oneTime": "Eine Zahlung, kein Abo",
         "secure": "Sicher bezahlen mit Stripe"
       },
@@ -289,7 +283,6 @@
         "qr": "QR-Code & Link",
         "pin": "PIN-Schutz",
         "uploadRules": "Limit pro Handy",
-        "moderation": "Inhaltsmoderation",
         "templates": "Druckvorlagen",
         "uploadWindow": "Upload-Zeitraum"
       },
@@ -297,8 +290,7 @@
         "original": "Original",
         "days": "{days} Tage",
         "notIncluded": "Nicht dabei",
-        "hours": "{hours} Stunden",
-        "soon": "Bald · noch nicht"
+        "hours": "{hours} Stunden"
       },
       "launchLabel": "Eröffnungsangebot",
       "more": "+ {count} weitere Funktionen",

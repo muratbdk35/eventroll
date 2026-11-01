@@ -191,12 +191,7 @@
       "control": {
         "title": "You stay in control",
         "body": "Protect uploads with a PIN and cap how many photos each phone can add. Guests can upload only during your event."
-      },
-      "moderation": {
-        "title": "Content moderation",
-        "body": "Not active yet, in preparation. Once live, photos that may be explicit will be detected automatically, blurred and put to you to keep, delete or block the sender. For now every photo goes straight into the album; you can delete any of them or block a sender in one tap."
-      },
-      "soon": "Coming soon"
+      }
     },
     "eventTypes": {
       "title": "Made for the moments people gather",
@@ -243,7 +238,6 @@
         "guests": "Unlimited guests, no app or sign-up",
         "original": "Original quality, never compressed",
         "zip": "One-click ZIP download",
-        "moderation": "Automatic filter for explicit images (coming soon)",
         "oneTime": "One payment, no subscription",
         "secure": "Secure checkout with Stripe"
       },
@@ -286,7 +280,6 @@
         "qr": "QR code & link",
         "pin": "PIN protection",
         "uploadRules": "Per-phone limit",
-        "moderation": "Content moderation",
         "templates": "Print templates",
         "uploadWindow": "Upload window"
       },
@@ -294,8 +287,7 @@
         "original": "Original",
         "days": "{days} days",
         "notIncluded": "Not included",
-        "hours": "{hours} hours",
-        "soon": "Soon · not yet"
+        "hours": "{hours} hours"
       },
       "launchLabel": "Launch offer",
       "more": "+ {count} more features",

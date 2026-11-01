@@ -194,12 +194,7 @@
       "control": {
         "title": "Kontrol sende",
         "body": "Yüklemeleri PIN ile koru, her telefonun ekleyebileceği fotoğraf sayısını sınırla. Misafirler sadece etkinlik saatlerinde yükleyebilir."
-      },
-      "moderation": {
-        "title": "İçerik moderasyonu",
-        "body": "Henüz aktif değil, hazırlanıyor. Açıldığında uygunsuz olabilecek fotoğraflar otomatik olarak tespit edilip bulanıklaştırılacak ve sana sorulacak; tutmak, silmek ya da göndereni engellemek senin kararın olacak. Şu an tüm fotoğraflar doğrudan albüme düşüyor; istemediğini tek tıkla silebilir, göndereni engelleyebilirsin."
-      },
-      "soon": "Yakında"
+      }
     },
     "eventTypes": {
       "title": "İnsanların bir araya geldiği anlar için",
@@ -246,7 +241,6 @@
         "guests": "Sınırsız misafir, uygulama ya da üyelik yok",
         "original": "Orijinal kalite, asla sıkıştırılmaz",
         "zip": "Tek tıkla ZIP indirme",
-        "moderation": "Uygunsuz görsellere otomatik filtre (yakında)",
         "oneTime": "Tek ödeme, abonelik yok",
         "secure": "Stripe ile güvenli ödeme"
       },
@@ -289,7 +283,6 @@
         "qr": "QR kod ve link",
         "pin": "PIN koruması",
         "uploadRules": "Telefon başına limit",
-        "moderation": "İçerik moderasyonu",
         "templates": "Baskı şablonları",
         "uploadWindow": "Yükleme süresi"
       },
@@ -297,8 +290,7 @@
         "original": "Orijinal",
         "days": "{days} gün",
         "notIncluded": "Dahil değil",
-        "hours": "{hours} saat",
-        "soon": "Yakında · henüz yok"
+        "hours": "{hours} saat"
       },
       "launchLabel": "Açılışa özel",
       "more": "+ {count} özellik daha",
