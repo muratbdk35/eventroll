@@ -45,6 +45,7 @@ export function PlanStep({ plan, event }: FlowProps) {
           <PlanReceipt
             {...content}
             initial={plan ?? DEFAULT_PLAN}
+            compactOnPhone={false}
             hrefs={each((id) =>
               flowHref("account", { plan: id, event: event?.id }),
             )}

@@ -34,6 +34,8 @@ export type PlanReceiptProps = {
     valueText: Record<PlanId, string>;
   };
   initial: PlanId;
+  /** False on the create flow's plan step: the whole receipt shows. */
+  compactOnPhone?: boolean;
 };
 
 // Half the thumb: Radix keeps the thumb inside the track, so the stops sit
@@ -48,6 +50,7 @@ export function PlanReceipt({
   ctas,
   dial,
   initial,
+  compactOnPhone,
 }: PlanReceiptProps) {
   const [index, setIndex] = useState(() => planOrder.indexOf(initial));
   const id = planOrder[index];
@@ -73,6 +76,7 @@ export function PlanReceipt({
   return (
     <ReceiptCard
       {...receipts[id]}
+      compactOnPhone={compactOnPhone}
       dial={
         <div>
           <div className="flex items-baseline justify-between gap-3 text-[10.5px] tracking-[0.12em] text-[oklch(0.52_0.02_241)]">

@@ -124,6 +124,8 @@ export type ReceiptCardProps = {
   rows: [string, string, boolean?, boolean?][];
   /** Phones show only the four key rows until this is tapped. */
   moreLabel?: string;
+  /** Off where the whole receipt must show (the create flow's plan step). */
+  compactOnPhone?: boolean;
   lessLabel?: string;
   billingLabel: string;
   billingValue: string;
@@ -155,6 +157,7 @@ export function ReceiptCard({
   rows,
   moreLabel,
   lessLabel,
+  compactOnPhone = true,
   billingLabel,
   billingValue,
   totalLabel,
@@ -175,11 +178,14 @@ export function ReceiptCard({
   const silver = tier === 2;
   // Phones: the other rows fold away so dial, total and button fit one screen.
   const [allRows, setAllRows] = useState(false);
+  const compact = compactOnPhone && Boolean(moreLabel);
+  const phoneHidden = compact && "max-sm:hidden";
   return (
     <div className="relative">
       <div
         className={cn(
-          "relative px-6 pt-6 pb-6 font-mono text-[12.5px] leading-relaxed text-[oklch(0.23_0.02_240)] transition-[background-color,box-shadow] duration-500 sm:pt-8 sm:pb-8",
+          "relative px-6 font-mono text-[12.5px] leading-relaxed text-[oklch(0.23_0.02_240)] transition-[background-color,box-shadow] duration-500",
+          compact ? "py-6 sm:py-8" : "py-8",
           TORN_EDGE,
           PAPER[tier],
           gold
@@ -205,7 +211,12 @@ export function ReceiptCard({
         <p className="text-center text-[13.5px] font-bold tracking-[0.1em]">
           {merchant}
         </p>
-        <p className="mt-1 text-center text-[10.5px] tracking-[0.06em] text-[oklch(0.52_0.02_241)] max-sm:hidden">
+        <p
+          className={cn(
+            "mt-1 text-center text-[10.5px] tracking-[0.06em] text-[oklch(0.52_0.02_241)]",
+            phoneHidden,
+          )}
+        >
           {merchantLine}
         </p>
         <Rule tier={tier} />
@@ -257,7 +268,7 @@ export function ReceiptCard({
               key={label}
               className={cn(
                 "relative flex items-baseline gap-2",
-                !key && !allRows && "max-sm:hidden",
+                !key && !allRows && phoneHidden,
                 out && "text-[oklch(0.55_0.02_241)]",
                 key && "font-semibold",
               )}
@@ -303,7 +314,7 @@ export function ReceiptCard({
             </li>
           ))}
         </ul>
-        {moreLabel && (
+        {compact && (
           <button
             type="button"
             onClick={() => setAllRows((v) => !v)}
@@ -369,12 +380,18 @@ export function ReceiptCard({
         <div
           aria-hidden
           className={cn(
-            "mx-auto mt-5 h-9 w-4/5 [background-image:repeating-linear-gradient(90deg,currentColor_0,currentColor_2px,transparent_2px,transparent_5px,currentColor_5px,currentColor_6px,transparent_6px,transparent_9px)] opacity-70 transition-colors duration-500 max-sm:hidden",
+            "mx-auto mt-5 h-9 w-4/5 [background-image:repeating-linear-gradient(90deg,currentColor_0,currentColor_2px,transparent_2px,transparent_5px,currentColor_5px,currentColor_6px,transparent_6px,transparent_9px)] opacity-70 transition-colors duration-500",
+            phoneHidden,
             gold && "text-[#9a7424]",
             silver && "text-[#4a5563]",
           )}
         />
-        <p className="mt-2 text-center text-[10px] tracking-[0.2em] text-[oklch(0.52_0.02_241)] max-sm:hidden">
+        <p
+          className={cn(
+            "mt-2 text-center text-[10px] tracking-[0.2em] text-[oklch(0.52_0.02_241)]",
+            phoneHidden,
+          )}
+        >
           {thanks}
         </p>
       </div>
