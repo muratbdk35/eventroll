@@ -7,6 +7,7 @@ import { Hero } from "@/components/marketing/hero";
 import { HowItWorks } from "@/components/marketing/how-it-works";
 import { MarketingHeader } from "@/components/marketing/marketing-header";
 import { PricingReceipts } from "@/components/marketing/pricing-receipts";
+import { LandingTracker } from "@/components/marketing/landing-tracker";
 import { SiteFooter } from "@/components/marketing/site-footer";
 import type { Locale } from "@/lib/i18n/routing";
 
@@ -29,6 +30,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
         <PricingReceipts />
         <Faq />
         <FinalCta />
+        <LandingTracker />
       </main>
       <SiteFooter />
     </>

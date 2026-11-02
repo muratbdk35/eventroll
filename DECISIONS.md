@@ -1298,3 +1298,16 @@ active flag); orders keep `promo_code` and `discount_cents` (migration 0015).
   main action and three short points. The film strip left the hero.
 - The lines pause off screen and in background tabs, stay still with
   reduced motion, and only part around a mouse pointer.
+
+## 85. Landing funnel events (2026-11-02)
+
+- Two Instagram tests brought ~190 visitors and no sign-up; Vercel's bounce
+  rate (one page view) can't tell where people stop on a one-page landing.
+- Vercel Analytics custom events (Pro), cookieless, no personal data:
+  "Section viewed" (how-it-works, features, pricing, faq, page-end; once
+  per page view), "Create clicked" / "Login clicked" with `from` (header,
+  hero, how-it-works, features, pricing, faq, final, page), "Plan viewed"
+  (each plan once) and "Receipt expanded".
+- `components/marketing/landing-tracker.tsx` (sections and clicks via
+  `data-track` on the sections), plan dial and receipt fold in
+  components/billing. Privacy policy mentions sections and buttons.

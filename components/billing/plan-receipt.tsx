@@ -1,7 +1,8 @@
 "use client";
 
 import { Slider } from "radix-ui";
-import { useState } from "react";
+import { track } from "@vercel/analytics";
+import { useRef, useState } from "react";
 import { Link } from "@/lib/i18n/navigation";
 import { planOrder, type PlanId } from "@/lib/plans";
 import { cn } from "@/lib/utils";
@@ -57,9 +58,15 @@ export function PlanReceipt({
   const tier = index as Tier;
   const gold = tier === 3;
 
+  // Each plan a visitor looks at counts once (#85).
+  const looked = useRef(new Set<string>());
   function pick(i: number) {
     if (i === index) return;
     setIndex(i);
+    if (!looked.current.has(planOrder[i])) {
+      looked.current.add(planOrder[i]);
+      track("Plan viewed", { plan: planOrder[i] });
+    }
     // A tiny detent on phones that support it (Android).
     try {
       navigator.vibrate?.(6);

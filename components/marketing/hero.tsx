@@ -22,7 +22,7 @@ export async function Hero() {
   });
 
   return (
-    <section className="relative isolate overflow-hidden">
+    <section data-track="hero" className="relative isolate overflow-hidden">
       <BackgroundPaths
         className="-z-10 text-primary"
         count={36}

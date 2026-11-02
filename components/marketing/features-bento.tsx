@@ -180,7 +180,11 @@ export async function FeaturesBento() {
   const qrDataUri = `data:image/svg+xml;utf8,${encodeURIComponent(qrSvg)}`;
 
   return (
-    <section id="features" className="scroll-mt-20 px-4 pt-16 pb-10 md:py-24">
+    <section
+      id="features"
+      data-track="features"
+      className="scroll-mt-20 px-4 pt-16 pb-10 md:py-24"
+    >
       <SectionHeading title={t("title")} subtitle={t("subtitle")} />
       <div className="mx-auto mt-12 grid max-w-6xl gap-3 md:grid-cols-6">
         {/* No app */}

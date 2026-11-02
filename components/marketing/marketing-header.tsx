@@ -11,7 +11,10 @@ export async function MarketingHeader() {
   const locale = await getLocale();
   const nav = await getTranslations("Nav");
   return (
-    <header className="sticky top-0 z-50 border-b border-border/50 bg-background/75 backdrop-blur-lg">
+    <header
+      data-track="header"
+      className="sticky top-0 z-50 border-b border-border/50 bg-background/75 backdrop-blur-lg"
+    >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-2 px-3 sm:gap-3 sm:px-4">
         {/* Under 360 px only the mark: the bar must fit the narrowest phones. */}
         <Link

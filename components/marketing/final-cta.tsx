@@ -9,7 +9,7 @@ import { HaloButton } from "@/components/halo/halo-button";
 export async function FinalCta() {
   const t = await getTranslations("Landing.finalCta");
   return (
-    <section className="px-4 py-20">
+    <section data-track="final" className="px-4 py-20">
       <div className="mx-auto grid max-w-5xl -rotate-[0.6deg] gap-6 rounded-[6px] bg-white p-3 shadow-[0_2px_4px_rgb(20_35_60/0.06),0_40px_80px_-40px_rgb(20_35_60/0.45)] ring-1 ring-foreground/5 sm:p-4 md:grid-cols-[1.1fr_1fr] md:gap-10">
         <div className="relative aspect-[4/3] overflow-hidden rounded-[3px] bg-muted md:aspect-auto md:min-h-80">
           <Image

@@ -73,7 +73,11 @@ const steps = [
 export async function HowItWorks() {
   const t = await getTranslations("Landing.steps");
   return (
-    <section id="how-it-works" className="scroll-mt-20 px-4 py-16 md:py-24">
+    <section
+      id="how-it-works"
+      data-track="how-it-works"
+      className="scroll-mt-20 px-4 py-16 md:py-24"
+    >
       <SectionHeading title={t("title")} subtitle={t("subtitle")} />
       {/* A real sequence, so it is numbered: big numerals, no card chrome. */}
       <ol className="mx-auto mt-12 grid max-w-6xl gap-x-6 gap-y-12 md:grid-cols-3">

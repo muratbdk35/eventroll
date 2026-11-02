@@ -40,6 +40,7 @@ export async function PricingReceipts() {
   return (
     <section
       id="pricing"
+      data-track="pricing"
       className="relative scroll-mt-16 overflow-hidden bg-primary px-4 py-24 text-white sm:py-28"
     >
       {/* The receipt lies on a plain blue table with a fine dot texture. */}

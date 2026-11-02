@@ -1,5 +1,6 @@
 "use client";
 
+import { track } from "@vercel/analytics";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { LocalPrice } from "./local-price";
@@ -317,7 +318,10 @@ export function ReceiptCard({
         {compact && (
           <button
             type="button"
-            onClick={() => setAllRows((v) => !v)}
+            onClick={() => {
+              if (!allRows) track("Receipt expanded");
+              setAllRows((v) => !v);
+            }}
             aria-expanded={allRows}
             className="mt-2 text-[11px] font-bold tracking-[0.08em] text-[oklch(0.45_0.02_241)] underline decoration-dotted underline-offset-4 sm:hidden"
           >
