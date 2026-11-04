@@ -68,7 +68,11 @@ export async function Hero() {
           </ul>
         </div>
 
-        <HeroVisual />
+        {/* Desktop only (#86): on phones the mockup pushed everything else
+            below the first screen, and 9 in 10 ad visitors never scrolled. */}
+        <div className="hidden lg:block">
+          <HeroVisual />
+        </div>
       </div>
     </section>
   );

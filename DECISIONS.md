@@ -1317,3 +1317,10 @@ active flag); orders keep `promo_code` and `discount_cents` (migration 0015).
   page load (`lib/track.ts`). Irish visitors clicked Create but no
   /en/create view was recorded; these tell whether they arrive and where
   they stop.
+
+## 86. No phone mockup in the hero on phones (2026-11-05)
+
+- Funnel events: since 3 November only ~6 of 100+ ad visitors reached any
+  section below the hero; on phones the guest-screen mockup filled the
+  screen under the button. Owner: remove it on phones; it stays from
+  1024 px. How it works now starts right after the hero.
