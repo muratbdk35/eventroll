@@ -25,6 +25,7 @@ import { StepFooter, StepHeading } from "./create-flow";
 import { type FlowProps, flowHref } from "./flow";
 import { clearDraft, draftOk, draftPayload, loadDraft } from "./draft";
 import { LocalPrice } from "@/components/billing/local-price";
+import { trackOnce } from "@/lib/track";
 
 // Summary layout from the 21st.dev "Checkout Summary" (astralyxdev): line
 // items, then charges not known yet shown as "calculated at checkout" rather
@@ -170,6 +171,7 @@ export function PayStep({ plan, event, devPay }: FlowProps) {
         if (res.ok) router.push(flowHref("review", { event: event!.id }));
         return;
       }
+      trackOnce("Checkout started", { plan: plan ?? "none" });
       const res = await startCheckout(
         event!.id,
         plan!,

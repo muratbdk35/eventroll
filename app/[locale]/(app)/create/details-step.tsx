@@ -3,6 +3,7 @@
 import { KeyRound, Smartphone, UserRound } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
+import { trackOnce } from "@/lib/track";
 import { HaloInput } from "@/components/halo/halo-input";
 import { HaloSwitch } from "@/components/halo/halo-switch";
 import {
@@ -49,6 +50,7 @@ export function DetailsStep({ plan }: FlowProps) {
   // A new question starts at the top, not where the last one was scrolled to
   // (the type list is long on phones, the next question is short).
   const firstItem = useRef(true);
+  useEffect(() => trackOnce("Create question", { question: item }), [item]);
   useEffect(() => {
     if (firstItem.current) {
       firstItem.current = false;

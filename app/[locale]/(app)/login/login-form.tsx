@@ -16,6 +16,7 @@ import { Separator } from "@/components/ui/separator";
 import { Turnstile } from "@/components/turnstile";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "@/lib/i18n/navigation";
+import { trackOnce } from "@/lib/track";
 import { publicEnv } from "@/lib/public-env";
 
 function GoogleIcon() {
@@ -93,6 +94,7 @@ export function LoginForm({
       setStatus("error");
       return;
     }
+    trackOnce("Login code sent");
     setCode("");
     setCodeError(null);
     setStatus("code");
@@ -282,6 +284,7 @@ export function LoginForm({
         isLoading={toGoogle}
         loadingText={t("toGoogle")}
         onClick={async () => {
+          trackOnce("Google sign-in clicked");
           setToGoogle(true);
           const res = await authClient.signIn
             .social({

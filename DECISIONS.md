@@ -1311,3 +1311,9 @@ active flag); orders keep `promo_code` and `discount_cents` (migration 0015).
 - `components/marketing/landing-tracker.tsx` (sections and clicks via
   `data-track` on the sections), plan dial and receipt fold in
   components/billing. Privacy policy mentions sections and buttons.
+- Create flow events (2026-11-04): "Create step" (details, plan, account,
+  pay, review), "Create question" (name, type, when, guests), "Login code
+  sent", "Google sign-in clicked", "Checkout started" (plan); each once per
+  page load (`lib/track.ts`). Irish visitors clicked Create but no
+  /en/create view was recorded; these tell whether they arrive and where
+  they stop.

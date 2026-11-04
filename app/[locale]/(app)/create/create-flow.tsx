@@ -2,12 +2,13 @@
 
 import { X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useSyncExternalStore } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import { LogoMark } from "@/components/brand/logo";
 import { HaloCard } from "@/components/halo/halo-card";
 import { HaloProgress } from "@/components/halo/halo-progress";
 import { Link } from "@/lib/i18n/navigation";
 import { publicEnv } from "@/lib/public-env";
+import { trackOnce } from "@/lib/track";
 import { cn } from "@/lib/utils";
 import { AccountStep } from "./account-step";
 import { DetailsStep } from "./details-step";
@@ -24,6 +25,8 @@ const noop = () => () => {};
 
 export function CreateFlow(props: FlowProps) {
   const { step, signedIn, event } = props;
+  // Where hosts stop in the flow (#85): each step once per page load.
+  useEffect(() => trackOnce("Create step", { step }), [step]);
   // The draft lives in localStorage, so steps render after hydration.
   const hydrated = useSyncExternalStore(
     noop,
