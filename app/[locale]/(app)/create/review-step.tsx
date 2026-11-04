@@ -9,7 +9,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { useFormatter, useLocale, useTranslations } from "next-intl";
-import { useTransition } from "react";
+import { useSyncExternalStore, useTransition } from "react";
 import { toast } from "sonner";
 import { HaloButton } from "@/components/halo/halo-button";
 import { TicketSettings } from "@/components/host/ticket-settings";
@@ -56,9 +56,16 @@ function Section({
   );
 }
 
+const noop = () => () => {};
+
 /** Step 5: everything at a glance, fix what's wrong, then publish. */
 export function ReviewStep({ event }: FlowProps) {
   const t = useTranslations("Create");
+  const mounted = useSyncExternalStore(
+    noop,
+    () => true,
+    () => false,
+  );
   const te = useTranslations("Events");
   const ts = useTranslations("Events.settings");
   const tp = useTranslations("Landing.pricing");
@@ -74,13 +81,17 @@ export function ReviewStep({ event }: FlowProps) {
   const upgrade = nextPlan(planId);
   const type = ev.type as (typeof EVENT_TYPES)[number];
 
+  // Times in the visitor's own zone and browser format, so only after
+  // hydration: the server runs on UTC and Safari formats dates differently.
   const when = (iso: string | null) =>
-    iso
-      ? new Date(iso).toLocaleString(locale, {
-          dateStyle: "medium",
-          timeStyle: "short",
-        })
-      : "—";
+    !iso
+      ? "—"
+      : mounted
+        ? new Date(iso).toLocaleString(locale, {
+            dateStyle: "medium",
+            timeStyle: "short",
+          })
+        : "";
   const yes = t("review.on");
   const no = t("review.off");
   const edit = (
