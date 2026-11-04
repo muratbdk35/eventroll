@@ -1324,3 +1324,11 @@ active flag); orders keep `promo_code` and `discount_cents` (migration 0015).
   section below the hero; on phones the guest-screen mockup filled the
   screen under the button. Owner: remove it on phones; it stays from
   1024 px. How it works now starts right after the hero.
+
+## 87. Phone header: Pricing and Log in (2026-11-05)
+
+- Owner: on phones the bar shows the logo, "Pricing" (jumps to the
+  receipt) and "Log in" as an outlined pill. "Create" left the bar on phones
+  (the hero's big button is right below) and the language menu moved to the
+  footer as three pills (Türkçe · English · Deutsch). From 1024 px the bar
+  is unchanged: links, language menu, Log in, Create event.

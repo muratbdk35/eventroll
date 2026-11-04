@@ -105,3 +105,43 @@ export function LocaleSwitcher({
     </DropdownMenu>
   );
 }
+
+/**
+ * All languages side by side as pills (footer, #87): visible without a menu,
+ * the current one filled.
+ */
+export function LocalePills({ className }: { className?: string }) {
+  const t = useTranslations("Nav");
+  const locale = useLocale() as Locale;
+  const { switchTo, pending } = useSwitchLocale();
+  return (
+    <div
+      role="group"
+      aria-label={t("language")}
+      className={cn(
+        "inline-flex items-center gap-1 rounded-full border border-border bg-card p-1",
+        className,
+      )}
+    >
+      <Globe className="ms-2 me-1 size-4 text-muted-foreground" aria-hidden />
+      {routing.locales.map((l) => (
+        <button
+          key={l}
+          type="button"
+          lang={l}
+          disabled={pending}
+          aria-pressed={l === locale}
+          onClick={() => l !== locale && switchTo(l)}
+          className={cn(
+            "h-8 rounded-full px-3 text-[13px] font-medium transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring/50 disabled:opacity-60",
+            l === locale
+              ? "bg-primary text-primary-foreground"
+              : "text-muted-foreground hover:bg-accent hover:text-foreground",
+          )}
+        >
+          {localeLabels[l]}
+        </button>
+      ))}
+    </div>
+  );
+}

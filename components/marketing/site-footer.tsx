@@ -2,7 +2,7 @@ import { MapPin } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Logo } from "@/components/brand/logo";
 import { WithdrawButton } from "@/components/legal/withdraw-button";
-import { LocaleSwitcher } from "@/components/locale-switcher";
+import { LocalePills } from "@/components/locale-switcher";
 import { Link } from "@/lib/i18n/navigation";
 import { publicEnv } from "@/lib/public-env";
 
@@ -21,9 +21,7 @@ export async function SiteFooter() {
           <p className="mt-4 max-w-xs text-sm text-muted-foreground">
             {t("tagline")}
           </p>
-          <div className="mt-6">
-            <LocaleSwitcher />
-          </div>
+          <LocalePills className="mt-6" />
         </div>
         <div>
           <p className="font-heading font-semibold">{t("product")}</p>

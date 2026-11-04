@@ -42,29 +42,33 @@ export async function MarketingHeader() {
             ),
           )}
         </nav>
-        <div className="flex items-center gap-1.5 sm:gap-2">
+        <div className="flex items-center gap-1 sm:gap-2">
+          {/* Phones (#87): prices and log in only; the language moved to the
+              footer and "Create" is the big button right under the bar. */}
+          <a
+            href={`/${locale}#pricing`}
+            className="rounded-lg px-2.5 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground lg:hidden"
+          >
+            {t("pricing")}
+          </a>
           <LocaleSwitcher
             variant="plain"
-            className="h-8 text-xs sm:h-9 sm:text-[13px]"
+            className="hidden h-9 text-[13px] lg:inline-flex"
           />
           {/* A word, not an icon: returning hosts must find it at a glance. */}
           <Button
             asChild
-            variant="ghost"
+            variant="outline"
             size="sm"
-            className="h-8 shrink-0 rounded-lg px-2 text-xs font-semibold text-foreground sm:h-9 sm:rounded-xl sm:px-3 sm:text-sm"
+            className="h-9 shrink-0 rounded-full px-4 text-sm font-semibold text-foreground lg:rounded-xl lg:border-transparent lg:bg-transparent lg:px-3 lg:shadow-none lg:hover:bg-accent"
           >
             <Link href="/login">{nav("login")}</Link>
           </Button>
           <Button
             asChild
-            className="h-8 shrink-0 rounded-lg px-2.5 text-xs font-semibold sm:h-9 sm:rounded-xl sm:px-4 sm:text-sm"
+            className="hidden h-9 shrink-0 rounded-xl px-4 text-sm font-semibold lg:inline-flex"
           >
-            {/* Phones get the short word so the bar fits down to 320 px. */}
-            <Link href="/create" aria-label={t("cta")}>
-              <span className="sm:hidden">{t("ctaShort")}</span>
-              <span className="hidden sm:inline">{t("cta")}</span>
-            </Link>
+            <Link href="/create">{t("cta")}</Link>
           </Button>
         </div>
       </div>
