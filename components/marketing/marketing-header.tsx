@@ -43,8 +43,12 @@ export async function MarketingHeader() {
           )}
         </nav>
         <div className="flex items-center gap-1 sm:gap-2">
-          {/* Phones (#87): prices and log in only; the language moved to the
-              footer and "Create" is the big button right under the bar. */}
+          {/* Phones (#87): language, prices and log in; "Create" is the big
+              button right under the bar. */}
+          <LocaleSwitcher
+            variant="plain"
+            className="h-9 px-2 text-sm lg:hidden"
+          />
           <a
             href={`/${locale}#pricing`}
             className="rounded-lg px-2.5 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground lg:hidden"

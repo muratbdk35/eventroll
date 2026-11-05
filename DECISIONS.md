@@ -1329,6 +1329,7 @@ active flag); orders keep `promo_code` and `discount_cents` (migration 0015).
 
 - Owner: on phones the bar shows the logo, "Pricing" (jumps to the
   receipt) and "Log in" as an outlined pill. "Create" left the bar on phones
-  (the hero's big button is right below) and the language menu moved to the
-  footer as three pills (Türkçe · English · Deutsch). From 1024 px the bar
+  (the hero's big button is right below). The language stays as a plain
+  "EN" menu in the bar, plus three pills in the footer. Vertical gaps between
+  landing sections are about half as large on phones. From 1024 px the bar
   is unchanged: links, language menu, Log in, Create event.

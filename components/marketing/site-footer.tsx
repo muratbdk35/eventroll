@@ -14,8 +14,8 @@ export async function SiteFooter() {
     "text-muted-foreground transition-colors hover:text-foreground";
 
   return (
-    <footer className="mt-12 border-t border-border bg-secondary/40">
-      <div className="mx-auto grid max-w-6xl grid-cols-2 gap-x-6 gap-y-10 px-4 py-12 md:grid-cols-[1.4fr_1fr_1fr] md:py-14">
+    <footer className="mt-4 border-t border-border bg-secondary/40 md:mt-12">
+      <div className="mx-auto grid max-w-6xl grid-cols-2 gap-x-6 gap-y-8 px-4 py-8 md:grid-cols-[1.4fr_1fr_1fr] md:py-14">
         <div className="col-span-2 md:col-span-1">
           <Logo />
           <p className="mt-4 max-w-xs text-sm text-muted-foreground">

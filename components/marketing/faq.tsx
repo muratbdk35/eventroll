@@ -40,7 +40,7 @@ export async function Faq() {
     <section
       id="faq"
       data-track="faq"
-      className="scroll-mt-20 px-4 py-16 md:py-24"
+      className="scroll-mt-20 px-4 py-8 md:py-24"
     >
       <script
         type="application/ld+json"
@@ -52,7 +52,7 @@ export async function Faq() {
       <Accordion
         type="single"
         collapsible
-        className="mx-auto mt-10 max-w-6xl border-b border-foreground/10"
+        className="mx-auto mt-6 max-w-6xl border-b border-foreground/10 md:mt-10"
       >
         {items.map(({ k, q, a }) => (
           <AccordionItem key={k} value={k}>

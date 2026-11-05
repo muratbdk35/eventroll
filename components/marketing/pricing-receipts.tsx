@@ -41,7 +41,7 @@ export async function PricingReceipts() {
     <section
       id="pricing"
       data-track="pricing"
-      className="relative scroll-mt-16 overflow-hidden bg-primary px-4 py-24 text-white sm:py-28"
+      className="relative scroll-mt-16 overflow-hidden bg-primary px-4 py-12 text-white sm:py-28"
     >
       {/* The receipt lies on a plain blue table with a fine dot texture. */}
       <div
@@ -50,7 +50,7 @@ export async function PricingReceipts() {
       />
 
       <div className="relative mx-auto max-w-6xl">
-        <div className="mb-16 grid gap-x-12 gap-y-4 border-t border-white/25 pt-8 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:items-end">
+        <div className="mb-8 grid gap-x-12 gap-y-4 border-t border-white/25 pt-6 sm:mb-16 sm:pt-8 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:items-end">
           <h2 className="font-heading text-[2.4rem] leading-[1.05] font-semibold tracking-[-0.02em] text-balance sm:text-6xl">
             {t("title")}
           </h2>
@@ -59,7 +59,7 @@ export async function PricingReceipts() {
           </p>
         </div>
 
-        <div className="mx-auto grid max-w-4xl grid-cols-1 items-center gap-14 md:grid-cols-[minmax(0,1fr)_400px] md:gap-16">
+        <div className="mx-auto grid max-w-4xl grid-cols-1 items-center gap-8 md:grid-cols-[minmax(0,1fr)_400px] md:gap-16">
           <div className="receipt-in mx-auto w-full max-w-[400px] md:order-2">
             <PlanReceipt
               {...content}

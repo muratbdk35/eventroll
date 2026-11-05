@@ -30,7 +30,7 @@ export async function Hero() {
         speed={0.6}
       />
 
-      <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 pt-12 pb-14 lg:grid-cols-[1.1fr_1fr] lg:pt-16">
+      <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 pt-10 pb-8 lg:grid-cols-[1.1fr_1fr] lg:pt-16 lg:pb-14">
         <div>
           {LAUNCH_OFF > 0 && (
             <a

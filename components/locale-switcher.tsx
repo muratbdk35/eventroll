@@ -76,7 +76,11 @@ export function LocaleSwitcher({
         )}
       >
         <Globe
-          className={variant === "plain" ? "size-3.5" : "size-4 opacity-80"}
+          className={
+            variant === "plain"
+              ? "hidden size-3.5 lg:block"
+              : "size-4 opacity-80"
+          }
           aria-hidden
         />
         <span className="uppercase">{locale}</span>

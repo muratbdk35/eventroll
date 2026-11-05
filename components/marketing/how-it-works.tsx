@@ -76,11 +76,11 @@ export async function HowItWorks() {
     <section
       id="how-it-works"
       data-track="how-it-works"
-      className="scroll-mt-20 px-4 py-16 md:py-24"
+      className="scroll-mt-20 px-4 py-8 md:py-24"
     >
       <SectionHeading title={t("title")} subtitle={t("subtitle")} />
       {/* A real sequence, so it is numbered: big numerals, no card chrome. */}
-      <ol className="mx-auto mt-12 grid max-w-6xl gap-x-6 gap-y-12 md:grid-cols-3">
+      <ol className="mx-auto mt-8 grid max-w-6xl gap-x-6 gap-y-8 md:mt-12 md:grid-cols-3">
         {steps.map(({ key, Visual }, i) => (
           <li key={key} className="min-w-0">
             {/* A tinted tray that reads against the page; screens taller than

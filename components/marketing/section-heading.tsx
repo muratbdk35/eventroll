@@ -17,7 +17,7 @@ export function SectionHeading({
   return (
     <div
       className={cn(
-        "mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)] gap-x-12 gap-y-4 border-t border-foreground/15 pt-8 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:items-end",
+        "mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)] gap-x-12 gap-y-4 border-t border-foreground/15 pt-6 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:items-end md:pt-8",
         className,
       )}
     >

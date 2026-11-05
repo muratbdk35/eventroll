@@ -14,10 +14,10 @@ const types = [
 export async function EventTypes() {
   const t = await getTranslations("Landing.eventTypes");
   return (
-    <section className="px-4 py-16 md:py-24">
+    <section className="px-4 py-8 md:py-24">
       <SectionHeading title={t("title")} subtitle={t("subtitle")} />
       {/* Prints laid out on a table: white border, caption under the photo. */}
-      <ul className="mx-auto mt-14 grid max-w-6xl grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 md:grid-cols-3">
+      <ul className="mx-auto mt-8 grid max-w-6xl grid-cols-2 gap-x-4 gap-y-6 sm:gap-x-6 md:mt-14 md:grid-cols-3 md:gap-y-8">
         {types.map(({ key, src }, i) => (
           <li
             key={key}

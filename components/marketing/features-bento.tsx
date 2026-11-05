@@ -183,7 +183,7 @@ export async function FeaturesBento() {
     <section
       id="features"
       data-track="features"
-      className="scroll-mt-20 px-4 pt-16 pb-10 md:py-24"
+      className="scroll-mt-20 px-4 pt-8 pb-6 md:py-24"
     >
       <SectionHeading title={t("title")} subtitle={t("subtitle")} />
       <div className="mx-auto mt-12 grid max-w-6xl gap-3 md:grid-cols-6">
